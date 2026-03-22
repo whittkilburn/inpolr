@@ -1,0 +1,6 @@
+"0","MI_2016_long %>%"
+"0","  ggplot() +"
+"0","  geom_point(aes(CountyName, Vote_percent, color=Candidate)) +"
+"0","  labs(title=""Trump and Clinton Votes by Michigan County, 2016"","
+"0","       x=""County"", y=""Number of Votes"" ) +"
+"0","  coord_flip()"

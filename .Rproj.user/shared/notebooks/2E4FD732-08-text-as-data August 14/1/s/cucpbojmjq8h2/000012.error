@@ -1,0 +1,1 @@
+{"frames":[{"func":"smacofSym(dissimat_fed, ndim = 2)","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in if (p > (n - 1)) stop(\"Maximum number of dimensions is n-1!\") : \n  argument is of length zero\n"}

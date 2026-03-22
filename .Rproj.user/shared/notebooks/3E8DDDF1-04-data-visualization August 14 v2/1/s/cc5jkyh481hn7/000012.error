@@ -1,0 +1,1 @@
+{"frames":[],"message":"Error: Incomplete expression: ggplot(dw_86) +\n  geom_boxplot(aes(x = party, y = nominate_dim1)) +\n  labs(title = \"Ideologies of Representatives to the U.S. House, \\n 86th Congress (1959-1961)\",\n       x = \"Party\",\n       y = \"DW-NOMINATE Score (left (-1) to right (1))\") +\n  theme_minimal() + \n"}

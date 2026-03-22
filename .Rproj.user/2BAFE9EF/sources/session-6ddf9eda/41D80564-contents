@@ -1,0 +1,66 @@
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+```{r warning=FALSE, message=FALSE, echo=FALSE }
+wbdatach1<-read_csv("./data/ch1 data/wbdatach1.csv")
+wbdatach1<-subset(wbdatach1, region!="Aggregates") # dropping regional aggregates
+
+wbdatach1<- wbdatach1 %>%
+  select(-NY.GDP.PCAP.KD)
+
+wbdatach175<-wbdatach1 %>%
+  filter(year==1975)
+
+wbdatach115<-wbdatach1 %>%
+  filter(year==2015)
+
+```
+ 
+namesub75<-wbdatach175 %>%
+  filter(country %in% c("China", "India", "United States"))
+namesub15<-wbdatach115 %>%
+  filter(country %in% c("China", "India", "United States"))
+
+library(viridis) 
+```
+```{r fertle7515, echo=FALSE, warning=FALSE, message=FALSE, fig.cap="Both panels in the figure display life expectancy at birth by fertility rate (average number of births per woman). The upper panel displays the year 1975, showing wide variation in both life expectancy and fertility rates around the world. The lower panel, for 2015, shows how life expectancy and fertility have improved around the world, and with the exception of Sub-Saharan Africa, countries are closely clustered within region.", fig.height=7}
+library(ggplot2)
+library(ggrepel)
+library(patchwork)   
+
+fig1 <- ggplot(data = wbdatach175) +
+  geom_point(aes(x = SP.DYN.TFRT.IN, y = SP.DYN.LE00.IN,
+                 color = region, size = SP.POP.TOTL, alpha = 0.6)) +
+  geom_text_repel(data = subset(wbdatach175, region == "South Asia"),
+                  aes(SP.DYN.TFRT.IN, y = SP.DYN.LE00.IN, label = country),
+                  alpha = 1, force_pull = 2, min.segment.length = 0) +
+  theme(legend.position = "bottom", legend.box = "vertical",
+        legend.margin = margin()) +
+  labs(x = "1975 fertility rate, total (births per woman)",
+       y = "1975 life expectancy at birth") +
+  scale_color_viridis(discrete = TRUE) +
+  scale_y_continuous(limits = c(30, 90)) +
+  scale_x_continuous(limits = c(1, 8)) +
+  scale_size(range = c(1, 10),
+             breaks = c(129626, 968928, 3189550, 6683893, 15578239)) +
+  guides(size = "none", alpha = "none", color = guide_legend(ncol = 3))
+
+fig2 <- ggplot(data = wbdatach115) +
+  geom_point(aes(x = SP.DYN.TFRT.IN, y = SP.DYN.LE00.IN,
+                 color = region, size = SP.POP.TOTL, alpha = 0.6)) +
+  geom_text_repel(data = subset(wbdatach115, region == "South Asia"),
+                  aes(SP.DYN.TFRT.IN, y = SP.DYN.LE00.IN, label = country),
+                  alpha = 1, force_pull = 0, min.segment.length = 0) +
+  theme(legend.position = "bottom", legend.box = "vertical",
+        legend.margin = margin()) +
+  labs(x = "2015 fertility rate, total (births per woman)",
+       y = "2015 life expectancy at birth") +
+  scale_color_viridis(discrete = TRUE) +
+  scale_y_continuous(limits = c(30, 90)) +
+  scale_x_continuous(limits = c(1, 8)) +
+  scale_size(range = c(1, 10),
+             breaks = c(129626, 968928, 3189550, 6683893, 15578239)) +
+  guides(size = "none", alpha = "none", color = guide_legend(ncol = 3))
+
+(fig1 / fig2) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+ 

@@ -1,0 +1,2 @@
+"0","MI_cong_2016<-MI_2016 %>%"
+"0","  filter(str_detect(OfficeDescription, ""Congress""))"

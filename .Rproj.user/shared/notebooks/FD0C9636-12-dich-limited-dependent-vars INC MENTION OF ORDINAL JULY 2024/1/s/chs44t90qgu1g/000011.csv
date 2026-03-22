@@ -1,0 +1,6 @@
+"0","model1<-svyglm(death_penalty ~ as.numeric(partyid) + sex, "
+"0","               family=quasibinomial(link=""logit""), "
+"0","               design=anes_design)"
+"2","Error in svyglm.survey.design(death_penalty ~ as.numeric(partyid) + sex,  : 
+  all variables must be in design= argument
+"

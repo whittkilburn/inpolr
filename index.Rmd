@@ -1,0 +1,68 @@
+--- 
+title: "Introduction to Political Analysis in R"
+author: "H. Whitt Kilburn"
+date: "`r Sys.Date()`"
+documentclass: krantz
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+lot: yes
+lof: yes
+site: bookdown::bookdown_site
+description: "applications of data analysis in political science"
+github-repo: whittkilburn/inpolr.git
+graphics: yes
+#cover-image: images/cover.jpg
+---
+
+```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4
+)
+
+# install the packages needed by this book; you fill out c(), e.g. c('ggplot2', 'dplyr')
+lapply(c('xfun'), function(pkg) {
+  if (system.file(package = pkg) == '') install.packages(pkg)
+})
+```
+
+# Preface {-}
+
+ 
+
+## Organization of the book: a note for instructors {-}
+
+The curriculum in this text represents what I teach political science students about practical skills and foundational concepts in data analysis. It is intended for undergraduate majors in political science and related fields, with widely varying prior preparation from an introductory applied statistics course.  Such prior knowledge is not a prerequisite for most of the ideas and __R__ tools presented here. 
+
+To encourage the students' own self-sufficiency in data analysis, the arrangement of material in the text represents an approach that combines subjects in applied data science and statistics. It is as much about learning practical tools in organizing and cleaning data as it is about constructing tests and models. The text is meant to be accessible and even fun, to develop students' inherent interest in politics and working with data.
+
+The progression of ideas throughout the chapters in the text is unconventional in organization compared to a traditional research methods course that includes a statistics component. Yet it is one I have found in my own teaching to be an organization that engages student interests in different ways, emphasizing varied subject matter and aspects of coding, and hopefully illustrating for students the wide applicability of coding in __R__. Within my own one-semester course students approach each chapter on a roughly weekly basis.  With 12 chapters in total, there is 'wiggle room' within a traditional academic semester. Each chapter includes references to resources for the incredible breadth online of applied statistics and data science in __R__, as well as cumulative exercises. Overall, the text provides a broad, applied introduction to essential quantitative data skills in __R__ and applicability to the study of politics. 
+
+Supporting material and further elaborations of the text are available at <https://github.com/whittkilburn/inpolr>. All datasets listed in the appendix are hosted at <https://faculty.gvsu.edu/kilburnw/inpolr.html> 
+
+
+## Acknowledgments {-}
+
+The idea for this project originated several years ago at Grand Valley State University (GVSU) when I was appointed a Faculty Fellow of the Pew Faculty Center for Teaching and Learning. Supporting the university's digital studies program, I developed workshops and student resources in data analysis, oriented toward students in the humanities and social sciences. I thank former Provost Maria Cimitile and Christine Rener, Pew Center director and Vice Provost for Instructional Development and Innovation, for their support. At the center, the commitment to excellence in teaching demonstrated by my faculty and staff colleagues helped to sustain my interest in bringing to life a curriculum in __R__ for my own students in Political Science. 
+
+Within my department, I thank chairs Mark Richards and Darren Walhof for their support. Helpful conversations about this project with faculty colleagues John Constantelos, Erika King, and Michelle Miller-Adams influenced its direction, as did Statistics faculty Bradford Dykes, Gerald Shoultz, and John Stephenson. Needless to say, I alone bear responsibility for any errors, oversights, and omissions in this text. 
+
+Yet to the extent that the text has any merit, it is partly due to the supportive environment within Political Science and more generally GVSU for taking risks in writing and research. I thank my Political Science colleagues for their camaraderie and encouragement. On that note, I thank my former Dean of the College of Liberal Arts and Sciences Fred Antczak, Interim Dean Don Anderson, and Provost Jennifer Drake, whose vocal support for the idea of faculty being free to engage different parts of our professional selves in our work helped to inspire this project along to completion. 
+   
+If it were not for the patience and thoughtful observations from students in PLS 300 Political Analysis, this text would never have begun. I thank my students for their reactions to, and suggestions for, early notes and drafts over the years. Students have pointed out incoherent sentences, found coding errors, and offered conceptual suggestions for improvement. In particular I thank Louis Cousino, Trystyn Duke, Isabella Jabbour, Kyle Macfarlane, Sarah Pullins, Hannah Schmidt, and Gavin Shingles. I thank the Office of Undergraduate Research and Scholarship for a grant to fund summer research assistance from Kyle Huisman and Alex Schraeger. 
+
+Most recently, I am indebted to the assistance of Ellie Klocek and Sophie Gemmen who read various chapter drafts and offered thoughtful suggestions. At CRC Press, I thank Senior Editor David Grubbs, Curtis Hill, Kari Budyk, and Samar Haddad. I thank my family for their patient support and understanding while I completed the manuscript. 
+
+Finally, I thank the **R** community and its founders, Robert Gentleman and Ross Ihaka, without whom this book could not be written. I am also grateful to the **R** Core Team, who continue to maintain and advance this extraordinary open-source project. This book depends upon the work of package developers who freely share their expertise. I am especially indebted to Yihui Xie, whose **bookdown** [@R-bookdown] and **knitr** [@R-knitr] packages made it possible to draft the book in an integrated, reproducible format, and to Hadley Wickham and the tidyverse [@R-tidyverse] team for creating **ggplot2**, **dplyr**, and related packages that appear throughout. Additional packages appear in individual chapters to support specific data analyses. To these developers and the broader **R** community, whose collective work empowers teaching, learning, and research around the world, I am sincerely grateful.
+
+H. Whitt Kilburn
+
+Grand Rapids, April 2025 
+
+
+
+```{block2, type='flushright', html.tag='p'}
+ 
+```
+

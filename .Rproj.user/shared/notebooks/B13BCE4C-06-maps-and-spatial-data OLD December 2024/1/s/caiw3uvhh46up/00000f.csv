@@ -1,0 +1,5 @@
+"0","ggplot(data=michigan) + "
+"0","  geom_sf(aes(fill=indicator)) + "
+"0","  labs(title=""Michigan County level vote"","
+"0","       subtitle=""2016 presidential election"") +"
+"0","  scale_fill_manual(values = c(""red"", ""blue""), name= ""winning candidate"")"

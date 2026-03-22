@@ -1,0 +1,4 @@
+"0","anes2020<-svydesign(data = anes_20, ids = ~V200015c,"
+"0","          strata=~V200015d, weights=~V200015b, nest=TRUE)"
+"0"," "
+"0","svyby(~V202172 ,~agecat, anes2020, svymean, na.rm=TRUE)"

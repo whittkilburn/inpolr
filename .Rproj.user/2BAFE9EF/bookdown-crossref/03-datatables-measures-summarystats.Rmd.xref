@@ -1,0 +1,39 @@
+h1:ch3 Importing, Cleaning, and Describing Data
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:introduction Introduction
+h2:rectangular-data-structure Rectangular data structure
+tab:wbdata1-tab12 National GDP per capita and fertility rate, in 2010, downloaded from the World Bank
+h2:importing-and-exporting-data-tables Importing and exporting data tables
+h3:the-csv-file The CSV file
+h3:importing-editing-and-exporting-csv-files Importing, editing, and exporting CSV files
+h3:other-datafile-formats Other datafile formats
+h3:summary-measures-of-data-objects Summary measures of data objects
+h2:data-organization-cross-sectional-and-time-series Data organization: cross-sectional and time series
+h2:data-measurement-levels-and-storage-types Data measurement levels and storage types
+h3:measurement-as-categorical-ordinal-interval-or-ratio Measurement as categorical, ordinal, interval or ratio
+h3:storage-types-in-r-numeric-factor-character Storage types in R: numeric, factor, character
+h2:constructing-and-merging-data-tables Constructing and merging data tables
+tab:eval Table of National GDP per capita
+      and fertility rate in 2010, created with the kable() function.
+tab:wbdatafig Table of National GDP per capita and fertility rate in 2010, created with the kable() function.
+fig:qplotkdin Scatterplot of country-level fertility rate (births per woman) by GDP per capita (constant 2010 USD). GDP per capita is right-skewed, with most countries clustered at lower values and a few outliers at high levels. This skew compresses the majority of observations along the X-axis, making it difficult to discern the relationship between GDP and fertility.
+h3:merging-data-tables Merging data tables
+h3:combining-rows-of-two-tables Combining rows of two tables
+h3:merging-columns-on-an-existing-table Merging columns on an existing table
+h2:measurement-characteristics-center-and-spread Measurement characteristics: center and spread
+h3:mean-median-and-mode Mean, median, and mode
+fig:meanongdp Histogram of country-level GDP per capita (constant 2010 USD) for 2010. The dashed vertical line marks the mean (14,947 USD), while the solid vertical line marks the median (5,206 USD). The large gap between the mean and median reflects the right-skewed distribution of GDP per capita, where a small number of wealthy countries pull the mean far above the median.
+h3:interquartile-range Interquartile range
+h3:measuring-spread Measuring spread
+h3:the-standard-deviation The standard deviation
+h3:the-empirical-rule-for-standard-deviations The empirical rule for standard deviations
+fig:bellshape Bell-shaped or 
+h2:measuring-relationships-between-variables Measuring relationships between variables
+h2:measurement-scaling-z-linear-and-log Measurement scaling: z, linear, and log
+h3:further-exploring-the-empirical-rule-and-z-distributions Further exploring the empirical rule and z distributions
+h3:measurement-scaling-linear-versus-log Measurement scaling: linear versus log
+fig:logandnotgdp Histograms of country-level GDP per capita (constant 2010 USD), displayed on two different scales. The upper panel uses a linear scale, showing a highly right-skewed distribution with most countries clustered at lower GDP levels. The lower panel applies a base-10 logarithmic scale to GDP per capita, which compresses the higher values and spreads the lower values more evenly, reducing skewness.
+fig:fertloggdp Scatterplots of fertility rate (births per woman) by GDP per capita (constant 2010 USD) for 2010, displayed on two scales. The upper panel uses a linear scale for GDP, where the relationship between GDP and fertility is obscured due to the right-skewed distribution of GDP. The lower panel applies a base-10 logarithmic scale to GDP per capita, revealing a clearer negative linear relationship: as GDP increases, fertility rates tend to decline.
+h2:resources Resources
+h2:exercises Exercises
+

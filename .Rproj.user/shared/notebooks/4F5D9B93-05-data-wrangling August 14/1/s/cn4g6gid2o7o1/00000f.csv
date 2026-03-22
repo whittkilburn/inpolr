@@ -1,0 +1,2 @@
+"0","MI_prez_2016_wide %>%"
+"0","    pivot_longer(c(Clinton, Trump), names_to=""Candidate"", values_to=""Votes"") "

@@ -1,0 +1,14 @@
+"0","ggplot(table1, aes(x = Response, y = Percentage)) +"
+"0","geom_bar(stat = ""identity"") +"
+"0","labs(x = ""Death penalty attitude"", y = ""Percentage"") +"
+"0","geom_errorbar(aes(ymin = Percentage - error, ymax = Percentage + error),"
+"0","      position = position_dodge(width = 0.8), width = 0.25)"
+"1","[1m[33mError[39m in `geom_bar()`:[22m
+[38;5;232m[33m![38;5;232m Problem while computing aesthetics.
+[36mℹ[38;5;232m Error occurred in the 1st layer.[39m
+[1mCaused by error in `FUN()`:[22m
+[38;5;232m[33m![38;5;232m `data` must be uniquely named but has duplicate columns[39m
+Backtrace:
+[90m  1. [39m[1mbase[22m (local) `<fn>`(x)
+[90m 18. [39m[1mrlang[22m::abort(message = message)
+"

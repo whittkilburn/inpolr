@@ -1,0 +1,7 @@
+"0","anes_20 %>%"
+"0","  mutate(education = fct_recode(education,"
+"0","        ""1. Less than HS"" = ""1. Less than high school credential"","
+"0","        ""2. HS cred."" = ""2. High school credential"","
+"0","        ""3. Some post HS"" = ""3. Some post-high school, no bachelor's degree"", "
+"0","        ""4. Bachelor's degree"" = ""4. Bachelor's degree"", "
+"0","        ""5. Graduate degree""  = ""5. Graduate degree"")) "

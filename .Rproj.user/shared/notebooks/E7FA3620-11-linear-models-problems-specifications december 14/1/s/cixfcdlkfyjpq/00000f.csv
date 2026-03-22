@@ -1,0 +1,13 @@
+"0","anes_20 <- anes_20 %>%"
+"0","  mutate(income = fct_recode(V202468x,"
+"0","           NULL = ""-9. Refused"")) %>%"
+"0","  mutate(income = as.numeric(income))"
+"1","[1m[33mError[39m in `mutate()`:[22m
+[38;5;232m[36mℹ[38;5;232m In argument: `income = fct_recode(V202468x, `NULL` = ""-9. Refused"")`.[39m
+[1mCaused by error in `check_factor()`:[22m
+[33m![39m object 'V202468x' not found
+Backtrace:
+[90m  1. [39m... %>% mutate(income = as.numeric(income))
+[90m 10. [39m[1mforcats[22m::fct_recode(V202468x, `NULL` = ""-9. Refused"")
+[90m 11. [39mforcats:::check_factor(.f)
+"

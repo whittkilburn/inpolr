@@ -1,0 +1,5 @@
+"0","ggplot(dw_86) +"
+"0","  geom_boxplot(aes(y=party_code, x=nominate_dim1)) + "
+"0","  labs(title=""Ideologies of Representatives to the U.S. House, \n 86th Congress (1959-1961)"","
+"0","       x=""DW-NOMINATE score left (-1) to right (1)"","
+"0","       y=""party caucus"")"

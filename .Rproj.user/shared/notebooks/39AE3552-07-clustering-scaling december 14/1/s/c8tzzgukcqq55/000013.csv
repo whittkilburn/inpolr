@@ -1,0 +1,8 @@
+"0","# plotting results"
+"0","ggplot(nmds1) +"
+"0","  geom_point(aes(x=D2, y=D1)) +"
+"0","  geom_text_repel(aes(x=D2, y=D1, label=row.names(nmds1))) +"
+"0","  scale_y_continuous(limits = c(-1.5, 1.5))+"
+"0","  scale_x_continuous(limits=c(-1.5, 1.5))+"
+"0","  labs(title="""","
+"0","       x=""X"", y=""Y"")"

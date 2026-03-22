@@ -1,0 +1,4 @@
+"0","MI_prez_2016_wide <- MI_prez_2016 %>%"
+"0","    pivot_wider(names_from = CandidateLastName, values_from=CandidateVotes)"
+"0",""
+"0","MI_prez_2016_wide"

@@ -1,0 +1,4 @@
+"0","HS117_votes<-read_csv(file=""./data/ch7 data/HS117_votes.csv"")"
+"2","Error in read_csv(file = ""./data/ch7 data/HS117_votes.csv"") : 
+  could not find function ""read_csv""
+"

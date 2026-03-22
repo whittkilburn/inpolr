@@ -1,0 +1,2 @@
+"0","plot(fitted_values, residuals, xlab = ""Fitted Values"", "
+"0","      ylab = ""Residuals"", pch=20)"

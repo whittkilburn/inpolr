@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Introduction | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Introduction | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Introduction | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="about-the-author.html"/>
+<link rel="next" href="ch2.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch1" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="ch1.html#ch1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch1.html#ch1">1</a> introduces the importance of data analysis in political science and situates it within the broader context of political science research.</p>
+<div id="learning-objectives-and-chapter-resources" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch1.html#learning-objectives-and-chapter-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of Chapter <a href="ch1.html#ch1">1</a>, you should be able to (1) explain why data analysis skills are important in the study of politics; (2) explain the practice of data analysis within the broader research endeavor of political science; and (3) explain the purpose of two different examples of coding for data analysis.</p>
+</div>
+<div id="introduction" class="section level2 unnumbered hasAnchor">
+<h2>Introduction<a href="ch1.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In 1959 two political scientists, Ithiel De Sola Pool and William McPhee along with a psychologist, Robert Abelson , launched a research project to study the public opinion of American voters, particularly to understand the factors holding together northern African Americans in the Democratic party coalition <span class="citation">(<a href="#ref-desolapool1961">De Sola Pool and Abelson 1961</a>)</span>. Of course they needed data. They turned to mass opinion polls, at the time on the cusp of their golden age of widespread use in national elections. The authors pooled together survey data collected by pollsters George Gallup and Elmo Roper, from 1952 to 1958, then merged these responses with separate records of corresponding local election results. Imagined as a spreadsheet, it would consist of hundreds of columns and nearly a hundred thousand rows. From the survey responses, the authors identified 480 distinct demographic “voter types”, such as “‘Eastern, metropolitan, lower-income, white, Catholic, female Demo-crats[sic]’” <span class="citation">(<a href="#ref-desolapool1961">De Sola Pool and Abelson 1961, 168</a>)</span>. The assembly of the data is all the more impressive given the limitations of the era’s technology – such data analysis at the time consisted of physical paper ‘punch cards’ to be sorted slowly by a massive mainframe computer. As explained by historian Jill Lepore, this effort was intended to represent, in the phrase of de Sola Pool, “a kind of Manhattan Project” for public opinion and electoral politics <span class="citation">(<a href="#ref-lepore2021">Lepore 2021, 104</a>)</span>.</p>
+<p>While not quite the same intellectual achievement nor significance for global history as the Manhattan Project, the event would nonetheless reflect two fundamental changes in data and politics still with us today. One is the beginning of modern campaigns and elections: data intensive with mass opinion polling, neighborhood canvassing and a televised mass media forecasting the outcome based on real-time precinct level voting <span class="citation">Rorabaugh (<a href="#ref-rorabaugh2009">2009</a>)</span>. De Sola Pool and McPhee would go on to be employed as consultants for the J. F. Kennedy presidential campaign in 1960 <span class="citation">(<a href="#ref-lepore2021">Lepore 2021</a>)</span>.</p>
+<p>The second change involves data. De Sola Pool and McPhee founded a company, Simulmatics, to apply these same novel methods of analyzing data to consumer behavior. As explained by historian Jill Lepore , the company would fail within 10 years, bankrupted in part and ironically from a lack of data <span class="citation">(<a href="#ref-lepore2021">Lepore 2021</a>)</span>. There were simply not enough publicly available surveys of consumer behavior, and massive sales records of millions of consumers would not be available for decades. It was an attempt at a data science of politics before data science could exist. In Lepore’s history of the company and the era, their failure presaged our world where algorithms and data patterns rule, constructing social media feeds, directing advertising, and mobilizing voters. Being literate in data — having basic competencies in the organization and analysis of data — is more important than ever.</p>
+<p>From another perspective, some parts of contemporary political science look broadly similar to De Sola Pool and McPhee’s work in 1959. Political scientists investigate research questions, construct data-driven measurements of voter characteristics, and polling is everywhere. For example, their 480 voter types would lack parsimony by today’s standards, but the goal of categorizing and characterizing voters is a ubiquitous one in survey research. The Pew Research Center, in their series of reports, “Beyond Red vs. Blue”, categorize voters into a typology of nine different segments on a left-to-right continuum <span class="citation">(<a href="#ref-pew2021">Pew Research Center 2021</a>)</span>.</p>
+<p>Political scientists often make use of multiple data sources, accessing the data that De Sola Pool and McPhee lacked but sorely needed. The study of politics, even public opinion itself, is no longer solely focused on sample surveys resembling the sampling methods of the 1950s. Data is everywhere, so the challenge is making sense of the enormous scale of it, from campaign polls and financial statements, to social media activity, country level human rights reports, parliamentary debate transcripts, to global development indicators spanning decades. Organizing and interpreting it requires skill.</p>
+</div>
+<div id="what-we-will-do-data-science-statistics" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> What we will do: data science + statistics<a href="ch1.html#what-we-will-do-data-science-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What we will learn is a combination of two closely related fields, statistics and data science in the study of politics. In political science, statistics often has often meant inferring likely population characteristics from sample surveys, much like those involved in the work of De Sola Pool and McPhee. The boundaries between the two are fuzzy, but ‘data science’ has largely emerged in response to the sheer volume of information we all have at our fingertips <span class="citation">(<a href="#ref-donaho2017">Donoho 2017</a>)</span>. At its core, data consists of the measurement of facts. Data science is the process of applying systematic methods of analysis to these facts; practitioners, the data scientists, “are people who are interested in converting the data that is now abundant into actionable information that always seems to be scarce” <span class="citation">(<a href="#ref-baumer2017">Baumer, Kaplan, and Horton 2017</a>)</span>. As a result, the book is about more than sample statistics, because the starting point for data analysis is rarely ever a neat and tidy sample survey. The sea of data at the disposal of political science requires learning more than inferential statistics. Learning how to assemble and organize data for analysis is as much a critical skill, reflecting the same basic idea that De Sola Pool and McPhee engaged in back in 1959. However, unlike their efforts, we actually do have the data. And if anything, too much of it. So in this text, you will learn some fundamentals of data science (and statistics) in the study of politics.</p>
+<p>In our study of political data analysis, we will learn about the concepts embedded within it, the required assumptions about data, and the interpretation of the results. There is very little math, certainly no more than is encountered in high school algebra. Because the textbook and course are ultimately about how we apply techniques of data analysis to learn about politics, the emphasis is on the application — how we use the techniques to learn about politics. In place of math, what is required is the mindset to approach how we will analyze data — through coding, which requires patience and persistence. Coding for data analysis requires attention to detail and breaking big problems down into smaller, sequential steps.</p>
+</div>
+<div id="how-we-will-do-it-coding" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> How we will do it: coding<a href="ch1.html#how-we-will-do-it-coding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Political scientists, not just computer scientists, often write code in the analysis of data. The code is collected into a step-by-step set of instructions within a text file, often known as a “script” file <span class="citation">(<a href="#ref-donaho2017">Donoho 2017</a>)</span>. Writing the code does not require extensive knowledge of a computing language; a small set of coding tools can accomplish a great deal of analysis <span class="citation">(<a href="#ref-baumer2017">Baumer, Kaplan, and Horton 2017</a>)</span>.</p>
+<p>In this text you will learn to write code in the statistical software application, named <strong>R</strong> <span class="citation">(<a href="#ref-r2022">R Core Team 2022</a>)</span>, within a helper application Posit Workbench (also known as “RStudio”), which will be useful for organizing our work. <strong>R</strong> is widely regarded as the of data analysis; in political science, <strong>R</strong> is arguably the most commonly used language. In developing your skills as a data analyst, you will become part of this global community of <strong>R</strong> users.</p>
+<p>Before getting started with R coding for data analysis, let us consider the bigger picture of how data analysis fits into political science research. Then we will briefly review some applications of data analysis with two examples, one from the study of global development and the other from US presidential elections.</p>
+</div>
+<div id="data-analysis-in-the-research-process" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Data analysis in the research process<a href="ch1.html#data-analysis-in-the-research-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data analysis — in the context of political science — is situated within a particular part of a broader research process, an empirical (evidence-based) investigation about how some part of the political world works. It is worth briefly reviewing some key concepts in research design prior to getting introduced to data analysis coding in <strong>R</strong>. This introduction is necessarily brief; more comprehensive reviews of the subject are found in research design oriented textbooks.</p>
+<p>The research process is depicted as a cyclical process in Figure <a href="ch1.html#fig:wheelgraph">1.1</a>. Typically, researchers begin with a research question, a ‘how’ or ‘why’ puzzle. Research questions relate to how the world of politics works. Questions can be either descriptive or explanatory. A descriptive research question, as is suggested by the phrase, is a question that describes a political phenomenon or concept of interest: How does the quality of democratic government support for democracy vary around the world? An explanatory question, however, queries the relationship between two concepts. Examples of such questions include the following: Why have party caucuses in the US Congress become more polarized?; How does social trust affect government effectiveness? The ‘how’ or ‘why’ part leads to the investigation of causal relationships or puzzles to explain.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:wheelgraph"></span>
+<img src="addfigures/ch2addfigures/wheelword.png" alt="Data analysis as part of a broader cyclical research process. Adapted from Wallace (1971) and Wickham and Grolemund (2016)." width="50%" />
+<p class="caption">
+FIGURE 1.1: Data analysis as part of a broader cyclical research process. Adapted from Wallace (1971) and Wickham and Grolemund (2016).
+</p>
+</div>
+<p>From the research question follows a literature review, a search for prior research. From there, a theory emerges. A theory is a tentative answer to a research question. Then the researcher translates theoretical concepts into empirically observable quantities. This translation is often referred to as “operationalization”, the process of deciding how to develop data-based (empirical) measures of concepts. Next, hypotheses are derived from the theory; expressed in terms of the measured concepts, often referred to as “variables”, hypotheses express an anticipation of how variation in one measured concept is related to another. A ‘directional hypothesis’ expresses how variation in an “independent” variable (the cause) relates to a particular direction of variation in the “dependent” variable (the effect).</p>
+<p>As illustrated in Figure <a href="ch1.html#fig:wheelgraph">1.1</a>, data analysis in <strong>R</strong> plays a central role in the research process, beginning after data collection to describe a phenomenon or test a hypothesis. The steps outlined in the wheel, starting with “Data Import,” present a data analysis cycle. “Data Import” involves reading external data into <strong>R</strong>, followed by “Data Preparation and Cleaning,” where messy or unformatted data is organized into a tidy, analyzable format. During the “Transform” step, researchers manipulate variables — rescaling or creating new ones to prepare for analysis. Next, “Visualize” involves creating graphics to explore or present patterns. “Model” refers to identifying statistical relationships. Finally, “Communicate Results” emphasizes sharing insights from the analysis, completing the cycle of induction in which data driven insights contribute to the literature and inform future research questions. These steps integrate data analysis into the broader research process, linking empirical generalizations to theoretical contributions.</p>
+</div>
+<div id="two-examples-of-coding-for-political-data-analysis" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Two examples of coding for political data analysis<a href="ch1.html#two-examples-of-coding-for-political-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Two examples illustrate some of the key ideas and skills we will learn in <em>Introduction to Political Analysis in R</em>, through the use of coding in the <strong>R</strong> language.</p>
+<ol style="list-style-type: decimal">
+<li><p>managing rectangular datasets to extract descriptive measures of global economic development, life expectancy, and poverty, visualizing how the relationships between these country-level measures have changed over time.</p></li>
+<li><p>explaining how the outcomes of US presidential elections are shaped by the so-called ‘fundamentals’: presidential approval, economic conditions, and incumbency status.</p></li>
+</ol>
+<p>The presentation of these examples is mostly conceptual and illustrative, apart from a few lines of <strong>R</strong> code. We will learn the technical details — including the code — in subsequent chapters.</p>
+<div id="measuring-changes-in-global-development" class="section level3 unnumbered hasAnchor">
+<h3>Measuring changes in global development<a href="ch1.html#measuring-changes-in-global-development" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In 2007, Hans Rosling, a Swedish professor of public health at the Karolinksa Institute delivered a TED talk entitled, “The best stats you’ve ever seen” <span class="citation">(<a href="#ref-gapminder">Gapminder Foundation 2024</a>)</span>. The talk became famous for his visualization of country-level global development. In a series of yearly scatterplots showing the relationship between (human) life expectancy and fertility rates, Rosling visualized country- and regional-level changes in a dynamic graphic. Encoded within each of the scatterplots were the population (point size) and region (point color) of each country, showing over time how population, fertility, and life expectancy have changed in tandem, making uneven but steady progress <span class="citation">(<a href="#ref-rosling2018">Rosling, Rönnlund, and Rosling 2018</a>)</span>.</p>
+<p>A sense of the dynamic visualizations and evidence Rosling displayed is found in the panels in Figure <a href="ch1.html#fig:fertle7515">1.2</a>. Both figures display the same country characteristics, but for different years, 1975 and 2015. Because of the varying size of the points in the scatterplot, figures such as this are known as ‘bubble charts’. Countries within the South Asia region are labeled. Comparing the movement of these countries from the upper to lower figure panels in the figure illustrates one of the points Rosling made. In 1975, there is wide variation in fertility rates, with much of the world population having a relatively low life expectancy compared to North America; in South Asia, all but Sri Lanka hold a life expectancy below 60 years old. Yet by 2015 improvements are such that life expectancy for much of the global population is above 60 years old.</p>
+<div class="figure"><span style="display:block;" id="fig:fertle7515"></span>
+<img src="bookdown_files/figure-html/fertle7515-1.png" alt="Scatterplots of life expectancy at birth (years) by fertility rate (births per woman) for 1975 (upper panel) and 2015 (lower panel), with countries colored by world region. Marker size indicates population size. In 1975, countries exhibited wide variation in both fertility and life expectancy, with limited regional clustering. By 2015, most countries experienced increases in life expectancy and declines in fertility, resulting in tighter regional clustering, except for Sub-Saharan Africa, which remains more dispersed in both measures." width="672" />
+<p class="caption">
+FIGURE 1.2: Scatterplots of life expectancy at birth (years) by fertility rate (births per woman) for 1975 (upper panel) and 2015 (lower panel), with countries colored by world region. Marker size indicates population size. In 1975, countries exhibited wide variation in both fertility and life expectancy, with limited regional clustering. By 2015, most countries experienced increases in life expectancy and declines in fertility, resulting in tighter regional clustering, except for Sub-Saharan Africa, which remains more dispersed in both measures.
+</p>
+</div>
+<p>The source of the data for these figures is the World Bank <span class="citation">(<a href="#ref-worldbank_gdi">The World Bank 2024</a>)</span>. Through <strong>R</strong> code, it is relatively simple to download data directly into an organized dataset. Members of the <strong>R</strong> community write bits of code to perform useful analytical tasks. These fragments of code are assembled into ‘packages’ that can be downloaded for use. For example, a popular package for accessing data from the World Bank is the <em>WDI</em> package <span class="citation">(<a href="#ref-R-WDI">Arel-Bundock 2022</a>)</span>. For example, the code below will automatically download the data for Rosling’s figures from the World Bank’s data servers.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ch1.html#cb1-1" tabindex="-1"></a>wbdata1<span class="ot">&lt;-</span><span class="fu">WDI</span>(<span class="at">country=</span><span class="st">&quot;all&quot;</span>, </span>
+<span id="cb1-2"><a href="ch1.html#cb1-2" tabindex="-1"></a>         <span class="at">indicator=</span><span class="fu">c</span>(<span class="st">&quot;SP.DYN.TFRT.IN&quot;</span>, <span class="st">&quot;SP.DYN.LE00.IN&quot;</span>, <span class="st">&quot;SP.POP.TOTL&quot;</span>), </span>
+<span id="cb1-3"><a href="ch1.html#cb1-3" tabindex="-1"></a>         <span class="at">start=</span><span class="dv">1975</span>, <span class="at">end=</span><span class="dv">2015</span>, <span class="at">extra=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The three lines of code above download measures of fertility (average births per female), life expectancy (average expected at birth), and total population for all countries from 1975 to 2015 using the <code>WDI()</code> function from the <strong>WDI</strong> package. Functions are commands, and the parentheses contain the specific instructions of what to do. The dataset is stored in an object named wbdata1, which could be named anything, though shorter, meaningful names are easier to use. The &lt;- symbol is the assignment operator, meaning “gets,” and is used to assign the results of the function to the object. The WDI() function specifies arguments inside its parentheses, such as <code>country="all"</code> to include all countries, the indicator argument to select specific measures, and the <code>start=</code> and <code>end=</code> arguments to set the time range. When the code is run, <strong>R</strong> downloads the specified data and stores it in the <em>wbdata1</em> object for further analysis.</p>
+<p>Table <a href="ch1.html#tab:wbdata1-tab1">1.1</a> displays an excerpt of the downloaded data for 2015, structured as a rectangular dataset. Each row represents a country, while the columns record features of the countries, life expectancy and fertility rates. Missing values, such as <em>NA</em> for Andorra, indicate data that is not available for that year. Overall, this example highlights code and the structure of datasets you will work with in <strong>R</strong> for learning skills in data organization, visualization, and analysis in later chapters.</p>
+<table>
+<caption><span id="tab:wbdata1-tab1">TABLE 1.1: </span> Excerpt of World Bank data for Figure 1.4. The second column lists fertility rate and the third life expectancy</caption>
+<thead>
+<tr>
+<th align="left">country</th>
+<th align="right">SP.DYN.TFRT.IN</th>
+<th align="right">SP.DYN.LE00.IN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Andorra</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">United Arab Emirates</td>
+<td align="right">1.541</td>
+<td align="right">77.28</td>
+</tr>
+<tr>
+<td align="left">Afghanistan</td>
+<td align="right">4.976</td>
+<td align="right">63.38</td>
+</tr>
+<tr>
+<td align="left">Antigua and Barbuda</td>
+<td align="right">2.003</td>
+<td align="right">76.48</td>
+</tr>
+<tr>
+<td align="left">Albania</td>
+<td align="right">1.677</td>
+<td align="right">78.03</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="modeling-u.s.-presidential-elections" class="section level3 unnumbered hasAnchor">
+<h3>Modeling U.S. presidential elections<a href="ch1.html#modeling-u.s.-presidential-elections" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Election forecasting models provide another example of the data analysis concepts and skills covered in this book. A “model” refers to a simplified representation of a political phenomenon, built using data and assumptions about how different aspects of the data are related. During U.S. presidential campaigns, forecasts of election outcomes frequently appear in the news, ranging from expert historical judgments to computational predictions based on data analysis.</p>
+<p>These dynamic models build on static forecasts from the 1970s and 1980s, which focused on the so-called “fundamentals”, contextual factors like economic conditions and presidential approval that shape elections beyond the influence of campaigns <span class="citation">(<a href="#ref-lewis2005">Lewis-Beck 2005</a>)</span>. For example, Abramowitz’s “Time for Change” model <span class="citation">(` <a href="#ref-abramowitz2016">Abramowitz 2016</a>)</span> predicts the incumbent party’s share of the two-party vote based on three factors: (1) the incumbent president’s approval rating in early summer, (2) second-quarter GDP growth, and (3) whether the incumbent party is running for a third term. Figure <a href="ch1.html#fig:incgdp1">1.3</a> illustrates this relationship using a bubble chart: the incumbent party’s vote share appears on the Y-axis, GDP growth on the X-axis, and approval rating is encoded in the size of the points. The positive slope of the trend line shows how GDP growth is strongly associated with incumbent support. (Approval rating influences the size of the points but not the line itself.) The trend line, <span class="math inline">\(y = 50.70 + 0.80X_{gdp}\)</span>, reveals the linear relationship. Here, the y-intercept (50.70) is the predicted incumbent vote share when GDP growth is zero, and the slope (0.80) indicates the expected change in vote share for each one-unit increase in GDP growth. This model and its forecasting potential will be explored further in later chapters.</p>
+<div class="figure"><span style="display:block;" id="fig:incgdp1"></span>
+<img src="bookdown_files/figure-html/incgdp1-1.png" alt="Scatterplot of incumbent party two-party popular vote share (in percent) by second quarter GDP growth rate (in percent) for U.S. presidential elections (1948–2020). Each point represents an election year, with point size reflecting the incumbent president’s approval rating at mid-year (larger points indicate higher approval). The red trend line summarizes the positive linear relationship between GDP growth and vote share: incumbents tend to receive a higher share of the popular vote when economic growth is stronger." width="672" />
+<p class="caption">
+FIGURE 1.3: Scatterplot of incumbent party two-party popular vote share (in percent) by second quarter GDP growth rate (in percent) for U.S. presidential elections (1948–2020). Each point represents an election year, with point size reflecting the incumbent president’s approval rating at mid-year (larger points indicate higher approval). The red trend line summarizes the positive linear relationship between GDP growth and vote share: incumbents tend to receive a higher share of the popular vote when economic growth is stronger.
+</p>
+</div>
+<p>By fitting the model <span class="math inline">\(y = 50.70 + 0.80X_{gdp}\)</span> to presidential elections from 1948 to 2020, we can substitute the GDP growth rate for each election year to generate predicted vote shares for the incumbent party. In some years, the predictions align closely with reality: for example, in 2012, the model predicted a 51.01 percent vote share for President Obama, nearly identical to the observed 51.10 percent, showing the economy’s expected influence on his reelection. However, in 2008, the model predicted 51.09 percent for the incumbent Republican party ticket, yet the actual vote share was 45.70 percent, reflecting a significant economic under performance. These differences highlight how elections can sometimes align with a “fundamentals” based model while in other years, much less so.</p>
+<p>This example illustrates purpose of data analysis: understanding historical patterns, incorporating data to measure the patterns, and making predictions or simply exploring relationships. While fitting a model to historical data reveals important relationships, using it to forecast an upcoming election, like 2024, introduces additional uncertainty. Substituting in projected GDP values can generate a prediction, but this process requires careful consideration of the model’s assumptions and limitations, which highlights the complexity of data analysis: it guides us toward insights, but also reminds us of the need for critical thinking about what the numbers mean. This theme — connecting data, models, and real-world interpretation — underscores the purpose of the book.</p>
+</div>
+</div>
+<div id="a-roadmap-to-the-chapters" class="section level2 unnumbered hasAnchor">
+<h2>A roadmap to the chapters<a href="ch1.html#a-roadmap-to-the-chapters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The book organization is as follows. In Chapter <a href="ch2.html#ch2">2</a>, we will get <strong>R</strong> apps up and running. We will learn some of the fundamentals of using the <strong>R</strong> language for data analysis and useful features of Posit Workbench (also known as RStudio), an integrated development environment (IDE) for <strong>R</strong>. As an IDE it is an interface for working more efficiently with R code, importing datasets, saving code and output such as visualizations.</p>
+<p>In Chapter <a href="ch3.html#ch3">3</a> we will learn about the organization and manipulation of rectangular datasets. For example, we will learn about the organization of data into tabular (tables or rows and columns) form, how to organize data for observations collected across time and space – observations on one or many points in time, and how to merge multiple data sources. We will learn about different measurement levels, storage types in R, and common summary statistics.</p>
+<p>In Chapter <a href="ch4.html#ch4">4</a> we will learn about data visualization, common visualization types, and we will investigate visualizations for describing data or comparing relationships, such as histograms and box-whiskers plots, scatterplots, and ‘bubble’ chart variants. While this chapter focuses on the fundamentals, because data visualization is so commonly used to communicate ideas with data, subsequent chapters introduce new data visualization types based on these fundamentals.</p>
+<p>In Chapter <a href="ch5.html#ch5">5</a> we will learn about ‘data wrangling’, or how to extract meaningful information from relatively large datasets. We will learn to filter, sort, rearrange, summarize, and create new measures. We will focus our attention on changes in global development and the challenges of tidying data tables detailing election returns.</p>
+<p>In Chapter <a href="ch6.html#ch6">6</a> we will learn how to manage spatial or geographically defined data. We will learn various ways to create maps of election results tied to geographic areas, such as ‘red — blue’ election maps. We will also learn how to evaluate claims of ‘gerrymandering’ of U.S. Congressional districts.</p>
+<p>In Chapter <a href="ch7.html#ch7">7</a> our attention turns to two different methods of data analysis, scaling and clustering. We will study patterns of roll call voting in the U.S. Congress and the electorate’s feelings toward American social and political groups.</p>
+<p>In Chapter <a href="ch8.html#ch8">8</a> we turn to the study of ‘text as data’. We will first apply scaling and clustering to texts, including the study of disputed authorship of <em>The Federalist</em> papers. Next we will study ways of summarizing the thematic content of the text, including public comment on proposed federal regulations on Title IX civil rights policy affecting transgender students.</p>
+<p>In Chapter <a href="ch9.html#ch9">9</a> we will study public opinion through election sample surveys. We will learn fundamental skills in the analysis of survey data, from sample survey statistics to inferring population-level characteristics. Along the way we will consider how to account for the sample design of contemporary election surveys, and post-sampling adjustments made to observations to make the samples more representative. Our analysis will focus on the American National Election Studies (ANES) survey fielded in 2020.</p>
+<p>Chapters <a href="ch10.html#ch10">10</a> to <a href="ch12.html#ch12">12</a> turn to the workhorse of the social sciences, linear modeling, much like the model of presidential elections reviewed in this chapter. We will learn the tools and common pitfalls to avoid in constructing models. Chapter <a href="ch10.html#ch10">10</a> introduces the subject of simple linear and multiple regression models, while in Chapter <a href="ch11.html#ch11">11</a> we consider complications to the models. In Chapter <a href="ch12.html#ch12">12</a> we will construct models often expressed in probabilistic terms, binary logistic regression, for assessing questions such as how increasing educational attainment affects the probability of an individual supporting or opposing a particular policy issue.</p>
+<p>Finally, the appendix presents a description of the datasets available to download from the author’s website <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a> for use within the examples presented within the text.</p>
+</div>
+<div id="resources" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch1.html#resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>FRED, St. Louis Federal Reserve, <a href="https://fred.stlouisfed.org/" class="uri">https://fred.stlouisfed.org/</a> an extensive collection of economic data.</p>
+<p>Our World in Data: tracking global change in public health, economic, social, and political development, collected from many official sources <a href="https://ourworldindata.org/" class="uri">https://ourworldindata.org/</a>.</p>
+<p>Party Facts: an extensive aggregation of data related to political party organizations around the world <a href="https://partyfacts.herokuapp.com/" class="uri">https://partyfacts.herokuapp.com/</a>.</p>
+<p>World Bank Global Development Indicators: <a href="https://databank.worldbank.org/source/world-development-indicators" class="uri">https://databank.worldbank.org/source/world-development-indicators</a> A repository of data on national level political, economic, and social characteristics.</p>
+<p>R Graphs Gallery: <a href="https://r-graph-gallery.com/" class="uri">https://r-graph-gallery.com/</a> A wide ranging gallery of data visualizations generated with <strong>R</strong> code.</p>
+<p>Gapminder: <a href="https://www.gapminder.org/" class="uri">https://www.gapminder.org/</a> Hans Rosling’s work on global development data and visualization.</p>
+<!--
+## Exercises
+
+1. Think about a subject matter that interests you in political science.  What is it, and what is a possible research question that could be used to begin studying it it? What kinds of data do you imagine you would need to address the research question?  
+
+2. Election results --- vote counts --- are a ubiquitous form of data.  Websites like Ballotpedia <https://ballotpedia.org/> crowd source data on parties, candidates, and elections.  But to find election results directly from the government entity responsible for conducting the election where would you go?  Find a website for local election results and one for a regional election.  How easy is it to access the results?  What form, if any, are the results available for download? 
+
+3. In other political science courses, or internships, what kinds of data have you encountered? And how has it guided decision making or shaped understanding of politics?
+
+4. GDP measurement...and/or World Bank global development indicators...inerpreting it somehow??..some comparison...
+TK make question about using rosling website, and others... together...
+-->
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-abramowitz2016" class="csl-entry">
+Abramowitz, Alan I. 2016. <span>“Will Time for Change Mean Time for Trump?”</span> <em>PS: Political Science &amp; Politics</em> 49 (4): 659–60.
+</div>
+<div id="ref-R-WDI" class="csl-entry">
+Arel-Bundock, Vincent. 2022. <em>WDI: World Development Indicators and Other World Bank Data</em>. <a href="https://vincentarelbundock.github.io/WDI/">https://vincentarelbundock.github.io/WDI/</a>.
+</div>
+<div id="ref-baumer2017" class="csl-entry">
+Baumer, Benjamin S., Daniel T. Kaplan, and Nicholas J. Horton. 2017. <em>Modern Data Science with r</em>. 1st ed. Texts in Statistical Science. Boca Raton, FL: Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-desolapool1961" class="csl-entry">
+De Sola Pool, Ithiel, and Robert Abelson. 1961. <span>“The Simulmatics Project.”</span> <em>Public Opinion Quarterly</em> 25 (2): 167–83.
+</div>
+<div id="ref-donaho2017" class="csl-entry">
+Donoho, David. 2017. <span>“50 Years of Data Science.”</span> <em>Journal of Computational and Graphical Statistics</em> 26 (4): 745–66.
+</div>
+<div id="ref-gapminder" class="csl-entry">
+Gapminder Foundation. 2024. <span>“Gapminder.”</span> <a href="https://www.gapminder.org/" class="uri">https://www.gapminder.org/</a>. <a href="https://www.gapminder.org/">https://www.gapminder.org/</a>.
+</div>
+<div id="ref-lepore2021" class="csl-entry">
+Lepore, Jill. 2021. <em>If Then: How the Simulmatics Corporation Invented the Future</em>. New York: Liveright Publishing Corporation.
+</div>
+<div id="ref-lewis2005" class="csl-entry">
+Lewis-Beck, Michael S. 2005. <span>“Election Forecasting: Principles and Practice.”</span> <em>The British Journal of Politics and International Relations</em> 7 (2): 145–64.
+</div>
+<div id="ref-pew2021" class="csl-entry">
+Pew Research Center. 2021. <span>“Beyond Red Vs. Blue: The Political Typology.”</span> <a href="https://www.pewresearch.org/topic/politics-policy/political-parties-polarization/political-typology/" class="uri">https://www.pewresearch.org/topic/politics-policy/political-parties-polarization/political-typology/</a>; Pew Research Center. <a href="https://www.pewresearch.org/topic/politics-policy/political-parties-polarization/political-typology/">https://www.pewresearch.org/topic/politics-policy/political-parties-polarization/political-typology/</a>.
+</div>
+<div id="ref-r2022" class="csl-entry">
+R Core Team. 2022. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-rorabaugh2009" class="csl-entry">
+Rorabaugh, W. J. 2009. <em>The Real Making of the President: Kennedy, Nixon, and the 1960 Election</em>. Lawrence: University Press of Kansas.
+</div>
+<div id="ref-rosling2018" class="csl-entry">
+Rosling, Hans, Anna Rosling Rönnlund, and Ola Rosling. 2018. <em>Factfulness: Ten Reasons We’re Wrong about the World — and Why Things Are Better Than You Think</em>. New York: Flatiron Books.
+</div>
+<div id="ref-worldbank_gdi" class="csl-entry">
+The World Bank. 2024. <span>“World Development Indicators.”</span> <a href="https://databank.worldbank.org/source/world-development-indicators" class="uri">https://databank.worldbank.org/source/world-development-indicators</a>. <a href="https://databank.worldbank.org/source/world-development-indicators">https://databank.worldbank.org/source/world-development-indicators</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="about-the-author.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/01-introduction.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

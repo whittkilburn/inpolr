@@ -1,0 +1,94 @@
+"0","anes_20<- anes_20 %>%"
+"0","  mutate(sex = fct_recode(V201600,"
+"0","                          NULL = ""-9. Refused""))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20<-anes_20 %>%"
+"0","    mutate(race_category=fct_recode(V201549x,"
+"0","                NULL=""-9. Refused"","
+"0","                NULL=""-8. Don't know""))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20<-anes_20 %>%"
+"0","  mutate(race_category = ifelse(race_category == "
+"0","                          '1. White, non-Hispanic', 0, 1)) "
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20 <- anes_20 %>%"
+"0","  mutate(age =  V201507x)%>%"
+"0","  mutate(age = na_if(age, -9))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20<-anes_20 %>%"
+"0","  mutate(edu = V201511x) %>%"
+"0","  mutate(edu = fct_recode(edu,"
+"0","         NULL = ""-9. Refused"","
+"0","         NULL = ""-8. Don't know"")) "
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20<-anes_20 %>%"
+"0","  mutate(never_married = ifelse(V201508== '6. Never married', 1, 0))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20 <- anes_20 %>%"
+"0","  mutate(partyid7pt = fct_recode(V201231x,"
+"0","           NULL = ""-9. Refused"","
+"0","           NULL = ""-8. Don't know""))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20<-anes_20 %>%"
+"0","  mutate(edu=as.numeric(edu))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20 <- anes_20 %>%"
+"0","  mutate(partyid7pt = fct_recode(V201231x,"
+"0","           NULL = ""-9. Refused"","
+"0","           NULL = ""-8. Don't know""))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","anes_20 <- anes_20 %>%"
+"0","  mutate(partyid_num = as.numeric(partyid7pt)) %>%"
+"0","  mutate(attend_num = as.numeric(attend))"
+"0",""
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"

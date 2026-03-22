@@ -1,0 +1,8 @@
+"0","s_memb_votes_117_wide<-s_memb_votes_117 %>%"
+"0","  pivot_wider(values_from = cast_code, names_from = rollnumber) "
+"0",""
+"0","s_memb_votes_117_wide<-s_memb_votes_117_wide %>%"
+"0","  column_to_rownames(s_memb_votes_117_wide, var=""name"")"
+"2","Error in column_to_rownames(., s_memb_votes_117_wide, var = ""name"") : 
+  unused argument (s_memb_votes_117_wide)
+"

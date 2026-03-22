@@ -1,0 +1,2 @@
+"0","# polfigures<-read_csv(file=""~/Documents/Dropbox/inpolr/inpolr/data/tempvoteviewdata/polfigures_ft.csv"")"
+"0","polfigures<-read_csv(file=""~/Documents/Dropbox/inpolr/inpolr/data/ch7 data/poll_ft.csv"")"

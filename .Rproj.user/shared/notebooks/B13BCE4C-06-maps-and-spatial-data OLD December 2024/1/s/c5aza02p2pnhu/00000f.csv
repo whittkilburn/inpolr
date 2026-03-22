@@ -1,0 +1,2 @@
+"0","district_29$centroid<-st_centroid(district_29)"
+"2","Warning: st_centroid assumes attributes are constant over geometries"

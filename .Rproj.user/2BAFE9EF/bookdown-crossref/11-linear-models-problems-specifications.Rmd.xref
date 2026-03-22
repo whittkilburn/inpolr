@@ -1,0 +1,17 @@
+h1:ch11 Evaluating and Extending Linear Models
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:examining-assumptions-underpinning-linear-models Examining assumptions underpinning linear models
+h2:residuals-versus-fitted-values Residuals versus fitted values
+fig:residfitfig1 Normal quantile–quantile (QQ) plot of residuals from the model of party identification as a function of demographic characteristics. The figure displays deviations from normality at the ends of the plot.
+fig:residfitfig2 A plot of model residuals versus fitted values. The line is drawn through the 0 point on the vertical axis.
+h3:collinearity-of-independent-variables Collinearity of independent variables
+h2:unusual-observations Unusual observations
+h3:outliers Outliers
+h3:leverage-and-influence Leverage and influence
+h2:exploring-interactions-in-linear-models Exploring interactions in linear models
+h3:religious-belonging-x-behavior-in-party-identification Religious belonging x behavior in party identification
+h3:model-based-predictions Model based predictions
+h2:testing-and-refining-linear-models Testing and refining linear models
+h2:resources Resources
+h2:exercises Exercises
+

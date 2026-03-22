@@ -1,0 +1,4 @@
+"0","table4<-prop.table(svytable(~attend + partyid, subset(anes2020, sex== ""2. Female""), round=TRUE), "
+"0","                   margin=2)"
+"0","knitr::kable(table4*100, digits = 2, caption = ""religious service attendance"
+"0","             by party identification, column percentages, Female respondents only"")  "

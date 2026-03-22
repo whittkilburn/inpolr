@@ -1,0 +1,1 @@
+{"frames":[{"func":"s_memb_votes_117_wide %>% column_to_rownames(s_memb_votes_117_wide, \n    var = \"name\")","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in column_to_rownames(., s_memb_votes_117_wide, var = \"name\") : \n  unused argument (s_memb_votes_117_wide)\n"}

@@ -1,0 +1,6 @@
+"0","three_consulates<-tribble("
+"0","  ~lat, ~long, ~name,"
+"0","  -33.979,18.445,""Chinese Consulate"","
+"0","  -33.920,18.424, ""Russian Consulate"","
+"0","  -34.077,18.430, ""American Consulate"""
+"0","  )"

@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Linear Models for Binary Outcomes | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Linear Models for Binary Outcomes | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Linear Models for Binary Outcomes | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch11.html"/>
+<link rel="next" href="app.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch12" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Linear Models for Binary Outcomes<a href="ch12.html#ch12" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch12.html#ch12">12</a> introduces linear models for binary (two-level) dependent variables.</p>
+<div id="learning-objectives-and-chapter-resources-10" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch12.html#learning-objectives-and-chapter-resources-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of Chapter <a href="ch12.html#ch12">12</a> you should be able to (1) explain key concepts in forming binary logistic regression models; (2) interpret the summary of model output; and (3) generate tables and graphics of model based predicted probabilities. The material in the chapter requires the following packages: <strong>jtools</strong> <span class="citation">(<a href="#ref-R-jtools">J. A. Long 2023</a>)</span>, <strong>effects</strong> <span class="citation">(<a href="#ref-R-effects">Fox et al. 2022</a>)</span>, and <strong>sjPlot</strong> <span class="citation">(<a href="#ref-R-sjPlot">Lüdecke 2024</a>)</span> which will need to be installed, as well as <strong>survey</strong> <span class="citation">(<a href="#ref-R-survey">Lumley 2021</a>)</span>, <strong>car</strong> <span class="citation">(<a href="#ref-R-car">Fox, Weisberg, and Price 2022</a>)</span>, and <strong>dplyr</strong> <span class="citation">(<a href="#ref-R-dplyr">Wickham, François, et al. 2023</a>)</span> from the <strong>tidyverse</strong> <span class="citation">(<a href="#ref-R-tidyverse">Wickham 2023b</a>)</span>. The material uses <em>anes 2020 survey.rdata</em> from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="introduction-4" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Introduction<a href="ch12.html#introduction-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this chapter we review a particular type of linear model, binary logistic regression, for the analysis of variation in dichotomous (or binary) dependent variables. Dichotomous measures contrast presence and absence (or ‘success’ and ‘failure’), such as in an election poll respondents reporting that they voted (or not), or supported (or opposed) a particular policy. Through a logistic regression model, just as in the OLS regression models from Chapters <a href="ch10.html#ch10">10</a> and <a href="ch11.html#ch11">11</a>, we estimate slopes on independent variables to examine the multiple factors that explain the variation in these outcomes, such as why some people voted while others did not. This application of logistic regression is often referred to as “binary logistic regression”, binary in reference to the scaling of the dependent variable.</p>
+<p>Applying the same <code>lm()</code> type functions from Chapters <a href="ch10.html#ch10">10</a> and <a href="ch11.html#ch11">11</a> to dichotomous dependent variables is problematic. Instead, statisticians have developed “Generalized Linear Models”, for which linear regressions with a continuously scaled, binary, or ordinal dependent variable are special cases. We first review key concepts in the estimation and interpretation of these models for binary logistic regression, followed by an example with R code for modeling Americans’ support or opposition to the death penalty for capital crimes.</p>
+</div>
+<div id="conceptualizing-binary-logistic-regression" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Conceptualizing binary logistic regression<a href="ch12.html#conceptualizing-binary-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As a starting point, recall that the dependent variable, having only two outcomes, could be scored 0 for a ‘failure’ or lack of an attribute and 1 for a ‘success’ or attribute. Ranging from 0 to 1, it could be interpreted in probabilistic terms. Applying a linear regression function (such as <code>lm()</code>) to model variation in this dependent variable results in the linear probability model. The term “probability” references the purpose of such a model – to examine how the probability of a value of 1 on the dependent variable changes as a linear function of the independent variables. For example, with data from the 2020 ANES, responses to the question of whether an individual supports the death penalty, considered as either “opposes” (0) or “supports” (1), we could construct a linear regression model of death penalty support as a function of various demographic characteristics. The primary problem with this approach, however, is that doing so violates some of the assumptions required for valid OLS regression model estimation: Because of the 0 or 1 variable scaling, errors are not normally distributed, the model induces heteroskedasticity, and perhaps most problematically the model-based predictions could easily be out of bounds, that is, a predicted probability that is less than 0 or greater than 1.</p>
+<p>Researchers turn instead to “logistic regression”. Like a multiple linear regression, the goal of a logistic regression is to estimate an intercept and slopes for independent variables. Instead of fitting a straight line through the data, a logistic regression fits an S-shaped curve to transformed values on the dependent variable, constrained at the probability boundaries of 0 and 1. The line guarantees that predictions never exceed these limits. Figure <a href="ch12.html#fig:logisticcurve">12.1</a> displays this curve, fitting a curve of best fit to hypothetical data.</p>
+<div class="figure"><span style="display:block;" id="fig:logisticcurve"></span>
+<img src="bookdown_files/figure-html/logisticcurve-1.png" alt="Hypothetical logistic regression S-shaped curve relating observations on a continuous X to a dichotomous Y." width="672" />
+<p class="caption">
+FIGURE 12.1: Hypothetical logistic regression S-shaped curve relating observations on a continuous X to a dichotomous Y.
+</p>
+</div>
+<p>Rather than model the dependent variable directly, logistic regression first transforms the dependent variable (scored 0 or 1) into a quantity called ‘log-odds.’ Odds are ratios, the ratio of a probability <span class="math inline">\(p\)</span> to <span class="math inline">\((1-p)\)</span>:</p>
+<p><span class="math inline">\(Odds = \frac{p}{(1-p)}\)</span></p>
+<p>For example, if the probability of an American voting age citizen supporting the death penalty is .65 or 65 percent, then the odds of supporting the death penalty are <span class="math inline">\(\frac{.65}{(1-.65)} = 1.857\)</span>.</p>
+<p>The ‘log-odds’ is simply the natural logarithm of the odds, called a “logit”:</p>
+<p><span class="math inline">\(logit=ln(\frac{p}{(1-p)})\)</span>.</p>
+<p>Given the probability of .65 (or odds of 1.857) the logged odds <code>log(1.857)</code> is .619. To further explain odds, consider this example from the 2020 ANES. We tabulate death penalty support (see question <em>V201345x</em> in the 2020 ANES data appendix) by respondent sex. (The code for creating the individual measures from the survey is presented further below.) For now, consider the cross-tabulation of death penalty attitude by sex:</p>
+<pre><code>##              sex
+## death_penalty 1. Male 2. Female
+##        Oppose     773       944
+##        Favor     1487      1466</code></pre>
+<p>The tabulation displays the frequencies. So the table shows, for example, that 773 male respondents opposed the death penalty. A probability of an individual supporting the death penalty is the likelihood of it occurring, as a proportion between 0 (not occurring) and 1 (occurring with certainty).</p>
+<p>Given the total number of males and females in the sample, we can calculate the probability of any given male or female supporting the death penalty. The total for males (773 + 1487) is 2260. The probability of a male supporting the death penalty <span class="math inline">\(\frac{1487}{2260} \approx .66\)</span>. The total for females (944 + 1466) is 2410. The probability of a female supporting the death penalty is <span class="math inline">\(\frac{1466}{2410} \approx .61\)</span>.</p>
+<p>Odds are ratios of probabilities. The odds of an individual supporting the death penalty is the ratio of the probability of supporting it divided by the probability of opposing it. Odds can be expressed as</p>
+<p><span class="math inline">\(Odds = \frac{P}{1-P}\)</span>,</p>
+<p>where <span class="math inline">\(P\)</span> is the probability of an event occuring.</p>
+<p>The probability of a male supporting the death penalty is approximately .66; the probability of opposing is <span class="math inline">\(1-.66 \approx .34\)</span>. The odds of a male supporting the death penalty are <span class="math inline">\(\frac{.66}{.34} = 1.94\)</span>. The odds of a male supporting the death penalty are about 1.94 to 1, meaning that for every male who opposes the death penalty, approximately 1.94 support it. For females, odds of supporting the death penalty are <span class="math inline">\(\frac{.61}{.39} \approx 1.56\)</span>. For females the odds are about 1.56 to 1. Thus the odds are slightly higher that any given male will support the death penalty compared to females.</p>
+<p>Comparing two odds yields the odds ratio, a measure of the relative odds between two groups. As a ratio, it is a division of one odds by another. The odds ratio comparing female support to male support is:</p>
+<p>Odds ratio <span class="math inline">\(\frac{Odds (female) }{Odds (male)}\)</span> or <span class="math inline">\(\frac{1.56}{1.94} \approx .80\)</span>.</p>
+<p>An odds ratio of .80 means that the odds of a female supporting the death penalty are about 80 percent of the odds of a male supporting it. Probabilities, odds, and odds ratios all describe the same phenomenon under study, but are expressed in different units. Simply personal preference may determine which appears the most intuitive. It is helpful to remember that (a) if the probability of an event occurring is less than .5, then the odds are less than 1; and (b) if the probability of an event occurring has a probability greater than .5 then the odds are greater than 1.</p>
+<p>In a logistic regression model, with the dependent variable (Y) converted to logits, and a set of independent (X) variables, the algorithm for logistic regression finds a best fitting y-intercept and slopes for each X. Note that the model is still a linear model — the logit is expressed as a linear function of the independent variables:</p>
+<p><span class="math inline">\(logit(p) = log(\frac{p}{(1-p)})= \beta_0 +\beta_1x_1+\beta_2x_2+...+\beta_kx_k\)</span>$</p>
+<p>The parameters (coefficients) from the model are <span class="math inline">\(\beta_0\)</span> the estimated intercept, with the estimated slopes <span class="math inline">\(\beta_1, \beta_2, ..., \beta_k\)</span>. And the independent variables are <span class="math inline">\(x_1, x_2, x_3, ..., x_k\)</span>. This is where the ‘linear’ in linear model comes from: the model is linear with respect to the parameters and the predictors, even though the relationship between the predictors and the actual probability <span class="math inline">\(p\)</span> (the s-curve) is nonlinear.</p>
+<div id="modeling-support-versus-opposition-to-the-death-penalty" class="section level3 unnumbered hasAnchor">
+<h3>Modeling support versus opposition to the death penalty<a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Below we review a logistic regression model, followed by the <strong>R</strong> code, of Americans’ support or opposition to the death penalty for capital crimes. The data are from the 2020 ANES. The first is a simple example to illustrate the concepts involved in interpreting a logistic regression model. While the R code presents a fuller model and interpretation.</p>
+<p>Often a goal of logistic regression modeling is to estimate probabilities given observations with the same values on the X independent variables. For example, a model of attitudes toward the death penalty (support or oppose) based on demographic characteristics could estimate the probability of supporting the death penalty given a particular set of individual characteristics such as education level, age, and race. The logistic regression model is then intended to provide estimates of the probability of the dependent variable being equal to 1 (or “support”) given values on the independent variables.</p>
+<p>Consider the estimates for a simplified model, death penalty support (1) or opposition (0) as a function of just one X variable, individual educational attainment, measured on a five-point scale from 1 (less than a high school diploma) to 5 (a graduate degree). The education variable records degree attainment on an ordinal scale. For ease of interpretation, the model estimates one constant slope parameter across the scale rather than multiple slopes for categorical ‘dummy variables’. Imagine we run the R code and find the model estimates correspond to this equation:</p>
+<p><span class="math inline">\(logit(death penalty support) = 1.5 - .302*x_{education}\)</span></p>
+<p>This equation includes a y-intercept and a slope on education. The model estimates are in units of ‘logit’ or log-odds: 1.5 is the logit of supporting the death penalty for someone with a hypothetical ‘0’ score on the education variable. The slope on education, -.302, means that for each unit increase in the education scale, the logit of supporting the death penalty decreases by .302 units. A logit is not an intuitive metric. Fortunately, we can convert the estimates to odds ratios and probabilities.
+By exponentiating the y-intercept and slope (raising <span class="math inline">\(e\)</span>, Euler’s number$ $ to the power of the estimate), we remove the log, resulting in the odds and odds ratios. For example, while corresponding to a hypothetical person with a “0” education, the <span class="math inline">\(e^{1.5}=4.482\)</span>. (In <strong>R</strong>, <code>exp(1.5)</code>). For this hypothetical person, the odds of supporting the death penalty are 4.48 to 1, or 4.48 times more likely to be supported than not. While the scale of odds is practically limitless and generally dependent on units of measurement, these odds are very high.</p>
+<p>For education, <span class="math inline">\(e^{-.302}= .739\)</span>. The result, .739, is the odds ratio associated with a one-unit increase in the education level. An odds ratio of 0.739 means that for each one-unit increase in education, the odds of supporting the death penalty decrease. The odds are multiplied by 0.739 with each additional unit increase in education. The decrease in odds is calculated as <span class="math inline">\((1-.739)\)</span>, a decrease of about .261 or 26.1 percent. In this sense, the odds of supporting the death penalty decrease by about 26.1 percent for each one-unit increase in education level. An alternative interpretation is based on probabilities; because probabilities are scaled from 0 to 1, some researchers prefer working with probabilities rather than odds ratios.</p>
+<p>Calculating the predicted probabilities requires some additional arithmetic, to pull out the predicted probabilities within the model equation of the log-odds: <span class="math inline">\(ln(\frac{p}{(1-p)}) = 1.5 - .302*x_{education}\)</span>. To calculate the predicted probability for a person with a high school diploma (<em>education</em> = 2), we substitute 2 into the equation:</p>
+<p><span class="math inline">\(ln(\frac{p}{(1-p)}) = 1.5 - .302 \times 2\)</span></p>
+<p><span class="math inline">\(ln(\frac{p}{(1-p)}) = 1.5 - .604= .896\)</span>.</p>
+<p>To remove the natural logarithm (<span class="math inline">\(ln\)</span>), we exponentiate both sides of the equation:</p>
+<p><span class="math inline">\(\frac{p}{(1-p)}=e^{.896}\)</span></p>
+<p>Calculating <span class="math inline">\(e^{.896}\)</span>, (in <strong>R</strong> <code>exp(.896)</code>), is 2.45. From <span class="math inline">\(\frac{p}{(1-p)}=2.45\)</span>, we solve for <span class="math inline">\(p\)</span> by multiplying both sides by <span class="math inline">\((1-p)\)</span> resulting in</p>
+<p><span class="math inline">\(p=2.45 \times (1-p)\)</span></p>
+<p>From <span class="math inline">\(p=2.45-2.45p\)</span>, we rearrange terms to get to <span class="math inline">\(p+2.45p=2.45\)</span>.</p>
+<p>The terms <span class="math inline">\(p+2.45p\)</span> combine as <span class="math inline">\(1+2.45\)</span>, since the coefficient of the first <span class="math inline">\(p\)</span> is 1.</p>
+<p>So <span class="math inline">\(3.45p=2.45\)</span>. And finally, <span class="math inline">\(p=\frac{2.45}{3.45}\)</span>, which equals about .71, the probability of someone with a high school diploma supporting the death penalty. The model assumes all observations with the same combinations of values on independent variables have the same probability on the dependent variable.</p>
+<p>Fortunately, as demonstrated below, much of this process of calculating and interpreting odds ratios and predicted probabilities is automated with various <strong>R</strong> packages.</p>
+<p>In what follows we estimate and interpret a logistic regression model of support for the death penalty, as a function of individual demographic characteristics. The code begins with attaching packages, importing the 2020 ANES dataset, creating the variables for inclusion in the model, followed by the estimation and interpretation of it.</p>
+<p>Attach packages:</p>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="ch12.html#cb619-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb619-2"><a href="ch12.html#cb619-2" tabindex="-1"></a><span class="fu">library</span>(survey)</span></code></pre></div>
+<p>Download the Workspace. (Take care to either set a working directory, move the Workspace to an RStudio project file location, or include the file directory path in the <code>load()</code> function.)</p>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="ch12.html#cb620-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;anes 2020 survey data.rdata&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="ch12.html#cb621-1" tabindex="-1"></a>anes_design<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">ids =</span> <span class="sc">~</span>V200015c,</span>
+<span id="cb621-2"><a href="ch12.html#cb621-2" tabindex="-1"></a>                    <span class="at">strata=</span><span class="sc">~</span>V200015d,</span>
+<span id="cb621-3"><a href="ch12.html#cb621-3" tabindex="-1"></a>                    <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Variable <em>V201345x</em> measures support toward the death penalty in capital crimes. (See the Appendix for question wording.)</p>
+<p>Responses are measured on a four-point scale from “Favor strongly” to “Oppose strongly”. In the sample, combining the two favorable attitudes sums to 63 percent, with 37 percent opposed.</p>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="ch12.html#cb622-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201345x, anes_design))<span class="sc">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## V201345x
+##      1. Favor strongly  2. Favor not strongly 
+##                  42.06                  21.10 
+## 3. Oppose not strongly     4. Oppose strongly 
+##                  19.36                  17.47</code></pre>
+<p>The strength of the attitude can be collapsed to contrast favoring or opposing the death penalty.</p>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="ch12.html#cb624-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb624-2"><a href="ch12.html#cb624-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">death_penalty =</span> <span class="fu">fct_recode</span>(V201345x,</span>
+<span id="cb624-3"><a href="ch12.html#cb624-3" tabindex="-1"></a>                <span class="st">&quot;Favor&quot;</span> <span class="ot">=</span> <span class="st">&quot;1. Favor strongly&quot;</span>,</span>
+<span id="cb624-4"><a href="ch12.html#cb624-4" tabindex="-1"></a>                <span class="st">&quot;Favor&quot;</span> <span class="ot">=</span> <span class="st">&quot;2. Favor not strongly&quot;</span>,</span>
+<span id="cb624-5"><a href="ch12.html#cb624-5" tabindex="-1"></a>                <span class="st">&quot;Oppose&quot;</span> <span class="ot">=</span> <span class="st">&quot;3. Oppose not strongly&quot;</span>,</span>
+<span id="cb624-6"><a href="ch12.html#cb624-6" tabindex="-1"></a>                <span class="st">&quot;Oppose&quot;</span> <span class="ot">=</span> <span class="st">&quot;4. Oppose strongly&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb624-7"><a href="ch12.html#cb624-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">death_penalty =</span> <span class="fu">fct_rev</span>(death_penalty))</span></code></pre></div>
+<p>The <code>fct_rev()</code> function reverses the direction of the scale, so that <code>Oppose</code> is the first or lower category, followed by <code>Favor</code> as the second or higher category.</p>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="ch12.html#cb625-1" tabindex="-1"></a><span class="fu">str</span>(anes_20<span class="sc">$</span>death_penalty)</span></code></pre></div>
+<pre><code>##  Factor w/ 2 levels &quot;Oppose&quot;,&quot;Favor&quot;: 1 1 1 1 1 2 1 NA 2 1 ...</code></pre>
+<p>As a factor stored variable, <em>death_penalty</em>, has two levels “Oppose” and “Favor” associated with numeric scores 1 and 2, respectively. The function for estimating the logistic regression model, <code>glm()</code> , will identify as the reference category the factor labels first in alphabetical order. So in this case, because “F” precedes “O” in the alphabet, the function will model the probability of a respondent being in “Favor” of the death penalty, scored at the reference category.</p>
+<p>In preparing data, for any dependent variable, verify the factor levels are in the intended order. (The <code>relevel()</code> function could be used to set a specific reference category.) In estimating the model, the algorithm converts the factor variable to a numeric, with the reference category stored as <em>1</em> and the other category as <em>0</em>. To avoid the use of factor levels and potential confusion over reference categories, an alternative scaling is to convert the variable to a numeric, with two values 0 and 1. In this example, with contrasting “Oppose” at 0 and “Favor” at 1:</p>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="ch12.html#cb627-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb627-2"><a href="ch12.html#cb627-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">death_penalty =</span> <span class="fu">as.numeric</span>(death_penalty)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb627-3"><a href="ch12.html#cb627-3" tabindex="-1"></a></span>
+<span id="cb627-4"><a href="ch12.html#cb627-4" tabindex="-1"></a><span class="fu">str</span>(anes_20<span class="sc">$</span>death_penalty)</span></code></pre></div>
+<pre><code>##  num [1:4783] 0 0 0 0 0 1 0 NA 1 0 ...</code></pre>
+<p>We will model support or opposition to the death penalty as a function of</p>
+<ul>
+<li>age (in years),</li>
+<li>sex (dichotomous identity, 0 male and 1 female),</li>
+<li>racial identification (dichotomous categories, 0 for white non-Hispanic and 1 for all others),</li>
+<li>educational attainment (the 1 through 5 attainment scale).</li>
+</ul>
+<p>In this example, a researcher could estimate this model to examine how educational attainment (as the focal variable) shapes support for the death penalty, given a robust set of controls for other stable characteristics.</p>
+<p>We will contrast these results with an additional model controlling for religious affiliation (Roman Catholicism) and religious service attendance, along with the multiplicative interaction between the two. In this second model, our interest will be in investigating to what extent either of these aspects of religion affects death penalty support, along with their interaction — whether nominal Catholic identifiers have a different attitude toward the death penalty compared to frequent service-attending Catholics.</p>
+<p>For age, we create a new variable that copies the age in years from <em>V201507x</em>.</p>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="ch12.html#cb629-1" tabindex="-1"></a>anes_20<span class="sc">$</span>age<span class="ot">&lt;-</span>anes_20<span class="sc">$</span>V201507x</span></code></pre></div>
+<p>Creating the sex measure, for simplicity contrast <em>“2. Female”</em> with <em>“1. Male”</em>, by recoding to missing the respondents refusing to answer the question.</p>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="ch12.html#cb630-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span> anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb630-2"><a href="ch12.html#cb630-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">fct_recode</span>( V201600,</span>
+<span id="cb630-3"><a href="ch12.html#cb630-3" tabindex="-1"></a>              <span class="at">NULL =</span> <span class="st">&quot;-9. Refused&quot;</span>))</span></code></pre></div>
+<p>And create a measure contrasting whether a respondent selected <em>“White, non-Hispanic”</em> recorded as 0 or any other response as 1:</p>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="ch12.html#cb631-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb631-2"><a href="ch12.html#cb631-2" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">race_category=</span><span class="fu">fct_recode</span>(V201549x,</span>
+<span id="cb631-3"><a href="ch12.html#cb631-3" tabindex="-1"></a>                <span class="at">NULL=</span><span class="st">&quot;-9. Refused&quot;</span>,</span>
+<span id="cb631-4"><a href="ch12.html#cb631-4" tabindex="-1"></a>                <span class="at">NULL=</span><span class="st">&quot;-8. Don&#39;t know&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb631-5"><a href="ch12.html#cb631-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">race_minority =</span> <span class="fu">ifelse</span>(race_category <span class="sc">==</span></span>
+<span id="cb631-6"><a href="ch12.html#cb631-6" tabindex="-1"></a>                            <span class="st">&#39;1. White, non-Hispanic&#39;</span>, <span class="dv">0</span>, <span class="dv">1</span>)) </span></code></pre></div>
+<p>The <code>fct_recode()</code> function nulls out the refused and don’t know, followed by the <code>ifelse()</code> function, which creates a numeric variable. Both the factor variable <em>sex</em> and the numeric <em>race_category</em> are valid storage types for inclusion in the model as independent variables. For estimating the models either storage type (numeric or factor) is valid. It only affects the formatting of the results in the model output.</p>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="ch12.html#cb632-1" tabindex="-1"></a><span class="fu">str</span>(anes_20<span class="sc">$</span>race_minority)</span></code></pre></div>
+<pre><code>##  num [1:4783] 1 0 0 0 0 0 1 1 0 0 ...</code></pre>
+<p>Education remains the five-point scale, from “1. Less than high school credential” to “5. Graduate degree”. (Set the survey design and tabulate <em>education</em> to observe the proportions of the sample at each level.)</p>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="ch12.html#cb634-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb634-2"><a href="ch12.html#cb634-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">education =</span> V201511x) <span class="sc">%&gt;%</span></span>
+<span id="cb634-3"><a href="ch12.html#cb634-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">education =</span> <span class="fu">fct_recode</span>(education,</span>
+<span id="cb634-4"><a href="ch12.html#cb634-4" tabindex="-1"></a>                                <span class="at">NULL =</span> <span class="st">&quot;-9. Refused&quot;</span>,</span>
+<span id="cb634-5"><a href="ch12.html#cb634-5" tabindex="-1"></a>                                <span class="at">NULL =</span> <span class="st">&quot;-8. Don&#39;t know&quot;</span>))</span></code></pre></div>
+<p>Because we want to estimate a single (constant) slope across each level of education, the <em>education</em> variable must be stored or entered into the model as a numeric rather than factor (labeled) variable. Otherwise, as a factor, the model will treat the variable as nominal categories, estimating a separate slope for each education level, relative to a baseline. Rather than include a <code>as.numeric()</code> wrapper in the model function, we will convert education to a numeric storage type:</p>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="ch12.html#cb635-1" tabindex="-1"></a>anes_20<span class="sc">$</span>education<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(anes_20<span class="sc">$</span>education)</span></code></pre></div>
+<p>Check the storage (<code>str(anes_20$education)</code>) or tabulate the (unweighted) frequencies to observe the numeric storage categories, from 1 through 5.</p>
+</div>
+</div>
+<div id="estimating-the-binary-logistic-regression-model" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Estimating the binary logistic regression model<a href="ch12.html#estimating-the-binary-logistic-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To estimate the logistic regression model, the base R function is <code>glm()</code>. In relies upon the familiar formula based model specification, followed by the argument <code>family=quasibinomial(link="logit")</code> specifying the “logit” link function between the dependent and independent variables. Since the data are from a survey sample where observations must be weighted, weights are specified with a <code>weight=</code> argument. (Otherwise, the <code>weight=</code> argument is not needed.) The <code>glm()</code> function can account for the weighted observations in the ANES, but not the uncertainty accompanying the complex sampling design, which is reviewed with the <code>svyglm()</code> function from the <strong>survey</strong> package further below.</p>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="ch12.html#cb636-1" tabindex="-1"></a>model1<span class="ot">&lt;-</span><span class="fu">glm</span>(death_penalty <span class="sc">~</span> sex <span class="sc">+</span> age <span class="sc">+</span> education <span class="sc">+</span> race_minority, </span>
+<span id="cb636-2"><a href="ch12.html#cb636-2" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>), </span>
+<span id="cb636-3"><a href="ch12.html#cb636-3" tabindex="-1"></a>            <span class="at">data=</span>anes_20, <span class="at">weight=</span>V200015b)</span>
+<span id="cb636-4"><a href="ch12.html#cb636-4" tabindex="-1"></a></span>
+<span id="cb636-5"><a href="ch12.html#cb636-5" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = death_penalty ~ sex + age + education + race_minority, 
+##     family = binomial(link = &quot;logit&quot;), data = anes_20, weights = V200015b)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -4.579  -0.948   0.532   0.903   2.765  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    1.66159    0.13813   12.03  &lt; 2e-16 ***
+## sex2. Female  -0.21467    0.06414   -3.35  0.00082 ***
+## age            0.00571    0.00188    3.03  0.00242 ** 
+## education     -0.34993    0.02877  -12.16  &lt; 2e-16 ***
+## race_minority -0.58360    0.06837   -8.54  &lt; 2e-16 ***
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 5821.4  on 4396  degrees of freedom
+## Residual deviance: 5589.0  on 4392  degrees of freedom
+##   (386 observations deleted due to missingness)
+## AIC: 5458
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div id="interpreting-the-logistic-regression-model-summary" class="section level3 unnumbered hasAnchor">
+<h3>Interpreting the logistic regression model summary<a href="ch12.html#interpreting-the-logistic-regression-model-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The summary of the model (<code>summary(model1)</code>) resembles the summary output for <code>lm()</code>, read row-wise, although with a few differences. The coefficient estimates appear under <code>Estimate</code>, next to the standard error. The ratio of <code>Estimate</code> divided by <code>Std. Error</code> yields a z score, the <code>z value</code>. The <code>z value</code> corresponds to the probability under <code>Pr(&gt;|z|)</code>, the p-value measure of statistical significance of each entry from <code>Estimate</code>.</p>
+<p>A smaller p-value indicates a smaller probability of having observed in the sample an <code>Estimate</code> at least as large as the observed value, if the null hypothesis of no population level relationship is true. Using a conventional p-value of .05 to decide whether there is sufficient evidence within the sample to reject the null hypothesis, we would conclude based on the <code>Signif. codes</code> that sex, age, education, and race of the survey respondent are all statistically significant factors shaping their attitudes toward the death penalty. The signs on the slopes under <code>Estimate</code> indicate that being female, a member of a racial minority, and higher educational attainment are associated with opposition to the death penalty, while being older is associated with support.</p>
+<p>Interpreting the magnitude of each slope coefficient, however, is not as straightforward as with the linear regression models reviewed in Chapters <a href="ch10.html#ch10">10</a> and <a href="ch11.html#ch11">11</a>. Each entry under <code>Estimate</code> is on a scale of log-odds, that is the natural logarithm of the odds of supporting the death penalty. For example, the coefficient for sex (<em>sex2. Female</em>) is -0.21467. The negative sign indicates that being female is associated with a decrease in the log-odds of supporting the death penalty relative to being male.</p>
+<p>In logistic regression, each coefficient represents the change in log-odds of the outcome associated with a one-unit increase in each corresponding independent variable. Equivalently, if we exponentiate the coefficient, it yields an odds ratio, which reflects the multiplicative change in the odds of the outcome. In this example, the coefficient compares females to males, and the exponentiated value represents the odds ratio of supporting the death penalty for females compared to males. A ‘log-odds’ scale is not an intuitively meaningful metric. So prior to interpretation, usually the estimates are transformed to odds ratios by exponentiation (i.e., applying the inverse of the natural logarithm). This transformation yields odds ratios, which are typically easier to interpret.</p>
+<p>Odds are central to interpreting coefficients in a logistic regression model. Exponentiating each coefficient using <code>exp()</code> removes the log transformation and yields a more interpretable quantity: the odds ratio associated with a one-unit increase in the independent variable (holding other variables constant).</p>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="ch12.html#cb638-1" tabindex="-1"></a><span class="fu">exp</span>(model1<span class="sc">$</span>coefficients)  </span></code></pre></div>
+<pre><code>##   (Intercept)  sex2. Female           age 
+##        5.2677        0.8068        1.0057 
+##     education race_minority 
+##        0.7047        0.5579</code></pre>
+<p>Just like the linear regression models of Chapters <a href="ch10.html#ch10">10</a> and <a href="ch11.html#ch11">11</a>, the intercept in a logistic regression model represents the expected value of the outcome when all independent variables are set to zero. Interpretation depends on whether those zero values are meaningful.</p>
+<p>In <em>model1</em>, the intercept estimate is 1.66, which is on the log-odds scale. Exponentiating this value <code>exp(1.66159)</code>, results in 5.2677, which would mean the odds of supporting the death penalty are approximately 5.26 to 1 for a respondent who is male (<em>sex</em> = 0), non-Hispanic White (<em>race_minority</em> = 0), and has values of zero on both <em>education</em> and <em>age</em>. The last two characteristics are out-of-sample or illogical, so the intercept is not meaningful to interpret.</p>
+<p>For <em>sex2. Female</em> the exponentiated coefficient is .8068: the odds of supporting the death penalty for females are 0.8068 times the odds for males, holding other factors (education, racial minority status) constant. Note the comparison between the two categories of the <em>sex</em> variable; .8068 is an odds ratio, comparing the odds for females to the odds for males. Because the odds ratio is less than 1, it indicates that females have lower odds of supporting the death penalty relative to males. Proportional or percentage difference helps to clarify this gap in odds. Substracting the odds ratio from 1 and multiplying by 100 yields the percentage change in odds from males to females: <span class="math inline">\((1  - .8068) \times 100=19.32\)</span> percent. The odds of supporting the death penalty are 19.32% lower for females than for males, controlling for the other covariates in the model.</p>
+<p>For <em>age</em> the exponentiated coefficient is 1.0057, or just barely above 1. In the model summary, the coefficient is just slightly above 0. While statistically significant, the <code>Estimate</code> and exponentiated coefficient indicate that a one-year increase in age is associated with only a small increase in the odds of supporting the death penalty, controlling for other factors. A slope of 0 in the log-odds corresponds to an odds ratio of 1, meaning no change in odds. The coefficient on <em>age</em> is not exactly zero, showing there is a slight positive association between age and support for the death penalty. In percentage change terms <span class="math inline">\((1.0057−1) \times 100 = .57\)</span>percent, meaning that the odds of supporting the death penalty increase by approximately .57 percent for each additional year of age. While the model treats age as a continuous linear predictor, it is possible that the relationship between age and support for the death penalty is nonlinear — increasing, then at a certain age decreasing. To explore this possibility age could be grouped into age categories and modeled with reference to an older or younger age group.</p>
+<p>For <em>as.numeric(education)</em> the exponentiated coefficient is 0.7047. Each additional unit increase on the education scale is associated with a decrease in the odds of supporting the death penalty by a factor of about 0.7047, holding other factors constant. Because the odds ratio is less than 1, higher levels of education are associated with lower odds of support. As a percentage change, we subtract the odds ratio from 1 and multiply by 100: <span class="math inline">\((1 - 0.7407) \times 100 = 29.53\)</span> percent.
+Each unit increase in the education scale is associated with an approximate 29.5% decrease in the odds of supporting the death penalty, relative to the previous level of education.</p>
+<p>For <em>race_minority</em> the exponentiated coefficient is 0.5579. Being a member of a racial or ethnic minority is associated with 0.5579 times the odds of supporting the death penalty compared to being non-Hispanic white, holding other factors constant. Because the odds ratio is less than 1, minority respondents have lower odds of supporting the death penalty relative to non-Hispanic Whites. The percentage decrease in odds is <span class="math inline">\((1-.5579) \times 100 = 44.2\)</span> percent. All else equal, the odds of supporting the death penalty are approximately 44.2% lower for members of racial or ethnic minority groups than for non-Hispanic Whites.</p>
+<p>Using the <code>confint()</code> function, we can generate 95 percent confidence intervals for the model coefficients. The confidence intervals are regenerated rather than calculated directly on the existing model standard errors, so we apply the function to the model object:</p>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="ch12.html#cb640-1" tabindex="-1"></a><span class="fu">confint</span>(model1)</span></code></pre></div>
+<pre><code>##                   2.5 %    97.5 %
+## (Intercept)    1.392267  1.933840
+## sex2. Female  -0.340497 -0.089034
+## age            0.002025  0.009411
+## education     -0.406541 -0.293761
+## race_minority -0.717751 -0.449725</code></pre>
+<p>The output displays the lower and upper bounds for each coefficient on the log-odds scale. For example, the 95% confidence interval for <code>sex2. Female</code> is (-0.3405, -0.0890). The interval lies entirely below zero, reflecting the fact that the coefficient is statistically significant. To interpret the confidence interval on the odds ratio scale, we exponentiate the lower and upper bounds: <span class="math inline">\(exp(-.3405) = .7114\)</span> and <span class="math inline">\(exp(-.0890) = .9148\)</span>. In percentage change terms, the population odds of supporting the death penalty for females are between 29% and 8.5% lower than for males, holding other factors constant.</p>
+</div>
+<div id="estimating-the-model-with-the-complex-survey-design" class="section level3 unnumbered hasAnchor">
+<h3>Estimating the model with the complex survey design<a href="ch12.html#estimating-the-model-with-the-complex-survey-design" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Compare the estimates (and confidence intervals) from <em>model1</em> to the logistic regression estimates accounting for the complex survey design. Since we created additional variables, we need to re-specify the complex survey design:</p>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="ch12.html#cb642-1" tabindex="-1"></a>anes_design<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">ids =</span> <span class="sc">~</span>V200015c,</span>
+<span id="cb642-2"><a href="ch12.html#cb642-2" tabindex="-1"></a>                    <span class="at">strata=</span><span class="sc">~</span>V200015d,</span>
+<span id="cb642-3"><a href="ch12.html#cb642-3" tabindex="-1"></a>                    <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The model function to incorporate the survey design is simply <code>svyglm()</code>, with the same arguments.</p>
+<p>Saving model results as <em>model2</em>:</p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="ch12.html#cb643-1" tabindex="-1"></a>model2<span class="ot">&lt;-</span><span class="fu">svyglm</span>(death_penalty <span class="sc">~</span> sex <span class="sc">+</span> age<span class="sc">+</span> education <span class="sc">+</span> race_minority, </span>
+<span id="cb643-2"><a href="ch12.html#cb643-2" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">quasibinomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>), </span>
+<span id="cb643-3"><a href="ch12.html#cb643-3" tabindex="-1"></a>               <span class="at">design=</span>anes_design)</span>
+<span id="cb643-4"><a href="ch12.html#cb643-4" tabindex="-1"></a></span>
+<span id="cb643-5"><a href="ch12.html#cb643-5" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = death_penalty ~ sex + age + education + race_minority, 
+##     design = anes_design, family = quasibinomial(link = &quot;logit&quot;))
+## 
+## Survey design:
+## svydesign(data = anes_20, ids = ~V200015c, strata = ~V200015d, 
+##     weights = ~V200015b, nest = TRUE)
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    1.66159    0.19315    8.60  3.9e-11 ***
+## sex2. Female  -0.21467    0.09703   -2.21    0.032 *  
+## age            0.00571    0.00230    2.49    0.017 *  
+## education     -0.34993    0.04283   -8.17  1.7e-10 ***
+## race_minority -0.58360    0.09621   -6.07  2.3e-07 ***
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasibinomial family taken to be 1.004)
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Notice the coefficient estimates in <em>model2</em> are identical to those in <em>model1</em>, because the estimates are based on the same underlying sample. The standard errors, however, are larger given the adjustments for the greater uncertainty of the complex sample. Despite the larger standard errors, the coefficients for sex and age remain statistically significant at the conventional 0.05 level. Still, note how the p-values and standard errors increase when the survey design is correctly specified. As in the linear model examples from earlier chapters, these results demonstrate the importance of incorporating the complex survey design where applicable.</p>
+</div>
+</div>
+<div id="generating-model-based-predicted-probabilities" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> Generating model-based predicted probabilities<a href="ch12.html#generating-model-based-predicted-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Researchers may prefer probabilities, rather than odds ratios, to present and interpret model estimates. The probabilities, on the outcome (1) of the dependent variable, are calculated on particular combination of values on the independent variables, in tabular or graphical form. For example, given <em>model2</em>, perhaps what would be of interest are the probabilities of males and females (non-racial minority status) as education varies from lowest to highest. Below we will calculate these probabilities via the <code>predict()</code> function and graphing the probabilities in <strong>ggplot2</strong>. There are, of course, several packages that will calculate and visualize predicted probabilities more automatically, which are reviewed briefly.</p>
+<p>One method to calculate probabilities is to first specify a table of covariate (independent variable) values as the basis for generating the predicted probabilities:</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="ch12.html#cb645-1" tabindex="-1"></a>predictiondata<span class="ot">&lt;-</span><span class="fu">tribble</span>(</span>
+<span id="cb645-2"><a href="ch12.html#cb645-2" tabindex="-1"></a><span class="sc">~</span>education, <span class="sc">~</span>sex, <span class="sc">~</span>race_minority, <span class="sc">~</span>age,</span>
+<span id="cb645-3"><a href="ch12.html#cb645-3" tabindex="-1"></a><span class="dv">1</span>, <span class="st">&quot;2. Female&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb645-4"><a href="ch12.html#cb645-4" tabindex="-1"></a><span class="dv">2</span>, <span class="st">&quot;2. Female&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb645-5"><a href="ch12.html#cb645-5" tabindex="-1"></a><span class="dv">3</span>, <span class="st">&quot;2. Female&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb645-6"><a href="ch12.html#cb645-6" tabindex="-1"></a><span class="dv">4</span>, <span class="st">&quot;2. Female&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb645-7"><a href="ch12.html#cb645-7" tabindex="-1"></a><span class="dv">5</span>, <span class="st">&quot;2. Female&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>)</span></code></pre></div>
+<p>The <em>predictiondata</em> is a data table created by the <code>tribble()</code> function. The first line displays the names of the three independent variables specified within <em>model2</em>. Notice that although we entered <em>education</em> into the <code>svyglm()</code> function as <code>as.numeric(education)</code>, for creating the predicted probabilities the name of the dataset variable is sufficient. The subsequent five lines, however, display the combination of values on the covariates as entered in the model – starting with females scored as “2. Female” in the <em>sex</em> variable, and varying over levels of education recorded numerically, from 1 to 5, and a 0 for non racial minority status.</p>
+<p>We use the <code>predict()</code> function to generate the predicted probabilities. Note that the argument <code>type="response"</code> is necessary; without it, <code>predict()</code> will generate predictions on the logistic regression model log-odds scale.</p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="ch12.html#cb646-1" tabindex="-1"></a><span class="fu">predict</span>(model2, predictiondata, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##   response   SE
+## 1    0.797 0.02
+## 2    0.735 0.02
+## 3    0.661 0.01
+## 4    0.579 0.02
+## 5    0.492 0.02</code></pre>
+<p>The predicted probability appears under the heading <em>response</em>. Each row corresponds to the prediction for an average person with the characteristics in the <em>predictiondata</em> table. For example, the first row (coincidentally labelled <em>1</em> for the lowest score on the education variable) shows a predicted probability of .802 for White, non-Hispanic females with less than a high school diploma. Each additional row shows the corresponding probability as educational attainment increases to <em>5</em>, a graduate degree. Among White, non-Hispanic females with a graduate (post four year university) degree the probability of supporting the death penalty is ‘50-50’, or .501. Next to the probabilities under the heading <em>SE</em> is the standard error for each probability.</p>
+<p>An equivalent set of predictions for men would begin with another table of values on the covariates:</p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="ch12.html#cb648-1" tabindex="-1"></a>predictiondata2<span class="ot">&lt;-</span><span class="fu">tribble</span>(</span>
+<span id="cb648-2"><a href="ch12.html#cb648-2" tabindex="-1"></a><span class="sc">~</span>education, <span class="sc">~</span>sex, <span class="sc">~</span>race_minority, <span class="sc">~</span>age,</span>
+<span id="cb648-3"><a href="ch12.html#cb648-3" tabindex="-1"></a><span class="dv">1</span>, <span class="st">&quot;1. Male&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb648-4"><a href="ch12.html#cb648-4" tabindex="-1"></a><span class="dv">2</span>, <span class="st">&quot;1. Male&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb648-5"><a href="ch12.html#cb648-5" tabindex="-1"></a><span class="dv">3</span>, <span class="st">&quot;1. Male&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb648-6"><a href="ch12.html#cb648-6" tabindex="-1"></a><span class="dv">4</span>, <span class="st">&quot;1. Male&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span>,</span>
+<span id="cb648-7"><a href="ch12.html#cb648-7" tabindex="-1"></a><span class="dv">5</span>, <span class="st">&quot;1. Male&quot;</span>, <span class="dv">0</span>, <span class="fl">47.5</span> )</span></code></pre></div>
+<p>Followed by</p>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="ch12.html#cb649-1" tabindex="-1"></a><span class="fu">predict</span>(model2, predictiondata2, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##   response   SE
+## 1    0.830 0.02
+## 2    0.774 0.02
+## 3    0.707 0.02
+## 4    0.630 0.02
+## 5    0.546 0.02</code></pre>
+<p>Researchers often present tables of probabilities such as these, and given sampling uncertainty, accompanied by 95 percent confidence intervals. To add confidence intervals, store each of the predictions as an object. Predictions for males will be stored as <em>preds_m</em>, and for females <em>preds_f</em>:</p>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="ch12.html#cb651-1" tabindex="-1"></a>preds_m<span class="ot">&lt;-</span><span class="fu">predict</span>(model2, predictiondata, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb651-2"><a href="ch12.html#cb651-2" tabindex="-1"></a>preds_f<span class="ot">&lt;-</span><span class="fu">predict</span>(model2, predictiondata2, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<p>Converting each to a dataframe:</p>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="ch12.html#cb652-1" tabindex="-1"></a>preds_m<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(preds_m)</span>
+<span id="cb652-2"><a href="ch12.html#cb652-2" tabindex="-1"></a>preds_f<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(preds_f)</span></code></pre></div>
+<p>Then we use specific columns from the dataframe to create the confidence intervals.</p>
+<p>Storing the probabilities for males in an object <em>predm</em>:</p>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="ch12.html#cb653-1" tabindex="-1"></a>predm <span class="ot">&lt;-</span> preds_m<span class="sc">$</span>response</span></code></pre></div>
+<p>Then creating the lower and upper bounds for a 95 percent confidence interval on the predicted probability:</p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="ch12.html#cb654-1" tabindex="-1"></a>lowerm <span class="ot">&lt;-</span> preds_m<span class="sc">$</span>response <span class="sc">-</span> (<span class="fl">1.96</span><span class="sc">*</span>preds_m<span class="sc">$</span>SE) </span>
+<span id="cb654-2"><a href="ch12.html#cb654-2" tabindex="-1"></a>upperm <span class="ot">&lt;-</span> preds_m<span class="sc">$</span>response <span class="sc">+</span> (<span class="fl">1.96</span><span class="sc">*</span>preds_m<span class="sc">$</span>SE) </span></code></pre></div>
+<p>Then repeating these steps for females:</p>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="ch12.html#cb655-1" tabindex="-1"></a>predf<span class="ot">&lt;-</span>preds_f<span class="sc">$</span>response</span>
+<span id="cb655-2"><a href="ch12.html#cb655-2" tabindex="-1"></a>lowerf <span class="ot">&lt;-</span> preds_f<span class="sc">$</span>response <span class="sc">-</span> (<span class="fl">1.96</span><span class="sc">*</span>preds_f<span class="sc">$</span>SE)  </span>
+<span id="cb655-3"><a href="ch12.html#cb655-3" tabindex="-1"></a>upperf <span class="ot">&lt;-</span> preds_f<span class="sc">$</span>response <span class="sc">+</span> (<span class="fl">1.96</span><span class="sc">*</span>preds_f<span class="sc">$</span>SE)  </span></code></pre></div>
+<p>The predicted probabilities form a probability ‘profile’, probabilities for individuals with specific characteristics. Often these probabilities, along with confidence intervals, are presented in tabular form. Of course, we can graph the predicted probabilities and confidence intervals. We need to create a dataset for visualization, the predicted probabilities and boundaries for the confidence intervals. We could create the dataset as a tribble, or pull the data directly from the different objects with the <code>data.frame()</code> function:</p>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="ch12.html#cb656-1" tabindex="-1"></a>logit_male_predictions<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
+<span id="cb656-2"><a href="ch12.html#cb656-2" tabindex="-1"></a><span class="at">education =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb656-3"><a href="ch12.html#cb656-3" tabindex="-1"></a><span class="at">predicted=</span>predm,</span>
+<span id="cb656-4"><a href="ch12.html#cb656-4" tabindex="-1"></a><span class="at">lower=</span>lowerm,</span>
+<span id="cb656-5"><a href="ch12.html#cb656-5" tabindex="-1"></a><span class="at">upper=</span>upperm</span>
+<span id="cb656-6"><a href="ch12.html#cb656-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="ch12.html#cb657-1" tabindex="-1"></a>logit_male_predictions</span></code></pre></div>
+<pre><code>##   education predicted  lower  upper
+## 1         1    0.7971 0.7581 0.8362
+## 2         2    0.7347 0.7008 0.7686
+## 3         3    0.6612 0.6326 0.6897
+## 4         4    0.5790 0.5478 0.6102
+## 5         5    0.4922 0.4485 0.5359</code></pre>
+<p>This <em>logit_male_predictions</em> could be the basis of a table, or a graph across each series across the range of education levels. Figure <a href="ch12.html#fig:logitmdp">12.2</a> displays the predicted probability of supporting the death penalty.</p>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="ch12.html#cb659-1" tabindex="-1"></a><span class="fu">ggplot</span>(logit_male_predictions, <span class="fu">aes</span>(<span class="at">x =</span> education, <span class="at">y =</span> predicted)) <span class="sc">+</span></span>
+<span id="cb659-2"><a href="ch12.html#cb659-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb659-3"><a href="ch12.html#cb659-3" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), </span>
+<span id="cb659-4"><a href="ch12.html#cb659-4" tabindex="-1"></a>                <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb659-5"><a href="ch12.html#cb659-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education (1 less than high school, 5 graduate degree)&quot;</span>,</span>
+<span id="cb659-6"><a href="ch12.html#cb659-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probability of supporting the death penalty&quot;</span>,</span>
+<span id="cb659-7"><a href="ch12.html#cb659-7" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">&quot;&#39;white non-hispanic&#39; male respondents&quot;</span>) <span class="sc">+</span></span>
+<span id="cb659-8"><a href="ch12.html#cb659-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb659-9"><a href="ch12.html#cb659-9" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">+</span>   </span>
+<span id="cb659-10"><a href="ch12.html#cb659-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:logitmdp"></span>
+<img src="bookdown_files/figure-html/logitmdp-1.png" alt="Predicted probability of supporting the death penalty across levels of education for White, non-Hispanic male respondents, with 95 percent confidence intervals." width="672" />
+<p class="caption">
+FIGURE 12.2: Predicted probability of supporting the death penalty across levels of education for White, non-Hispanic male respondents, with 95 percent confidence intervals.
+</p>
+</div>
+<p>Graphing female and male respondents together requires creating the probabilities dataset in long format. The values for female respondents should be added, or row bound, to the male respondents, with an additional variable to record sex.</p>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="ch12.html#cb660-1" tabindex="-1"></a>logit_male_predictions<span class="ot">&lt;-</span>logit_male_predictions <span class="sc">%&gt;%</span></span>
+<span id="cb660-2"><a href="ch12.html#cb660-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex=</span><span class="st">&quot;male&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="ch12.html#cb661-1" tabindex="-1"></a>logit_female_predictions<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">education =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="at">predicted=</span>predf,</span>
+<span id="cb661-2"><a href="ch12.html#cb661-2" tabindex="-1"></a>      <span class="at">lower=</span>lowerf, <span class="at">upper=</span>upperf, <span class="at">sex=</span><span class="st">&quot;female&quot;</span>)</span></code></pre></div>
+<p>Using <code>rbind()</code> to bind the rows for female respondents below males.</p>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="ch12.html#cb662-1" tabindex="-1"></a>logit_predictions<span class="ot">&lt;-</span> <span class="fu">rbind</span>(logit_male_predictions, </span>
+<span id="cb662-2"><a href="ch12.html#cb662-2" tabindex="-1"></a>                          logit_female_predictions)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="ch12.html#cb663-1" tabindex="-1"></a>logit_predictions</span></code></pre></div>
+<pre><code>##    education predicted  lower  upper    sex
+## 1          1    0.7971 0.7581 0.8362   male
+## 2          2    0.7347 0.7008 0.7686   male
+## 3          3    0.6612 0.6326 0.6897   male
+## 4          4    0.5790 0.5478 0.6102   male
+## 5          5    0.4922 0.4485 0.5359   male
+## 6          1    0.8296 0.7919 0.8674 female
+## 7          2    0.7744 0.7397 0.8090 female
+## 8          3    0.7075 0.6772 0.7378 female
+## 9          4    0.6303 0.5992 0.6613 female
+## 10         5    0.5457 0.5042 0.5873 female</code></pre>
+<p>Then plotting the data from <em>logit_predictions</em> in Figure <a href="ch12.html#fig:logitpredictions">12.3</a>:</p>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="ch12.html#cb665-1" tabindex="-1"></a><span class="fu">ggplot</span>(logit_predictions, ) <span class="sc">+</span></span>
+<span id="cb665-2"><a href="ch12.html#cb665-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> education, <span class="at">y =</span> predicted, <span class="at">color =</span> sex), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb665-3"><a href="ch12.html#cb665-3" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x =</span> education, <span class="at">y =</span> predicted, <span class="at">color =</span> sex, </span>
+<span id="cb665-4"><a href="ch12.html#cb665-4" tabindex="-1"></a>                    <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb665-5"><a href="ch12.html#cb665-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education Level&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
+<span id="cb665-6"><a href="ch12.html#cb665-6" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Sex&quot;</span>) <span class="sc">+</span></span>
+<span id="cb665-7"><a href="ch12.html#cb665-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb665-8"><a href="ch12.html#cb665-8" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb665-9"><a href="ch12.html#cb665-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:logitpredictions"></span>
+<img src="bookdown_files/figure-html/logitpredictions-1.png" alt="Predicted probabilities of supporting the death penalty by sex and educational attainment (White, non-Hispanic), from less than high school (1) to graduate degree (5). The error bars (95 percent confidence intervals) overlap, displaying the lack of statistically significant difference between sexes at each level of educational attainment." width="672" />
+<p class="caption">
+FIGURE 12.3: Predicted probabilities of supporting the death penalty by sex and educational attainment (White, non-Hispanic), from less than high school (1) to graduate degree (5). The error bars (95 percent confidence intervals) overlap, displaying the lack of statistically significant difference between sexes at each level of educational attainment.
+</p>
+</div>
+<p>Plotting sex across education implies interest in testing an interaction between sex and educational attainment in support for the death penalty. The inclusion and graphing of multiplicative interaction terms (such as <em>sex</em> multiplied by <em>education</em>) is discussed further below.</p>
+<div id="quick-package-functions-for-model-based-predictions" class="section level3 unnumbered hasAnchor">
+<h3>Quick package functions for model-based predictions<a href="ch12.html#quick-package-functions-for-model-based-predictions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Of course, several packages will automatically create tables and figures of odds ratios and probabilities. The Resources section at the end of the chapter mentions a few. The core function in the <strong>effects</strong> <span class="citation">(<a href="#ref-R-effects">Fox et al. 2022</a>)</span>package creates a graphic of predicted probabilities across levels of predictors. In the <strong>effects</strong> package, the function <code>predictorEffects()</code> will plot a panel of graphics displaying predicted probabilities.</p>
+<p>With the name of the model object as the sole argument, we wrap this function inside <code>print()</code>:</p>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="ch12.html#cb666-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predictorEffects</span>(model2))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:predictoreffects"></span>
+<img src="bookdown_files/figure-html/predictoreffects-1.png" alt="Panel of predicted probabilities from the \textbf{effects} package. The \texttt{predictorEffects()} function creates a graphic displaying predicted probabilities across each range of each independent variable.  For each panel, all other independent variables are held at a mean (for numeric) or reference category (for factor) variables." width="672" />
+<p class="caption">
+FIGURE 12.4: Panel of predicted probabilities from the package. The function creates a graphic displaying predicted probabilities across each range of each independent variable. For each panel, all other independent variables are held at a mean (for numeric) or reference category (for factor) variables.
+</p>
+</div>
+<p>The result is a default graphic of predicted probabilities and confidence intervals across the range of all predictors included in the model. Typically researchers will create such graphics for focal predictors, rather than across all covariates. For example, if testing a hypothesis that death penalty support decreases as educational attainment increases, with education as the focal predictor it would be preferable to examine predicted probabilities over the range of education. The <code>Effect()</code> function will calculate the predicted probabilities and confidence intervals. For example, to print a set of predicted probabilities for education, the function would be <code>print(Effect("education", model2))</code>.<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a></p>
+<p>Another package for interpreting model summaries is <strong>jtools</strong>. The <code>effect_plot()</code> function in <strong>jtools</strong> for a logistic regression will plot predicted probabilities across levels of a predictor. For example, to plot predicted probabilities given age: <code>effect_plot(model1, pred = age, interval=TRUE)</code>.</p>
+</div>
+</div>
+<div id="assessing-model-fit" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> Assessing model fit<a href="ch12.html#assessing-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Assessment of model fit for a binary logistic regression, like the OLS models of Chapters <a href="ch10.html#ch10">10</a> and <a href="ch11.html#ch11">11</a>, is measured both in absolute terms and relative to a nested model. Just as in those chapters, it is complicated by a survey analysis function such as <code>svyglm()</code>. The specific fit statistics, however, while conceptually related, are distinctly different in calculation.</p>
+<p>In the model printout, above the parameter estimates under the heading “Coefficients”, are quantities labeled “Deviance Residuals”. Just like the residuals in an OLS regression, these residuals are used to assess model fit and examine whether the assumptions underlying the model are reasonable. These residuals, sometimes simply referred to as “Deviance”, are analogous to the residual sum of squares (or error sum of squares) in the OLS regression model.</p>
+<p>Before explaining Deviance and the relationship to model fit, we must first briefly touch upon a statistical theory and method, Maximum Likelihood Estimation (MLE). The logistic regression models are estimated through an algorithm that powers the <code>glm()</code> function. The algorithm is iterative, like the algorithm for scaling analyses in Chapters <a href="ch7.html#ch7">7</a> and <a href="ch8.html#ch8">8</a>, but different in one crucial respect. The algorithm that powers the <code>glm()</code> function is based upon MLE. The subject of MLE is complex and beyond the scope of this textbook. (See Fox and Weinberg <span class="citation">(<a href="#ref-fox2011">2011</a>)</span>.) An intuition behind the idea of MLE in the context of generalized linear models is sufficient to apply logistic and other models to data.</p>
+<p>In brief, MLE is a statistical criterion used to find the parameter estimates in the model. A likelihood is simply the idea of measuring how typical or probable an observation is given a sample, or how typical a particular sample is given a population. In the context of a logistic regression model, the MLE algorithm queries how likely an individual is to have a particular value on a dependent variable Y (such as supporting or opposing the death penalty), given the values of the independent variables (e.g., gender, age) and the estimated model parameters (the slopes and y-intercept). Basically, the MLE solution provides the model estimates that are most consistent with the observed data.</p>
+<p>The MLE algorithm operates iteratively, step by step, attempting to find the best solution based on a ‘convergence criterion’ — a standard for evaluating whether a different solution would be better than the previous one. When the algorithm stops, the MLE results are said to have ‘converged’ on a solution. However, this process can sometimes fail to work, leading to ‘convergence failure’, due to errors in the data, multicollinearity among predictors, or even the problem of “separability” in which at least one predictor is too neatly correlated with the dependent variable. For a more detailed explanation of model estimation and potential pitfalls to estimation, see Long <span class="citation">(<a href="#ref-long1997">1997</a>)</span>.</p>
+<p>The starting point for assessing model fit begins with the quantity used to evaluate the MLE solution, the measured value of this maximum likelihood algorithm itself. Every model, once the algorithm has converged on a solution, has a maximum likelihood (ML) value. Comparing these values to MLs under different model specifications is one way to measure fit. And it involves a second quantity, termed “deviance”, to assess model fit to the data.</p>
+<p>Information about deviance appears in the model printouts, as in <code>summary(model1)</code>. The deviance is somewhat analogous to sums of squares that appear in an OLS regression model printout. Deviances can be measured for individual observations used to estimate a model, or the deviances can be combined to calculate an overall summary deviance measure for the model. It is used to quantify fit in generalized linear models such as logistic regression. Like a comparison of sums of squares, such as a ratio comparing residual to total sums of squares to construct an <span class="math inline">\(r^2\)</span> model fit statistic in OLS regression, the Deviance is often interpreted in ratio form as well.(For a more in-depth explanation of deviance and ML values, see Fox and Weisberg <span class="citation">(<a href="#ref-fox2019">2019</a>)</span>.)</p>
+<p>Let us start with the deviance reported in <code>summary(model1)</code>. The “Null deviance” is a sort of baseline deviance, the deviance corresponding to a measure with no independent variables (no predictors) at all. Any model with predictors (such as <em>model1</em>) can be compared against it, to observe if the model improves upon the null deviance. The “Residual deviance” refers to the deviance score for the estimated model, in this case for <em>model1</em> the model with four independent variables. If the deviance for this model is significantly lower than the deviance for the null model — analogous to the idea of having smaller residuals in one model compared to another — then the fuller model fits the data better than the null model, or the model nested within it. For a more technical explanation of deviance calculations and comparisons, see Long <span class="citation">(<a href="#ref-long1997">J. S. Long 1997</a>)</span>.</p>
+<p>The summary of the model reports a “Null deviance” of 5821.4 “on 4396 degrees of freedom”. The ‘degrees of freedom’ are equal to the effective number of observations <span class="math inline">\(N\)</span> minus <span class="math inline">\(k\)</span> parameters. The null model parameter is 1 (for the intercept), so the degrees of freedom are <span class="math inline">\(N-1\)</span>. The “Residual deviance” of 5589 on <span class="math inline">\(N-5\)</span> degrees of freedom (accounting for four slopes and the intercept). To what extent is the smaller Residual deviance enough of an improvement that we can conclude the proposed model fits the data better than the null model? The likelihood ratio test (LRT) is used to compare the goodness of fit of two nested models, in this case comparing a null to the proposed (fitted) model.</p>
+<div id="comparing-a-fitted-to-a-null-model" class="section level3 unnumbered hasAnchor">
+<h3>Comparing a fitted to a null model<a href="ch12.html#comparing-a-fitted-to-a-null-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Do the estimated slopes have any ‘value added’ to the model? The two deviances can be compared in a test statistic, often abbreviated as <span class="math inline">\(G\)</span> for a ‘goodness of fit’ test <span class="citation">(<a href="#ref-cohen2003">Cohen et al. 2003</a>)</span>. The test, under the null hypothesis of no improvement in the fitted model compared to the null model, is distributed as chi-squared (<span class="math inline">\(\chi^2\)</span>) with degrees of freedom equal to the number of <span class="math inline">\(k\)</span> predictors in the fitted model (or alternatively the difference in degrees of freedom between fitted and null deviances). The test statistic is the difference <span class="math inline">\(G = Null\ deviance - Residual\ deviance\)</span>. A larger value of <span class="math inline">\(G\)</span> provides evidence that the fitted model offers a better fit than the null model.</p>
+<p>It is important to keep in mind that complex survey designs — as opposed to data collected through a simple random sample — can complicate the exact calculation of the test statistic. Nonetheless, for a general model comparison, we can still calculate an approximate goodness-of-fit test using the <span class="math inline">\(\chi^2\)</span> <code>pchisq()</code> function in <strong>R</strong>. We begin by calculating the test statistic: <span class="math inline">\(G=\)</span> Null deviance - Residual deviance <span class="math inline">\(=5821.4−5589.0 = 232.4\)</span>.</p>
+<p>The degrees of freedom correspond to the number of additional parameters in the fitted model, or equivalently, the difference in degrees of freedom between the null and residual models:</p>
+<p><span class="math display">\[df=df_{\text{null}} - df_{\text{residual}} =  4396−4392=4\]</span>
+We then compute the p-value associated with the test statistic through the <code>pchisq()</code> function, which returns the cumulative probability up to a specified value under the <span class="math inline">\(\chi^2\)</span> distribution.</p>
+<p>Since we want the upper-tail probability (the area beyond our observed <span class="math inline">\(G\)</span> value), we subtract this value from 1: <code>1 - pchisq(232.4, 4)</code>. Running this line will return a p-value of zero, a quantity too small for the standard precision limits in <strong>R</strong>. The extremely low p-value, given any reasonable threshold such as (<span class="math inline">\(p &lt; .05\)</span> or <span class="math inline">\(p &lt; .01\)</span>), leads to the rejection of the null hypothesis of no difference in model fit between the null and fitted model. In short, the inclusion of the predictors significantly improves model fit, even under this conservative test.</p>
+<p>Base <strong>R</strong> functions and various packages perform model comparison tests automatically, and in some cases, apply adjustments for the survey design. For example, applying the <code>anova()</code> function to the fitted model and null (intercept only model) yields the results of a more specific, design-adjusted test comparing the two model likelihoods <span class="citation">(<a href="#ref-fox2011">Fox and Weisberg 2011</a>)</span>. First we estimate the null model and save it as <code>null_model</code>:</p>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="ch12.html#cb667-1" tabindex="-1"></a>null_model<span class="ot">&lt;-</span><span class="fu">svyglm</span>(death_penalty <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb667-2"><a href="ch12.html#cb667-2" tabindex="-1"></a>             <span class="at">family=</span><span class="fu">quasibinomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>), </span>
+<span id="cb667-3"><a href="ch12.html#cb667-3" tabindex="-1"></a>             <span class="at">design=</span>anes_design)</span></code></pre></div>
+<p>The <code>~ 1</code> indicates the model should be ‘intercept only’. Comparing the two models <em>model2</em> and <em>null_model</em> (including the argument <code>type="ChiSq"</code> for the <span class="math inline">\(\chi^2\)</span> test):</p>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="ch12.html#cb668-1" tabindex="-1"></a><span class="fu">anova</span>(null_model, model2, <span class="at">test=</span><span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code>## Working (Rao-Scott) LRT for sex age education race_minority
+##  in svyglm(formula = death_penalty ~ sex + age + education + race_minority, 
+##     design = anes_design, family = quasibinomial(link = &quot;logit&quot;))
+## Working 2logLR =  283.8 p= &lt;2e-16 
+## (scale factors:  1.4 1.1 0.87 0.62 )</code></pre>
+<p>The output reports a modified test, the “Working (Rao-Scot)” likelihood ratio test, which adjusts the standard likelihood ratio test to account for the complex survey design. In this example, the test statistic is 283.8, reflecting the improvement in model fit from adding predictors. The associated p-value is effectively 0, indicating that such a large test statistic would be extremely unlikely under the null hypothesis of no improvement in fit.</p>
+<p>Given a standard significance cutoff such as (<span class="math inline">\(\alpha = .05\)</span>) we reject the null hypothesis and conclude that the fitted model significantly improves upon the null model. The reported scale factors are internal adjustment values used to account for the survey design and are not directly used when interpreting the test result.</p>
+<p>Another approach to comparing nested models is the <strong>car</strong> package <code>Anova()</code> function — notice the capital <code>A</code> — that compares improvements in model fit for individual predictors. That is, the function returns a likelihood ratio test for the improvement in model fit for each predictor versus excluding that predictor <span class="citation">(<a href="#ref-fox2011">Fox and Weisberg 2011</a>)</span>. Including <em>model2</em> as an argument:</p>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="ch12.html#cb670-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb670-2"><a href="ch12.html#cb670-2" tabindex="-1"></a><span class="fu">Anova</span>(model2)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table (Type II tests)
+## 
+## Response: death_penalty
+##               Df Chisq Pr(&gt;Chisq)    
+## sex            1  4.89      0.027 *  
+## age            1  6.19      0.013 *  
+## education      1 66.74    3.1e-16 ***
+## race_minority  1 36.79    1.3e-09 ***
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The “Analysis of Deviance Table” should be read line by line. Each line shows likelihood ratio test statistics for the exclusion of each predictor. For example, in the line <code>sex</code>, the <code>DF</code> stands for the degrees of freedom in the test, which is 1 for each predictor excluded in the test model. The <code>Chisq</code> value measures how much the inclusion of each predictor improves the fit of the model compared to the model excluding the predictor — along with the p-value <code>Pr(&gt;Chisq)</code> reporting the probability of observing the <code>Chisq</code> test statistic at least that large if the null hypothesis of no model improvement is true. In the case of <code>sex</code> and each additional row, the small p-value shows that we can reject the null of no improvement for each predictor. The inclusion of each predictor, relative to a model excluding that individual predictor, improves the model.</p>
+</div>
+<div id="pseudo-r2-statistics" class="section level3 unnumbered hasAnchor">
+<h3>Pseudo R^2 statistics<a href="ch12.html#pseudo-r2-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The model fit statistic <span class="math inline">\(R^2\)</span> from OLS regression has no direct analog in logistic regression, but typically researchers construct “pseudo-<span class="math inline">\(R^2\)</span>” statistics to assess model fit. The simplest “pseudo-<span class="math inline">\(R^2\)</span>” is to compare the ratio of fitted (or residual) model deviance to null (or total) deviance. This ratio, subtracted from 1, could be interpreted as the proportion of the total deviance explained by the model.</p>
+<p>“Pseudo-<span class="math inline">\(R^2\)</span>” <span class="math inline">\(= 1 - \frac{fitted model deviance}{null deviance}\)</span></p>
+<p>This statistic is often referred to as a “McFadden’s Pseudo <span class="math inline">\(R^2\)</span>” <span class="citation">(<a href="#ref-long1997">J. S. Long 1997</a>)</span>. The quantity does not have the same interpretation as an <span class="math inline">\(R^2\)</span> in OLS regression, in terms of ‘percent of variation explained in the dependent variable’. Many different modifications to it have been proposed; often these modified pseudo-<span class="math inline">\(R^2\)</span> statistics are reported instead.</p>
+<p>Recall in the model summary for <code>glm()</code> reports two deviance values: Residual deviance and Null deviance. These two quantities are used to calculate “McFadden’s Pseudo <span class="math inline">\(R^2\)</span>”. For example, we can calculate the pseudo-<span class="math inline">\(R^2\)</span> for <em>model1</em> as:</p>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="ch12.html#cb672-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (model1<span class="sc">$</span>deviance <span class="sc">/</span> model1<span class="sc">$</span>null.deviance)</span></code></pre></div>
+<pre><code>## [1] 0.03993</code></pre>
+<p>While this value may appear low compared to the the typical linear regression <span class="math inline">\(R^2\)</span> values, pseudo-<span class="math inline">\(R^2\)</span> values in logistic regression are typically much smaller and should not be interpreted as “percent of variance explained”. Still, a value of .03993 suggests that the model provides a modest improvement in fit over the null model.</p>
+<p>The same components are stored in models estimated with <code>svyglm()</code>. For <em>model2</em>, accessing <code>model2$deviance</code> and <code>model2$null.deviance</code> and calculating the pseudo-<span class="math inline">\(R^2\)</span> in the same way yields the same result. One common variation is an adjusted pseudo-<span class="math inline">\(R^2\)</span>, sometimes referred to as “McFadden’s adjusted Pseudo <span class="math inline">\(R^2\)</span>”. This statistic penalizes model complexity by substracting the number of estimated parameters <span class="math inline">\(k\)</span> from the residual deviance:</p>
+<p>“Adjusted Pseudo-<span class="math inline">\(R^2\)</span>” <span class="math inline">\(= 1 - \frac{fitted model deviance - k }{null deviance}\)</span></p>
+<p>For further discussion of pseudo-<span class="math inline">\(R^2\)</span> measures and relevant <strong>R</strong> packages, see Urdinez <span class="citation">(<a href="#ref-urdinez2022">2022</a>)</span>. The <strong>DescTools</strong> package <span class="citation">(<a href="#ref-R-desctools">Signorell and others 2024</a>)</span> calculates various measures of fit and data visualizations, as will <strong>jtools</strong> <span class="citation">(<a href="#ref-R-jtools">J. A. Long 2023</a>)</span>, which supports the <code>svyglm()</code> function. The section further below describing the tabular and graphical presentation of model estimates presents how to find some of these quantities with <strong>jtools</strong>.</p>
+</div>
+<div id="akaike-information-criterion-aic" class="section level3 unnumbered hasAnchor">
+<h3>Akaike Information Criterion (AIC)<a href="ch12.html#akaike-information-criterion-aic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Akaike Information Criterion (AIC) is another model fit statistic appears in the output of <code>glm()</code> models, such as <em>model1</em>. It is based on the model’s log-likelihood function and provides a measure of model quality that balances goodness of fit with model complexity.</p>
+<p>The AIC is most often used as a relative fit statistic, useful for comparing models that differ in specification, including both nested and non-nested models. A smaller AIC statistic indicates better fit.<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a>. See Urdinez and Cruz <span class="citation">(<a href="#ref-urdinez2022">2022</a>)</span> and Fox and Weisberg <span class="citation">(<a href="#ref-fox2019">2019</a>)</span> for a further discussion of assessing the AIC in R.</p>
+</div>
+</div>
+<div id="model-summary-tables-and-coefficient-graphics" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> Model summary tables and coefficient graphics<a href="ch12.html#model-summary-tables-and-coefficient-graphics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Several packages format model summaries for neat tables and graphical summaries. The <strong>jtools</strong> package supports both <code>glm()</code> and <code>svyglm()</code> estimators. The <code>summ()</code> function in <strong>jtools</strong>, such as <code>summ(model1)</code>, produces a summary table of model estimates and fit statistics<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a></p>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="ch12.html#cb674-1" tabindex="-1"></a><span class="fu">library</span>(jtools)</span></code></pre></div>
+<p>Adding an argument <code>exp=TRUE</code> will print the exponentiated coefficients:</p>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="ch12.html#cb675-1" tabindex="-1"></a><span class="fu">summ</span>(model2, <span class="at">exp =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Observations
+</td>
+<td style="text-align:right;">
+4397
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Dependent variable
+</td>
+<td style="text-align:right;">
+death_penalty
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Type
+</td>
+<td style="text-align:right;">
+Survey-weighted generalized linear model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Family
+</td>
+<td style="text-align:right;">
+quasibinomial
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Link
+</td>
+<td style="text-align:right;">
+logit
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Pseudo-R² (Cragg-Uhler)
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Pseudo-R² (McFadden)
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+AIC
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+exp(Est.)
+</th>
+<th style="text-align:right;">
+S.E.
+</th>
+<th style="text-align:right;">
+t val.
+</th>
+<th style="text-align:right;">
+p
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5.27
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+8.60
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+sex2. Female
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+-2.21
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+age
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+education
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-8.17
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+race_minority
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+-6.07
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: Robust
+</td>
+</tr>
+</tfoot>
+</table>
+<p>The result is the above summary table, along with fit statistics, displaying exponentiated coefficients and corresponding components of a null hypothesis test. Researchers frequently publish graphical depictions of model estimates, and save coefficient tables for appendices. The <code>plot_summs()</code> function will plot a figure displaying model estimates and confidence intervals.</p>
+</div>
+<div id="checking-model-assumptions-and-diagnostics" class="section level2 hasAnchor" number="12.7">
+<h2><span class="header-section-number">12.7</span> Checking model assumptions and diagnostics<a href="ch12.html#checking-model-assumptions-and-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For any independent variables entered into the model as numeric measures — that is, treated as continuous measures, not categorical (nominal or ordinal) — it is necessary to check whether the relationship between continuous measures and the dependent variable could be reasonably summarized with a linear slope. For example, in the models of death penalty support, if there were evidence of a nonlinear relationship between age or education and support for the death penalty, perhaps because support increases with age but at some point decreases over additional years, this nonlinear relationship would need to be accounted for in the model. Just as with OLS regression, checking residual plots can help identify any potential nonlinearities.</p>
+<p>Researchers usually check the “deviance” residuals rather than the Pearson’s residuals for a logistic regression, although both tend to lead to the same conclusions. (See Long <span class="citation">(<a href="#ref-long1997">1997</a>)</span> for a further explanation and formula for calculation.) A standard scatterplot of residuals versus fitted values — and trend line — helps to identify potential problems. Remember the key is to look for any unusual systematic pattern. The deviance residuals should be ‘randomly’ distributed around zero. And the trend line – showing how residuals (on the Y-axis) vary over fitted values – should be more or less flat at 0 and straight across the X-axis. A distinct U-shape in residuals and the trend line would evidence of potential nonlinearity.</p>
+<p>We construct a scatterplot for <em>model2</em>, from the deviance residuals stored from the <code>residuals()</code> function and <code>type="deviance")</code>. Fitted values are extracted from one of the <em>model2</em> components:</p>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="ch12.html#cb676-1" tabindex="-1"></a>deviance_residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model2, <span class="at">type =</span> <span class="st">&quot;deviance&quot;</span>)</span></code></pre></div>
+<p>The <em>deviance_residuals</em> are stored as a vector, which we need to combine with the fitted values to create a dataframe. One way to do so is to combine the two with the <code>data.frame()</code> function, defining the two columns: <code>data.frame(fitted = fitted(model2), residuals = deviance_residuals)</code>. The data source and aesthetic are included in the <code>ggplot()</code> function, since we will create two geometries, the points and the smoothed line. Adding some labels:</p>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="ch12.html#cb677-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">fitted =</span> <span class="fu">fitted</span>(model2), </span>
+<span id="cb677-2"><a href="ch12.html#cb677-2" tabindex="-1"></a>                  <span class="at">residuals =</span> deviance_residuals), </span>
+<span id="cb677-3"><a href="ch12.html#cb677-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> fitted, <span class="at">y =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb677-4"><a href="ch12.html#cb677-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb677-5"><a href="ch12.html#cb677-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb677-6"><a href="ch12.html#cb677-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;fitted values&quot;</span>, <span class="at">y =</span> <span class="st">&quot;deviance residuals&quot;</span>) <span class="sc">+</span></span>
+<span id="cb677-7"><a href="ch12.html#cb677-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:model2devresid"></span>
+<img src="bookdown_files/figure-html/model2devresid-1.png" alt="Plot of residuals versus fitted values from \emph{model2}.  While the two blobs of residuals centered around 0 on the Y-axis are not unusual for a model with categorical X-variables, the fanning pattern (and curvy trend line) from top-left to bottom-right reveal potential problems in model specification, particularly the problem of heteroskedasticity. The larger spread of residuals at higher fitted values shows that the model fit varies --- fit is worse at higher predicted values." width="672" />
+<p class="caption">
+FIGURE 12.5: Plot of residuals versus fitted values from . While the two blobs of residuals centered around 0 on the Y-axis are not unusual for a model with categorical X-variables, the fanning pattern (and curvy trend line) from top-left to bottom-right reveal potential problems in model specification, particularly the problem of heteroskedasticity. The larger spread of residuals at higher fitted values shows that the model fit varies — fit is worse at higher predicted values.
+</p>
+</div>
+<p>Figure <a href="ch12.html#fig:model2devresid">12.5</a> displays the residuals (on Y) versus fitted values (on X) for <em>model2</em>. (The figure based on <em>model1</em> would be identical.) The residuals are centered around 0 in a pattern of two bands, which is not unusual given the categorical variables included in the model. If the model is ‘well behaved’, there would be no obvious unusual pattern in the figure and the trend line would be straight. The pattern of the residuals, however, especially in the lower right quadrant displays a fanning problem that potentially signals a problem – the model fits worse at higher predicted values. Of course, detecting a potential problem does not reveal the precise source of the problem <span class="citation">(<a href="#ref-fox2011">Fox and Weisberg 2011</a>)</span>. In this example, it is likely that assuming a constant increase in the probability of supporting the death penalty for additional steps in educational attainment is a source – necessitating a series of categorical variables to model these changes relative to a baseline. Generally, the diagnostic tools from the <strong>car</strong> package reviewed in Chapter <a href="ch11.html#ch11">11</a> will help, such as plotting residuals against individual predictors, or using metrics to identify outliers, or observations with unusual leverage or influence. Variance Inflation Factors (VIFs) can be inspected to detect potential multicollinearity.</p>
+<p>Yet the diagnostic ‘rules of thumb’ in OLS regression do not uniformly apply to logistic regression. Thus if leverage or influence is a potential concern for particular observations, for example, consult a source with a more in-depth review of the potential pitfalls of using these tools in logistic regression, such as Long <span class="citation">(<a href="#ref-long1997">1997</a>)</span>.</p>
+</div>
+<div id="modeling-and-interpreting-interactions" class="section level2 hasAnchor" number="12.8">
+<h2><span class="header-section-number">12.8</span> Modeling and interpreting interactions<a href="ch12.html#modeling-and-interpreting-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Since predicted probabilities can be calculated for any combination of independent variables, a researcher could implicitly test an interaction – for example, observing how the probability of supporting the death penalty over levels of educational attainment is different for men versus women. Calculating the probability acknowledges an interest in testing an interaction — whether sex alters the strength and/or direction of the relationship between education and support for the death penalty. A multiplicative interaction term should be specified within the model to test this intuition.</p>
+<p>To compare <em>model2</em> with a fuller model (investigating the interaction between <em>sex</em> and <em>education</em> is left for the exercises), consider an interaction between Catholic religious identity and frequency of religious service attendance, reported in ordinal categories such as “monthly” and “weekly”. The interaction between the two could be viewed from two perspectives. Nominal, non-attending Catholic identifiers may differ from Catholic identifiers attending services frequently in support of the death penalty, while Catholics, over varying levels of religious service attendance, may differ in support from non-Catholic identifiers.</p>
+<p>We re-estimate the model after creating a <em>Catholic</em> identifier and a numeric version of the <em>attend</em> variable. This interaction – a qualitative category compared against a rank order of service attendance treated as a numeric, continuous measure — is known as a ‘categorical by continuous’ interaction.</p>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="ch12.html#cb678-1" tabindex="-1"></a>anes_20 <span class="ot">&lt;-</span> anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb678-2"><a href="ch12.html#cb678-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Catholic=</span><span class="fu">ifelse</span>(relig_trad<span class="sc">==</span><span class="st">&quot;4. Roman Catholic&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb678-3"><a href="ch12.html#cb678-3" tabindex="-1"></a></span>
+<span id="cb678-4"><a href="ch12.html#cb678-4" tabindex="-1"></a>anes_20<span class="sc">$</span>attend_num<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(anes_20<span class="sc">$</span>attend)<span class="sc">-</span><span class="dv">1</span></span></code></pre></div>
+<p>For the interaction, service attendance <em>attend_num</em> must be saved as a numeric measure; for <em>Catholic</em>, it could be saved either as a labeled factor or numeric. With <code>ifelse()</code>, a numeric is simply faster to create. Subtracting 1 from the resulting numeric measure means the scale ranges from 0 for ‘never’ attendees to 3 for weekly attendees.</p>
+<p>To use the <code>svyglm()</code> estimator, since we created two new variables in the <em>anes_20</em> dataframe we rerun the <code>svy_design()</code> function.</p>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="ch12.html#cb679-1" tabindex="-1"></a>anes_design<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">ids =</span> <span class="sc">~</span>V200015c,</span>
+<span id="cb679-2"><a href="ch12.html#cb679-2" tabindex="-1"></a>                    <span class="at">strata=</span><span class="sc">~</span>V200015d,</span>
+<span id="cb679-3"><a href="ch12.html#cb679-3" tabindex="-1"></a>                    <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Then we include the interaction between <em>Catholic</em> and <em>attend_num</em> in the <code>svyglm()</code> function as <code>Catholic*attend_num</code>, along with the individual components of the interaction. This interaction could be saved directly into the dataset as the product of the two variables, saving it as <code>anes_20 %&gt;% mutate(CatholicXattend_num = Catholic*attend_num)</code>. The model is saved as <em>model3</em>:</p>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="ch12.html#cb680-1" tabindex="-1"></a>model3<span class="ot">&lt;-</span><span class="fu">svyglm</span>(death_penalty <span class="sc">~</span> sex <span class="sc">+</span> age<span class="sc">+</span> education <span class="sc">+</span> race_minority <span class="sc">+</span></span>
+<span id="cb680-2"><a href="ch12.html#cb680-2" tabindex="-1"></a>                 Catholic <span class="sc">+</span> attend_num <span class="sc">+</span> Catholic<span class="sc">*</span>attend_num, </span>
+<span id="cb680-3"><a href="ch12.html#cb680-3" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">quasibinomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>), </span>
+<span id="cb680-4"><a href="ch12.html#cb680-4" tabindex="-1"></a>               <span class="at">design=</span>anes_design)</span>
+<span id="cb680-5"><a href="ch12.html#cb680-5" tabindex="-1"></a></span>
+<span id="cb680-6"><a href="ch12.html#cb680-6" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svyglm(formula = death_penalty ~ sex + age + education + race_minority + 
+##     Catholic + attend_num + Catholic * attend_num, design = anes_design, 
+##     family = quasibinomial(link = &quot;logit&quot;))
+## 
+## Survey design:
+## svydesign(data = anes_20, ids = ~V200015c, strata = ~V200015d, 
+##     weights = ~V200015b, nest = TRUE)
+## 
+## Coefficients:
+##                     Estimate Std. Error t value
+## (Intercept)          1.62055    0.18814    8.61
+## sex2. Female        -0.22467    0.09678   -2.32
+## age                  0.00539    0.00240    2.25
+## education           -0.35463    0.04400   -8.06
+## race_minority       -0.60556    0.09967   -6.08
+## Catholic             0.40203    0.14161    2.84
+## attend_num           0.09007    0.04427    2.03
+## Catholic:attend_num -0.34877    0.10414   -3.35
+##                     Pr(&gt;|t|)    
+## (Intercept)          6.5e-11 ***
+## sex2. Female          0.0251 *  
+## age                   0.0298 *  
+## education            3.9e-10 ***
+## race_minority        2.8e-07 ***
+## Catholic              0.0069 ** 
+## attend_num            0.0481 *  
+## Catholic:attend_num   0.0017 ** 
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasibinomial family taken to be 1.007)
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>The interpretation of the interactive term (and components) follows the same logic as the multiplicative interaction discussed in Chapter <a href="ch10.html#ch10">10</a>. Recall that these are no longer ‘independent’ marginal effects. In brief:</p>
+<p>The negative sign on the interaction term <code>Catholic:attend_num</code> slope means that, for Catholics, increased service attendance is associated with decreased support for the death penalty. As religious service attendance increases, support for the death penalty decreases — the quantity <code>-0.34877</code> represents the additional effect of service attendance on the log-odds of supporting the death penalty for Catholics.</p>
+<p>The slopes for the constituent parts of the interaction are:</p>
+<p>For <code>Catholic</code>, the slope <code>0.40203</code> represents the effect of being Catholic on the log-odds of supporting the death penalty when attendance is at the baseline of non-attendance, the category corresponding to 0 on the attendance scale. The positive sign on the slope suggests that Catholics who never attend services are more likely to support the death penalty compared to non-Catholics.</p>
+<p>For <code>attend_num</code>, the slope <code>0.09007</code> represents the effect of religious service attendance on the log-odds of supporting the death penalty for non-Catholics, the category corresponding to 0 on the <code>Catholic</code> variable scale. The positive sign on the slope suggests that among non-Catholics, higher attendance is associated with increased support for the death penalty.</p>
+<p>Taking into account the interactions and component parts, we could interpret the model results as follows:</p>
+<p>The total effect of attendance on the log-odds of supporting the death penalty for Catholics is the sum of the main effect of attendance <code>attend_num</code> and the interaction term: <span class="math inline">\(0.09007 + (-0.34877) = -0.25870\)</span>. This negative combined effect means that, for Catholics, as attendance increases, the support for the death penalty decreases.</p>
+<p>For non-Catholics, the log-odds of supporting the death penalty increase by 0.09007 for each unit increase in attendance. Among Catholics, the log-odds of supporting the death penalty decrease by 0.2587 for each unit increase in attendance, reflecting a reversal in the direction of the relationship between attendance and support depending on religious affiliation.</p>
+<p>Converting any of these quantities into exponentiated coefficients – as odds ratios – proceeds in the usual fashion. The combined or total interaction effect is summed on the log-odds scale, then exponentiated to interpret it as an odds ratio. The attendance total effect for Catholics is <span class="math inline">\(0.09007 − 0.34877= −0.2587\)</span>, then <span class="math inline">\(exp(-  0.2587) \approx 0.772\)</span>. Thus each unit increase in attendance decreases the odds of supporting the death penalty by approximately 22.8 percent.</p>
+<div id="predicted-probabilities" class="section level3 unnumbered hasAnchor">
+<h3>Predicted probabilities<a href="ch12.html#predicted-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To visualize the predicted probabilities, we could repeat the same steps reviewed earlier for creating a dataset of values on the right-hand side of the model. For the interaction, to compare Catholics versus non-Catholics across levels of service attendance (like comparing females and males on levels of educational attainment), the dataset should have the appropriate 1 or 0 for religious group and service attendance score in the interaction term to match that of the individual variable components. The <strong>sjPlot</strong> package will graph this interaction with the <code>plot_model()</code> function on <em>model3</em>:</p>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="ch12.html#cb682-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb682-2"><a href="ch12.html#cb682-2" tabindex="-1"></a><span class="fu">plot_model</span>(model3, <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">&quot;attend_num&quot;</span>, <span class="st">&quot;Catholic&quot;</span>))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:predprobssj"></span>
+<img src="bookdown_files/figure-html/predprobssj-1.png" alt="Predicted probabilities produced with the \textbf{sjPlot} package.  The lines display predicted probabilities of supporting the death penalty at each of the levels of religious service attendance, treated as a numeric measure.  The two different slopes of the lines for Catholic and non-Catholic show that for Catholic identifiers, increased service attendance lowers the predicted probabilty of supporting the death penalty, controlling for other factors, while it appears to slightly increase for non-Catholics." width="672" />
+<p class="caption">
+FIGURE 12.6: Predicted probabilities produced with the package. The lines display predicted probabilities of supporting the death penalty at each of the levels of religious service attendance, treated as a numeric measure. The two different slopes of the lines for Catholic and non-Catholic show that for Catholic identifiers, increased service attendance lowers the predicted probabilty of supporting the death penalty, controlling for other factors, while it appears to slightly increase for non-Catholics.
+</p>
+</div>
+<p>In <code>plot_model()</code> for <code>model3</code> the argument <code>terms=c("attend_num", "Catholic")</code> with the two variables in that order and <code>type="pred"</code> will produce the predicted probabilities over the levels of religious service attendance for each level of <em>Catholic</em>. Figure <a href="ch12.html#fig:predprobssj">12.6</a> displays this graphic of predicted probabilities. The graphic displays a ‘crossover’ interaction – while for non-Catholics (an amorphous large group) support for the death penalty increases from approximately 65 percent at the lowest (or non-attendance) of services but increases to a little over 70 percent at weekly service. Among Catholics there is a steep decline, roughly 18 percent from non-attendance (73 percent support) to weekly attendance (about 55 percent) support. Keep in mind that although the attendance scale consists of ordered categories, in the model the measure is treated as a continuous measure, thus the <code>plot_model()</code> function calculates the probabilities at multiple points along the scale, connecting each one in a line. Still, the pattern of crossover interaction holds.</p>
+<p>The predicted probabilities do show confidence intervals that overlap — yet the interaction term in the model estimates is statistically significant. The apparent contradiction between a statistically significant interaction term and overlapping probability confidence intervals can occur for a few different reasons (see Long <span class="citation">(<a href="#ref-long1997">1997</a>)</span>). In short, the logistic regression model operates on the ‘logit’ (log-odds) scale, where the effects are linear. When transforming log-odds to probabilities, small differences in log-odds can translate to overlapping probabilities. The statistical significance of interaction does mean that there appears to be a meaningful interaction effect between Catholic identity and religious service attendance on the log-odds scale – the direction or magnitude of the relationship between service attendance and death penalty support differs for Catholics versus non-Catholics. It is just that in predicted probabilities, the level of uncertainty in the predictions is such that the differences are not clearly distinguishable at all levels of attendance. Overlapping confidence intervals do not imply that there is no interactive relationship. They suggest that the effect is not clearly distinguishable given the level of uncertainty. The interaction term’s statistical significance indicates that, on average, there is an interaction effect, but the variability in the data means that we cannot be as confident about the predicted probabilities at each level of attendance.</p>
+</div>
+</div>
+<div id="key-considerations-in-data-preparation-model-specification-and-interpretation" class="section level2 unnumbered hasAnchor">
+<h2>Key considerations in data preparation, model specification, and interpretation<a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In preparing data, formulating a model, estimating it, and interpreting the results, there are a few key considerations to keep in mind.</p>
+<p>The linearity assumption in the slopes relating X to log-odds of Y means that for severely skewed independent variables, prior to estimation it may be necessary to transform variables – such as the log transformations in right-skewed measures reviewed in Chapter <a href="ch5.html#ch5">5</a>. Different R packages provide tools for selecting appropriate transformations; see Fox and Weisberg <span class="citation">(<a href="#ref-fox2011">2011</a>)</span> for a review.</p>
+<p>Beyond being clear about whether the data at hand require estimation with a complex survey estimator such as <code>svyglm()</code> versus <code>glm()</code>, potential variables for inclusion in the model need to be scaled appropriately. Determine whether the variables are scaled as continuous (numeric) measures or categorical (factor) measures. For model specification, avoid reinventing the wheel and base the model off the literature as closely as possible. Existing theory provides a guide to the inclusion of specific variables, ensuring that the model is based on established knowledge. Once estimated, check the linearity between continuous predictors and the dependent variable by inspecting residuals. If multicollinearity is a potential concern, check the VIF. Always examine residual plots, leverage plots, and influence measures to identify any potential issues with the model.</p>
+</div>
+<div id="resources-11" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch12.html#resources-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>blorr</strong> package <span class="citation">(<a href="#ref-R-blorr">Hebbali 2020</a>)</span> provides many functions for validating models. The <strong>sjPlot</strong> <span class="citation">(<a href="#ref-R-sjPlot">Lüdecke 2024</a>)</span> and <strong>ggeffects</strong> <span class="citation">(<a href="#ref-R-ggeffects">Lüdecke 2018</a>)</span> packages produce different visualizations of model estimates.</p>
+</div>
+<div id="exercises-10" class="section level2 hasAnchor" number="12.9">
+<h2><span class="header-section-number">12.9</span> Exercises<a href="ch12.html#exercises-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Include R code and relevant output in an .Rmd file knitted to Word or PDF.</p>
+<ol style="list-style-type: decimal">
+<li><p>Start with the code for estimating <strong>model2</strong>, but include educational attainment as an ordinal measure with obtaining a high school diploma as the reference category. Relative to a high school diploma, how does obtaining a four-year college degree change support for the death penalty? Print out a model summary of the exponentiated coefficients and interpret the odds ratios from the model estimates.</p></li>
+<li><p>Start with the code for estimating <strong>model2</strong>, but include an additional demographic characteristic, marital status, contrasting individuals who are currently married or widowed with all those who are not. Is marital status associated with death penalty support? How or how not?</p></li>
+<li><p>Reestimate <em>model2</em>, including a multiplicative interaction between <em>sex</em> and <em>education</em>, <code>sex*education</code> in the right-hand side of the equation in <code>svyglm()</code>. Does the interaction term indicate there is a significant interaction between the two? How or how not?</p></li>
+<li><p>Compare <strong>model2</strong> with <strong>model3</strong> controlling for Catholic religious affiliation and service attendance, as well as the interaction between the two. Is <strong>model3</strong> a ‘better’ model than <strong>model2</strong>? Base your answer in an analysis of the results and model fit statistics, including a likelihood ratio test.</p></li>
+<li><p>With the ANES2020 data, estimate a logistic regression model of participation in “political meetings, rallies, speeches, dinners”, variable <strong>V202014</strong>, using the same demographic characteristics in <strong>model2</strong>. Interpret the results of the model, converting the coefficients into odds ratios. Which demographic characteristics appear to be associated with this mode of political participation?</p></li>
+<li><p>Using the US States dataset, construct a model of Trump or Biden winning States (and DC) in either 2016 or 2020. Include three to four independent variables, at least one independent variable should be treated as a numeric or continuous measure. In two paragraphs, explain the model and present a graphic illustrating how variation in one of the independent variables is associated with the probability of support for either candidate.</p></li>
+<li><p>Using the model of US States, investigate linearity assumptions for interval scaled measures, and whether any observations exercise an extraordinary influence on the parameter estimates.</p></li>
+</ol>
+
+</div>
+</div>
+
+
+
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-cohen2003" class="csl-entry">
+Cohen, Jacob, Patricia Cohen, Stephen G. West, and Leona S. Aiken. 2003. <em>Applied Multiple Regression / Correlation Analysis for the Behavioral Sciences</em>. 3rd ed. New York: Routledge.
+</div>
+<div id="ref-fox2011" class="csl-entry">
+Fox, John, and Sanford Weisberg. 2011. <em>An <span>R</span> Companion to Applied Regression</em>. 2nd ed. Thousand Oaks, CA: SAGE Publications, Inc. <a href="https://socialsciences.mcmaster.ca/jfox/Books/Companion/">https://socialsciences.mcmaster.ca/jfox/Books/Companion/</a>.
+</div>
+<div id="ref-fox2019" class="csl-entry">
+———. 2019. <em>An <span>R</span> Companion to Applied Regression</em>. 3rd ed. Thousand Oaks, CA: SAGE Publications, Inc. <a href="https://socialsciences.mcmaster.ca/jfox/Books/Companion/">https://socialsciences.mcmaster.ca/jfox/Books/Companion/</a>.
+</div>
+<div id="ref-R-car" class="csl-entry">
+Fox, John, Sanford Weisberg, and Brad Price. 2022. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
+</div>
+<div id="ref-R-effects" class="csl-entry">
+Fox, John, Sanford Weisberg, Brad Price, Michael Friendly, and Jangman Hong. 2022. <em>Effects: Effect Displays for Linear, Generalized Linear, and Other Models</em>. <a href="https://CRAN.R-project.org/package=effects">https://CRAN.R-project.org/package=effects</a>.
+</div>
+<div id="ref-R-blorr" class="csl-entry">
+Hebbali, Aravind. 2020. <em>Blorr: Tools for Developing Binary Logistic Regression Models</em>. <a href="https://cran.r-project.org/web/packages/blorr/">https://cran.r-project.org/web/packages/blorr/</a>.
+</div>
+<div id="ref-long1997" class="csl-entry">
+Long, J. Scott. 1997. <em>Regression Models for Categorical and Limited Dependent Variables</em>. Thousand Oaks, CA: SAGE Publications, Inc.
+</div>
+<div id="ref-R-jtools" class="csl-entry">
+Long, Jacob A. 2023. <em>Jtools: Analysis and Presentation of Social Scientific Data</em>. <a href="https://jtools.jacob-long.com">https://jtools.jacob-long.com</a>.
+</div>
+<div id="ref-R-ggeffects" class="csl-entry">
+Lüdecke, Daniel. 2018. <span>“Ggeffects: Tidy Data Frames of Marginal Effects from Regression Models.”</span> <em>Journal of Open Source Software</em> 3 (26): 772. <a href="https://doi.org/10.21105/joss.00772">https://doi.org/10.21105/joss.00772</a>.
+</div>
+<div id="ref-R-sjPlot" class="csl-entry">
+———. 2024. <em>sjPlot: Data Visualization for Statistics in Social Science</em>. <a href="https://strengejacke.github.io/sjPlot/">https://strengejacke.github.io/sjPlot/</a>.
+</div>
+<div id="ref-R-survey" class="csl-entry">
+———. 2021. <em>Survey: Analysis of Complex Survey Samples</em>. <a href="http://r-survey.r-forge.r-project.org/survey/">http://r-survey.r-forge.r-project.org/survey/</a>.
+</div>
+<div id="ref-R-desctools" class="csl-entry">
+Signorell, Andri, and many others. 2024. <em>DescTools: Tools for Descriptive Statistics</em>. <a href="https://doi.org/10.32614/CRAN.package.DescTools">https://doi.org/10.32614/CRAN.package.DescTools</a>.
+</div>
+<div id="ref-urdinez2022" class="csl-entry">
+Urdinez, Francisco, and Andrés Cruz, eds. 2022. <em>R for Political Data Science: A Practical Guide</em>. The r Series. Boca Raton, FL: Chapman &amp; Hall/CRC Press.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2023b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="23">
+<li id="fn23"><p>A simple way to add labels for axes and a title would be to save the predictions as an object and print the object with arguments for labels <code>education_effect &lt;- Effect("education", model2)</code>, then <code>plot(education_effect, type = "response", main = "Effect of Education on Support for Death Penalty", xlab = "Education Level", ylab = "Predicted Probability of Supporting Death Penalty")</code>.<a href="ch12.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>The AIC is calculated as <span class="math inline">\(2k - 2ln(L)\)</span>, with <span class="math inline">\(k\)</span> the number of slopes plus the intercept in the model, and <span class="math inline">\(L\)</span> the model likelihood function<a href="ch12.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>See <a href="https://jtools.jacob-long.com/" class="uri">https://jtools.jacob-long.com/</a> for additional examples, particularly <a href="https://cran.r-project.org/web/packages/jtools/vignettes/summ.html" class="uri">https://cran.r-project.org/web/packages/jtools/vignettes/summ.html</a> for exporting tables to Word or PDF format.<a href="ch12.html#fnref25" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch11.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="app.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/12-dich-limited-dependent-vars.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

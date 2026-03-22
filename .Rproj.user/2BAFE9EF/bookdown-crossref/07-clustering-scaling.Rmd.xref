@@ -1,0 +1,25 @@
+h1:ch7 Scaling and Clustering for Pattern Detection
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:spatial-politics-and-distance-metrics Spatial politics and distance metrics
+h2:introduction-to-multidimensional-scaling Introduction to multidimensional scaling
+fig:mdsfig1 Nonmetric multidimensional scaling (MDS) plot of feeling thermometer ratings from the 2004 ANES survey, reduced to two dimensions. The plot arranges political figures and social groups based on similarity in respondents
+h2:euclidean-and-manhattan-distances Euclidean and Manhattan distances
+fig:eucliddiagram Euclidean distance formula and calculation of the distance between two points on two dimensions, X and Y.
+fig:manhattandiagram Manhattan 
+h2:scaling-feelings-toward-political-figures-and-groups Scaling feelings toward political figures and groups
+h3:assessing-mds-model-fit Assessing MDS model fit
+h3:shepard-diagrams Shepard diagrams
+fig:shepfig Shepard diagram for the nonmetric multidimensional scaling (MDS) solution of feeling thermometer ratings from the 2004 ANES,  in two dimensions. The plot compares original dissimilarities to the distances in the MDS configuration.
+h2:scaling-roll-call-votes-in-the-us-congress Scaling roll call votes in the US Congress
+fig:comdseuc One-dimensional solution from multidimensional scaling of U.S. House roll call votes, Colorado delegation, 117th U.S. Congress, Euclidean distances.
+h3:scaling-votes-in-the-senate Scaling votes in the Senate
+fig:seucmds One-dimensional solution from multidimensional scaling of U.S. Senate roll call votes, 117th U.S. Congress, Euclidean distances.
+fig:seucmds2 Two-dimensional solution from multidimensional scaling of U.S. Senate roll call votes, 117th U.S. Congress, Euclidean distances.
+h2:clustering-feelings-and-votes Clustering feelings and votes
+h3:the-dendrogram The dendrogram
+fig:hacdend Dendrogram based on the Euclidean distance matrix of roll call votes cast by the Colorado delegation.
+fig:dendosenate Dendrogram displaying the clusters of U.S. Senators in the 117th Congress, based on Euclidean distances of roll call votes.
+h3:general-steps-in-scaling-and-clustering General steps in scaling and clustering
+h3:resources Resources
+h2:exercises Exercises
+

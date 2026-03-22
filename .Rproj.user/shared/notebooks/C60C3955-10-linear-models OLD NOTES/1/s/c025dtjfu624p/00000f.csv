@@ -1,0 +1,6 @@
+"0","predictiondata<-tribble("
+"0","~gender, ~education, ~agecat, ~race_category,"
+"0","""2. Female"", ""4. Bachelor's degree"", ""3. 42 to 53"", ""2. Black, non-Hispanic"")"
+"0","predict(reg_model2, predictiondata, interval=""confidence"")"
+"2","Error in eval(predvars, data, env) : object 'education2' not found
+"

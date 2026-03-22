@@ -1,0 +1,9 @@
+data/
+_bookdown_files/
+_book/
+rosm.cache/
+.DS_Store
+*.log
+reg_comments.csv
+reg_comments_sampled.csv
+data/

@@ -1,0 +1,1298 @@
+\cleardoublepage 
+
+# (APPENDIX) Appendix {-}
+
+# Data Codebooks {#app}  
+
+The following describes the contents of datasets available from the text websites, <https://github.com/whittkilburn/inpolr> and <https://faculty.gvsu.edu/kilburnw/inpolr>.  
+
+## Fundamentals of US presidential elections
+
+### prez.csv {-}
+
+The file _prez.csv_ contains annual observations for US presidential elections.
+
+__year__ Election year 
+
+__incprez__ Name of incumbent president
+
+__vote__ Incumbent president share of the two-party vote percentage
+
+__approval__ Gallup Poll presidential approval for late June to July of election year
+
+__qgdprate__ GDP growth rate for the second quarter of each election year 
+
+__incstatus__ An indicator (1) if the incumbent party has served two consecutive terms and (0) otherwise.
+
+Sources: The American Presidency Project [@presidency2024], US Bureau of Economic Analysis [-@bea_gdp], Gallup [@gallup_approval]. 
+
+## Countries  
+
+### covid_g7.csv {-}
+
+The file _covid_g7.csv_ contains COVID-19 related daily observations on seven countries from 2020 to 2021. 
+
+_iso_code_ and _country_ Country identifier
+
+_date_ Date in year-month-day
+
+_total_cases_ COVID-19 cases by date
+
+_new_cases_ COVID-19  cases 
+
+_cases_per_100K_ New COVID-19 cases per 100,000 people
+
+_cases_smoothed_per_100k_ Seven-day rolling average of case counts per 100,000 people
+
+_new_cases_smoothed_ Seven-day rolling average of case counts
+
+_total_deaths_ COVID-19 attributed deaths by date
+
+_new_deaths_ COVID-19 attributed deaths
+
+_new_deaths_smoothed_ Seven-day rolling average of COVID-19 attributed deaths
+
+_total_vaccinations_ Total COVID-19 vaccine doses administered by date.
+
+_people_vaccinated_  Total number of people receiving at least one vaccine dose by date
+
+_people_fully_vaccinated_  Total number of people receiving all prescribed vaccine doses by date.
+
+_new_vaccinations_ Vaccine doses administered
+
+_new_vaccinations_smoothed_ Seven-day rolling average of daily COVID-19 vaccine doses administered  
+
+_population_  Total country population
+ 
+Source: Our World in Data [-@owidcoronavirus2020].
+
+### gdpfert.csv {-}
+
+The file _gdpfert.csv_  contains country-level characteristics for the year 2010. 
+
+__iso2c__ Country abbreviation 
+
+__country__ Name of country
+
+__year__  Year 2010
+
+__NY.GDP.PCAP.KD__ Gross domestic product (GDP) per capita in 2010 U.S. dollars 
+
+__SP.DYN.TFRT.IN__ Average number of births per woman, 2010
+
+__SP.DYN.LE00.IN__ Life expectancy at birth in years
+
+__region__ World Bank region 
+
+__longitude__ Geographic longitude centroid of country
+
+__latitude__ Geographic latitude centroid of country 
+
+__income__ World Bank income group
+
+__gdp__ Gross domestic Product (GDP) per capita in 2010 U.S. dollars 
+
+__fert__ Average number of births per woman 2010
+
+Source: The World Bank [@worldbank_gdi].
+
+### _countries.csv_ {-}
+
+The file _countries.csv_ contains various country-level characteristics for the year 2019 and COVID related measures for 2020.
+
+__country__ Name of country
+
+__lending__ World Bank lending status
+
+__iso2c__, __iso3c__  Two and three letter country code
+
+__region__ Continent of country
+
+__income__ World Bank country level income level
+
+__total_population__ Total population 
+
+__gdp_constant__ GDP (constant 2015 USD)
+
+__gdp_growth__ GDP growth (annual percent)
+
+__gdp_constant_int_pp__ GDP, PPP (constant 2017 international USD)
+
+__gdp_pc_constant__ GDP per capita (constant 2015 USD)
+
+__gdp_pc_growth__ GDP per capita growth (annual percent)
+
+__gdp_pc_pp__ GDP per capita, PPP (constant 2017 USD)
+
+__fert_rate__ Fertility rate (average births per female)
+
+__life_expect_female__ Life expectancy at birth in 2019, females
+
+__life_expect__ Life expectancy at birth in 2019, total
+
+__life_expect_male__ Life expectancy at birth in 2019, males
+
+__ag_forest__ Agriculture, forestry, and fishing, value added (percent of GDP)
+
+__schl_enroll__ School enrollment secondary (percent gross)
+
+__gdp_import__ Imports of goods and services (percent of GDP)
+
+__labor_fem__ Labor force, female (percent of total labor force)
+
+__fuel_exports__ Fuel exports (percent of merchandise exports)
+
+__net_migrate__ Net migration
+
+__fert_ado__ Adolescent fertility rate (births per 1,000 women ages 15-19)
+
+__gdp_export__ Exports of goods and services (percent of GDP)
+
+__co2_per_gdp__ Carbon dioxide emissions (kg per 2010 USD of GDP)
+
+__co2_emit__ Carbon dioxide emissions (kt)
+
+__co2_per_cap__ Carbon dioxide emissions (metric tons per capita)
+
+__co2_pp_gdp__ Carbon dioxide emissions (kg per PPP USD of GDP)
+
+__gas_total__ Total greenhouse gas emissions (kt of carbon dioxide equivalent) 
+
+__pop_0_14__ Population ages 0-14 (percent of total population)         
+
+__pop_15_64__ Population ages 15-64 (percent of total population)       
+
+__pop_65_over__ Population ages 65 and above (percent of total population)       
+
+__pop_dens__ Number of people divided by land area, in square kilometers 
+    
+__infant_mort__ Infant Mortality Rate (per 1,000 live births) 
+
+__women_par__ Percentage of women in the national parliament
+
+Source: The World Bank [-@worldbank_gdi].
+
+__polyarchy__ Electoral democracy index 
+
+__libdem__ Liberal democracy index 
+
+__partipdem__ Participatory democracy index 
+
+__delibdem__ Deliberative democracy index  
+
+__egaldem__  Egalitarian democracy index  
+
+Source: Varieties of Democracy [@Vdemorganization2022].
+
+__total_cases__ Total COVID cases in 2020
+
+__total_deaths__ Total COVID deaths in 2020
+
+__total_vaccinations__ Total number of COVID-19 vaccination doses administered in 2020
+
+Source: Our World in Data  [@owidcoronavirus2020].
+
+__hdi__ Human Development Index value	
+
+__life_expect_un__ Life expectancy at birth in years	
+
+__expect_school__ Expected years of schooling in years	
+
+__mean_school__ Mean years of schooling in years
+
+__gni_pc_2017ppp__ Gross National Income Per Capita (2017 PPP USD)	
+
+__gender_ineq__ Gender Inequality Index value	
+
+__matern_mort__ Maternal Mortality Ratio (deaths per 100,000 live births)
+
+__ado_birth__ Adolescent Birth Rate (births per 1,000 women ages 15-19)	
+
+__pop_sec_f__ Population with at least some secondary education, female (percent ages 25 and older)	
+
+__pop_sec_m__ Population with at least some secondary education, male (percent ages 25 and older)	
+
+__labor_par_f__ Labor force participation rate, female (percent ages 15 and older)	
+
+__labor_par_m__ Labor force participation rate, male (percent ages 15 and older)	
+
+__plant_adj_hdi__ Planetary pressures–adjusted Human Development Index value
+
+__co2_per_capita__ Carbon dioxide emissions per capita in tonnes
+
+__mat_foot__ Material footprint per capita in tonnes
+
+__ineq_ad_hdi__ Inequality-adjusted Human Development Index value
+
+__ineq_life__ Inequality in life expectancy	
+
+__ineq_educ__ Inequality in education	
+
+__ineq_inc__ Inequality in income	
+
+Source: United Nations Development Programme [@undp2022]. 
+
+### _countries_tsxs.csv_ {-}
+
+The file _countries_tsxs.csv_ consists of annual observations from 2000 to 2019 on countries around the world, as a subset of the variables in _countries.csv_.  The dataset is structured in wide format, with approximately 4,500 country-year observations and 46 columns.
+
+### _hdi_2021.csv_ {-}
+
+The file _hdi_2021.csv_  contains observations on the Human Development Index and components for countries around the world, measured in 2021 [@undp2022].
+
+__Country__ Country name
+
+__hdi__ Human Development Index value
+
+__life_expect__ Average life expectancy at birth 
+
+__expect_school__ Expected number of years of schooling for a school entrance age child 
+
+__mean_school__  Average number of years of education for people ages 25 and older
+
+__gni_pc__ Gross national income per capita
+
+## US States and counties
+
+The file _us_states.csv_ consists of observations on 50 States plus the District of Columbia on the following measures.
+
+__state__ Name of US State
+
+__trump_votes_2020__, __biden_votes_2020__, __other_votes_2020__, Vote totals for each candidate or all others combined, separate columns for 2016, 2012, and 2008. 
+
+Source: Federal Election Commission [@fec_election_results]
+
+__cases_2020__  COVID-19 total cases for 2020
+
+__cases_jan_2020__ to __cases_oct_2021__ Cumulative COVID-19 case counts by month 
+
+__vax_dec_2020__  to __vax_oct_2021__ Cumulative vaccination counts per month (all ages) 
+
+__deaths_jan_2020__ to __deaths_oct_2021__ Cumulative COVID-19 attributed deaths by month 
+
+__deaths_pc_jun_2020__ Per capita (10,000 people) COVID-19 deaths by June 2020
+
+Source:  _The New York Times_ [-@nytimes_covid_data]. 
+
+__stay_begin__ and __stay_end__  Date of beginning and end of COVID-19 stay at home order
+
+__shutdown_date_range__ Date length of State COVID-19 stay at home order
+
+__shutdown_length__ Length of State COVID-19 stay at home order in numeric number of days
+
+Source: Ballotopedia.org [-@ballotpedia_main].
+
+__population_density__ Persons per square mile by census tract, 2020 decennial census 
+
+__total_population_2010__  State population from 2010 decennial US Census, US Census Bureau 
+
+__total_population_est_2019__  Estimated population in 2019, 1-year estimate, US Census Bureau 
+
+__census_fips_code__ Numeric code for State
+
+__pop__ Total population, 5-year American Community Survey (ACS) 2018	estimate
+
+__white_pop__	__black_pop__	__native_pop__	__asian_pop__	__latino_pop__, First mention ACS estimate	
+
+__median_income__	ACS 2018 median household income
+
+__gini__	ACS 2018 Gini coefficient of inequality
+
+Source: US Census Bureau [-@uscensus_data].
+
+__bachelors_pop__ Persons 25 years or older with a bachelor's degree
+
+__q1_gdp_2020__ to __q4_gdp_2020__ Quarterly percentage change in GDP from the previous quarter. 
+
+__pc_income_2020__ State per capita income in 2020                    
+
+__oct_2020_unemployed__  Proportion of population unemployed in October 2020  
+
+Source: Bureau of Economic Analysis [@bea_state_gdp].
+
+__drug_alc_deaths_2019__  Number of deaths attributed to drug or alcohol overdose in 2019. 
+
+__expectancy__  Average life expectancy at birth. 
+
+Source: Centers for Disease Control and Prevention [@cdc_wonder]. 
+
+__state_social_liberalism_policy__  Index of social policy liberalism 2014, higher scores more liberal
+
+__state_econ_liberalism_policy__  Index of economic policy liberalism 2014, higher scores more liberal     
+
+__mass_social_liberalism_policy__ Index of mass social liberalism 2014, higher scores more liberal  
+
+__mass_econ_liberalism_policy__ Index of mass economic liberalism 2014, higher scores more liberal   
+
+Source: @Caughey2018.
+
+__percent_women_legislature__  Percent of women in the State legislature
+
+Source: Center for American Women and Politics, Eagleton Institute of Politics, & Rutgers, The State University of New Jersey [@cawp_state_legislatures_2021]. 
+
+__vehicle_fatality_2019__  to __vehicle_fatality_2021__ Human fatalities involving motor vehicle crashes
+
+Source: National Highway Traffic Safety Administration [@nhtsa_crash_overview_2020]
+
+### Michigan County level presidential votes, 2012 and 2016 {-}
+
+The file _michigan12_16.csv_ contains Michigan County level presidential votes for election years 2012 and 2016.  
+
+__fips__ Within Michigan FIPS code for County
+
+__Id2__ FIPS code with Michigan (2600) identifier plus County FIPS
+
+__geography__ County name
+
+__county__ County name
+
+__clinton_vote__ Votes for Hillary Clinton in 2016
+
+__other2016_vote__ Votes for all other presidentialcandidates in 2016
+
+__trump_vote__ Votes for Donald Trump in 2016
+
+__trump_percent__  Percentage votes for Trump
+
+__clinton_percent__ Percentage votes for Clinton
+
+__total_votes__ Total votes cast in 2016
+
+__vote_contrib__ Contribution of vote to the total vote count  
+
+__dem_index__ Index of County electoral importance to Democratic party in 2016 (calculated from @gimpel2004)
+
+__rep_index__ Index of County electoral importance to Republican party (@gimpel2004)
+
+__obama_vote__ Votes for Barack Obama in 2012
+
+__other2012_vote__ Votes for all other presidential candidates in 2012
+
+__romney_vote__ Votes for Mitt Romney in 2012
+
+__romney_percent__ Percentage votes for Romney 
+
+__obama_percent__  Percentage votes for Obama
+
+__total_votes2012__ Total votes cast for president in 2012
+
+__dem_index2012__ Index of County electoral importance to Democratic party in 2012 (calculated from @gimpel2004)
+
+__rep_index2012__ Index of County electoral importance to Republican party in 2012 (@gimpel2004)
+
+The file *2016GEN_MI_CENR_BY_COUNTY.xls* contains elections results for all races appearing on the ballot in 2016 in Michigan. 
+
+Source: Michigan Department of State [@michigan_sos_election_results].
+
+## Political geography
+
+The file _Michigan_State_Senate_Districts_2011_plan.geojson_ describes the geography of Michigan Senate districts for the 2011 apportionment plan. 
+
+The file *Counties\_\_v17a.shp* describes the geography of Michigan counties. 
+
+Source: Michigan Geographic Information Systems (GIS) Open Data Portal [-@michigan_gis_portal].
+   
+The file *ZAF_ADM4.geojson* describes South African administrative boundaries. 
+
+Source: @goodman2019. 
+
+The file *Crime_Incidents_in_2024.geojson* describes the geography of crime reported in Washington, DC, from January to September 2024. 
+
+Source: DC Open Data Portal [@dc_crime_2024]. 
+
+## Votes and ideology in the United States Congress
+
+The file _co_na_h_votes_117_wide.csv_ records in wide format the roll call votes for Representatives from Colorado to the U.S. House in the 117th U.S. Congress. 
+
+The file _s_memb_votes_117_wide.csv_ records in wide format the roll call votes for the entire U.S. Senate in the 117th U.S. Congress.
+
+__name__ Last name, party caucus and State identifier. 
+
+__1__ to __996__ Yea (1) or Nay (0) on roll call vote. 
+
+The file  _co_117_euc_distances.csv_ contains a matrix of pairwise Euclidean distances on roll call votes for Representatives from Colorado. 
+
+The files _86_house_dw.csv_ and _house_memb_117.csv_  record for each representative (voting and non-voting) to the 86th and 117th US Congresses, respectively.  
+
+__chamber__ "House" for the House of Representatives
+
+__icpsr__ Numeric identifier for each Representative
+
+__district_code__ Number of district within State
+
+__state_abbrev__ Two letter State abbreviation
+
+__party_code__ Name of party affiliation
+
+__bioname__ Full name of Representative
+
+__born__ Year born
+
+__nominate_dim1__ NOMINATE dimension 1 score
+
+__nominate_dim2__ NOMINATE dimension 2 score
+
+__age__ Age in years
+
+Source: Voteview.com [@lewis2023]. 
+
+## Text of \emph{The Federalist}
+
+The file _federalist.zip_ contains individual 85 text (.txt) documents. Each document is the full text of each essay, given the number and identified author from the Unitd States Library of Congress.
+
+Source: U.S. Library of Congress [@loc_federalist_guide]. 
+
+## Comments on Title IX regulatory interpretation
+
+The file _reg_comments_sampled.csv_ contains random sampled comments (n=1000) on a proposed rule affecting Title IX enforcement. 
+
+__id__ Identification key 
+
+__city__ Location of submitter
+
+__state__ Location of submitter 
+
+__name__ First name of submitter 
+
+__date__ Date comment submitted 
+
+__comment__ Full text of the submitted comment
+
+Source: _The Federal Register_  [@ed2022ocr0143_comment].
+  
+## 2020 American National Election Studies 
+ 
+The **R** Workspace _anes 2020 survey data.rdata_ is a subset of the 2020 ANES survey [@anes2021], an election poll of U.S. citizens 18 years of age or older by the November 2020 election date. The dataset is saved within the Workspace as a dataframe _anes_20_. (Load the data with `load(file="anes 2020 survey data.rdata")`). 
+
+In the following list of variables, `pre` refers to survey questions administered in the fall 2020 pre-election survey, while `post` refers to the winter 2020 post-election survey. Pre-election interviews occurred between August 18 to election day November 3; post-election interviews occurred between November 8 until January 4, 2021. For most variables, missing responses due to non-completion of the survey or (in very few cases) technical errors have been recoded to a missing value of `NA`; for some questions, survey responses originally coded "Refused" or "Don't know" remain as in the original dataset from the ANES. Otherwise, responses appear solely on the intended measurement scale for each question. Some variables with an __x__ at the end of the name include the responses for a two-part question. For example, variable __V201126x__ on approval of the U.S. Congress is the response scale combined from two separate questions, "Do you approve or disapprove of the way the U.S. Congress has been handling its job?" and then "Do you [approve/disapprove] strongly or not strongly?".  In the variable label, `[respondent]` refers to the person answering the question, the survey respondent.
+
+### Variable list  {-}
+
+__version__ Version of ANES 2020 Time Series Release
+
+__V200001__ 2020 Case ID
+
+__V200015b__ Post‐election weight
+
+__V200015c__ Variance unit
+
+__V200015d__ Variance stratum
+
+__V201005__  pre: How often does [respondent] pay attention to politics and elections
+
+__V201006__  pre: How interested in following campaigns 
+
+__V201020__  pre: Did [respondent] vote in a Presidential primary or caucus
+
+__V201033__  pre: For whom does [respondent] intend to vote for President
+
+__V201100__  pre: How likely is it that [respondent] will vote in November
+
+__V201115__  pre: How hopeful [respondent] feels about how things are going in the country
+
+__V201116__  pre: How afraid [respondent] feels about how things are going in the country
+
+__V201118__  pre: How angry [respondent] feels about how things are going in the country
+
+__V201119__  pre: How happy [respondent] feels about how things are going in the country
+
+__V201126x__  pre: Approval of Congress handling its job
+
+__V201129x__  pre: Approve or disapprove President handling job
+
+__V201151__  pre: Feeling Thermometer: Joe Biden, Democratic Presidential candidate
+
+__V201152__  pre: Feeling Thermometer: Donald Trump, Republican Presidential candidate
+
+__V201153__  pre: Feeling Thermometer: Kamala Harris, Democratic Vice‐Presidential candidate
+
+__V201154__  pre: Feeling Thermometer: Mike Pence, Republican Vice‐Presidential candidate
+
+__V201200__  pre: 7pt scale liberal‐conservative self‐placement
+
+__V201225x__ pre: Voting as duty or choice
+
+__V201228__  pre: Party ID: Does [respondent] think of self as Democrat, Republican, or Independent
+
+__V201231x__ pre: Party ID [respondent] 7-point scale
+
+__V201232__  pre: Party identity importance
+
+__V201234__  pre: Government run by a few big interests or for benefit of all
+
+__V201235__  pre: Does government waste much tax money
+
+__V201236__  pre: How many in government are corrupt
+
+__V201237__  pre: How often can people be trusted
+
+__V201240__  pre: Which party better: handling health care
+
+__V201241__  pre: Which party better: handling immigration
+
+__V201244__  pre: Which party better: handling COVID‐19
+
+__V201246__  pre: 7pt scale spending & services: self‐placement
+
+__V201249__  pre: 7pt scale defense spending: self‐placement
+
+__V201247__  pre: 7pt scale spending & services: Democratic Presidential candidate
+
+__V201248__  pre: 7pt scale spending & services: Republican Presidential candidate
+
+__V201250__  pre: 7pt scale defense spending: Democratic Presidential candidate
+
+__V201251__  pre: 7pt scale defense spending: Republican Presidential candidate
+
+__V201305x__ pre: Federal Budget Spending: public schools
+
+__V201308x__ pre: Federal Budget Spending: Tightening border security
+
+__V201327x__ pre: National economy better or worse in last year
+
+__V201330x__ pre: Economy better or worse in next 12 months
+
+__V201336__  pre: Abortion self‐placement
+
+__V201345x__ pre: [respondent] favor/oppose death penalty
+
+__V201346__  pre: During last year, US position in world weaker or stronger
+
+__V201349x__  pre: Country would be better off if we just stayed home
+
+__V201350__  pre: Force to solve international problems
+
+__V201351__ pre: Votes counted accurately
+
+__V201352__  pre: Trust election officials
+
+__V201353__  pre: How often people denied right to vote
+
+__V201356x__  pre: Favor/oppose vote by mail
+
+__V201359x__  pre: Favor/oppose requiring ID when voting
+
+__V201362x__ pre: Favor/oppose allowing felons to vote
+
+__V201372x__  pre: Helpful/harmful if Pres didn't have to worry about congress/courts
+
+__V201375x__  pre: Favor or oppose restricting journalist access
+
+__V201377__   pre: How much trust in news media
+
+__V201411x__  pre: Transgender policy
+
+__V201414x__  pre: Favor/oppose laws protect gays lesbians against job discrimination
+
+__V201415__  pre: Should gay and lesbian couples be allowed to adopt
+
+__V201416__  pre: [respondent] position on gay marriage
+
+__V201423x__  pre: Should children brought illegally be sent back or allowed to stay
+
+__V201426x__  pre: Favor or oppose building a wall on border with Mexico
+
+__V201433__  pre: Is religion important part of [respondent] life  
+
+__V201434__  pre: Is Bible word of God or men
+
+__V201452__  pre: Ever attend church or religious services
+
+__V201453__  pre: Attend religious services how often
+
+__V201456__  pre: Does Christian [respondent] consider self born again
+
+__V201458x__ pre: [respondent] Major group religion  
+
+__relig_trad__ pre: reduced set of major group religion categories, from V201458x 
+
+__secular__ pre:  [respondent] identity as Agnostic or Atheist
+
+__attend__ pre: Religious service attendance
+
+__V201502__  pre: [respondent] how much better or worse off financially than 1 year ago
+
+__V201507x__ pre: [respondent] age
+
+__V201508__  pre: Marital status
+
+__V201511x__ pre: [respondent] 5 Category level of education
+
+__V201549x__ pre: [respondent] self‐identified race/ethnicity
+
+__V201600__  pre: What is [respondent] sex 
+
+__V201628__  pre: How many guns owned
+
+__V201645__  pre: On which program does Federal government spend the least
+
+__V201646__  pre: Party with most members in House before election
+
+__V201647__  pre: Party with most members in Senate before election
+
+__V202471__ post: [respondent] has family/neighbors/coworkers/friends who are gay, lesbian or bisexual
+
+__V202013__ post: [respondent] attend online political meetings, rallies, speeches, fundraisers
+
+__V202014__ post: [respondent] go to any political meetings, rallies, speeches, dinners
+
+__V202015__ post: [respondent] wear campaign button or post sign or bumper sticker
+
+__V202016__ post: [respondent] do any (other) work for party or candidate
+
+__V202017__ post: [respondent] contribute money to individual candidate running for public office
+
+__V202019__ post: [respondent] contribute money to political party during this election year
+
+__V202021__ post: [respondent] contribute to any other group that supported or opposed candidates
+
+__V202022__ post: [respondent] ever discuss politics with family or friends
+
+__V202023__ post: How many days in past week discussed politics with family or friends
+
+__V202066__ post: Did [respondent] vote in November 2020 election
+
+__V202072__ post: Did [respondent] vote for President
+
+__V202073__ post: For whom did [respondent] vote for President
+
+__V202143__ post: Feeling thermometer: Democratic presidential candidate: Joe Biden
+
+__V202144__ post: Feeling thermometer: Republican presidential candidate: Donald Trump
+
+__V202156__ post: Feeling thermometer: Democratic Vice Presidential candidate: Kamala Harris
+
+__V202157__ post: Feeling thermometer: Republican Vice Presidential candidate: Mike Pence
+
+__V202158__ post: Feeling thermometer: Dr. Anthony Fauci
+
+__V202159__ post: Feeling thermometer: Christian fundamentalists
+
+__V202160__ post: Feeling thermometer: feminists
+
+__V202161__ post: Feeling thermometer: liberals
+
+__V202162__ post: Feeling thermometer: labor unions
+
+__V202163__ post: Feeling thermometer: big business
+
+__V202164__ post: Feeling thermometer: conservatives
+
+__V202165__ post: Feeling thermometer: U.S. Supreme Court
+
+__V202166__ post: Feeling thermometer: gay men and lesbians
+
+__V202167__ post: Feeling thermometer: congress
+
+__V202168__ post: Feeling thermometer: Muslims
+
+__V202169__ post: Feeling thermometer: Christians
+
+__V202170__ post: Feeling thermometer: Jews
+
+__V202171__ post: Feeling thermometer: police
+
+__V202172__ post: Feeling thermometer: transgender people
+
+__V202173__ post: Feeling thermometer: scientists
+
+__V202174__ post: Feeling thermometer: Black Lives Matter
+
+__V202175__ post: Feeling thermometer: journalists
+
+__V202176__ post: Feeling thermometer: North Atlantic Treaty Organization (NATO)
+
+__V202177__ post: Feeling thermometer: United Nations (UN)
+
+__V202178__ post: Feeling thermometer: National Rifle Association (NRA)
+
+__V202179__ post: Feeling thermometer: socialists
+
+__V202180__ post: Feeling thermometer: capitalists
+
+__V202181__ post: Feeling thermometer: Federal Bureau of Investigation (FBI)
+
+__V202182__ post: Feeling thermometer: Immigration and Customs Enforcement (ICE) agency
+
+__V202183__ post: Feeling thermometer: MeToo movement
+
+__V202184__ post: Feeling thermometer: rural Americans
+
+__V202185__ post: Feeling thermometer: Planned Parenthood
+
+__V202186__ post: Feeling thermometer: World Health Organization (WHO)
+
+__V202187__ post: Feeling thermometer: Centers for Disease Control (CDC)
+
+__V202225__ post: Limits on campaign spending
+
+__V202231x__ post: Favor/oppose new limits on imports
+
+__V202232__ post: What should immigration levels be
+
+__V202233__ post: How likely immigration will take away jobs
+
+__V202236x__ post: Favor/oppose allowing refugees to come to US
+
+__V202239x__ post: Effect of illegal immigration on crime rate
+
+__V202242x__ post: Favor/oppose providing path to citizenship
+
+__V202245x__ post: Favor/oppose returning unauthorize immigrants to native country
+
+__V202248x__ post: Favor/oppose separating children of detained immigrants
+
+__V202259x__ post: Favor/oppose government trying to reduce income inequality
+
+__V202260__ post: Society should make sure everyone has equal opportunity
+
+__V202261__ post: We'd be better off if worried less about equality
+
+__V202262__ post: Not a big problem if some have more chance in life
+
+__V202263__ post: If people were treated more fairly we would have fewer problems
+
+__V202264__ post: The world is changing and we should adjust view of moral behavior
+
+__V202265__ post: Fewer problems if there was more emphasis on traditional family values
+
+__egal_index__ post: Additive index of __V202261__ to __V202265__
+
+__V202266__ post: Which child trait more important: independence or respect
+
+__V202267__ post: Which child trait more important: curiosity or good manners
+
+__V202268__ post: Which child trait more important: obedience or self‐reliance
+
+__V202269__ post: Which child trait more important: considerate or well‐behaved
+
+__auth_index__ post: Authoritarianism index, average of __V202266__ to __V202269__
+
+__V202286x__ post: Easier/harder for working mother to bond with child
+
+__V202290x__ post: Better/worse if man works and woman takes care of home
+
+__V202291__ post: Do women demanding equality seek special favors
+
+__V202292__ post: Do women complaining about discrimination cause more problems
+
+__sexism_index__ post: Modern sexism index, average of __V202286x__ to __V202292__
+
+__V202300__ post: Agree/disagree: blacks should work their way up without special favors
+
+__V202301__ post: Agree/disagree: past slavery and discrimination make it difficult for blacks
+
+__V202302__ post: Agree/disagree: blacks have gotten less than they deserve
+
+__V202303__ post: Agree/disagree: if blacks tried harder they'd be as well off as whites
+
+__V202304__ post: Our political system only works for insiders with money and power
+
+__V202305__ post: Because of rich and powerful it's difficult for the rest to get ahead
+
+__V202308x__ post: Trust ordinary people/experts for public policy
+
+__V202309__ post: How much do people need help from experts to understand science
+
+__V202310__ post: How important should science be for decisions about COVID‐19
+
+__V202311__ post: Business and politics controlled by few powerful people
+
+__V202312__ post: Much of what people hear in schools and media are lies by those in power
+
+__V202313__ post: Post-materialism most important 1A
+
+__V202314__ post: Post-materialism next most important 1B
+
+__V202315__ post: Post-materialism most important 2A
+
+__V202316__ post: Post-materialism next most important 2B
+
+__V202325__ post: Favor or oppose tax on millionaires
+
+__V202331x__ post: Favor or oppose requiring vaccines in schools
+
+__V202236x__ post: Favor or oppose allowing refugees to come to US
+
+__V202337__ post: Should federal government make it more difficult or easier to buy a gun
+
+__V202341x__ post: Favor or oppose background checks for gun purchases
+
+__V202344x__ post: Favor or oppose banning 'assault‐style' rifles
+
+__V202347x__ post: Favor or oppose government buy back of 'assault‐style' rifles 
+
+__V202351__ post: How often do police officers use more force than necessary
+
+__V202355__ post: Does [respondent] currently live in a rural or urban area
+
+__V202361x__ post: Favor or oppose free trade agreements
+
+__V202367x__ post: International trade increased/decreased jobs in US
+
+__V202373x__ post: Increasing diversity made US better/worse place to live
+
+__V202376x__ post: Favor or oppose federal program giving citizens $12K/year
+
+__V202377__ post: Should the minimum wage be raised, kept the same, or lowered
+
+__V202383x__ post: Health benefits of vaccinations outweigh risks
+
+__V202387x__ post: Attention to sexual harrassment as gone too far/not far enough
+
+__V202390x__ post: Favor/oppose transender people serve in military
+
+__V202456__ post: During past 12 months, [respondent] or any family members stopped by police
+
+__V202457__ post: Have you ever been arrested, or has that never happened to you?
+
+__V202468x__ post: Summary: total family income
+
+__V202562__ post: Life experience: does [respondent] currently owe money on student loans
+
+__V202475__ post: Does [respondent] consider themself a feminist or anti‐feminist
+
+__V202541a__ post: Which social media platforms [respondent] visited ‐ Facebook
+
+__V202541b__ post: Which social media platforms [respondent] visited ‐ Twitter
+
+__V202541c__ post: Which social media platforms [respondent] visited ‐ Instagram
+
+__V202541d__ post: Which social media platforms [respondent] visited ‐ Reddit
+
+__V202541e__ post: Which social media platforms [respondent] visited ‐ YouTube
+
+__V202541f__ post: Which social media platforms [respondent] visited ‐ SnapChat
+
+__V202541g__ post: Which social media platforms [respondent] visited ‐ TikTok
+
+__V202559__ post: Evidence that hydroxychloroquine is effective treatment for COVID‐19 or not
+
+__V202410__ post: Attitudes about elites: politicians do not care about people
+
+__V202411__ post: Attitudes about elites: most politicians are trustworthy
+
+__V202412__ post: Attitudes about elites: politicians are main problem in US
+
+__V202413__ post: Attitudes about elites: strong leader in government is good
+
+__V202414__ post: Attitudes about elites: people should make policy decisions
+
+### Question wording {-}
+
+__version__ to __V200015d__ data and sampling meta variables
+
+__V201005__  "How often do you pay attention to what’s going on in government and politics?" 1. Always  2. Most of the time  3. About half the time 4. Some of the time    5. Never 
+
+__V201006__  "Some people don’t pay much attention to political campaigns. How about you? Would you say that you have been very much interested, somewhat interested or not much interested in the political campaigns so far this year?" 1. Very much interested       2. Somewhat interested        3. Not much interested
+
+__V201020__  "Did you vote in a Presidential primary election or caucus this year?" 1. Yes, voted in primary or caucus         2. No, didn’t vote in primary or caucus
+
+__V201033__  "Who do you think you will vote for? [Joe Biden, Donald Trump/Donald Trump, Joe Biden], Jo Jorgensen, Howie Hawkins, or someone else?" 1. Joe Biden 2. Donald Trump 3. Jo Jorgensen 4. Howie Hawkins 5. Other candidate 
+ 
+__pre_vote_choice__ simplified categories of vote choice from V201033 
+ 
+__V201100__ "How likely is it that you will vote in the general election this November?" 1. Extremely likely 2. Very likely 3. Moderately likely 4. Slightly likely 5. Not likely at all
+
+__V201115__ "The next few questions are about how you feel about how things are going in the country these days.How hopeful do you feel about how things are going in the country these days?" 1. Not at all 2. A little 3. Somewhat 4. Very 5. Extremely
+
+__V201116__ "How afraid do you feel about how things are going in the country?" Response scale __V201115__
+
+__V201118__ "How angry do you feel about how things are going in the country?" Response scale __V201115__
+
+__V201119__ "How happy do you feel about how things are going in the country?" For responses see __V201115__
+
+__V201126x__  "Do you approve or disapprove of the way the U.S. Congress has been handling its job? Do you [approve/disapprove] strongly or not strongly?" 1. Approve strongly 2. Approve not strongly 3. Disapprove not strongly 4. Disapprove strongly
+
+__V201129x__ "Do you approve or disapprove of the way Donald Trump is handling his job as President? Do you [approve/disapprove] strongly or not strongly?" Response scale __V201126x__
+
+__V201151__  "I’d like to get your feelings toward some of our political leaders and other people who are in the news these days. I’ll read the name of a person and I’d like you to rate that person using something we call the feeling thermometer. Ratings between 50 degrees and 100 degrees mean that you feel favorable and warm toward the person. Ratings between 0 degrees and 50 degrees mean that you don’t feel favorable toward the person and that you don’t care too much for that person. You would rate the person at the 50 degree mark if you don’t feel particularly warm or cold toward the person. If we come to a person whose name you don’t recognize, you don’t need to rate that person. Just tell me and we’ll move on to the next one."
+"How would you rate: Joe Biden"  
+
+__V201152__  "How would you rate: Donald Trump"  
+
+__V201153__  "How would you rate: Kamala Harris"  
+
+__V201154__  "How would you rate: Mike Pence"  
+
+__V201200__  "We hear a lot of talk these days about liberals and conservatives. Here is a seven-point scale on which the political views that people might hold are arranged from extremely liberal to extremely conservative.[Scale shown to respondents.] Where would you place yourself on this scale, or haven’t you thought much about this?" 1. Extremely liberal 2. Liberal 3. Slightly liberal 4. Moderate; middle of the road 5. Slightly conservative 6. Conservative 7. Extremely conservative 99. Haven’t thought much about this 
+
+__V201225x__ "Different people feel differently about voting. For some, voting is a choice - they feel free to vote or not to vote, depending on how they feel about the candidates and parties. For others voting is a duty - they feel they should vote in every election no matter how they feel about the candidates and parties. For you personally, is voting mainly a choice, mainly a duty, or neither a choice nor a duty?" 1. Very strongly a duty 2. Moderately strongly a duty 3. A little strongly a duty 4. Neither a duty nor a choice 5. A little strongly a choice 6. Moderately strongly a choice 7. Very strongly a choice
+
+__V201228__  "Generally speaking, do you usually think of yourself as Democrat, a Republican, an independent, or what?"
+1. Democrat 2. Republican 3. Independent 5. Other party {SPECIFY} 
+
+__V201231x__ "...Would you call yourself a strong [Democrat / Republican] or a not very strong [Democrat / Republican]? Do you think of yourself as closer to the Republican Party or to the Democratic Party?" 1. Strong Democrat 2. Not very strong Democrat 3. Independent-Democrat 4. Independent 5. Independent-Republican 6. Not very strong Republican 7. Strong Republican
+
+__V201232__ "How important is being [a Democrat/a Republican/an Independent] to your identity?" 1. Extremely important 2. Very important 3. Moderately important 4. A little important 5. Not at all important
+
+__V201234__  "Would you say the government is pretty much run by a few big interests looking out for themselves or that it is run for the benefit of all the people?" 1. Run by a few big interests 2. For the benefit of all the people
+
+__V201235__  "Do you think that people in government waste a lot of the moneywe pay in taxes, waste some of it, or don’t waste very much of it?" 1. Waste a lot 2. Waste some 3. Don’t waste very much
+
+__V201236__  "How many of the people running the government are corrupt?" 1. All 2. Most 3. About half 4. A few 5. None
+
+__V201237__ "Generally speaking, how often can you trust other people?" 1. Always 2. Most of the time 3. About half the time 4. Some of the time 5. Never 
+
+__V201240__  "Which party do you think would do a better job of handling health care?" 1. Democrats would do a much better job 2. Democrats would do a somewhat better job 3. Not much difference between them 4. Republicans would do a somewhat better job 5. Republicans would do a much better job
+
+__V201241__  "Which party do you think would do a better job of handling immigration?" Response scale __V201240__
+
+__V201244__  "Which party do you think would do a better job of handling the COVID-19 pandemic?" Response scale __V201240__
+
+__V201246__  "Some people think the government should provide fewer services even in areas such as health and education in order to reduce spending. Suppose these people are at one end of a scale, at point 1. Other people feel it is important for the government to provide many more services even if it means an increase in spending. Suppose these people are at the other end, at point 7. And, of course, some other people have opinions somewhere in between, at points 2, 3, 4, 5 or 6. Where would you place yourself on this scale, or haven’t you thought much about this?"  1. Government should provide many fewer services 2. 3. 4. 5. 6. 7. Government should provide many more services
+
+__V201247__  "Where would you place Joe Biden on this issue?" Response scale in __V201246__
+
+__V201248__  "Where would you place Donald Trump on this issue?" Response scale in __V201246__
+
+__V201249__  "Some people believe that we should spend much less money for defense. Suppose these people are at one end of a scale, at point 1. Others feel that defense spending should be greatly increased. Suppose these people are at the other end, at point 7. And, of course, some other people have opinions somewhere in between, at points 2, 3, 4, 5 or 6. Where would you place yourself on this scale, or haven’t you thought much about this?" 1. Greatly decrease defense spending 2. 3. 4. 5. 6. 7. Greatly increase defense spending
+
+__V201250__  "Where would you place Joe Biden on this issue?" Response scale in __V201250__
+
+__V201251__  "Where would you place Donald Trump on this issue?" Response scale in __V201250__
+
+__V201305x__ "Next I am going to read you a list of federal programs. For each one, I would like you to tell me whether you would like to see spending increased, decreased, or kept the same....What about public schools? Should federal spending on public schools be increased, decreased, or kept the same?" 1. Increased a lot 2. Increased a little 3. Kept the same 4. Decreased a little 5. Decreased a lot  
+
+__V201308x__ "What about tightening border security to prevent illegal immigration?Should federal spending on tightening border security to prevent illegal immigration be increased, decreased, or kept the same?" Response scale __V201305x__
+
+__V201327x__ "Now thinking about the economy in the country as a whole, would you say that over the past year the nation’s economy has gotten better, stayed about the same, or gotten worse?" 1. Gotten much better 2. Gotten somewhat better 3. Stayed about the same 4. Gotten somewhat worse 5. Gotten much worse
+
+__V201330x__ "What about the next 12 months? Do you expect the economy, in the country as a whole, to get better, stay about the same, or get worse?" Response scale in __V201330x__ 
+
+__V201336__ "There has been some discussion about abortion during recent years. Which one of the opinions on this page best agrees with your view? You can just tell me the number of the opinion you choose." 1. "By law, abortion should never be permitted." 2. "The law should permit abortion only in case of rape, incest, or when the woman’s life is in danger." 3. "The law should permit abortion other than for rape/incest/danger to woman but only after need clearly established." 4. "By law, a woman should always be able to obtain an abortion as a matter of personal choice."
+
+__V201345x__ "Do you favor or oppose the death penalty for persons convicted of murder? Do you [favor / oppose] the death penalty for persons convicted of murder strongly or not strongly?" 1. Favor strongly 2. Favor not strongly 3. Oppose not strongly 4. Oppose strongly
+
+__V201346__  "Turning to some questions about America’s role in the world: During the past year, would you say that the United States’ position in the world has grown weaker, stayed about the same, or has it grown stronger?" 1. Weaker 2. Stayed about the same 3. Stronger
+
+__V201349x__  "Do you agree or disagree with this statement: 'This country would be better off if we just stayed home and did not concern ourselves with problems in other parts of the world.' Do you [agree / disagree] strongly or [agree / disagree] somewhat with this statement?" 1. Agree strongly 2. Agree somewhat 3. Disagree somewhat 4. Disagree strongly
+
+__V201350__  "How willing should the United States be to use military force to solve international problems?" 1. Extremely willing 2. Very willing 3. Moderately willing 4. A little willing 5. Not at all willing
+
+__V201351__  "In the November 2020 general election, how accurately do you think the votes will be counted?" 1. Not at all accurately 2. A little accurately 3. Moderately accurately 4. Very accurately 5. Completely accurately
+
+__V201352__ "How much do you trust the officials who oversee elections where you live?" 1. Not at all 2. A little 3. A moderate amount 4. A lot 5. A great deal
+
+__V201353__  "How often are people who are eligible to vote denied the right to vote?" 1. Never 2. Rarely 3. Occasionally 4. Fairly often 5. Very often
+
+__V201356x__  "Do you favor, oppose, or neither favor nor oppose conducting all elections by mail, instead of people voting in-person? Do you [favor / oppose] that a great deal, moderately, or a little?" 1. Favor a great deal 2. Favor moderately 3. Favor a little 4. Neither favor nor oppose 5. Oppose a little 6. Oppose moderately 7. Oppose a great deal
+
+__V201359x__  "Do you favor, oppose, or neither favor nor oppose requiring all people to show a government issued photo ID when they vote?" Response scale __V201356x__
+ 
+__V201362x__ "Do you favor, oppose, or neither favor nor oppose allowing convicted felons to vote once they complete their sentence?" Response scale __V201356x__
+
+__V201372x__  "Would it be helpful, harmful, or neither helpful nor harmful if U.S. presidents could work on the country’s problems without paying attention to what Congress and the courts say? How [helpful / harmful]?" 1. Extremely helpful 2. Moderately helpful 3. A little helpful 4. Neither helpful nor harmful 5. A little harmful 6. Moderately harmful 7. Extremely harmful
+
+__V201375x__  "Do you favor, oppose, or neither favor nor oppose elected officials restricting journalists' access to information about government decision-making? Do you [favor / oppose] that a great deal, moderately, or a little?" Response scale __V201356x__
+
+__V201377__  "In general, how much trust and confidence do you have in the news media when it comes to reporting the news fully, accurately, and fairly?" 1. None  2. A little 3. A moderate amount 4. A lot 5. A great deal
+
+__V201411x__  "Should transgender people - that is, people who identify themselves as the sex or gender different from the one they were born as - have to use the bathrooms of the gender they were born as, or should they be allowed to use the bathrooms of their identified gender? How strongly do you feel that way?" 1. Feels very strongly transgender people should use bathroom of birth gender 2. Feels moderately strongly... 3. Feels a little strongly... 4. Feels a little strongly transgender people be allowed to use bathroom of identified gender 5. Feels moderately strongly... 6. Feels very strongly transgender people be allowed to use bathroom of identified gender
+
+__V201414x__  "Do you favor or oppose laws to protect gays and lesbians against job discrimination? Do you [favor / oppose] such laws strongly or not strongly?" 1. Favor strongly 2. Favor not strongly 3. Oppose not strongly 4. Oppose strongly
+
+__V201415__  "Do you think gay or lesbian couples should be legally permitted to adopt children?" 1. Yes 2. No
+
+__V201416__  "Which comes closest to your view? You can just tell me the number of your choice." 1. "Gay and lesbian couples should be allowed to legally marry." 2. "Gay and lesbian couples should be allowed to form civil unions but not legally marry." 3. "There should be no legal recognition of gay or lesbian couples’ relationship."
+
+__V201423x__ "What should happen to immigrants who were brought to the U.S. illegally as children and have lived here for at least 10 years and graduated high school here? Should they be sent back where they came from, or should they be allowed to live and work in the United States?...Do you favor that a great deal, a moderate amount, or a little?" 1. Favors a great deal they should be sent back 2. Favors a moderate amount they should be sent back 3. Favors a little they should be sent back 4. Favors a little they should be allowed to live and work in US 5. Favors a moderate amount they should be allowed to live and work in US 6. Favors a great deal they should be allowed to live and work in US
+
+__V201426x__  "Do you favor, oppose, or neither favor nor oppose building a wall on the U.S. border with Mexico? Do you [favor / oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__ 
+
+__V201433__ "How important is religion in your life?" 1. Extremely important 2. Very important 3. Moderately important 4. A little important 5. Not important at all
+
+__V201434__ "Which of these statements comes closest to describing your feelings about the Bible? You can just give me the number of your choice." 1. "The Bible is the actual word of God and is to be taken literally, word for word." 2. "The Bible is the word of God but not everything in it should be taken literally, word for word." 3. "The Bible is a book written by men and is not the word of God." 
+
+__V201452__  "Lots of things come up that keep people from attending religious services even if they want to. Thinking about your life these days, do you ever attend religious services, apart from occasional weddings, baptisms or funerals?" 1. Yes 2. No
+
+__V201453__  "Do you go to religious services every week, almost every week, once or twice a month, a few times a year, or never?"
+1. Every week 2. Almost every week 3. Once or twice a month 4. A few times a year 5. Never
+
+__V201456__  "Would you call yourself a born-again Christian, that is, have you personally had a conversion experience related to Jesus Christ?" 1. Yes 2. No
+
+__V201458x__ Major group religion  1. Mainline Protestant 2. Evangelical Protestant 3. Black Protestant 4. Undifferentiated Protestant 5. Roman Catholic 6. Other Christian 7. Jewish 8. Other religion 9. Not religious
+
+__relig_trad__ reduced categories of religious traditions (from __V201458x__) 1. Mainline Protestant 2. Evangelical Protestant 3. Other Christian  4. Roman Catholic  5. Jewish  6. Other religion 7. Not religious  
+                     
+__secular__ Whether an individual reported religious identification as "Atheist" or "Secular" in variables V201435 or V201436 0. Not Secular 1. Secular
+
+__attend__ Religious service attendance, from V201452 and V201453 1. Never 2. few times a year, month 3. almost every week 4. every week 
+
+__V201502__  "We are interested in how people are getting along financially thesedays. Would you say that [you / you and your family living here] are much better off financially, somewhat better off, about the same, somewhat worse off, or much worse off than you were a year ago?" 1. Much better off 2. Somewhat better off 3. About the same 4. Somewhat worse off 5. Much worse off 
+
+__V201507x__ Respondent age in years 
+
+__V201508__  "Are you now married, widowed, divorced, separated or never married?" 1. Married: spouse present 3. Widowed 4. Divorced 5. Separated 6. Never married
+
+__V201511x__ "What is the highest level of school you have completed or the highest degree you have received?" 1. Less than high school credential 2. High school credential 3. Some post-high school, no bachelor’s degree 4. Bachelor's degree 5. Graduate degree
+
+__V201549x__ "I am going to read you a list of five race categories. You may choose one or more races. For this survey, Hispanic origin is not a race. Are you White; Black or African American; American Indian or Alaska Native; Asian; or Native Hawaiian or Other Pacific Islander?" 1. White, non-Hispanic 2. Black, non-Hispanic 3. Hispanic 4. Asian or Native Hawaiian/other Pacific Islander, non-Hispanic alone 5. Native American/Alaska Native or other race, non-Hispanic alone 6. Multiple races, non-Hispanic
+
+__V201600__  "What is your sex?" 1. Male 2. Female
+
+__V201628__  "How many guns do you or anyone else living here own? Type the number."
+
+__V201645__  "On which of the following does the U.S. federal government currently spend the least?" 1. Foreign aid 2. Medicare 3. National defense 4. Social Security
+
+__V201646__  "Do you happen to know which party currently has the most members in the U.S. House of Representatives in Washington?" 1. Democrats 2. Republicans
+
+__V201647__  "Do you happen to know which party currently has the most members in the U.S. Senate?" 1. Democrats 2. Republicans
+
+__V202471__ "Among your immediate family members, relatives, neighbors, co-workers, or close friends, are any of them gay, lesbian, or bisexual as far as you know?" 1. Yes 2. No
+
+__V202013__ "Did you participate in any online political meetings, rallies, speeches, fundraisers, or things like that in support of a particular candidate?" (for __V202013__ through __V202022__ response scale 1. Yes 2. No )
+
+__V202014__ "Did you go to any political meetings, rallies, speeches, dinners, or things like that in support of a particular candidate?"  
+
+__V202015__ "Did you wear a campaign button, put a campaign sticker on your car, or place a sign in your window or in front of your house?"
+
+__V202016__ "Did you do any other work for one of the parties or candidates?"
+
+__V202017__ "During an election year people are often asked to make a contribution to support campaigns. Did you give money to an individual candidate running for public office?"
+
+__V202019__ "Did you give money to a political party during this election year?"
+
+__V202021__ "Did you give any money to any other group that supported or opposed candidates?"
+
+__V202022__ "Do you ever discuss politics with your family or friends?"
+
+__V202023__ "How many days in the past week did you talk about politics with family or friends?" 0. Zero days 1. One day 2. Two days 3. Three days 4. Four days 5. Five days 6. Six days 7. Seven days 
+
+__V202066__ "In talking to people about elections, we often find that a lot of peoplewere not able to vote because they weren’t registered, they were sick, or they just didn’t have time. Which of the following statements best describes you:" 1. "I did not vote in the election this November." 2. "I thought about voting this time, but didn't." 3. "I usually vote, but didn’t this time." 4. "I am sure I voted."
+
+__V202072__ "How about the election for President? Did you vote for a candidate for President?" 1. Yes, voted for President 2. No, didn’t vote for President
+
+__V202073__ "Who did you vote for? [Joe Biden, Donald Trump/Donald Trump, Joe Biden], Jo Jorgensen, Howie Hawkins, or someone else?"
+1. Joe Biden 2. Donald Trump 3. Jo Jorgensen 4. Howie Hawkins 5. Other candidate  
+
+__post_vote_choice__  categories of vote choice from __V202073__  1. Joe Biden  2. Donald Trump 3. Other 
+
+__V202143__ "I’d like to get your feelings toward some of our political leaders and other people who are in the news these days.I’ll read the name of a person and I’d like you to rate that person using something we call the feeling thermometer. Ratings between 50 degrees and 100 degrees mean that you feel favorable and warm toward the person. Ratings between 0 degrees and 50 degrees mean that you don’t feel favorable toward the person and that you don’t care too much for that person. You would rate the person at the 50 degree mark if you don’t feel particularly warm or cold toward the person. If we come to a person whose name you don’t recognize, youdon’t need to rate that person. Just tell me and we’ll move on to the next one. On the feeling thermometer scale from 0 to 100, how would you rate Joe Biden?" [All feeling thermometers are recorded as numeric scores 0 to 100.]
+
+__V202144__ "How would you rate: Donald Trump" 
+
+__V202156__ "How would you rate: Kamala Harris" 
+
+__V202157__ "How would you rate: Mike Pence"
+
+__V202158__ "How would you rate: Dr. Anthony Fauci"
+
+__V202159__ "Still using the feeling thermometer scale from 0 to 100, how would you rate the following groups:" "How would you rate: Christian Fundamentalists"
+
+__V202160__ "How would you rate: Feminists"
+
+__V202161__ "How would you rate: Liberals"
+
+__V202162__ "How would you rate: Labor unions"
+
+__V202163__ "How would you rate: Big business"
+
+__V202164__ "How would you rate: Conservatives"
+
+__V202165__ "How would you rate: The U.S. Supreme Court"
+
+__V202166__ "How would you rate: Gay men and lesbians"
+
+__V202167__ "How would you rate: Congress"
+
+__V202168__ "How would you rate: Muslims"
+
+__V202169__ "How would you rate: Christians"
+
+__V202170__ "How would you rate: Jews"
+
+__V202171__ "How would you rate: Police"
+
+__V202172__ "How would you rate: Transgender people"
+
+__V202173__ "How would you rate: Scientists"
+
+__V202174__ "How would you rate: Black Lives Matter movement"
+
+__V202175__ "How would you rate: Journalists"
+
+__V202176__ "How would you rate: NATO"
+
+__V202177__ "How would you rate: The United Nations (UN)"
+
+__V202178__ "How would you rate: The National Rifle Association (NRA)"
+
+__V202179__ "How would you rate: Socialists"
+
+__V202180__ "How would you rate: Capitalists"
+
+__V202181__ "How would you rate: The Federal Bureau of Investigation (FBI)"
+
+__V202182__ "How would you rate: The Immigration and Customs Enforcement (ICE) agency"
+
+__V202183__ "How would you rate: The #MeToo movement"
+
+__V202184__ "How would you rate: Rural Americans"
+
+__V202185__ "How would you rate: Planned Parenthood"
+
+__V202186__ "How would you rate: The World Health Organization (WHO)"
+
+__V202187__ "How would you rate: The Centers for Disease Control (CDC)"
+
+__V202225__ "Do you favor, oppose, or neither favor nor oppose placing limits on political campaign spending?" 1. Favor 2. Oppose 3. Neither favor nor oppose
+
+__V202231x__ "Some people have suggested placing new limits on foreign imports in order to protect American jobs. Others say that such limits would raise consumer prices and hurt American exports. Do you favor or oppose placing new limits on imports? Do you [favor/oppose] placing new limits on imports strongly or not strongly?" Response scale __V201356x__ 
+
+__V202232__ "Do you think the number of immigrants from foreign countries who are permitted to come to the United States to live should be increased a lot, increased a little, left the same as it is now, decreased a little, or decreased a lot?" 1. Increased a lot 2. Increased a little 3. Left the same as it is now 4. Decreased a little 5. Decreased a lot
+
+__V202233__ "Now I’d like to ask you about immigration in recent years. How likely is it that recent immigration levels will take jobs away from people already here – extremely likely, very likely, somewhat likely, or not at all likely?" 1. Extremely likely 2. Very likely 3. Somewhat likely 4. Not at all likely
+
+__V202236x__  "Do you favor, oppose, or neither favor nor oppose allowing refugees who are fleeing war, persecution, or natural disasters in other countries to come to live in the U.S.? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__ 
+
+__V202239x__ "Does illegal immigration increase, decrease, or have no effect on the crime rate in the U.S.? Does it [increase/decrease] the crime rate a lot, a moderate amount, or a little?" Response scale __V202232__  
+
+__V202242x__ "Do you favor, oppose, or neither favor nor oppose providing a path to citizenship for unauthorized immigrants who obey the law, pay a fine, and pass security checks? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__ 
+
+__V202245x__ "Do you favor, oppose, or neither favor nor oppose returning all unauthorized immigrants to their native countries? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V202232__  
+
+__V202248x__ "Do you favor, oppose, or neither favor nor oppose separating the children of detained immigrants, rather than keeping them with their parents in adult detention centers? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V202232__  
+
+__V202259x__ "Next, do you favor, oppose, or neither favor nor oppose the government trying to reduce the difference in incomes between the richest and poorest households? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V202232__  
+
+__V202260__ "I am going to read several more statements. After each one, I would like you to tell me how strongly you agree or disagree. The first statement is:‘Our society should do whatever is necessary to make sure that everyone has an equal opportunity to succeed.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?" 1. Agree strongly 2. Agree somewhat 3. Neither agree nor disagree 4. Disagree somewhat 5. Disagree strongly
+
+__V202261__ ‘This country would be better off if we worried less about how equal people are.’ Response scale __V202260__
+
+__V202262__ ‘It is not really that big a problem if some people have more of a chance in life than others.’ Response scale __V202260__
+
+__V202263__ ‘If people were treated more equally in this country we would have many fewer problems.’ Response scale __V202260__
+
+__V202264__ ‘The world is always changing and we should adjust our view of moral behavior to those changes.’ Response scale __V202260__
+
+__V202265__ ‘This country would have many fewer problems if there were more emphasis on traditional family ties.’ Response scale __V202260__
+
+__egal_index__ post: additive index of __V202261__ to __V202265__
+
+__V202266__ "On another topic. Although there are a number of qualities that people feel that children should have, every person thinks that some are more important than others. I am going to read you pairs of desirable qualities.Please tell me which one you think is more important for a child to have: Independence or respect for elders" 1. Independence 2. Respect for elders 3. Both 
+
+__V202267__ "Which one is more important for a child to have: Curiosity or good manners" 1. Curiosity 2. Good manners 3. Both  
+
+__V202268__ "Which one is more important for a child to have: Obedience or self-reliance" 1. Obedience 2. Self-reliance 3. Both 
+
+__V202269__ "Which one is more important for a child to have: Being considerate or well behaved" 1. Being considerate 2. Well behaved 3. Both 
+
+__auth_index__ post: additive index of __V202266__ to __V202269__
+
+__V202286x__ "Do you think it is easier, harder, or neither easier nor harder for mothers who work outside the home to establish a warm and secure relationship with their children than it is for mothers who stay at home? Is it a great deal easier, somewhat easier, or slightly easier for mothers who work outside the home to establish a warm and secure relationship with their children? Is it a great deal harder, somewhat harder, or slightly harder for mothers who work outside the home to establish a warm and secure relationship with their children?" 1. A great deal easier 2. Somewhat easier 3. Slightly easier 4. Neither easier nor harder 5. Slightly harder 6. Somewhat harder 7. A great deal harder
+
+__V202290x__ "Do you think it is better, worse, or makes no difference for the family as a whole if the man works outside the home and the woman takes care of the home and family? Is it much better, somewhat better, or slightly better? Is it much worse, somewhat worse, or slightly worse?" 1. Much better 2. Somewhat better 3. Slightly better 4. Makes no difference 5. Slightly worse 6. Somewhat worse 7. Much worse
+
+__V202291__ "When women demand equality these days, how often are they actually seeking special favors?" 1. Always 2. Most of the time 3. About half the time 4. Some of the time 5. Never
+
+__V202292__ "When women complain about discrimination, how often do they cause more problems than they solve?" Response scale __V202291__
+
+__sexism_index__ post: additive index of __V202286x__ to __V202292__
+
+__V202300__ "‘Irish, Italian, Jewish and many other minorities overcame prejudice and worked their way up. Blacks should do the same without any special favors.’ Do you agree strongly, agree somewhat, neither agree nor disagree,disagree somewhat, or disagree strongly with this statement?" Response scale __V202260__
+
+__V202301__ "‘Generations of slavery and discrimination have created conditions that make it difficult for blacks to work their way out of the lower class.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?" Response scale __V202260__
+
+__V202302__ "‘Over the past few years, blacks have gotten less than they deserve.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?" Response scale __V202260__
+
+__V202303__ "‘It’s really a matter of some people not trying hard enough; if blacks would only try harder they could be just as well off as whites.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?"Response scale __V202260__
+
+__V202304__ "How well does the following statement describe your view? ‘Our political system only works for the insiders with money and power.’"1. Not at all well 2. Not very well 3. Somewhat well 4. Very well 5. Extremely well
+
+__V202305__ "How well does the following statement describe your view? ‘Because of the rich and powerful, it becomes difficult for the rest of us to get ahead.’" Response scale __V202304__
+
+__V202308x__ "When it comes to public policy decisions, whom do you tend to trust more: ordinary people, experts, or trust both the same?Do you trust [ordinary people/experts] much more or somewhat more? " 1. Trust ordinary people much more 2. Trust ordinary people somewhat more 3. Trust both the same 4. Trust experts somewhat more 5. Trust experts much more
+
+__V202309__ "How much do ordinary people need the help of experts to understand complicated things like science and health?"
+1. Not at all 2. A little 3. A moderate amount 4. A lot 5. A great deal
+
+__V202310__ "In general, how important should science be for making government decisions about COVID-19?" 1. Not at all important 2. A little important 3. Moderately important 4. Very important 5. Extremely important
+
+__V202311__ "How well does the following statement describe your view? Most business and politics in this country are secretly controlled by the same few powerful people." Response scale __V202304__
+
+__V202312__ "How well does the following statement describe your view? "Much of what people hear in schools and the media are lies designed to keep people from learning the real truth about those in power." Response scale __V202304__
+
+__V202313__ "Which of these do you consider to be the most important? You can just tell me the number of the option you choose."
+1. A high level of economic growth 2. Making sure this country has strong defense forces 3. Seeing that people have more say about how things are done at their jobs/in their communities 4. Trying to make our cities and countryside more beautiful
+
+__V202314__ "And which would be the next most important? You can just tell me the number ofthe option you choose." Response scale __V202313__ 
+
+__V202315__ "Here is another list. Which one of these do you consider most important? You can just tell me the number of the option you choose." 1. Maintaining order in the nation 2. Giving people more say in important government decisions 3. Fighting rising prices 4. Protecting freedom of speech
+
+__V202316__ "And which would be the next most important? You can just tell me the number of the option you choose." Response scale __V202315__ 
+
+__V202325__ "Do you favor, oppose, or neither favor nor oppose increasing incometaxes on people making over one million dollars per year?" 1. Favor 2. Oppose 3. Neither favor nor oppose
+
+__V202331x__ "Do you favor, oppose, or neither favor nor oppose requiring children to be vaccinated in order to attend public schools? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__
+
+__V202236x__ "Do you favor, oppose, or neither favor nor oppose allowing refugees who are fleeing war, persecution, or natural disasters in other countries to come to live in the U.S.? Do you [favor/oppose] that a great deal, a moderate amount, or a little?"
+Response scale __V201356x__
+
+__V202337__ "Do you think the federal government should make it more difficult for people to buy a gun than it is now, make it easier for people to buy a gun, or keep these rules about the same as they are now?" 1. More difficult 2. Easier 3. Keep these rules about the same
+
+__V202341x__ "Do you favor, oppose, or neither favor nor oppose requiring background checks for gun purchases at gun shows or other private sales? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__
+
+__V202344x__ "Do you favor, oppose, or neither favor nor oppose banning the sale of semi-automatic “assault-style” rifles? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__
+
+__V202347x__ "Do you favor, oppose, or neither favor nor oppose a mandatory program where the government would buy back semi-automatic assault-style rifles from citizens who currently own them?  Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__
+
+__V202351__ "How often do you think police officers use more force than is necessary?" 1. Never 2. Rarely 3. About half the time 4. Most of the time 5. All the time
+
+__V202355__  "Do you currently live in a rural area, small town, suburb, or a city?" 1. Rural area 2. Small town 3. Suburb 4. City
+
+__V202361x__  "Do you favor, oppose, or neither favor nor oppose the U.S. making free tradeagreements with other countries? How strongly do you [favor/oppose] it?" Response scale __V201356x__
+
+__V202367x__ "Has international trade increased, decreased, or neither increased nor decreased the number of jobs available in the United States?Has it [increased/decreased] the number of jobs in the U.S. a lot or somewhat?"  1. Increased a lot 2. Increased somewhat 3. Neiter increased nor decreased 4. Decreased somewhat 5. Increased a lot
+
+__V202373x__ "Does the increasing number of people of many different races and ethnic groups in the United States make this country a better place to live, a worse place to live, or does it make no difference?Does it make it a lot [better/worse] or a little [better/worse]?" 1. A lot better 2. A little better 3. Makes no difference 4. A little worse 5. A lot worse
+
+__V202376x__  "Do you favor, oppose, or neither favor nor oppose establishing a federal program that gives all citizens $12,000 per year, provided they meet certain conditions? This program would be paid for with higher taxes. Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__
+
+__V202377__ "Should the federal minimum wage be raised, kept the same, lowered but not eliminated, or eliminated altogether?" 1. Raised 2. Kept the same 3. Lowered 4. Eliminated
+
+__V202383x__ "Now for questions on different topics. Do the health benefits of vaccinations generally outweigh the risks, do the risks outweigh the benefits, or is there no difference? Are the [health benefits/risks] of vaccinations much greater, moderately greater, or slightly greater?" 1. Health benefits much greater than risks 2. Health benefits moderately greater than risks 3. Health benefits slightly greater than risks 4. No difference 5. Risks slightly greather than health benefits 6. Risks moderately greater than health benefits 7. Risks much greater than health benefits
+
+__V202387x__ "Do you think attention to sexual harassment has gone too far, has not gone far enough, or has been about right? [Has it gone much too far or a little too far?] [Has it not gone nearly far enough or not gone quite far enough?]" 1. Has gone much too far 2. Has gone a little too far 3. Has been about right 4. Has not gone quite far enough 5. Has not gone nearly far enough
+
+__V202390x__ "Do you favor, oppose, or neither favor nor oppose allowing transgender people to serve in the United States Armed Forces? Do you [favor/oppose] that a great deal, a moderate amount, or a little?" Response scale __V201356x__
+
+__V202410__ "Please tell me whether you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with each of the following statements: Most politicians do not care about the people. Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly?" 1. Agree strongly 2. Agree somewhat 3. Neither agree nor disagree 4. Disagree somewhat 5. Disagree strongly
+
+__V202411__ "‘Most politicians are trustworthy.’" Response scale __V202410__
+
+__V202412__ "‘Politicians are the main problem in the United States.’" Response scale __V202410__
+
+__V202413__  "‘Having a strong leader in government is good for the United States even if the leader bends the rules to get things done.’" Response scale __V202410__
+
+__V202414__ "‘The people, and not politicians, should make our most important policy decisions.’" Response scale __V202410__
+
+__V202456__ "During the past 12 months, were you or any of your family members stopped or questioned by a police officer, or did this not happen in the past 12 months?" 1. Was stopped or questioned in the past 12 months 2. Was not stopped or questioned in the past 12 months
+
+__V202457__ "Have you ever been arrested, or has that never happened to you?" 1. Have been arrested 2. Never arrested
+
+__V202468x__ "The next question is about [the total combined income of all members of your family / your total income during the past 12 months. This includes money from jobs, net income from business, farm or rent, pensions, dividends, interest, Social Security payments and any other money income received by members of your family who are 15 years of age or older. What was the total income of your family during the past 12 months?"
+
+__V202475__ "Do you consider yourself a feminist, an anti-feminist, or neither of these?" 1. Feminist 2. Anti-feminist 3. Neither
+
+__V202541a__ Which social media platforms have you visited in the past year? Please tell me any that apply. (__V202541a__ through __V202541g__ 0. Not mentioned 1. Mentioned)
+
+__V202541b__ Which social media platforms [respondent] visited - Twitter
+
+__V202541c__ Which social media platforms [respondent] visited ‐ Instagram
+
+__V202541d__ Which social media platforms [respondent] visited ‐ Reddit
+
+__V202541e__ Which social media platforms [respondent] visited ‐ YouTube
+
+__V202541f__ Which social media platforms [respondent] visited ‐ SnapChat
+
+__V202541g__ Which social media platforms [respondent] visited ‐ TikTok
+
+__V202559__ "Which of these two statements do you think is most likely to be true?" 1. Scientific evidence that hydroxychloroquine is a safe and effective treatment for COVID-19 2. No scientific evidence that hydroxychloroquine is a safe and effective treatment for COVID-19
+
+__V202562__ "Do you currently owe money on student loans, or not?" 1. Yes 2. No
+
+
+ 
+

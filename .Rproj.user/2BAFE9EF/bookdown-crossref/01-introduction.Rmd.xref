@@ -1,0 +1,16 @@
+h1:ch1 Introduction
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:introduction Introduction
+h2:what-we-will-do-data-science-statistics What we will do: data science + statistics
+h2:how-we-will-do-it-coding How we will do it: coding
+h2:data-analysis-in-the-research-process Data analysis in the research process
+fig:wheelgraph Data analysis as part of a broader cyclical research process. Adapted from Wallace (1971) and Wickham and Grolemund (2016).
+h2:two-examples-of-coding-for-political-data-analysis Two examples of coding for political data analysis
+h3:measuring-changes-in-global-development Measuring changes in global development
+fig:fertle7515 Scatterplots of life expectancy at birth (years) by fertility rate (births per woman) for 1975 (upper panel) and 2015 (lower panel), with countries colored by world region. Marker size indicates population size. In 1975, countries exhibited wide variation in both fertility and life expectancy, with limited regional clustering. By 2015, most countries experienced increases in life expectancy and declines in fertility, resulting in tighter regional clustering, except for Sub-Saharan Africa, which remains more dispersed in both measures.
+tab:wbdata1-tab1  Excerpt of World Bank data for Figure 1.4. The second column lists fertility rate and the third life expectancy
+h3:modeling-u.s.-presidential-elections Modeling U.S. presidential elections
+fig:incgdp1 Scatterplot of incumbent party two-party popular vote share (in percent) by second quarter GDP growth rate (in percent) for U.S. presidential elections (1948–2020). Each point represents an election year, with point size reflecting the incumbent president’s approval rating at mid-year (larger points indicate higher approval). The red trend line summarizes the positive linear relationship between GDP growth and vote share: incumbents tend to receive a higher share of the popular vote when economic growth is stronger.
+h2:a-roadmap-to-the-chapters A roadmap to the chapters
+h2:resources Resources
+

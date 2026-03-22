@@ -1,0 +1,4 @@
+"0","nmds_results<-mds(dissimat, ndim=2,  type=""ordinal"") "
+"2","Error in if (p > (n - 1)) stop(""Maximum number of dimensions is n-1!"") : 
+  argument is of length zero
+"

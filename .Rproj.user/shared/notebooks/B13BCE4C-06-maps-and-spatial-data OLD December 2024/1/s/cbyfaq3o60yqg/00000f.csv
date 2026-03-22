@@ -1,0 +1,2 @@
+"0","michigan <- michigan %>%"
+"0","  mutate(margin=trump_percent - clinton_percent)"

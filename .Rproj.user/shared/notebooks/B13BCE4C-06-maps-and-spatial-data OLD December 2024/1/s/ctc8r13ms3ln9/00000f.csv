@@ -1,0 +1,5 @@
+"0","leaflet(sa_admin_boundaries) %>%"
+"0","  addTiles() %>%"
+"0","  addCircleMarkers(lat=three_consulates$lat, "
+"0","     lng=three_consulates$long, "
+"0","     label = three_consulates$name) "

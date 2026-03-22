@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Data Wrangling: Cleaning and Transforming Data | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Data Wrangling: Cleaning and Transforming Data | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Data Wrangling: Cleaning and Transforming Data | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch4.html"/>
+<link rel="next" href="ch6.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch5" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Data Wrangling: Cleaning and Transforming Data<a href="ch5.html#ch5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch5.html#ch5">5</a> reviews functions for manipulating raw data to prepare it for analysis or visualization.</p>
+<div id="learning-objectives-and-chapter-resources-3" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch5.html#learning-objectives-and-chapter-resources-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this chapter, you should be able to (1) apply key functions to sort, filter, arrange, and restructure data tables for analysis and presentation; (2) use these techniques to process county-level voting returns from an official data source; (3) create clean data tables for visualization; and (4) document the steps involved in transforming raw data into a usable format. The material in the chapter requires the <strong>dplyr</strong> <span class="citation">(<a href="#ref-R-dplyr">Wickham, François, et al. 2023</a>)</span>, <strong>ggplot2</strong> <span class="citation">(<a href="#ref-R-ggplot2">Wickham, Chang, et al. 2023</a>)</span>, and <strong>tibble</strong> <span class="citation">(<a href="#ref-R-tibble">Müller and Wickham 2023</a>)</span> packages, which should already be installed as part of the <em>tidyverse</em>. The material uses the following datasets: <em>house_memb_117.csv</em> and <em>2016GEN_MI_CENR_BY_COUNTY.xls</em> from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="wrangling-and-tidying-data" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Wrangling and tidying data<a href="ch5.html#wrangling-and-tidying-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data is rarely analysis-ready or machine readable when obtained from its source. Transforming raw data into a format suitable for analysis — known as “data wrangling” — is a critical step in nearly any research project. And just as important is having code to make the process reproducible, both for transparency and for repeating the steps in the event of an error. This chapter provides tools to take messy or unwieldy data tables and to clean, structure, extract, and prepare data for visualization and further analysis. It is organized into three sections:</p>
+<p>First, in brief we will learn about the use of indices to subset data tables by rows and columns. While these are essential to learn, the <strong>dplyr</strong> package provides a more flexible set of functions for sequencing operations into others such as filtering and arranging rows and columns. Second, we will learn about the core functions of the <strong>dplyr</strong> package, displayed by function name in Table <a href="#tab:dplyr-verbs"><strong>??</strong></a> followed by a brief explanation. We will learn to use these functions with the <code>%&gt;%</code> ‘pipe’ operator, for combining functions by passing the output of one to another. Third, we will apply these skills to cleaning and preparing for visualization Michigan County level voting records from an official source.</p>
+<p>Attach the <strong>tidyverse</strong> to access functions from the packages <strong>dplyr</strong> and <strong>ggplot2</strong>.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ch5.html#cb136-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>Save the two Chapter datafiles to your working directory; use the Session menus to change it as needed. Use <code>read_csv()</code> to read in <em>house_memb_117.csv</em> and store it as the data object <em>house_memb_117</em>:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="ch5.html#cb137-1" tabindex="-1"></a>house_memb_117<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;house_memb_117.csv&quot;</span>)</span></code></pre></div>
+<p>The result, <em>house_memb_117</em>, is stored as a <code>tibble</code>, a particular format for printing a dataframe to the Console. Enter <em>house_memb_117</em> to observe it. The file <em>house_memb_117.csv</em> is a table of characteristics of representatives to the 117th session of the U.S. House of Representatives, from the canonical source of data on members of Congress and their votes, Voteview.com <span class="citation">(<a href="#ref-lewis2023">Lewis et al. 2023</a>)</span>. The file consists of 455 rows and 9 columns. (See the Appendix for details.) Apart from identifiers, the data includes two measures of legislator ideology, <em>nominate_dim1</em> and <em>nominate_dim2</em> <span class="citation">(<a href="#ref-poole2005">K. T. Poole 2005</a>; <a href="#ref-poole2006">K. T. Poole and Rosenthal 2006</a>)</span>. Developed by the political scientist Keith Poole, ‘NOMINATE’ (an acronym) scores estimate ideology on the principal line of political conflict in Congress, an economic liberalism-conservatism (<em>dim1</em>) and a second (<em>dim2</em>) capturing the legislator’s position on the remaining bundle of issues within a particular session of Congress. See Everson et al. <span class="citation">(<a href="#ref-everson2016">2016</a>)</span> for an explanation of the meaning and estimation of the scores. Given the file, imagine that we are interested in extracting observations on legislator ideology by State or party caucus, or perhaps sort the legislators by ideology.</p>
+<div id="selecting-rows-and-columns-with-indices" class="section level3 unnumbered hasAnchor">
+<h3>Selecting rows and columns with indices<a href="ch5.html#selecting-rows-and-columns-with-indices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Indices are a fundamental way to select specific rows and columns in a dataframe. Below, the code selects four columns (<em>state_abbrev</em>, <em>party_code</em>, <em>bioname</em>, and <em>nominate_dim1</em>) from <em>house_memb_117</em>:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="ch5.html#cb138-1" tabindex="-1"></a>house_memb_117[, <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>) ]</span></code></pre></div>
+<pre><code>## # A tibble: 455 × 4
+##    state_abbrev party_code bioname              nomin…¹
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;                  &lt;dbl&gt;
+##  1 AL           Republican ROGERS, Mike Dennis    0.363
+##  2 AL           Democratic SEWELL, Terri         -0.396
+##  3 AL           Republican BROOKS, Mo             0.652
+##  4 AL           Republican PALMER, Gary James     0.678
+##  5 AL           Republican CARL, Jerry L.         0.52 
+##  6 AL           Republican MOORE, Barry           0.642
+##  7 AL           Republican ADERHOLT, Robert       0.386
+##  8 AK           Republican YOUNG, Donald Edwin    0.283
+##  9 AK           Democratic PELTOLA, Mary Sattl…  -0.156
+## 10 AS           Republican RADEWAGEN, Aumua Am…   0.336
+## # … with 445 more rows, and abbreviated variable name
+## #   ¹​nominate_dim1</code></pre>
+<p>Indices specify positions within the dataframe using the format <code>[r, c]</code>, where <code>r</code> represents rows, and <code>c</code> represents columns. When left blank, all rows or columns are selected. For example, <code>house_memb_117[, 6]</code> selects all rows from the sixth column, <em>bioname</em>. Moving the number 6 to the <code>r</code> position selects all columns for the sixth observation, <code>house_memb_117[6, ]</code>. Multiple columns can be selected with the <code>c()</code> function: <code>house_memb_117[, c(1, 2, 3, 4, 5)]</code> selects columns 1 through 5, while <code>house_memb_117[, c(1:5)]</code> achieves the same result with the sequence 1 through 5 specified by <code>1:5</code>.</p>
+<p>In the example above, <code>house_memb_117[, c(4, 5, 6, 8)]</code> returns all rows but only columns 4, 5, 6, and 8. When executed, the result is displayed as a tibble, with a header <code># A tibble: 455 × 4</code>, showing that the dataset contains 455 rows and 4 columns. The first 10 rows are displayed along with column names, types (<code>&lt;chr&gt;</code> for character, <code>&lt;dbl&gt;</code> for numeric, <code>&lt;fct&gt;</code> for factor), and a comment indicating the remaining rows: <code># … with 445 more rows</code>.</p>
+</div>
+</div>
+<div id="functions-for-organizing-rows-and-columns" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Functions for organizing rows and columns<a href="ch5.html#functions-for-organizing-rows-and-columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Indices are essential for working with dataframes. The tools from <strong>dplyr</strong> are different: rather than directly identifying rows and columns with indices to specify a position, <strong>dplyr</strong> works with functions. As individual functions, each follows a clear pattern. The functions require first the name of a dataset, in this case, <code>house_memb_117</code>, followed by a set of conditions that select rows or columns of the dataset. The result is typically returned as a tibble. Below are examples of key dplyr functions:</p>
+<div id="highlight-a-row-of-the-dataset-filter" class="section level3 unnumbered hasAnchor">
+<h3>Highlight a row of the dataset: <code>filter()</code><a href="ch5.html#highlight-a-row-of-the-dataset-filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <em>filter()</em> function selects rows of a data table based on row values. For example, if we wanted to view ideology scores on the elected representatives from New York:<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="ch5.html#cb140-1" tabindex="-1"></a><span class="fu">filter</span>(house_memb_117, state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 29 × 4
+##    state_abbrev party_code bioname              nomin…¹
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;                  &lt;dbl&gt;
+##  1 NY           Democratic HIGGINS, Brian        -0.348
+##  2 NY           Democratic CLARKE, Yvette Diane  -0.61 
+##  3 NY           Democratic TONKO, Paul           -0.418
+##  4 NY           Republican REED, Thomas W. II     0.269
+##  5 NY           Democratic MENG, Grace           -0.379
+##  6 NY           Democratic JEFFRIES, Hakeem      -0.489
+##  7 NY           Democratic MALONEY, Sean Patri…  -0.239
+##  8 NY           Republican ZELDIN, Lee M          0.397
+##  9 NY           Democratic RICE, Kathleen Maura  -0.28 
+## 10 NY           Republican STEFANIK, Elise M      0.269
+## # … with 19 more rows, and abbreviated variable name
+## #   ¹​nominate_dim1</code></pre>
+<p>Notice in the printout, the list of representative names followed by the ideology score, ranging from (-1 for more liberal) to (+1 for more conservative). For example, current House minority leader Representative Hakeem Jeffries is scored a -.489, while Representative Elise Stefanik is scored a .269.</p>
+</div>
+<div id="saving-data-subsets" class="section level3 unnumbered hasAnchor">
+<h3>Saving data subsets<a href="ch5.html#saving-data-subsets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>filter()</code> function, like other <strong>dplyr</strong> functions, does not save a new dataset. Instead, it only returns the lines of the dataframe that match the conditions, printing the dataframe out as a tibble.</p>
+<p>To save a filtered dataset, such as a New York subset of House member data, we use the assignment operator. To create a data table or ‘tibble’ <em>NY</em> and assign it the contents of the filter:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="ch5.html#cb142-1" tabindex="-1"></a>NY<span class="ot">&lt;-</span><span class="fu">filter</span>(house_memb_117, state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span>)</span></code></pre></div>
+<p>The result is a dataframe consisting of New York legislators. While the actual dataset includes all 9 variables, subscripts could select just the party, name, and ideology score for printing: <em>party_code</em>, <em>bioname</em>, <em>nominate_dim1</em>: <code>[, c(5,6,8)]</code>:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="ch5.html#cb143-1" tabindex="-1"></a>NY[, <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">8</span>)]</span></code></pre></div>
+<pre><code>## # A tibble: 29 × 3
+##    party_code bioname               nominate_dim1
+##    &lt;chr&gt;      &lt;chr&gt;                         &lt;dbl&gt;
+##  1 Democratic HIGGINS, Brian               -0.348
+##  2 Democratic CLARKE, Yvette Diane         -0.61 
+##  3 Democratic TONKO, Paul                  -0.418
+##  4 Republican REED, Thomas W. II            0.269
+##  5 Democratic MENG, Grace                  -0.379
+##  6 Democratic JEFFRIES, Hakeem             -0.489
+##  7 Democratic MALONEY, Sean Patrick        -0.239
+##  8 Republican ZELDIN, Lee M                 0.397
+##  9 Democratic RICE, Kathleen Maura         -0.28 
+## 10 Republican STEFANIK, Elise M             0.269
+## # … with 19 more rows</code></pre>
+<p>Note that inserting parentheses around the entire expression results in both saving the dataframe to a new object and returning the lines that fit the conditions. So the line <code>(NY&lt;-filter(house_memb_117, state_abbrev=="NY"))</code> will both save the contents of <code>filter()</code> to a new dataframe, <em>NY</em>, and will return the result.</p>
+</div>
+<div id="filtering-rows-by-condition" class="section level3 unnumbered hasAnchor">
+<h3>Filtering rows by condition<a href="ch5.html#filtering-rows-by-condition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Filtering and other applicable functions, allow you to use familiar comparison operators. While we used <code>==</code> equal to in the prior examples , other operators are less than or equal to <code>&lt; =</code> , greater than or equal to <code>&gt; =</code> , not equal to <code>!=</code>, and of course less than <code>&lt;</code> and greater than <code>&gt;</code>. Other functions can be combined with <code>filter()</code>, such as <code>is.na()</code>
+for identifying observations with missing values; <code>filter(house_memb_117, is.na(born))</code> would find any row with a missing birth year.</p>
+<p>We can use simple Boolean logic to construct <code>filter()</code> functions that satisfy multiple conditions. For example, when conditions in <code>filter()</code> are listed sequentially, the result of the filter operation is the dataset when all conditions are evaluated as true. So the two statements below are equivalent:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="ch5.html#cb145-1" tabindex="-1"></a><span class="fu">filter</span>(house_memb_117, state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span> , born <span class="sc">&gt;</span> <span class="dv">1969</span>)</span>
+<span id="cb145-2"><a href="ch5.html#cb145-2" tabindex="-1"></a><span class="fu">filter</span>(house_memb_117, state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span> <span class="sc">&amp;</span> born <span class="sc">&gt;</span> <span class="dv">1969</span>)</span></code></pre></div>
+<p>These statements query for representatives who are from NY and born after 1969. The symbol for ‘and’ in the line above means that only for those lines when the two conditions <code>state_abbrev=="NY" &amp; born &gt; 1969</code> are true does the <code>filter()</code> function return a line of the dataset. The symbol <code>|</code> as an operator for ‘or’, substituted for &amp;, would return all <code>NY</code> representatives or those born after 1969, regardless of State.</p>
+<p>Combining the two, we can find the names of representatives from New York and New Jersey that fit the two conditions.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="ch5.html#cb146-1" tabindex="-1"></a><span class="fu">filter</span>(house_memb_117, state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span> <span class="sc">|</span> </span>
+<span id="cb146-2"><a href="ch5.html#cb146-2" tabindex="-1"></a>                       state_abbrev<span class="sc">==</span><span class="st">&quot;NJ&quot;</span>, born <span class="sc">&gt;</span> <span class="dv">1969</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 17 × 9
+##    chamber icpsr distri…¹ state…² party…³ bioname  born
+##    &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;
+##  1 House   21723        5 NJ      Democr… GOTTHE…  1975
+##  2 House   21937        3 NJ      Democr… KIM, A…  1982
+##  3 House   21964       11 NJ      Democr… SHERRI…  1972
+##  4 House   21101       23 NY      Republ… REED, …  1971
+##  5 House   21342        6 NY      Democr… MENG, …  1975
+##  6 House   21343        8 NY      Democr… JEFFRI…  1970
+##  7 House   21539        1 NY      Republ… ZELDIN…  1980
+##  8 House   21541       21 NY      Republ… STEFAN…  1984
+##  9 House   21916       19 NY      Democr… DELGAD…  1977
+## 10 House   21949       14 NY      Democr… OCASIO…  1989
+## 11 House   22105       16 NY      Democr… BOWMAN…  1976
+## 12 House   22117        2 NY      Republ… GARBAR…  1984
+## 13 House   22127       17 NY      Democr… JONES,…  1987
+## 14 House   22133       11 NY      Republ… MALLIO…  1980
+## 15 House   22154       15 NY      Democr… TORRES…  1988
+## 16 House   22169       19 NY      Democr… RYAN, …  1982
+## 17 House   22170       23 NY      Republ… SEMPOL…  1983
+## # … with 2 more variables: nominate_dim1 &lt;dbl&gt;,
+## #   nominate_dim2 &lt;dbl&gt;, and abbreviated variable
+## #   names ¹​district_code, ²​state_abbrev, ³​party_code</code></pre>
+<p>A tempting shortcut might be to think you can enter the function as <code>state_abbrev=="NY" |  "NJ"</code>, but that would be incorrect. Instead, to avoid re-typing multiple <code>state_abbrev==</code> statements, use the “in” operator <code>%in%</code>, as in the following structure:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="ch5.html#cb148-1" tabindex="-1"></a><span class="fu">filter</span>(house_memb_117, state_abbrev <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;NY&quot;</span>, <span class="st">&quot;NJ&quot;</span>), born <span class="sc">&gt;</span> <span class="dv">1969</span>)</span></code></pre></div>
+</div>
+<div id="arranging-rows" class="section level3 unnumbered hasAnchor">
+<h3>Arranging rows<a href="ch5.html#arranging-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>arrange()</code> function is used to arrange rows, or change the order in which rows are displayed, rather than select particular rows. With the <em>nominate_dim1</em> scores, the most obvious use would be to find the most liberal or conservative representatives. For example, <code>arrange(house_memb_117, nominate_dim1)</code> would display, in ascending order, the rows of the dataset starting with the lowest (or most liberal) value. To reverse the order to descending, use <code>desc()</code>. </p>
+<pre><code>## # A tibble: 455 × 4
+##    state_abbrev party_code bioname              nomin…¹
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;                  &lt;dbl&gt;
+##  1 NM           Republican HERRELL, Yvette        0.936
+##  2 SC           Republican NORMAN, Ralph          0.848
+##  3 AZ           Republican BIGGS, Andrew S.       0.833
+##  4 GA           Republican CLYDE, Andrew S.       0.823
+##  5 IL           Republican MILLER, Mary E.        0.806
+##  6 GA           Republican GREENE, Marjorie Ta…   0.8  
+##  7 TX           Republican ROY, Charles           0.8  
+##  8 VA           Republican GOOD, Bob              0.8  
+##  9 GA           Republican HICE, Jody Brownlow    0.797
+## 10 TX           Republican JACKSON, Ronny         0.773
+## # … with 445 more rows, and abbreviated variable name
+## #   ¹​nominate_dim1</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="ch5.html#cb150-1" tabindex="-1"></a><span class="fu">arrange</span>(house_memb_117, <span class="fu">desc</span>(nominate_dim1))</span></code></pre></div>
+<p>The tibble, indexed to <code>house_memb_117[, c(4, 5, 6, 8)]</code>, displays the top ten most conservative lawmakers, at the top Rep. Yvette Herrell (R-NM), followed by some familiar names.</p>
+</div>
+<div id="selecting-columns" class="section level3 unnumbered hasAnchor">
+<h3>Selecting columns<a href="ch5.html#selecting-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Without indices, the tibble sorted on ideology displayed all columns by default. While indexing with <code>house_memb_117[, c(5, 6, 8)]</code> selects columns by their numeric positions, <code>select()</code> makes it clearer and more intuitive by referencing the column names directly. For example, the following function selects three columns from the dataset for display:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="ch5.html#cb151-1" tabindex="-1"></a><span class="fu">select</span>(house_memb_117, party_code, bioname, nominate_dim1)</span></code></pre></div>
+<pre><code>## # A tibble: 455 × 3
+##    party_code bioname                        nominate…¹
+##    &lt;chr&gt;      &lt;chr&gt;                               &lt;dbl&gt;
+##  1 Republican ROGERS, Mike Dennis                 0.363
+##  2 Democratic SEWELL, Terri                      -0.396
+##  3 Republican BROOKS, Mo                          0.652
+##  4 Republican PALMER, Gary James                  0.678
+##  5 Republican CARL, Jerry L.                      0.52 
+##  6 Republican MOORE, Barry                        0.642
+##  7 Republican ADERHOLT, Robert                    0.386
+##  8 Republican YOUNG, Donald Edwin                 0.283
+##  9 Democratic PELTOLA, Mary Sattler              -0.156
+## 10 Republican RADEWAGEN, Aumua Amata Coleman      0.336
+## # … with 445 more rows, and abbreviated variable name
+## #   ¹​nominate_dim1</code></pre>
+<p>This use of <code>select()</code> is equivalent to `<code>house_memb_117[,  c(5,6,8)]</code>. Or to display a sequential order of columns, separate the columns with a colon: <code>select(house_memb_117, party_code:nominate_dim1)</code>. Adding the function <em>everything()</em> to the end of the function will simply place the remaining variables at the end of the dataframe, <code>select(house_memb_117, party_code:nominate_dim1, everything())</code>.</p>
+</div>
+<div id="renaming-columns" class="section level3 unnumbered hasAnchor">
+<h3>Renaming columns<a href="ch5.html#renaming-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To rename a column of a dataframe, use the rename function. In the <code>rename()</code> function, the new variable name is listed first, followed by the old variable name. So to rename <code>nominate_dim1</code> as <code>left_right_ideology</code>:</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="ch5.html#cb153-1" tabindex="-1"></a><span class="fu">rename</span>(house_memb_117, <span class="at">left_right_ideology =</span> nominate_dim1 )</span></code></pre></div>
+<pre><code>## # A tibble: 455 × 3
+##    party_code bioname                        left_rig…¹
+##    &lt;chr&gt;      &lt;chr&gt;                               &lt;dbl&gt;
+##  1 Republican ROGERS, Mike Dennis                 0.363
+##  2 Democratic SEWELL, Terri                      -0.396
+##  3 Republican BROOKS, Mo                          0.652
+##  4 Republican PALMER, Gary James                  0.678
+##  5 Republican CARL, Jerry L.                      0.52 
+##  6 Republican MOORE, Barry                        0.642
+##  7 Republican ADERHOLT, Robert                    0.386
+##  8 Republican YOUNG, Donald Edwin                 0.283
+##  9 Democratic PELTOLA, Mary Sattler              -0.156
+## 10 Republican RADEWAGEN, Aumua Amata Coleman      0.336
+## # … with 445 more rows, and abbreviated variable name
+## #   ¹​left_right_ideology</code></pre>
+<p>As in the other functions, for the result to be saved to a dataset, the assignment operator needed to either overwrite the existing dataset or save a new version of it, as in <code>house_memb_117&lt;- rename(house_memb_117, left_right_ideology = nominate_dim1 )</code>. Multiple renames can be combined, such as <code>rename(house_memb_117, left_right_ideology = nominate_dim1, state=state_abbrev)</code>, to rename the ideology and state name.</p>
+</div>
+<div id="creating-new-columns" class="section level3 unnumbered hasAnchor">
+<h3>Creating new columns<a href="ch5.html#creating-new-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <em>mutate()</em> function allows you to create new variables as combinations of other variables. For example, an age in years of each representative in the year 2022 could be calculated from <em>born</em>. With <code>mutate()</code> we name the new variable <em>age</em> and the formula for calculating it, which is the value 2022 minus the variable <em>born</em>, appended as the last column in the data:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="ch5.html#cb155-1" tabindex="-1"></a><span class="fu">mutate</span>(house_memb_117, <span class="at">age =</span> <span class="dv">2022</span><span class="sc">-</span>born) </span></code></pre></div>
+<pre><code>## # A tibble: 455 × 5
+##    state_abbrev party_code bioname           born   age
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;
+##  1 AL           Republican ROGERS, Mike De…  1958    64
+##  2 AL           Democratic SEWELL, Terri     1965    57
+##  3 AL           Republican BROOKS, Mo        1954    68
+##  4 AL           Republican PALMER, Gary Ja…  1954    68
+##  5 AL           Republican CARL, Jerry L.    1958    64
+##  6 AL           Republican MOORE, Barry      1966    56
+##  7 AL           Republican ADERHOLT, Robert  1965    57
+##  8 AK           Republican YOUNG, Donald E…  1933    89
+##  9 AK           Democratic PELTOLA, Mary S…  1973    49
+## 10 AS           Republican RADEWAGEN, Aumu…  1947    75
+## # … with 445 more rows</code></pre>
+<p>There are many useful functions within <code>mutate()</code>. One is the ranking function.</p>
+<p>We might be interested, for example, in ranking representatives in ideology. The <code>min_rank()</code> function will do this. By default, it assigns smallest values the smallest ranks; with the <code>desc()</code> function, we can assign smaller ranks to higher values. For example, assigning smallest ranks to more conservative (higher ideology scores):</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="ch5.html#cb157-1" tabindex="-1"></a><span class="fu">mutate</span>(house_memb_117, <span class="at">conservative_rank =</span> </span>
+<span id="cb157-2"><a href="ch5.html#cb157-2" tabindex="-1"></a>         <span class="fu">min_rank</span>(<span class="fu">desc</span>(nominate_dim1)))</span></code></pre></div>
+<p>The result is a table displaying the most conservative legislators, rank-ordered from most conservative starting at rank position 1. Further limiting the display of columns to fit on the printed page results in:</p>
+<pre><code>## # A tibble: 455 × 4
+##    bioname                         born nomin…¹ conse…²
+##    &lt;chr&gt;                          &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;
+##  1 ROGERS, Mike Dennis             1958   0.363     178
+##  2 SEWELL, Terri                   1965  -0.396     349
+##  3 BROOKS, Mo                      1954   0.652      41
+##  4 PALMER, Gary James              1954   0.678      31
+##  5 CARL, Jerry L.                  1958   0.52      103
+##  6 MOORE, Barry                    1966   0.642      48
+##  7 ADERHOLT, Robert                1965   0.386     170
+##  8 YOUNG, Donald Edwin             1933   0.283     207
+##  9 PELTOLA, Mary Sattler           1973  -0.156     227
+## 10 RADEWAGEN, Aumua Amata Coleman  1947   0.336     188
+## # … with 445 more rows, and abbreviated variable names
+## #   ¹​nominate_dim1, ²​conservative_rank</code></pre>
+<p>Without the <code>desc()</code> function, <code>min_rank()</code> assigns higher ranks to smaller values.</p>
+</div>
+<div id="saving-new-datasets" class="section level3 unnumbered hasAnchor">
+<h3>Saving new datasets<a href="ch5.html#saving-new-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Without an assignment operator, the functions such as <code>mutate()</code> and <code>select()</code> will not alter the dataset saved within the Environment pane. To create a subsetted data table (or to overwrite the existing data table), the assignment operator is necessary. With the assignment operator for the example with <em>age</em>, the variable is written to the end of the dataframe. For example the following lines add the variable <em>age</em> to the dataframe:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="ch5.html#cb159-1" tabindex="-1"></a>house_memb_117<span class="ot">&lt;-</span><span class="fu">mutate</span>(house_memb_117, <span class="at">age =</span> <span class="dv">2022</span><span class="sc">-</span>born) </span></code></pre></div>
+<p>To save only a subset of variables – including the newly created <em>age</em> variable – we would use the <code>select()</code> function to identify specific variables. For example the two lines below create the <em>age</em> variable with <code>mutate()</code>, appending <em>age</em> to <em>house_memb_117_subset</em>, which is a subset of the five variables identified in the next line, saved again as <em>house_memb_117_subset</em>.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="ch5.html#cb160-1" tabindex="-1"></a>house_memb_117_subset<span class="ot">&lt;-</span><span class="fu">mutate</span>(house_memb_117, <span class="at">age =</span> <span class="dv">2022</span><span class="sc">-</span>born) </span>
+<span id="cb160-2"><a href="ch5.html#cb160-2" tabindex="-1"></a>house_memb_117_subset<span class="ot">&lt;-</span><span class="fu">select</span>(house_memb_117_subset, state_abbrev, </span>
+<span id="cb160-3"><a href="ch5.html#cb160-3" tabindex="-1"></a>                              party_code, bioname, born, age)</span></code></pre></div>
+<p>The new subset data table contains only the five variables:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="ch5.html#cb161-1" tabindex="-1"></a>house_memb_117_subset</span></code></pre></div>
+<pre><code>## # A tibble: 455 × 5
+##    state_abbrev party_code bioname           born   age
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;
+##  1 AL           Republican ROGERS, Mike De…  1958    64
+##  2 AL           Democratic SEWELL, Terri     1965    57
+##  3 AL           Republican BROOKS, Mo        1954    68
+##  4 AL           Republican PALMER, Gary Ja…  1954    68
+##  5 AL           Republican CARL, Jerry L.    1958    64
+##  6 AL           Republican MOORE, Barry      1966    56
+##  7 AL           Republican ADERHOLT, Robert  1965    57
+##  8 AK           Republican YOUNG, Donald E…  1933    89
+##  9 AK           Democratic PELTOLA, Mary S…  1973    49
+## 10 AS           Republican RADEWAGEN, Aumu…  1947    75
+## # … with 445 more rows</code></pre>
+</div>
+</div>
+<div id="combining-functions" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Combining functions<a href="ch5.html#combining-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often in managing unwieldy datasets, we combine different functions to accomplish a series of steps, such as mutating or creating a new variable, selecting columns, filtering the order of rows, and printing out or saving a subset. Doing so in an efficient way, however, requires us to combine multiple functions in a sequential order. The “pipe operator”, the characters <code>%&gt;%</code> <span class="citation">(<a href="#ref-R-magrittr">Bache and Wickham 2020</a>)</span>, allows multiple functions to be chained together.</p>
+<p>Conceptually, the pipe operator translates to “and then”. So for example, we could filter a dataset, and then select particular rows, and then arrange the rows. The pipe operator simplifies the process of combining functions in a highly readable way, sequential steps separated by <code>%&gt;%</code>. As a core element of the <strong>tidyverse</strong>, the piper operator is available once <strong>dplyr</strong> or the entire <strong>tidyverse</strong> is attached. It is worth noting that a recent update to <strong>R</strong> added a native pipe, <code>|&gt;</code>, which works nearly identically, although the code in this text relies on <code>%&gt;%</code>. Line by line we will use <code>%&gt;%</code> to combine functions to do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Filter on representatives from New York.</li>
+<li>Select the columns for <em>party_code</em>, <em>bioname</em>, and <em>nominate_dim1</em>.</li>
+<li>Arrange the dataframe rows by conservatism, from most conservative in row 1 to least at the end.<br />
+</li>
+<li>Print out the data table.</li>
+</ol>
+<p>To do so, we start with the <code>house_memb_117</code> dataframe and then add the functions line by line, adding <code>%&gt;%</code> until the last command:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="ch5.html#cb163-1" tabindex="-1"></a>house_memb_117 <span class="sc">%&gt;%</span></span>
+<span id="cb163-2"><a href="ch5.html#cb163-2" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb163-3"><a href="ch5.html#cb163-3" tabindex="-1"></a>  <span class="fu">select</span>(party_code, bioname, nominate_dim1) <span class="sc">%&gt;%</span></span>
+<span id="cb163-4"><a href="ch5.html#cb163-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nominate_dim1))</span></code></pre></div>
+<pre><code>## # A tibble: 29 × 3
+##    party_code bioname              nominate_dim1
+##    &lt;chr&gt;      &lt;chr&gt;                        &lt;dbl&gt;
+##  1 Republican SEMPOLINSKI, Joseph          0.545
+##  2 Republican TENNEY, Claudia              0.453
+##  3 Republican ZELDIN, Lee M                0.397
+##  4 Republican JACOBS, Chris                0.306
+##  5 Republican MALLIOTAKIS, Nicole          0.304
+##  6 Republican GARBARINO, Andrew R.         0.274
+##  7 Republican REED, Thomas W. II           0.269
+##  8 Republican STEFANIK, Elise M            0.269
+##  9 Republican KATKO, John                  0.185
+## 10 Democratic RYAN, Patrick               -0.206
+## # … with 19 more rows</code></pre>
+<p>Notice that at the end of the tibble, a comment states there are 19 more rows, in addition to the printed 10, for a total of 29 rows and 3 columns. To print the entire tibble (all of the rows) we add <code>print(n=39)</code> as an additional row. Below the <code>print()</code> function prints the top five:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="ch5.html#cb165-1" tabindex="-1"></a>house_memb_117 <span class="sc">%&gt;%</span></span>
+<span id="cb165-2"><a href="ch5.html#cb165-2" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb165-3"><a href="ch5.html#cb165-3" tabindex="-1"></a>  <span class="fu">select</span>(party_code, bioname, nominate_dim1) <span class="sc">%&gt;%</span></span>
+<span id="cb165-4"><a href="ch5.html#cb165-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nominate_dim1)) <span class="sc">%&gt;%</span></span>
+<span id="cb165-5"><a href="ch5.html#cb165-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 29 × 3
+##   party_code bioname             nominate_dim1
+##   &lt;chr&gt;      &lt;chr&gt;                       &lt;dbl&gt;
+## 1 Republican SEMPOLINSKI, Joseph         0.545
+## 2 Republican TENNEY, Claudia             0.453
+## 3 Republican ZELDIN, Lee M               0.397
+## 4 Republican JACOBS, Chris               0.306
+## 5 Republican MALLIOTAKIS, Nicole         0.304
+## # … with 24 more rows</code></pre>
+<p>Notice that in each of the functions, such as <code>filter()</code>, it is not necessary to include the name of the dataframe. Through the pipe operator, the dataframe to the left of the first pipe operator <code>house_memb_117 %&gt;%</code> is passed on to each of the functions below it. To save the table to a dataframe, for example named <em>ny_reps</em>, we would change the first line to <code>_ny_reps&lt;-house_memb_117 %&gt;%</code>.</p>
+<div id="grouped-summary-statistics" class="section level3 unnumbered hasAnchor">
+<h3>Grouped summary statistics<a href="ch5.html#grouped-summary-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It is often useful to sort through data by groups within it. The <code>group_by()</code> function, sets a grouping structure for the dataframe that is taken into account when functions like are subsequently applied. It is often useful in combination with the <code>summarize()</code> function, for calculating summary statistics on groups. For example, we may be interested in average ideological orientation of State delegations, or averages within parties within States. Or perhaps we would like to count the number of representatives from each State, by political party.</p>
+<p>We would first group the data with <code>group_by()</code> then apply <code>summarize()</code>. Because the <code>summarize()</code> function reduces the data down to a single summary statistic, it requires both a name of the new summary statistic in the data table, and a function to calculate the summary statistic, such as <code>mean()</code>, <code>sum()</code>, <code>range()</code>, <code>max()</code> or <code>min()</code>.</p>
+<p>For example, in <code>summarize(mean_ideology = mean(nominate_dim1))</code>, <code>mean_ideology</code> will be the column name in the summary dataframe, and <code>mean(nominate_dim1)</code> is the function that calculates the average ideology score.</p>
+<p>Let’s observe how it works within partisan groups of New York legislators.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="ch5.html#cb167-1" tabindex="-1"></a>house_memb_117 <span class="sc">%&gt;%</span></span>
+<span id="cb167-2"><a href="ch5.html#cb167-2" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb167-3"><a href="ch5.html#cb167-3" tabindex="-1"></a>  <span class="fu">group_by</span>(party_code) <span class="sc">%&gt;%</span></span>
+<span id="cb167-4"><a href="ch5.html#cb167-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_ideology =</span> <span class="fu">mean</span>(nominate_dim1))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   party_code mean_ideology
+##   &lt;chr&gt;              &lt;dbl&gt;
+## 1 Democratic        -0.381
+## 2 Republican         0.334</code></pre>
+<p>The <code>summarize()</code> function reduces the dataframe to a set of means, ideology by party group. The average Democrat and Republican representative from New York is roughly similar, although the mean Democratic ideology is slightly larger in magnitude than Republican.</p>
+<p>The <code>summarize()</code> function can take multiple arguments, allowing you to calculate several summary statistics at once. For example, we could calculate both the mean and standard deviation within parties:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="ch5.html#cb169-1" tabindex="-1"></a>house_memb_117 <span class="sc">%&gt;%</span></span>
+<span id="cb169-2"><a href="ch5.html#cb169-2" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb169-3"><a href="ch5.html#cb169-3" tabindex="-1"></a>  <span class="fu">group_by</span>(party_code) <span class="sc">%&gt;%</span></span>
+<span id="cb169-4"><a href="ch5.html#cb169-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb169-5"><a href="ch5.html#cb169-5" tabindex="-1"></a>    <span class="at">mean_ideology =</span> <span class="fu">mean</span>(nominate_dim1),</span>
+<span id="cb169-6"><a href="ch5.html#cb169-6" tabindex="-1"></a>    <span class="at">sd_ideology =</span> <span class="fu">sd</span>(nominate_dim1))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 3
+##   party_code mean_ideology sd_ideology
+##   &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Democratic        -0.381       0.123
+## 2 Republican         0.334       0.111</code></pre>
+<p>The <code>sd_ideology</code> expression follows after <code>mean_ideology</code>. Note that in these examples of calculating summary statistics, there are no missing values in the data. Where there are missing values <strong>R</strong> requires specific instructions on what to do with the missing values, in this case it would be to remove missing values from any calculations. For example, the statement for the standard deviation would need to be <code>sd_ideology = sd(nominate_dim1, na.rm = TRUE)</code>.</p>
+<p>One additional useful function to add to <code>summarize()</code> is <code>n()</code>, which does not require any arguments. The function will count up the number of rows defined by the <code>group_by()</code> function. For example, to add counts of the <code>party_code</code> groups:</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="ch5.html#cb171-1" tabindex="-1"></a>house_memb_117 <span class="sc">%&gt;%</span></span>
+<span id="cb171-2"><a href="ch5.html#cb171-2" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev<span class="sc">==</span><span class="st">&quot;NY&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb171-3"><a href="ch5.html#cb171-3" tabindex="-1"></a>  <span class="fu">group_by</span>(party_code) <span class="sc">%&gt;%</span></span>
+<span id="cb171-4"><a href="ch5.html#cb171-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb171-5"><a href="ch5.html#cb171-5" tabindex="-1"></a>    <span class="at">mean_ideology =</span> <span class="fu">mean</span>(nominate_dim1),</span>
+<span id="cb171-6"><a href="ch5.html#cb171-6" tabindex="-1"></a>    <span class="at">sd_ideology =</span> <span class="fu">sd</span>(nominate_dim1),</span>
+<span id="cb171-7"><a href="ch5.html#cb171-7" tabindex="-1"></a>    <span class="at">count_n =</span> <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 4
+##   party_code mean_ideology sd_ideology count_n
+##   &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;   &lt;int&gt;
+## 1 Democratic        -0.381       0.123      20
+## 2 Republican         0.334       0.111       9</code></pre>
+<p>Overall, with a few functions, starting with those listed in Table <a href="#tab:dplyr-verbs"><strong>??</strong></a>, datasets can be transformed in nearly limitless ways. The following section demonstrate the use of <strong>dplyr</strong> functions for shaping up raw datasets, wrangling and cleaning data for use in analysis.</p>
+</div>
+</div>
+<div id="cleaning-and-transforming-county-level-votes" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Cleaning and transforming county-level votes<a href="ch5.html#cleaning-and-transforming-county-level-votes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Another important application of data wrangling is in creating tidy datasets from a source, such as a US Secretary of State’s election portal, aggregated to a geographic level. In this example, we look at election results from the November 2016 general election, aggregated to the Michigan County level. We will extract County-level presidential votes and organize a tidy dataset. From there, we will construct visualizations of the election results across Michigan counties with a specific data visualization, a “Cleveland dotplot” <span class="citation">(<a href="#ref-cleveland1984">Cleveland and McGill 1984</a>)</span>.</p>
+<div id="working-with-county-level-election-results" class="section level3 unnumbered hasAnchor">
+<h3>Working with county-level election results<a href="ch5.html#working-with-county-level-election-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Save the <em>2016GEN_MI_CENR_BY_COUNTY.xls</em> datafile to your working directory; use the Session menus to change it.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p>The data is imported with the <code>read_tsv()</code> (tab-separated value) function from the <strong>dplyr</strong> package. Place the file in your working directory and run the function. The datafile from the Secretary of State’s Office (<em>2016GEN_MI_CENR_BY_COUNTY.xls</em>) has the file extension <em>.xls</em>, suggesting it is a Microsoft Excel formatted file, but it is actually saved as a tab delimited text file:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="ch5.html#cb173-1" tabindex="-1"></a>MI_2016<span class="ot">&lt;-</span><span class="fu">read_tsv</span>(<span class="at">file=</span><span class="st">&quot;2016GEN_MI_CENR_BY_COUNTY.xls&quot;</span>)</span></code></pre></div>
+<p>When you import the data, you will see a list of columns ‘parsed’ from the data, starting with the <code>ElectionDate</code> and ending with `<code>Nominated(N)/Elected(E)</code>. Each row of the dataset corresponds to a single candidate for any elected office appearing on a ballot within each County. So for each County, there are as many rows as there are candidates appearing on the ballot for election to any office, which is why there are 6,082 rows:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="ch5.html#cb174-1" tabindex="-1"></a>MI_2016</span></code></pre></div>
+<pre><code>## # A tibble: 6,082 × 19
+##    ElectionDate Offic…¹ Distr…² Statu…³ Count…⁴ Count…⁵
+##    &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;  
+##  1 2016-11-08   01      00000   0             1 ALCONA 
+##  2 2016-11-08   01      00000   0             1 ALCONA 
+##  3 2016-11-08   01      00000   0             1 ALCONA 
+##  4 2016-11-08   01      00000   0             1 ALCONA 
+##  5 2016-11-08   01      00000   0             1 ALCONA 
+##  6 2016-11-08   01      00000   0             1 ALCONA 
+##  7 2016-11-08   01      00000   0             1 ALCONA 
+##  8 2016-11-08   01      00000   0             1 ALCONA 
+##  9 2016-11-08   01      00000   0             1 ALCONA 
+## 10 2016-11-08   01      00000   0             1 ALCONA 
+## # … with 6,072 more rows, 13 more variables:
+## #   OfficeDescription &lt;chr&gt;, PartyOrder &lt;chr&gt;,
+## #   PartyName &lt;chr&gt;, PartyDescription &lt;chr&gt;,
+## #   CandidateID &lt;dbl&gt;, CandidateLastName &lt;chr&gt;,
+## #   CandidateFirstName &lt;chr&gt;,
+## #   CandidateMiddleName &lt;chr&gt;,
+## #   CandidateFormerName &lt;lgl&gt;, CandidateVotes &lt;dbl&gt;, …</code></pre>
+<p>We will extract the vote totals within each county for the presidential election, and then organize a Michigan County level presidential elections dataset, to visualize candidate support across counties. So for this purpose the file from the State includes mostly rows of irrelevant election results. So the first step is to delete all rows that do not relate to the presidential election. We use the <code>filter()</code> function to select only the results — the rows — for the presidential election. The <code>OfficeDescription</code> field in the dataset contains indicators for different elections. Open the data spreadsheet in the Environment pane to review the offices. Or table out the office descriptions with <code>table(MI_2016$OfficeDescription)</code>.</p>
+<p>The presidential election results are stored as <code>President of the United States 4 Year Term (1) Position</code>, in the first set of counties. The other offices follow. To find any set of elections, such as all results for U.S. House elections, we could use a search function to look for all instances of the term <code>Congress</code> in the <code>OfficeDescription</code> field. For example, the function <code>str_detect()</code> will find and return the locations in the dataset of a search string. For example, to find the rows where “Congress” appears, we could enter <code>str_detect(MI_2016$OfficeDescription, "Congress")</code>. This function would give us a result, either <code>TRUE</code> or <code>FALSE</code> for each row. Let’s see what that summary would look like:</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="ch5.html#cb176-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">str_detect</span>(MI_2016<span class="sc">$</span>OfficeDescription, <span class="st">&quot;Congress&quot;</span>))</span></code></pre></div>
+<pre><code>##    Mode   FALSE    TRUE    NA&#39;s 
+## logical    5651     430       1</code></pre>
+<p>It shows that 430 rows reference a race for Congress. If we wanted to select only these rows, we would use <code>str_detect()</code> inside the <code>filter()</code> function. These two lines subset the <code>MI_2016</code> dataset by filtering the <code>OfficeDescription</code> field to select only the rows where the term “Congress” appears: <code>MI_2016 %&gt;% filter(str_detect(OfficeDescription, "Congress"))</code>.</p>
+<p>Following this example, we filter on the presidential election and save a new version of the data – <em>MI_prez_2016</em> with just the variables we needed to analyze vote returns over Counties: <code>CountyName, CandidateLastName, CandidateVotes, CountyCode</code>. <code>CountyCode</code> is a Federal Information Processing Standard (FIPS) indicator for each County<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="ch5.html#cb178-1" tabindex="-1"></a>MI_prez_2016<span class="ot">&lt;-</span>MI_2016 <span class="sc">%&gt;%</span></span>
+<span id="cb178-2"><a href="ch5.html#cb178-2" tabindex="-1"></a>  <span class="fu">filter</span>(OfficeDescription<span class="sc">==</span></span>
+<span id="cb178-3"><a href="ch5.html#cb178-3" tabindex="-1"></a>    <span class="st">&quot;President of the United States 4 Year Term (1) Position&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb178-4"><a href="ch5.html#cb178-4" tabindex="-1"></a>    <span class="fu">select</span>(CountyName, CandidateLastName, CandidateVotes, CountyCode)</span>
+<span id="cb178-5"><a href="ch5.html#cb178-5" tabindex="-1"></a></span>
+<span id="cb178-6"><a href="ch5.html#cb178-6" tabindex="-1"></a>MI_prez_2016</span></code></pre></div>
+<pre><code>## # A tibble: 1,079 × 4
+##    CountyName CandidateLastName CandidateVotes County…¹
+##    &lt;chr&gt;      &lt;chr&gt;                      &lt;dbl&gt;    &lt;dbl&gt;
+##  1 ALCONA     Trump                       4201        1
+##  2 ALCONA     Clinton                     1732        1
+##  3 ALCONA     Johnson                      164        1
+##  4 ALCONA     Castle                        28        1
+##  5 ALCONA     Stein                         54        1
+##  6 ALCONA     Soltysik                       0        1
+##  7 ALCONA     Fox                            0        1
+##  8 ALCONA     Hartnell                       0        1
+##  9 ALCONA     Hoefling                       0        1
+## 10 ALCONA     Kotlikoff                      0        1
+## # … with 1,069 more rows, and abbreviated variable
+## #   name ¹​CountyCode</code></pre>
+</div>
+<div id="reshaping-the-data-long-to-wide-format" class="section level3 unnumbered hasAnchor">
+<h3>Reshaping the data, long to wide format<a href="ch5.html#reshaping-the-data-long-to-wide-format" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In <em>MI_prez_2016</em> there is one column of vote counts (<code>CandidateVotes</code>), and for every County a row containing an entry for each presidential candidate listed on the ballot in that County. This way of organizing the data is called ‘long’ format, because the dataset is longer than it is wide; instead of having a different column (or variable) for each candidate’s votes, there is one column to record votes and separate rows for each candidate.</p>
+<p>To simplify analysis, we want to restructure the data to ‘wide’ format. In this format, the dataset will have one row per county (exactly 83 rows) and a separate column for each candidate’s vote totals. This wide structure is particularly useful for calculations, such as summing vote totals over all third-party candidates, because it facilitates column based operations.</p>
+<p>The function <code>pivot_wider()</code> will translate the data from long to wide data format. The required arguments for <code>pivot_wider()</code> are (1) the names of each new column in wide format, and (2) the values to be stored in these columns. From long format, the names in <code>CandidateLastName</code> will be passed to wide format, while the values in <code>CandidateVotes</code> will be stored in the new wide format columns.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="ch5.html#cb180-1" tabindex="-1"></a>MI_prez_2016_wide <span class="ot">&lt;-</span> MI_prez_2016 <span class="sc">%&gt;%</span></span>
+<span id="cb180-2"><a href="ch5.html#cb180-2" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> CandidateLastName, </span>
+<span id="cb180-3"><a href="ch5.html#cb180-3" tabindex="-1"></a>      <span class="at">values_from=</span>CandidateVotes)</span>
+<span id="cb180-4"><a href="ch5.html#cb180-4" tabindex="-1"></a></span>
+<span id="cb180-5"><a href="ch5.html#cb180-5" tabindex="-1"></a>MI_prez_2016_wide</span></code></pre></div>
+<pre><code>## # A tibble: 83 × 15
+##    CountyN…¹ Count…² Trump Clinton Johnson Castle Stein
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1 ALCONA          1  4201    1732     164     28    54
+##  2 ALGER           2  2585    1663     177     19    67
+##  3 ALLEGAN         3 34183   18050    2513    289   596
+##  4 ALPENA          4  9090    4877     498     53   160
+##  5 ANTRIM          5  8469    4448     459     47   146
+##  6 ARENAC          6  4950    2384     270     26    60
+##  7 BARAGA          7  2158    1156     106     15    49
+##  8 BARRY           8 19202    9114    1424    181   346
+##  9 BAY             9 28328   21642    2189    208   544
+## 10 BENZIE         10  5539    4108     382     36   149
+## # … with 73 more rows, 8 more variables:
+## #   Soltysik &lt;dbl&gt;, Fox &lt;dbl&gt;, Hartnell &lt;dbl&gt;,
+## #   Hoefling &lt;dbl&gt;, Kotlikoff &lt;dbl&gt;, Maturen &lt;dbl&gt;,
+## #   McMullin &lt;dbl&gt;, Moorehead &lt;dbl&gt;, and abbreviated
+## #   variable names ¹​CountyName, ²​CountyCode</code></pre>
+<p>With the data now in wide format, we create an ‘other’ vote count column. This variable will record vote totals for all candidates who are neither Trump nor Clinton. Within <code>mutate()</code> , the <em>other</em> variable is the sum of each individual candidate column:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="ch5.html#cb182-1" tabindex="-1"></a>MI_prez_2016_wide<span class="ot">&lt;-</span>MI_prez_2016_wide <span class="sc">%&gt;%</span></span>
+<span id="cb182-2"><a href="ch5.html#cb182-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">other=</span>Castle<span class="sc">+</span> Fox <span class="sc">+</span> Hartnell  <span class="sc">+</span> Hoefling <span class="sc">+</span> Kotlikoff <span class="sc">+</span> Maturen</span>
+<span id="cb182-3"><a href="ch5.html#cb182-3" tabindex="-1"></a>         <span class="sc">+</span> McMullin <span class="sc">+</span>  Moorehead <span class="sc">+</span> Soltysik <span class="sc">+</span> Stein) <span class="sc">%&gt;%</span></span>
+<span id="cb182-4"><a href="ch5.html#cb182-4" tabindex="-1"></a>  <span class="fu">select</span>(CountyName, CountyCode, Trump, Clinton, other) <span class="sc">%&gt;%</span></span>
+<span id="cb182-5"><a href="ch5.html#cb182-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 83 × 5
+##   CountyName CountyCode Trump Clinton other
+##   &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1 ALCONA              1  4201    1732   101
+## 2 ALGER               2  2585    1663    93
+## 3 ALLEGAN             3 34183   18050  1040
+## 4 ALPENA              4  9090    4877   233
+## 5 ANTRIM              5  8469    4448   206
+## # … with 78 more rows</code></pre>
+<p>Then we <code>select()</code> only the necessary columns for recording presidential vote totals across counties, identifiers <em>CountyName</em> and <em>CountyCode</em>, followed by <em>Trump</em>, <em>Clinton</em>, and <em>other</em>. Given the raw votes, we could create vote percentage totals for each candidate:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="ch5.html#cb184-1" tabindex="-1"></a>MI_prez_2016_wide<span class="ot">&lt;-</span>MI_prez_2016_wide <span class="sc">%&gt;%</span></span>
+<span id="cb184-2"><a href="ch5.html#cb184-2" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Trump_percent=</span>Trump<span class="sc">/</span>(Trump <span class="sc">+</span> Clinton <span class="sc">+</span> other)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb184-3"><a href="ch5.html#cb184-3" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Clinton_percent=</span>Clinton<span class="sc">/</span>(Trump <span class="sc">+</span> Clinton <span class="sc">+</span> other)<span class="sc">*</span><span class="dv">100</span>) </span></code></pre></div>
+<pre><code>## # A tibble: 83 × 7
+##    County…¹ Count…² Trump Clinton other Trump…³ Clint…⁴
+##    &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 ALCONA         1  4201    1732   101    69.6    28.7
+##  2 ALGER          2  2585    1663    93    59.5    38.3
+##  3 ALLEGAN        3 34183   18050  1040    64.2    33.9
+##  4 ALPENA         4  9090    4877   233    64.0    34.3
+##  5 ANTRIM         5  8469    4448   206    64.5    33.9
+##  6 ARENAC         6  4950    2384    92    66.7    32.1
+##  7 BARAGA         7  2158    1156    70    63.8    34.2
+##  8 BARRY          8 19202    9114   589    66.4    31.5
+##  9 BAY            9 28328   21642   818    55.8    42.6
+## 10 BENZIE        10  5539    4108   199    56.3    41.7
+## # … with 73 more rows, and abbreviated variable names
+## #   ¹​CountyName, ²​CountyCode, ³​Trump_percent,
+## #   ⁴​Clinton_percent</code></pre>
+<p>The dataset now consists of an organized, wide table of presidential candidate support, one row for each county, and candidate support across multiple columns.</p>
+</div>
+</div>
+<div id="wrangling-election-data-and-dotplotting-results" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Wrangling election data and dotplotting results<a href="ch5.html#wrangling-election-data-and-dotplotting-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The ‘Cleveland dotplot’, named after its creator William S. Cleveland, is a data visualization form for comparing quantitative values across categories of a qualitative variable. In this case, we are interested in visualizing levels of candidate support across each Michigan county. Similar to a bar graph, where the lengths of bars would be drawn to scale the percentage of the vote won by each candidate across counties, a Cleveland dotplot replaces bars with dots, arranged along a horizontal or vertical axis. The length of a bar is replaced by position of a dot. By eliminating the area of bars on the graph, the dotplot facilitates comparisons across many categories.</p>
+<p>For <em>MI_prez_2016_wide</em>, visualizing raw vote totals is not feasible in one graphic because of the disparity between the largest counties, such as Detroit’s Wayne County, and any of the smaller counties that would appear indistinguishable. What interests us more than raw votes is the percentage of each candidate’s support by county. To construct the dotplot, first in <code>MI_prez_2016_wide</code> because the County names are in all caps, we will convert each one to “title case” – uppercase first letters and lowercase remaining letters — with the <code>str_to_title()</code> function within <code>mutate()</code>:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="ch5.html#cb186-1" tabindex="-1"></a>MI_prez_2016_wide<span class="ot">&lt;-</span> MI_prez_2016_wide <span class="sc">%&gt;%</span></span>
+<span id="cb186-2"><a href="ch5.html#cb186-2" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">CountyName=</span><span class="fu">str_to_title</span>(CountyName))</span></code></pre></div>
+<p>The <code>str_to_title()</code> function (from the <strong>stringr</strong> package <span class="citation">(<a href="#ref-R-stringr">Wickham 2022</a>)</span> in the <strong>tidyverse</strong>) converts each word, for example, “ST.CLAIR” to “St. Clair”. Notice the difference:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="ch5.html#cb187-1" tabindex="-1"></a>MI_prez_2016_wide <span class="sc">%&gt;%</span></span>
+<span id="cb187-2"><a href="ch5.html#cb187-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 83 × 7
+##   CountyN…¹ Count…² Trump Clinton other Trump…³ Clint…⁴
+##   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Alcona          1  4201    1732   101    69.6    28.7
+## 2 Alger           2  2585    1663    93    59.5    38.3
+## 3 Allegan         3 34183   18050  1040    64.2    33.9
+## # … with 80 more rows, and abbreviated variable names
+## #   ¹​CountyName, ²​CountyCode, ³​Trump_percent,
+## #   ⁴​Clinton_percent</code></pre>
+<p>A key aspect of the Cleveland dotplot is to order the categories (counties) to make the visual comparisons clearer. For example, rather than organize the counties alphabetically, we will arrange counties by <em>Trump_percent</em> or <em>Clinton_percent</em>.</p>
+<div id="reorder-function" class="section level3 unnumbered hasAnchor">
+<h3>Reorder function<a href="ch5.html#reorder-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The dots are constructed in <code>ggplot()</code> by <code>geom_point()</code>. In the <code>aes()</code> argument, we specify the order of the counties within an additional function. The <code>reorder()</code> function sorts the names of the counties by Trump’s percentage of the vote (<code>reorder(CountyName, Trump_percent)</code>) or Clinton (<code>reorder(CountyName, Clinton_percent)</code>). This function is placed within the <code>aes()</code> function as the name of the County variable. Figure <a href="ch5.html#fig:clevetrump">5.1</a> displays a Cleveland dotplot with counties sorted by the Trump vote percent.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="ch5.html#cb189-1" tabindex="-1"></a>MI_prez_2016_wide <span class="sc">%&gt;%</span></span>
+<span id="cb189-2"><a href="ch5.html#cb189-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb189-3"><a href="ch5.html#cb189-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(CountyName, Trump_percent), Trump_percent)) <span class="sc">+</span></span>
+<span id="cb189-4"><a href="ch5.html#cb189-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Trump Percentage Vote by Michigan County, 2016&quot;</span>,</span>
+<span id="cb189-5"><a href="ch5.html#cb189-5" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;County&quot;</span>, <span class="at">y=</span><span class="st">&quot;Vote Percentage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb189-6"><a href="ch5.html#cb189-6" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:clevetrump"></span>
+<img src="bookdown_files/figure-html/clevetrump-1.png" alt="Cleveland dotplot of Trump’s vote percentage by Michigan county in the 2016 presidential election, created with \textbf{ggplot2}. County points are ordered by vote percentage, making it easier to compare across counties than in a traditional bar chart." width="672" />
+<p class="caption">
+FIGURE 5.1: Cleveland dotplot of Trump’s vote percentage by Michigan county in the 2016 presidential election, created with . County points are ordered by vote percentage, making it easier to compare across counties than in a traditional bar chart.
+</p>
+</div>
+<p>Each dot represents one county, plotted along the X-axis based on the vote percentage. The counties are arranged in ascending order of support on the Y-axis, which highlights patterns and outliers. For example, Trump won the vast majority of Michigan counties by wide margins, but lost most of the more populous counties of Michigan cities by a small margin. Wayne county and Washtenaw are clear outliers.</p>
+<p>The X and Y axes are flipped in <code>coord_flip()</code> , and the graphic aspect ratio is elongated to make all 83 county names visible. The <code>reorder()</code> function changes the order of Michigan counties. Otherwise the syntax is similar to a scatterplot.</p>
+<p>We could add two different series, Clinton and Trump, and color each series. Note that <em>ggplot2</em> expects data to be in a long format. As a shortcut, or perhaps exploratory graphic, without having to convert the data to long format, it may be easier to plot the percents in two different <code>geom_point()</code> series. To save space, this dotplot is not produced below, but try running the lines to observe the result:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="ch5.html#cb190-1" tabindex="-1"></a>MI_prez_2016_wide <span class="sc">%&gt;%</span></span>
+<span id="cb190-2"><a href="ch5.html#cb190-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder</span>(CountyName, Trump_percent), Trump_percent)) <span class="sc">+</span></span>
+<span id="cb190-3"><a href="ch5.html#cb190-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb190-4"><a href="ch5.html#cb190-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Trump and Clinton Votes by Michigan County, 2016&quot;</span>,</span>
+<span id="cb190-5"><a href="ch5.html#cb190-5" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;County&quot;</span>, <span class="at">y=</span><span class="st">&quot;Number of Votes&quot;</span>,</span>
+<span id="cb190-6"><a href="ch5.html#cb190-6" tabindex="-1"></a>          <span class="at">caption=</span><span class="st">&quot;Clinton in blue, Trump in red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb190-7"><a href="ch5.html#cb190-7" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb190-8"><a href="ch5.html#cb190-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(CountyName, Clinton_percent), <span class="at">color=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p>In Chapter <a href="ch6.html#ch6">6</a> we consider election data in the context of maps, and among other subjects, examine how to create election maps and other aspects of geographically referenced data.</p>
+</div>
+</div>
+<div id="resources-4" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch5.html#resources-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The official <strong>dplyr</strong> reference guide details the package functions with examples: <a href="https://dplyr.tidyverse.org/reference/index.html" class="uri">https://dplyr.tidyverse.org/reference/index.html</a>.</p>
+</div>
+<div id="exercises-3" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Exercises<a href="ch5.html#exercises-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Answer the questions with R code supported by a narrative explanation within an RMarkdown document.</p>
+<ol style="list-style-type: decimal">
+<li><p>Construct a series of box-whiskers plots for the ideology scores within State delegations to the US House. Pick a subset of five States to compare and wrangle the data, using <code>filter()</code> to identify the States of interest. Save the data as a dataframe or pass on the wrangled data to <strong>ggplot2</strong> for the construction of the box-whiskers plots.</p></li>
+<li><p>Based on the Congressional ideology (Voteview.com) data, write a three-paragraph report on the ideology of the Congressional delegation from Florida. Be sure to include a discussion of how the delegation relates to each Chamber’s overall median and within party caucus median ideology score. Be sure to include appropriate summary statistics with your answer.</p></li>
+<li><p>Construct a data visualization consisting of two histograms to compare the ideological orientations of representatives to the U.S. House by party caucus, in one of the following states: Texas, California, or New York. Wrangle the data to create a subset for the state, and for the histograms use color and transparency to highlight differences between the two caucuses.</p></li>
+<li><p>In Michigan, which US House legislators had the most liberal and most conservative ideology scores? Create two data tables to display district number, name, party affiliation, and ideology (left - right) score.</p></li>
+<li><p>Pick a US State, identify the Congressional delegation from it. Create a Cleveland dotplot to visualize the most conservative to most liberal legislators, from a given State, by their ideology score.</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-R-magrittr" class="csl-entry">
+Bache, Stefan Milton, and Hadley Wickham. 2020. <em>Magrittr: A Forward-Pipe Operator for r</em>. <a href="https://CRAN.R-project.org/package=magrittr">https://CRAN.R-project.org/package=magrittr</a>.
+</div>
+<div id="ref-cleveland1984" class="csl-entry">
+Cleveland, William S., and Robert McGill. 1984. <span>“Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods.”</span> <em>Journal of the American Statistical Association</em> 79 (387): 531–54.
+</div>
+<div id="ref-everson2016" class="csl-entry">
+Everson, Phil, Rick Valelly, Arjun Vishwanath, and Jim Wiseman. 2016. <span>“NOMINATE and American Political Development: A Primer.”</span> <em>Studies in American Political Development</em> 30 (2): 97–115.
+</div>
+<div id="ref-lewis2023" class="csl-entry">
+Lewis, Jeffrey B., Keith Poole, Howard Rosenthal, Adam Boche, Aaron Rudkin, and Luke Sonnet. 2023. <span>“Voteview: Congressional Roll-Call Votes Database.”</span> <a href="https://voteview.com" class="uri">https://voteview.com</a>. <a href="https://voteview.com">https://voteview.com</a>.
+</div>
+<div id="ref-R-tibble" class="csl-entry">
+Müller, Kirill, and Hadley Wickham. 2023. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
+</div>
+<div id="ref-poole2005" class="csl-entry">
+Poole, Keith T. 2005. <em>Spatial Models of Parliamentary Voting</em>. Cambridge University Press.
+</div>
+<div id="ref-poole2006" class="csl-entry">
+Poole, Keith T., and Howard Rosenthal. 2006. <em>Ideology and Congress: A Political Economic History of Roll Call Voting</em>. 2nd ed. New Brunswick, NJ: Transaction Publishers.
+</div>
+<div id="ref-R-stringr" class="csl-entry">
+———. 2022. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>.
+</div>
+<div id="ref-R-ggplot2" class="csl-entry">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2023. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="13">
+<li id="fn13"><p>In this printed text, since all of the columns will not fit on a page, I select a subset of the columns, such as in this case, I entered <code>filter(house_memb_117[, c(4, 5, 6, 8)], state_abbrev=="NY")</code><a href="ch5.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>To download the data directly see the Michigan Secretary of State website, <a href="https://www.michigan.gov/sos/elections/election-results-and-data" class="uri">https://www.michigan.gov/sos/elections/election-results-and-data</a>. Scrolling through past election results, find the 2016 November general election, which will link to a webpage showing County-level results for all races on the ballot, <a href="https://mielections.us/election/results/2016GEN_CENR.html" class="uri">https://mielections.us/election/results/2016GEN_CENR.html</a>. At the top of this page, click “Data” then the link to “TAB-delimited by County”, which will start the process of downloading a file with the election results.<a href="ch5.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>County-level FIPS codes are a standardized set of numerical codes used to uniquely identify counties within the United States. More information about county-level FIPS codes, including their structure and usage, can be found on the U.S. Census Bureau’s website, <a href="https://www.census.gov/quickfacts/fact/note/US/fips" class="uri">https://www.census.gov/quickfacts/fact/note/US/fips</a>.<a href="ch5.html#fnref15" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/05-data-wrangling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

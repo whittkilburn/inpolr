@@ -1,0 +1,453 @@
+# Data Wrangling: Cleaning and Transforming Data {#ch5}
+
+Chapter \@ref(ch5) reviews functions for manipulating raw data to prepare it for analysis or visualization. 
+
+## Learning objectives and chapter resources {-}
+
+By the end of this chapter, you should be able to (1) apply key functions to sort, filter, arrange, and restructure data tables for analysis and presentation; (2) use these techniques to process county-level voting returns from an official data source; (3) create clean data tables for visualization; and (4) document the steps involved in transforming raw data into a usable format. The material in the chapter requires the __dplyr__ [@R-dplyr], __ggplot2__ [@R-ggplot2], and __tibble__ [@R-tibble] packages, which should already be installed as part of the _tidyverse_. The material uses the following datasets: _house_memb_117.csv_ and _2016GEN_MI_CENR_BY_COUNTY.xls_ from <https://faculty.gvsu.edu/kilburnw/inpolr.html>. 
+
+## Wrangling and tidying data
+
+Data is rarely analysis-ready or machine readable when obtained from its source. Transforming raw data into a format suitable for analysis --- known as "data wrangling" --- is a critical step in nearly any research project. And just as important is having code to make the process reproducible, both for transparency and for repeating the steps in the event of an error. This chapter provides tools to take messy or unwieldy data tables and to clean, structure, extract, and prepare data for visualization and further analysis. It is organized into three sections: 
+
+First, in brief we will learn about the use of indices to subset data tables by rows and columns.  While these are essential to learn, the __dplyr__ package provides a more flexible set of functions for sequencing operations into others such as filtering and arranging rows and columns. Second, we will learn about the core functions of the __dplyr__ package, displayed by function name in Table \@ref(tab:dplyr-verbs) followed by a brief explanation. We will learn to use these functions with the `%>%` 'pipe' operator, for combining functions by passing the output of one to another.  Third, we will apply these skills to cleaning and preparing for visualization Michigan County level voting records from an official source. 
+
+```{r dplyr-verbs, echo=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Define the data frame for the table
+dplyr_verbs <- data.frame(
+  `function` = c("filter()", "arrange()", "select()", "rename()", "mutate()", "group_by()", "summarise()"),
+  Description = c(
+    "Select rows of a dataframe based on specified conditions.",
+    "Arrange rows of a dataframe based on specified   column(s) in ascending or descending order.",
+    "Select and keep specific columns from a dataframe.",
+    "Rename columns in a dataframe.",
+    "Create new columns or modify existing columns.",
+    "Group the data by values in one or more columns, enabling operations within each group.",
+    "Calculate summary statistics (often used with group_by())."),
+  check.names = FALSE)
+kable(dplyr_verbs, "latex", booktabs = TRUE, caption = "Functions from the dplyr package for altering rows and columns of a dataset.") %>%
+   column_spec(2, width = "8cm")
+#%>%   kable_styling(latex_options = c("striped", "scale_down"))
+```
+ 
+Attach the __tidyverse__ to access functions from the packages __dplyr__ and __ggplot2__. 
+
+```{r eval=FALSE}
+library(tidyverse)
+```
+
+Save the two Chapter datafiles to your working directory; use the Session menus to change it as needed. Use `read_csv()` to read in _house_memb_117.csv_ and store it as the data object _house_memb_117_: 
+
+```{r eval=FALSE}
+house_memb_117<-read_csv(file="house_memb_117.csv")
+```
+
+```{r echo=FALSE, warning=FALSE, mesage=FALSE}
+house_memb_117<-read_csv(file="data/tempvoteviewdata/house_memb_117.csv", show_col_types = FALSE)
+```
+
+The result, _house_memb_117_, is stored as a `tibble`, a particular format for printing a dataframe to the Console. Enter _house_memb_117_ to observe it. The file _house_memb_117.csv_ is a table of characteristics of representatives to the 117th session of the U.S. House of Representatives, from the canonical source of data on members of Congress and their votes, Voteview.com [@lewis2023].  The file consists of 455 rows and 9 columns.  (See the Appendix for details.) Apart from identifiers, the data includes two measures of legislator ideology,\index{NOMINATE score} _nominate_dim1_ and _nominate_dim2_ [@poole2005; @poole2006]. Developed by the political scientist Keith Poole,\index{Poole, Keith} 'NOMINATE' (an acronym) scores estimate ideology on the principal line of political conflict in Congress, an economic liberalism-conservatism (*dim1*) and a second (*dim2*) capturing the legislator's position on the remaining bundle of issues within a particular session of Congress.  See Everson et al. [-@everson2016] for an explanation of the meaning and estimation of the scores.  Given the file, imagine that we are interested in extracting observations on legislator ideology by State or party caucus, or perhaps sort the legislators by ideology. 
+
+### Selecting rows and columns with indices {-}
+
+Indices \index{indices} are a fundamental way to select specific rows and columns in a dataframe. Below, the code selects four columns (*state_abbrev*, *party_code*, *bioname*, and *nominate_dim1*) from *house_memb_117*:
+
+```{r}
+house_memb_117[, c(4, 5, 6, 8) ]
+```
+
+Indices specify positions within the dataframe using the format `[r, c]`, where `r` represents rows, and `c` represents columns. When left blank, all rows or columns are selected. For example, `house_memb_117[, 6]` selects all rows from the sixth column, _bioname_. Moving the number 6 to the `r` position selects all columns for the sixth observation, `house_memb_117[6, ]`. Multiple columns can be selected with the `c()` function: `house_memb_117[, c(1, 2, 3, 4, 5)]` selects columns 1 through 5, while   `house_memb_117[, c(1:5)]` achieves the same result with the sequence 1 through 5 specified by `1:5`.
+
+In the example above, `house_memb_117[, c(4, 5, 6, 8)]` returns all rows but only columns 4, 5, 6, and 8. When executed, the result is displayed as a tibble, with a header `# A tibble: 455 × 4`, showing that the dataset contains 455 rows and 4 columns. The first 10 rows are displayed along with column names, types (`<chr>` for character, `<dbl>` for numeric, `<fct>` for factor), and a comment indicating the remaining rows: `# … with 445 more rows`.
+ 
+## Functions for organizing rows and columns
+
+Indices are essential for working with dataframes.  The tools from __dplyr__ are different: rather than directly identifying rows and columns with indices to specify a position, __dplyr__ works with functions. As individual functions, each follows a clear pattern. The functions require first the name of a dataset, in this case, `house_memb_117`, followed by a set of conditions that select rows or columns of the dataset. The result is typically returned as a tibble. Below are examples of key dplyr functions:
+
+### Highlight a row of the dataset: `filter()` {-}
+
+The *filter()* \index{dplyr R package (tidyverse)| \texttt{filter()} }function selects rows of a data table based on row values. For example, if we wanted to view ideology scores on the elected representatives from New York:^[In this printed text, since all of the columns will not fit on a page, I select a subset of the columns, such as in this case,   I entered `filter(house_memb_117[, c(4, 5, 6, 8)], state_abbrev=="NY")`]
+
+```{r eval=FALSE}
+filter(house_memb_117, state_abbrev=="NY")
+```
+
+```{r echo=FALSE}
+filter(house_memb_117[, c(4, 5, 6, 8)], state_abbrev=="NY")
+```
+
+Notice in the printout, the list of representative names followed by the ideology score, ranging from  (-1 for more liberal) to (+1 for more conservative).  For example, current House minority leader Representative Hakeem Jeffries is scored a -.489, while Representative Elise Stefanik is scored a .269.  
+
+### Saving data subsets {-}
+
+The `filter()` function, like other __dplyr__ functions, does not save a new dataset. Instead, it only returns the lines of the dataframe that match the conditions, printing the dataframe out as a tibble.
+
+To save a filtered dataset, such as a New York subset of House member data, we use the assignment operator. To create a data table or 'tibble' _NY_ and assign it the contents of the filter:
+
+```{r}
+NY<-filter(house_memb_117, state_abbrev=="NY")
+```
+
+The result is a dataframe consisting of New York legislators. While the actual dataset includes all 9 variables, subscripts could select just the party, name, and ideology score for printing: _party_code_, _bioname_, _nominate_dim1_: `[, c(5,6,8)]`:
+
+```{r}
+NY[, c(5,6,8)]
+```
+
+Note that inserting parentheses around the entire expression results in both saving the dataframe to a new object and returning the lines that fit the conditions.  So the line `(NY<-filter(house_memb_117, state_abbrev=="NY"))` will both save the contents of `filter()` to a new dataframe, _NY_, and will return the result. 
+
+### Filtering rows by condition {-}
+
+Filtering and other applicable functions, allow you to use familiar comparison operators.  While we used `==` equal to in the prior examples , other operators are less than or equal to  `< =` , greater than or equal to  `> =` , not equal to `!=`, and of course less than `<` and greater than `>`. Other functions can be combined with `filter()`, such as `is.na()` \index{\texttt{is.na()}}
+ for identifying observations with missing values; `filter(house_memb_117, is.na(born))` would find any row with a missing birth year.  
+
+We can use simple Boolean logic to construct `filter()` functions that satisfy multiple conditions.  For example, when conditions in `filter()` are listed sequentially, the result of the filter operation is the dataset when all conditions are evaluated as true.  So the two statements below are equivalent:
+
+```{r eval=FALSE}
+filter(house_memb_117, state_abbrev=="NY" , born > 1969)
+filter(house_memb_117, state_abbrev=="NY" & born > 1969)
+```
+
+These statements query for representatives who are from NY and born after 1969. The symbol for 'and' in the line above means that only for those lines when the two conditions `state_abbrev=="NY" & born > 1969` are true does the `filter()` function return a line of the dataset. The symbol `|` as an operator for 'or', substituted for \&, would return all `NY` representatives or  those born after 1969, regardless of State.   
+
+Combining the two, we can find the names of representatives from New York and New Jersey that fit the two conditions. 
+
+```{r}
+filter(house_memb_117, state_abbrev=="NY" | 
+                       state_abbrev=="NJ", born > 1969)
+```
+
+A tempting shortcut might be to think you can enter the function as `state_abbrev=="NY" |  "NJ"`, but that would be incorrect.  Instead, to avoid re-typing multiple `state_abbrev==` statements, use the "in" operator `%in%`, as in the following structure:
+
+```{r eval=FALSE}
+filter(house_memb_117, state_abbrev %in% c("NY", "NJ"), born > 1969)
+```
+
+### Arranging rows {-}
+
+The `arrange()` \index{dplyr R package (tidyverse)| \texttt{arrange() }} function is used to arrange rows, or change the order in which rows are displayed, rather than select particular rows. With the _nominate_dim1_ scores, the most obvious use would be to find the most liberal or conservative representatives. For example, `arrange(house_memb_117, nominate_dim1)` would display, in ascending order, the rows of the dataset starting with the lowest (or most liberal) value.  To reverse the order to descending, use `desc()`. \index{\texttt{desc()}} 
+
+```{r echo=FALSE}
+arrange(house_memb_117[, c(4, 5, 6, 8)], desc(nominate_dim1))
+```
+
+```{r eval=FALSE}
+arrange(house_memb_117, desc(nominate_dim1))
+```
+
+The tibble, indexed to `house_memb_117[, c(4, 5, 6, 8)]`, displays the top ten most conservative lawmakers, at the top Rep. Yvette Herrell (R-NM), followed by some familiar names.
+
+### Selecting columns {-}
+
+Without indices, the tibble sorted on ideology displayed all columns by default. While indexing with `house_memb_117[, c(5, 6, 8)]` selects columns by their numeric positions, `select()` makes it clearer and more intuitive by referencing the column names directly. For example, the following function selects three columns from the dataset for display:
+
+```{r}
+select(house_memb_117, party_code, bioname, nominate_dim1)
+```
+
+This use of `select()` \index{dplyr R package (tidyverse)| \texttt{select()} }is equivalent to ``house_memb_117[,  c(5,6,8)]`.  Or to display a sequential order of columns, separate the columns with a colon: `select(house_memb_117, party_code:nominate_dim1)`. Adding the function _everything()_ to the end of the function will simply place the remaining variables at the end of the dataframe, `select(house_memb_117, party_code:nominate_dim1, everything())`.
+
+### Renaming columns {-}
+
+To rename a column of a dataframe, use the rename function. In the `rename()` \index{dplyr R package (tidyverse)| \texttt{rename()} }function, the new variable name is listed first, followed by the old variable name. So to rename `nominate_dim1` as `left_right_ideology`:
+
+```{r eval=FALSE}
+rename(house_memb_117, left_right_ideology = nominate_dim1 )
+```
+
+```{r echo=FALSE}
+rename(house_memb_117[,  c(5,6,8)], left_right_ideology = nominate_dim1 )
+```
+
+As in the other functions, for the result to be saved to a dataset, the assignment operator needed to either overwrite the existing dataset or save a new version of it, as in `house_memb_117<- rename(house_memb_117, left_right_ideology = nominate_dim1 )`. Multiple renames can be combined, such as `rename(house_memb_117, left_right_ideology = nominate_dim1, state=state_abbrev)`, to rename the ideology and state name.
+
+### Creating new columns {-}
+
+The _mutate()_ \index{dplyr R package (tidyverse)| \texttt{mutate()} }function allows you to create new variables as combinations of other variables.  For example, an age in years of each representative in the year 2022 could be calculated from _born_.  With `mutate()` we name the new variable _age_ and the formula for calculating it, which is the value 2022 minus the variable _born_, appended as the last column in the data:
+
+```{r eval=FALSE}
+mutate(house_memb_117, age = 2022-born) 
+```
+
+```{r echo=FALSE}
+house_memb_117 %>%
+mutate(age = 2022-born) %>%
+dplyr::select(state_abbrev, party_code, bioname, born, age)
+```
+
+There are many useful functions within `mutate()`. One is the ranking function.
+
+We might be interested, for example, in ranking representatives in ideology.  The `min_rank()` \index{\texttt{min\_rank()}}function will do this.  By default, it assigns smallest values the smallest ranks; with the `desc()` \index{\texttt{desc()}} function, we can assign smaller ranks to higher values.  For example, assigning smallest ranks to more conservative (higher ideology scores):
+
+```{r eval=FALSE}
+mutate(house_memb_117, conservative_rank = 
+         min_rank(desc(nominate_dim1)))
+```
+
+The result is a table displaying the most conservative legislators, rank-ordered from most conservative starting at rank position 1. Further limiting the display of columns to fit on the printed page results in:
+
+```{r echo=FALSE}
+house_memb_117 %>%
+mutate(house_memb_117, conservative_rank = 
+         min_rank(desc(nominate_dim1))) %>%
+dplyr::select(bioname, born, nominate_dim1, conservative_rank)
+```
+
+Without the `desc()` function, `min_rank()` assigns higher ranks to smaller values.
+
+### Saving new datasets {-}
+
+Without an assignment operator, the functions such as `mutate()` and `select()` will not alter the dataset saved within the Environment pane. To create a subsetted data table (or to overwrite the existing data table), the assignment operator is necessary. With the assignment operator for the example with _age_, the variable is written to the end of the dataframe. For example the following lines add the variable _age_ to the dataframe: 
+
+```{r}
+house_memb_117<-mutate(house_memb_117, age = 2022-born) 
+```
+
+To save only a subset of variables -- including the newly created _age_ variable -- we would use the `select()` function to identify specific variables. For example the two lines below create the _age_ variable with `mutate()`, appending _age_ to _house_memb_117_subset_, which is a subset of the five variables identified in the next line, saved again as _house_memb_117_subset_. 
+
+```{r}
+house_memb_117_subset<-mutate(house_memb_117, age = 2022-born) 
+house_memb_117_subset<-select(house_memb_117_subset, state_abbrev, 
+                              party_code, bioname, born, age)
+```
+
+The new subset data table contains only the five variables:
+
+```{r}
+house_memb_117_subset
+```
+
+## Combining functions  
+
+Often in managing unwieldy datasets, we combine different functions to accomplish a series of steps, such as mutating or creating a new variable, selecting columns, filtering the order of rows, and printing out or saving a subset.  Doing so in an efficient way, however, requires us to combine multiple functions in a sequential order. The "pipe operator", the characters `%>%` [@R-magrittr],  allows multiple functions to be chained together.\index{\texttt{\%\textgreater\%} (pipe operator)}
+
+Conceptually, the pipe operator translates to "and then". So for example, we could filter a dataset, and then select particular rows, and then arrange the rows.  The pipe operator simplifies the process of combining functions in a highly readable way, sequential steps separated by `%>%`. As a core element of the __tidyverse__, the piper operator is available once __dplyr__ or the entire __tidyverse__ is attached.  It is worth noting that a recent update to __R__ added a native pipe, `|>`, which works nearly identically, although the code in this text relies on `%>%`. Line by line we will use `%>%` to combine functions to do the following: 
+
+(1) Filter on representatives from New York. 
+(2) Select the columns for _party_code_, _bioname_, and _nominate_dim1_. 
+(3) Arrange the dataframe rows by conservatism, from most conservative in row 1 to least at the end.  
+(4) Print out the data table. 
+
+To do so, we start with the `house_memb_117` dataframe and then add the functions line by line, adding `%>%` until the last command: 
+
+```{r}
+house_memb_117 %>%
+  filter(state_abbrev=="NY") %>%
+  select(party_code, bioname, nominate_dim1) %>%
+  arrange(desc(nominate_dim1))
+```
+
+Notice that at the end of the tibble, a comment states there are 19 more rows, in addition to the printed 10, for a total of 29 rows and 3 columns. To print the entire tibble (all of the rows) we add `print(n=39)` as an additional row. Below the `print()` function prints the top five: 
+
+```{r}
+house_memb_117 %>%
+  filter(state_abbrev=="NY") %>%
+  select(party_code, bioname, nominate_dim1) %>%
+  arrange(desc(nominate_dim1)) %>%
+  print(n=5)
+```
+
+Notice that in each of the functions, such as `filter()`, it is not necessary to include the name of the dataframe. Through the pipe operator, the dataframe to the left of the first pipe operator `house_memb_117 %>%` is passed on to each of the functions below it. To save the table to a dataframe, for example named _ny_reps_, we would change the first line to `_ny_reps<-house_memb_117 %>%`. 
+
+### Grouped summary statistics {-}
+
+It is often useful to sort through data by groups within it. The `group_by()` \index{\texttt{group\_by()}}function, sets a grouping structure for the dataframe that is taken into account when functions like are subsequently applied. It is often useful in combination with the `summarize()`\index{dplyr R package (tidyverse)| \texttt{summarize()} } function, for calculating summary statistics on groups.  For example, we may be interested in average ideological orientation of State delegations, or averages within parties within States.  Or perhaps we would like to count the number of representatives from each State, by political party. 
+
+We would first group the data with `group_by()` \index{dplyr R package (tidyverse)| \texttt{group\_by()} }then apply `summarize()`\index{dplyr R package (tidyverse)| \texttt{summarize()} }.  Because the `summarize()` function reduces the data down to a single summary statistic, it requires both a name of the new summary statistic in the data table, and a function to calculate the summary statistic, such as `mean()`\index{\texttt{mean()}}, `sum()`\index{\texttt{sum()}}, `range()`\index{\texttt{range()}}, `max()`\index{\texttt{max()}} or `min()`\index{\texttt{min()}}. 
+
+For example, in `summarize(mean_ideology = mean(nominate_dim1))`, `mean_ideology` will be the column name in the summary dataframe, and `mean(nominate_dim1)` is the function that calculates the average ideology score.
+
+Let's observe how it works within partisan groups of New York legislators.  
+
+```{r}
+house_memb_117 %>%
+  filter(state_abbrev=="NY") %>%
+  group_by(party_code) %>%
+  summarize(mean_ideology = mean(nominate_dim1))
+```
+
+The `summarize()` function reduces the dataframe to a set of means, ideology by party group.  The average Democrat and Republican representative from New York is roughly similar, although the mean Democratic ideology is slightly larger in magnitude than Republican. 
+
+The `summarize()` function can take multiple arguments, allowing you to calculate several summary statistics at once. For example, we could calculate both the mean and standard deviation within parties:  
+
+```{r}
+house_memb_117 %>%
+  filter(state_abbrev=="NY") %>%
+  group_by(party_code) %>%
+  summarize(
+    mean_ideology = mean(nominate_dim1),
+    sd_ideology = sd(nominate_dim1))
+```
+
+The `sd_ideology` expression follows after `mean_ideology`.  Note that in these examples of calculating summary statistics, there are no missing values in the data. Where there are missing values __R__ requires specific instructions on what to do with the missing values, in this case it would be to remove missing values from any calculations. For example, the statement for the standard deviation would need to be `sd_ideology = sd(nominate_dim1, na.rm = TRUE)`. 
+
+One additional useful function to add to `summarize()` is `n()`,\index{dplyr R package (tidyverse)| \texttt{n()} } which does not require any arguments. The function will count up the number of rows defined by the `group_by()` function. For example, to add counts of the `party_code` groups: 
+
+```{r}
+house_memb_117 %>%
+  filter(state_abbrev=="NY") %>%
+  group_by(party_code) %>%
+  summarize(
+    mean_ideology = mean(nominate_dim1),
+    sd_ideology = sd(nominate_dim1),
+    count_n = n())
+```    
+ 
+Overall, with a few functions, starting with those listed in Table \@ref(tab:dplyr-verbs), datasets can be transformed in nearly limitless ways.  The following section demonstrate the use of __dplyr__ functions for shaping up raw datasets, wrangling and cleaning data for use in analysis. 
+
+## Cleaning and transforming county-level votes
+
+Another important application of data wrangling is in creating tidy datasets from a source, such as a US Secretary of State's election portal, aggregated to a geographic level. In this example, we look at election results from the November 2016 general election, aggregated to the Michigan County level. We will extract County-level presidential votes and organize a tidy dataset. From there, we will construct visualizations of the election results across Michigan counties with a specific data visualization, a "Cleveland dotplot" [@cleveland1984].
+
+### Working with county-level election results {-}
+
+Save the *2016GEN_MI_CENR_BY_COUNTY.xls*  datafile to your working directory; use the Session menus to change it.^[To download the data directly see the Michigan Secretary of State website,  <https://www.michigan.gov/sos/elections/election-results-and-data>. Scrolling through past election results, find the 2016 November general election, which will link to a webpage showing County-level results for all races on the ballot, <https://mielections.us/election/results/2016GEN_CENR.html>. At the top of this page, click "Data" then the link to "TAB-delimited by County", which will start the process of downloading a file with the election results.]  
+
+The data is imported with the `read_tsv()` (tab-separated value) function from the __dplyr__ package. Place the file in your working directory and run the function. The datafile from the Secretary of State's Office (*2016GEN_MI_CENR_BY_COUNTY.xls*) has the file extension _.xls_, suggesting it is a Microsoft Excel formatted file, but it is actually saved as a tab delimited text file:  
+
+```{r eval=FALSE}
+MI_2016<-read_tsv(file="2016GEN_MI_CENR_BY_COUNTY.xls")
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+MI_2016<-read_tsv(file="~/Documents/Dropbox/inpolr-book/data/ch5 data/2016GEN_MI_CENR_BY_COUNTY.xls")
+```
+
+When you import the data, you will see a list of columns 'parsed' from the data, starting with the `ElectionDate` and ending with ``Nominated(N)/Elected(E)`.  Each row of the dataset corresponds to a single candidate for any elected office appearing on a ballot within each County. So for each County, there are as many rows as there are candidates appearing on the ballot for election to any office, which is why there are 6,082 rows: 
+ 
+```{r}
+MI_2016
+```
+
+We will extract the vote totals within each county for the presidential election, and then organize a Michigan County level presidential elections dataset, to visualize candidate support across counties.  So for this purpose the file from the State includes mostly rows of irrelevant election results. So the first step is to delete all rows that do not relate to the presidential election. We use the `filter()` function to select only the results --- the rows --- for the presidential election. The `OfficeDescription` field in the dataset contains indicators for different elections. Open the data spreadsheet in the Environment pane to review the offices.  Or table out the office descriptions with `table(MI_2016$OfficeDescription)`. 
+
+The presidential election results are stored as `President of the United States 4 Year Term (1) Position`, in the first set of counties. The other offices follow. To find any set of elections, such as all results for U.S. House elections, we could use a search function to look for all instances of the term `Congress` in the `OfficeDescription` field.  For example, the function `str_detect()` will find and return the locations in the dataset of a search string. For example, to find the rows where "Congress" appears, we could enter `str_detect(MI_2016$OfficeDescription, "Congress")`.  This function would give us a result, either `TRUE` or `FALSE` for each row. Let's see what that summary would look like: 
+
+```{r}
+summary(str_detect(MI_2016$OfficeDescription, "Congress"))
+```
+
+It shows that 430 rows reference a race for Congress.  If we wanted to select only these rows, we would use `str_detect()` inside the `filter()` function. These two lines subset the `MI_2016` dataset by filtering the `OfficeDescription` field to select only the rows where the term "Congress" appears: `MI_2016 %>% filter(str_detect(OfficeDescription, "Congress"))`. 
+
+Following this example, we filter on the presidential election and save a new version of the data --  _MI_prez_2016_ with just the variables we needed to analyze vote returns over Counties: `CountyName, CandidateLastName, CandidateVotes, CountyCode`. `CountyCode` is a Federal Information Processing Standard (FIPS) indicator for each County^[County-level FIPS codes are a standardized set of numerical codes used to uniquely identify counties within the United States. More information about county-level FIPS codes, including their structure and usage, can be found on the U.S. Census Bureau's website, <https://www.census.gov/quickfacts/fact/note/US/fips>.] 
+
+```{r}
+MI_prez_2016<-MI_2016 %>%
+  filter(OfficeDescription==
+    "President of the United States 4 Year Term (1) Position") %>%
+    select(CountyName, CandidateLastName, CandidateVotes, CountyCode)
+
+MI_prez_2016
+```
+### Reshaping the data, long to wide format {-}
+
+In _MI_prez_2016_ there is one column of vote counts (`CandidateVotes`), and for every County a row containing an entry for each presidential candidate listed on the ballot in that County. This way of organizing the data is called 'long' format, because the dataset is longer than it is wide; instead of having a different column (or variable) for each candidate's votes, there is one column to record votes and separate rows for each candidate.
+
+To simplify analysis, we want to restructure the data to 'wide' format. In this format, the dataset will have one row per county (exactly 83 rows) and a separate column for each candidate's vote totals. This wide structure is particularly useful for calculations, such as summing vote totals over all third-party candidates, because it facilitates column based operations. 
+
+The function `pivot_wider()` will translate the data from long to wide data format. The required arguments for `pivot_wider()` are (1) the names of each new column in wide format, and (2) the values to be stored in these columns.  From long format, the names in `CandidateLastName` will be passed to wide format, while the values in `CandidateVotes` will be stored in the new wide format columns.
+
+```{r}
+MI_prez_2016_wide <- MI_prez_2016 %>%
+    pivot_wider(names_from = CandidateLastName, 
+      values_from=CandidateVotes)
+
+MI_prez_2016_wide
+```
+
+With the data now in wide format, we create an 'other' vote count column. This variable will record vote totals for all candidates who are neither Trump nor Clinton. Within `mutate()` , the _other_ variable is the sum of each individual candidate column:
+
+```{r}
+MI_prez_2016_wide<-MI_prez_2016_wide %>%
+  mutate(other=Castle+ Fox + Hartnell  + Hoefling + Kotlikoff + Maturen
+         + McMullin +  Moorehead + Soltysik + Stein) %>%
+  select(CountyName, CountyCode, Trump, Clinton, other) %>%
+  print(n=5)
+```
+
+Then we `select()` only the necessary columns for recording presidential vote totals across counties, identifiers _CountyName_ and *CountyCode*, followed by _Trump_, _Clinton_, and _other_.  Given the raw votes, we could create vote percentage totals for each candidate:
+
+```{r}
+MI_prez_2016_wide<-MI_prez_2016_wide %>%
+ mutate(Trump_percent=Trump/(Trump + Clinton + other)*100) %>%
+ mutate(Clinton_percent=Clinton/(Trump + Clinton + other)*100) 
+```
+
+```{r echo=FALSE}
+MI_prez_2016_wide  
+```
+
+The dataset now consists of an organized, wide table of presidential candidate support, one row for each county, and candidate support across multiple columns.  
+
+## Wrangling election data and dotplotting results 
+
+The 'Cleveland dotplot', \index{Cleveland dotplot}named after its creator William S. Cleveland\index{Cleveland, William S.}, is a data visualization form for comparing quantitative values across categories of a qualitative variable. In this case, we are interested in visualizing levels of candidate support across each Michigan county. Similar to a bar graph, where the lengths of bars would be drawn to scale the percentage of the vote won by each candidate across counties, a Cleveland dotplot replaces bars with dots, arranged along a horizontal or vertical axis. The length of a bar is replaced by position of a dot. By eliminating the area of bars on the graph, the dotplot facilitates comparisons across many categories. 
+
+For _MI_prez_2016_wide_, visualizing raw vote totals is not feasible in one graphic because of the disparity between the largest counties, such as Detroit's Wayne County, and any of the smaller counties that would appear indistinguishable. What interests us more than raw votes is the percentage of each candidate's support by county. To construct the dotplot, first in `MI_prez_2016_wide` because the County names are in all caps, we will convert each one to "title case" -- uppercase first letters and lowercase remaining letters --- with the `str_to_title()` function within `mutate()`: 
+
+```{r}
+MI_prez_2016_wide<- MI_prez_2016_wide %>%
+ mutate(CountyName=str_to_title(CountyName))
+```
+
+The `str_to_title()` function (from the __stringr__ package [@R-stringr] in the __tidyverse__) \index{stringr R package (tidyverse)| \texttt{str\_to\_title() }} converts each word, for example, "ST.CLAIR" to "St. Clair". Notice the difference: 
+
+```{r}
+MI_prez_2016_wide %>%
+  print(n=3)
+```
+
+A key aspect of the Cleveland dotplot is to order the categories (counties) to make the visual comparisons clearer. For example, rather than organize the counties alphabetically, we will arrange counties by _Trump_percent_ or _Clinton_percent_.  
+
+### Reorder function {-}
+
+The dots are constructed in `ggplot()` by `geom_point()`. In the `aes()` argument, we specify the order of the counties within an additional function. The `reorder()` \index{\texttt{reorder()}} function sorts the names of the counties by Trump's percentage of the vote (`reorder(CountyName, Trump_percent)`) or Clinton (`reorder(CountyName, Clinton_percent)`).  This function is placed within the `aes()` function as the name of the County variable. Figure \@ref(fig:clevetrump) displays a Cleveland dotplot with counties sorted by the Trump vote percent. 
+
+```{r clevetrump, fig.height=9, fig.cap="Cleveland dotplot of Trump’s vote percentage by Michigan county in the 2016 presidential election, created with \\textbf{ggplot2}. County points are ordered by vote percentage, making it easier to compare across counties than in a traditional bar chart."}
+MI_prez_2016_wide %>%
+  ggplot() +
+  geom_point(aes(reorder(CountyName, Trump_percent), Trump_percent)) +
+  labs(title="Trump Percentage Vote by Michigan County, 2016",
+       x="County", y="Vote Percentage") +
+  coord_flip()
+```
+
+Each dot represents one county, plotted along the X-axis based on the vote percentage. The counties are arranged in ascending order of support on the Y-axis, which highlights patterns and outliers.  For example, Trump won the vast majority of Michigan counties by wide margins, but lost most of the more populous counties of Michigan cities by a small margin.  Wayne county and Washtenaw are clear outliers.  
+
+The X and Y axes are flipped in `coord_flip()` \index{ggplot2 R package (tidyverse)| \texttt{coord\_flip() }}, and the graphic aspect ratio is elongated to make all 83 county names visible.  The `reorder()` function changes the order of Michigan counties.  Otherwise the syntax is similar to a scatterplot. 
+
+We could add two different series, Clinton and Trump, and color each series. Note that _ggplot2_ expects data to be in a long format.   As a shortcut, or perhaps exploratory graphic, without having to convert the data to long format, it may be easier to plot the percents in two different `geom_point()` \index{ggplot2 R package (tidyverse)| \texttt{geom\_point() }} series. To save space, this dotplot is not produced below, but try running the lines to observe the result:
+
+```{r eval=FALSE}
+MI_prez_2016_wide %>%
+  ggplot(aes(reorder(CountyName, Trump_percent), Trump_percent)) +
+  geom_point(color="red") +
+  labs(title="Trump and Clinton Votes by Michigan County, 2016",
+       x="County", y="Number of Votes",
+          caption="Clinton in blue, Trump in red") +
+  coord_flip() +
+  geom_point(aes(CountyName, Clinton_percent), color="blue")
+```
+
+In Chapter \@ref(ch6) we consider election data in the context of maps, and among other subjects, examine how to create election maps and other aspects of geographically referenced data.  
+ 
+## Resources {-}
+
+The official __dplyr__ reference guide details the package functions with examples: <https://dplyr.tidyverse.org/reference/index.html>.
+
+## Exercises 
+
+Answer the questions with R code supported by a narrative explanation within an RMarkdown document. 
+
+(1) Construct a series of box-whiskers plots for the ideology scores within State delegations to the US House. Pick a subset of five States to compare and wrangle the data, using `filter()` to identify the States of interest. Save the data as a dataframe or pass on the wrangled data to __ggplot2__ for the construction of the box-whiskers plots.  
+
+(2) Based on the Congressional ideology (Voteview.com) data, write a three-paragraph report on the ideology of the Congressional delegation from Florida.  Be sure to include a discussion of how the delegation relates to each Chamber's overall median and within party caucus median ideology score.  Be sure to include appropriate summary statistics with your answer. 
+
+(3) Construct a data visualization consisting of two histograms to compare the ideological orientations of representatives to the U.S. House by party caucus, in one of the following states: Texas, California, or New York. Wrangle the data to create a subset for the state, and for the histograms use color and transparency to highlight differences between the two caucuses. 
+
+(4) In Michigan, which US House legislators had the most liberal and most conservative ideology scores? Create two data tables to display district number, name, party affiliation, and ideology (left - right) score.
+
+(5) Pick a US State, identify the Congressional delegation from it. Create a Cleveland dotplot to visualize the most conservative to most liberal legislators, from a given State, by their ideology score. 

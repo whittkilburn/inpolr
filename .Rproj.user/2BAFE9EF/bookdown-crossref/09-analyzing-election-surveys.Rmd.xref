@@ -1,0 +1,40 @@
+h1:ch9 Analyzing Election Studies
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:election-polling Election polling
+h3:sampling-a-national-electorate Sampling a national electorate
+h3:the-2020-anes-survey The 2020 ANES survey
+h2:specifying-a-survey-sample-design Specifying a survey sample design
+h2:tabulating-and-cross-tabulating-survey-measures Tabulating and cross-tabulating survey measures
+h3:formatting-tabulations Formatting tabulations
+tab:knittab Survey respondent attention 
+          paid to politics, 2020 ANES.
+h3:cross-tabulation-contingency-tables Cross-tabulation (contingency) tables
+h3:creating-and-recoding-a-new-survey-measure Creating and recoding a new survey measure
+h3:column-and-row-proportions-in-a-contingency-table Column and row proportions in a contingency table
+tab:tabknit1 Survey respondent sex by
+             attention paid to politics, column percentages 2020 ANES.
+h2:test-of-independence-for-contingency-tables Test of independence for contingency tables
+h3:contingency-tables-controlling-for-a-third-factor Contingency tables controlling for a third factor
+h3:recoding-for-a-table-of-party-identification-by-religiosity Recoding for a table of party identification by religiosity
+tab:table3knitrextra Contingency table of party identification 
+        by religious service attendance, column percentages, 2020 ANES.
+tab:tablemale Party identification by religious 
+    service attendance, column percentages, male respondents only.
+tab:tablefemale Party 
+       identification by religious service attendance, column 
+       percentages, female respondents only
+h2:confidence-intervals-and-tests-on-proportions-and-means Confidence intervals and tests on proportions and means
+h3:tables-of-means-for-levels-of-a-categorical-variable Tables of means for levels of a categorical variable
+h3:hypothesis-tests-on-means Hypothesis tests on means
+h2:data-visualization-for-election-polls Data visualization for election polls
+h3:bar-plots Bar plots
+fig:table1bar1 Attitude toward capital punishment (death penalty) in the 2020 ANES survey, categorized by strength of favor or opposition. Bars represent the proportion of respondents in each category.
+fig:bardodge Attitude toward capital punishment (death penalty) by respondent sex in the 2020 ANES survey, categorized by strength of favor or opposition. Bars represent the proportion of respondents by sex in each category.
+h3:bar-graph-with-error-bars Bar graph with error bars
+fig:errorbarplot1 Attitude toward capital punishment (death penalty) in the 2020 ANES survey, categorized by strength of favor or opposition. Error bars measure the margin of error (95 percent confidence intervals) on each category.
+fig:errorbarmf Attitude toward capital punishment (death penalty) by sex in the 2020 ANES survey, categorized by strength of favor or opposition. Error bars measure the margin of error (95 percent confidence intervals) on each category.
+h3:weighted-histograms Weighted histograms
+fig:weighthist A weighted histogram of feelings toward Donald Trump, 2020 ANES.
+h2:resources Resources
+h2:exercises Exercises
+

@@ -1,0 +1,2 @@
+"0","sa_air_pollution<- sa_air_pollution %>%"
+"0","  filter(str_detect(shapeName, ""City of Cape Town""))"

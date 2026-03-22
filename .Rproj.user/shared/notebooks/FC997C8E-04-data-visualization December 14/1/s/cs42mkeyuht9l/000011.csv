@@ -1,0 +1,2 @@
+"0","ggplot(data=countries) +"
+"0","    geom_point(aes(x=log(gdp_pc_pp), y=fert_rate))"

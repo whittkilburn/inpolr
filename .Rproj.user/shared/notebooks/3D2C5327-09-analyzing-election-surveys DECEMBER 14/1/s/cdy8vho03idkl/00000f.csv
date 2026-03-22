@@ -1,0 +1,1 @@
+"0","table1<-prop.table(svytable(~V201005, anes2020, round=TRUE))*100"

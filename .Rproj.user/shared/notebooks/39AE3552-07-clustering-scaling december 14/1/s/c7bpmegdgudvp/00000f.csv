@@ -1,0 +1,24 @@
+"0","library(smacof)"
+"2","Loading required package: plotrix
+"
+"2","Loading required package: colorspace
+"
+"2","Loading required package: e1071
+"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","
+Attaching package: ‘smacof’
+
+"
+"2","The following object is masked from ‘package:base’:
+
+    transform
+
+"

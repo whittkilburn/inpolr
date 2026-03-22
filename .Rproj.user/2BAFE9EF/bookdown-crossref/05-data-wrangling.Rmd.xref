@@ -1,0 +1,25 @@
+h1:ch5 Data Wrangling: Cleaning and Transforming Data
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:wrangling-and-tidying-data Wrangling and tidying data
+tab:dplyr-verbs Functions from the dplyr package for altering rows and columns of a dataset.
+h3:selecting-rows-and-columns-with-indices Selecting rows and columns with indices
+h2:functions-for-organizing-rows-and-columns Functions for organizing rows and columns
+h3:highlight-a-row-of-the-dataset-filter Highlight a row of the dataset: 
+h3:saving-data-subsets Saving data subsets
+h3:filtering-rows-by-condition Filtering rows by condition
+h3:arranging-rows Arranging rows
+h3:selecting-columns Selecting columns
+h3:renaming-columns Renaming columns
+h3:creating-new-columns Creating new columns
+h3:saving-new-datasets Saving new datasets
+h2:combining-functions Combining functions
+h3:grouped-summary-statistics Grouped summary statistics
+h2:cleaning-and-transforming-county-level-votes Cleaning and transforming county-level votes
+h3:working-with-county-level-election-results Working with county-level election results
+h3:reshaping-the-data-long-to-wide-format Reshaping the data, long to wide format
+h2:wrangling-election-data-and-dotplotting-results Wrangling election data and dotplotting results
+h3:reorder-function Reorder function
+fig:clevetrump Cleveland dotplot of Trump’s vote percentage by Michigan county in the 2016 presidential election, created with \\textbf{ggplot2}. County points are ordered by vote percentage, making it easier to compare across counties than in a traditional bar chart.
+h2:resources Resources
+h2:exercises Exercises
+

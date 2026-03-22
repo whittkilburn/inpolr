@@ -1,0 +1,3 @@
+"0","MI_2016 %>%"
+"0","  filter(OfficeDescription==""President of the United States 4 Year Term (1) Position"") %>%"
+"0","  select(CountyName, CandidateLastName, CandidateFirstName, CandidateVotes, `DistrictCode(Text)`, everything())"

@@ -1,0 +1,5 @@
+"0","MI_prez_2016_wide<-MI_prez_2016_wide %>%"
+"0"," mutate(Trump_percent=Trump/(Trump + Clinton + other)*100) %>%"
+"0"," mutate(Clinton_percent=Clinton/(Trump + Clinton + other)*100) %>%"
+"0"," select(CountyName, Trump, Trump_percent, Clinton,"
+"0","        Clinton_percent, everything())"

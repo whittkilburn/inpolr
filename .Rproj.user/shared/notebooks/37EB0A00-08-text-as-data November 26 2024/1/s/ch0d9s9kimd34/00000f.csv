@@ -1,0 +1,1 @@
+"0","fed_pap<-readtext(""./data/ch8 data/federalist papers/*.txt"", docvarsfrom=""filenames"", docvarnames=c(""number"", ""author""), dvsep=""_"")"

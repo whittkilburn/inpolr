@@ -1,0 +1,2 @@
+"0","MI_prez_2016_wide<- MI_prez_2016_wide %>%"
+"0"," mutate(CountyName=str_to_title(CountyName))"

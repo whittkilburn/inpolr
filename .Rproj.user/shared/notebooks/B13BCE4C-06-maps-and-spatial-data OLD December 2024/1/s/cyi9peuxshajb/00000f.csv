@@ -1,0 +1,6 @@
+"0","# if necessary install.packages(""leaflet"")"
+"0","library(leaflet)"
+"0",""
+"0","leaflet() %>% "
+"0","  setView(lng = 18.6, lat = -34, zoom = 10) %>% "
+"0","  addTiles()"

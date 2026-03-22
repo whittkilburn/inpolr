@@ -1,0 +1,3 @@
+"0","predict(regmodel3, predictiondata, interval=""confidence"")"
+"2","Error in eval(predvars, data, env) : object 'edu' not found
+"

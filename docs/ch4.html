@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Data Visualization | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Data Visualization | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Data Visualization | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch3.html"/>
+<link rel="next" href="ch5.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch4" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Data Visualization<a href="ch4.html#ch4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch4.html#ch4">4</a> introduces the tools for creating charts (data graphics) in <strong>R</strong>.</p>
+<div id="learning-objectives-and-chapter-resources-2" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch4.html#learning-objectives-and-chapter-resources-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this chapter, you should be able to (1) identify the required elements of a data visualization with the <strong>ggplot2</strong> package; (2) construct and interpret distributional graphics in the form of histograms, box whiskers, and density plots; (3) construct scatterplots and dynamic bubble plots; (4) construct a time series line plot. The material in this chapter requires the following packages: <strong>ggplot2</strong> <span class="citation">(<a href="#ref-wickham2016">Wickham and Grolemund 2016</a>)</span> part of the <strong>tidyverse</strong> <span class="citation">Wickham et al. (<a href="#ref-tidyverse2019">2019</a>)</span>, which should already be installed, and <strong>ggrepel</strong> <span class="citation">(<a href="#ref-R-ggrepel">Slowikowski 2023</a>)</span> and <strong>plotly</strong> <span class="citation">(<a href="#ref-sievert2020">Sievert 2020</a>)</span> which will need to be installed separately. The material uses the following datasets <em>gdpfert.csv</em>, <em>86_house_dw.csv</em>, <em>countries.csv</em>, <em>countries_tsxs.csv</em>, and <em>poll_ft.csv</em> from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="introduction-2" class="section level2 unnumbered hasAnchor">
+<h2>Introduction<a href="ch4.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The term “data visualization” is everywhere. Hundreds of books published on the subject, thousands of websites, and social media communities showcase data visualizations. (For examples, see the Reddit community r/dataisbeautiful, with over 15 million members). In the COVID-19 pandemic era, for many of us reviewing graphical displays of case counts and deaths became an integral part of getting caught up on the day’s news. For students of political science, such visualizations are perhaps most commonly found in election results displayed across a geographic area through maps, or diagrams that show seat gains and losses for a political party within a legislature. The purpose of such visualizations is to enable greater insight into the data than would be accessible from an inspection of a data table alone.</p>
+<p>A data visualization is information in graphical form, a picture that communicates a researcher’s findings or insights. Data tables are effective for organizing data, or visually looking up specific information, but a visualization could be constructed to highlight intriguing features of a dataset, to prompt further investigation. For example, recall the table from Chapter <a href="ch3.html#ch3">3</a> of countries, GDP, and fertility rates. Without a scatterplot — or prior knowledge of the two measures — how easily could we have communicated evidence to others of how the two measures are related? A good data visualization should help explore patterns and relationships within data, to facilitate the process of communicating analysis results, telling the story of the data <span class="citation">(<a href="#ref-gelman2002">Gelman, Pasarica, and Dodhia 2002</a>; <a href="#ref-gelmanunwin2013">Gelman and Unwin 2013</a>)</span>. For our purpose in analyzing data, a good visualization should enhance understanding; it should not be an ornament, something constructed as a decoration or mainly for graphical design purposes such as an infographic.</p>
+<p>This chapter provides an orientation to some of the fundamental tools for constructing data visualizations in <strong>R</strong>. The field of data visualization is vast; in Chapter <a href="ch4.html#ch4">4</a> we consider univariate visualizations for continuous measures, followed by bivariate and multivariate visualizations for continuous measures, to learn data visualization functions. Most of the visualizations within this chapter are static image graphics, although we review the construction of one dynamic graphic type. At the end of the chapter, there are links to learn additional code for an endless variety of different data visualization types, both static and dynamic.</p>
+</div>
+<div id="key-concepts-for-data-visualization-in-r" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Key concepts for data visualization in R<a href="ch4.html#key-concepts-for-data-visualization-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By far, the most common set of tools for visualizing data in <strong>R</strong> come from the <strong>tidyverse</strong>, the graphics package <strong>ggplot2</strong>. The subject of data visualization is exceptionally complex, and there is no single unified theory of how the analysis of data via visualizations should be conducted <span class="citation">(<a href="#ref-unwin2018">Unwin 2018</a>)</span>. There is, however, greater agreement about the appropriate theory to describe what graphics are, what their components are and how the parts are put together into a coherent whole and how to correctly interpret graphics <span class="citation">(<a href="#ref-cairo2019">Cairo 2019</a>)</span>. A set of standards, a grammar, for describing graphics by identifying their components <span class="citation">(<a href="#ref-wilkinson1999">Wilkinson 1999</a>)</span>, is represented in the concepts used to build graphics in <strong>ggplot2</strong>. We will use these terms to build our own with the <strong>ggplot2</strong> graphics package from the <strong>tidyverse</strong>. Fortunately, this theory, and to the extent that there are some generally agreed upon ideas for how data visualizations should appear, are built into the construction of <strong>ggplot2</strong> functions. So while it is possible to get a graphic wrong with <strong>ggplot2</strong>, it is much easier by default to get it right.</p>
+<p>In constructing visualizations from scratch, a starting point is to first consider the purpose of the visualization and the scale of measurement of the underlying variables. For example, if the purpose is to display quantities such as percentages that vary across groups, a bar chart would be an appropriate choice. If the underlying measure is continuous, and the purpose is to describe the shape of a distribution, then a histogram (a bar chart for continuous measures) would be appropriate. Of course, there are many different alternative visualization forms to consider, but a helpful starting point is to first identify the intended quantity or quality to be visualized, and the measurement type of the corresponding variables. Simply put, some visualization types are appropriate for categorical (nominal or ordinal) measures and others for continuous (interval or ratio) scaled measures. Another consideration in constructing charts is whether the graphic is either exploratory or explanatory. An exploratory graphic is intended to examine features or relationships embedded within the data, without necessarily having in mind a specific feature or relationship to highlight. It may be a graphic in rough, unfinished form. An explanatory graphic highlights important features or comparisons within the data, known previously to the researcher. The visualization, in a polished form, is intended to draw in the reader’s attention to particular aspects of the data.</p>
+<p>To introduce the code syntax for creating visualizations, we start with exploratory graphics for visualizing continuous distributions — histograms, box-whiskers plots, and density plots. Next, we turn to variations on bar plots for graphing quantities across groups. Finally, we examine variations on scatterplot based tools for comparing at least paired (measured on an X and Y) observations. The chapter concludes with an overview of some tools for modifying and adorning visualizations for explanatory purposes.</p>
+<div id="visualizing-continuous-measures" class="section level3 unnumbered hasAnchor">
+<h3>Visualizing continuous measures<a href="ch4.html#visualizing-continuous-measures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For concepts measured on a continuous, interval or ratio, scale, typically we are interested in understanding a measure’s distribution, how scores vary across units of observation, how scores vary within and across groups, or how one distribution relates to another. Typically when investigating a continuous measure, we start with four characteristics: shape (S), the presence of unusual or outlier (O) observations, the location of the center (C) such as a mean or median, spread (S) such as the range of scores or standard deviation, often abbreviated as “SOCS”. The visualizations for examining these features of data are useful for learning how to construct visualizations within the <strong>ggplot2</strong> syntax. Perhaps the most common visualization type is the histogram, a sort of bar graph for continuous measures. We will review this visualization type, followed by others, box-whisker and density plots before moving on to types of scatter plots and line plots.</p>
+</div>
+</div>
+<div id="histogram" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Histogram<a href="ch4.html#histogram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A histogram represent the distribution of a continuous measure by displaying the frequency or count of observations within specified intervals, or “bins,” along a continuous scale. Similar to a bar graph, a histogram represents the measure through variation in bar height. Higher bars correspond to more frequent values, which could be scaled by frequency or a relative frequency, such as a proportion (percentage) of the total observations. But unlike a categorical measure for a bar graph, because the measure is continuous, the bars are drawn from equally spaced groups, or bins, of values. The bar widths are centered over a midpoint in the bin, so the bars sit adjacent (or touching) each other, unless there are gaps in the measure. We have already seen an example of a histogram in the form of a histogram of GDP per capita in the <em>gdpfert.csv</em> dataset.</p>
+<p>To demonstrate, import this dataset.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="ch4.html#cb111-1" tabindex="-1"></a>gdpfert<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&#39;data/ch3 data/gdpfert.csv&#39;</span>)</span></code></pre></div>
+<p>While the visualization functions are from <strong>ggplot2</strong>, we will do some data preparation using other packages, so we will load the entire suite of <strong>tidyverse</strong> packages:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="ch4.html#cb112-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>We could attach simply the <strong>ggplot2</strong> package as well (<code>library(ggplot2)</code>), but doing so would not make available the data preparation tools. </p>
+<p>Consider a histogram of GDP per capita; the code is below. Figure <a href="ch4.html#fig:GDPhistv">4.1</a> displays the histogram.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ch4.html#cb113-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gdpfert) <span class="sc">+</span></span>
+<span id="cb113-2"><a href="ch4.html#cb113-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(NY.GDP.PCAP.KD), </span>
+<span id="cb113-3"><a href="ch4.html#cb113-3" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">&quot;gray&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">bins=</span><span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb113-4"><a href="ch4.html#cb113-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;GDP per capita (in constant 2000 US Dollars)&quot;</span>,</span>
+<span id="cb113-5"><a href="ch4.html#cb113-5" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&quot;count&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:GDPhistv"></span>
+<img src="bookdown_files/figure-html/GDPhistv-1.png" alt="Histogram of country-level GDP per capita (in constant 2000 USD), created with the \textbf{ggplot2} package. This figure displays the default \textbf{ggplot2} style, including light gray background grids, black borders for bars, and axis labels." width="80%" />
+<p class="caption">
+FIGURE 4.1: Histogram of country-level GDP per capita (in constant 2000 USD), created with the package. This figure displays the default style, including light gray background grids, black borders for bars, and axis labels.
+</p>
+</div>
+<p>Figure <a href="ch4.html#fig:GDPhistv">4.1</a> displays on the X-axis GDP per capita (in 2010 US dollars) ranging from about 214 to 145,000 USD. The GDP values are grouped into 25 bins, and the height of each bar is drawn according to the number of countries within the bin. About 63 percent of the countries fall within the first two bins. Eight of the 25 bins are empty, with a frequency of 0; these bars are still spaced out on the histogram, because of the even spacing of the 25 bins across the range of observations. Table <a href="ch4.html#tab:tabhistvalues">4.1</a> displays the data table converted by <strong>ggplot2</strong> to create the histogram. </p>
+<table>
+<caption><span id="tab:tabhistvalues">TABLE 4.1: </span>GDP bins, values, and counts for the histogram of GDP per capita</caption>
+<thead>
+<tr>
+<th align="right">count</th>
+<th align="right">midpoint</th>
+<th align="right">bin min</th>
+<th align="right">bin max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">72</td>
+<td align="right">0</td>
+<td align="right">-3978</td>
+<td align="right">3978</td>
+</tr>
+<tr>
+<td align="right">57</td>
+<td align="right">7955</td>
+<td align="right">3978</td>
+<td align="right">11933</td>
+</tr>
+<tr>
+<td align="right">22</td>
+<td align="right">15910</td>
+<td align="right">11933</td>
+<td align="right">19888</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">23865</td>
+<td align="right">19888</td>
+<td align="right">27843</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td align="right">31821</td>
+<td align="right">27843</td>
+<td align="right">35798</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">39776</td>
+<td align="right">35798</td>
+<td align="right">43753</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">47731</td>
+<td align="right">43753</td>
+<td align="right">51708</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">55686</td>
+<td align="right">51708</td>
+<td align="right">59664</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">63641</td>
+<td align="right">59664</td>
+<td align="right">67619</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">71596</td>
+<td align="right">67619</td>
+<td align="right">75574</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">79551</td>
+<td align="right">75574</td>
+<td align="right">83529</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">87507</td>
+<td align="right">83529</td>
+<td align="right">91484</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">95462</td>
+<td align="right">91484</td>
+<td align="right">99439</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">103417</td>
+<td align="right">99439</td>
+<td align="right">107395</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">111372</td>
+<td align="right">107395</td>
+<td align="right">115350</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">119327</td>
+<td align="right">115350</td>
+<td align="right">123305</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">127282</td>
+<td align="right">123305</td>
+<td align="right">131260</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">135238</td>
+<td align="right">131260</td>
+<td align="right">139215</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">143193</td>
+<td align="right">139215</td>
+<td align="right">147170</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">151148</td>
+<td align="right">147170</td>
+<td align="right">155125</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">159103</td>
+<td align="right">155125</td>
+<td align="right">163081</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">167058</td>
+<td align="right">163081</td>
+<td align="right">171036</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">175013</td>
+<td align="right">171036</td>
+<td align="right">178991</td>
+</tr>
+<tr>
+<td align="right">0</td>
+<td align="right">182968</td>
+<td align="right">178991</td>
+<td align="right">186946</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">190924</td>
+<td align="right">186946</td>
+<td align="right">194901</td>
+</tr>
+</tbody>
+</table>
+<p>The tallest bin is centered around zero and spans a distance of about 8000 USD, from below to above zero. The negative values do not make substantive sense, and there are no observations below 214 USD. But to draw the intervals equally spaced along the variable, and plot bars centered at the middle of each bin (25 total), this is necessary to do. The counts occur along the width of each bin through the scale, with several bins containing 0 observations, until reaching the highly skewed observations for the extraordinarily large GDP per capita countries.</p>
+<p>There are various formulas devised to determine the number of bins or bin widths, given statistics such as the total number of observations and the inter-quartile range. However, your judgment as a researcher is preferable. Choose the number of bins based on your own judgment given the features of the data at hand <span class="citation">(<a href="#ref-unwin2018">Unwin 2018</a>)</span>. There are no fixed rules for how many bins should be plotted in a histogram, but there are guidelines: select the number of bins that draws attention to features of the data that are of interest to the researcher. Perhaps these features could be the shape of the distribution, unusually frequent observations (such as modes), or outliers. Too few bins tend to obscure these differences. While too many will draw attention away from these features, while emphasizing noise or characteristics that are less relevant to your interests as a researcher. An example in Figure <a href="ch4.html#fig:histpanels51020">4.2</a> shows three histograms of country level human fertility rate (average births per woman), with differences in the number of bins, from 10, 20, to 40 bins.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:histpanels51020"></span>
+<img src="bookdown_files/figure-html/histpanels51020-1.png" alt="Histograms of country-level fertility rate, created with \textbf{ggplot2}, with 10, 20, and 40 bins (left to right). Increasing the number of bins reveals more detail in the distribution but introduces more irregular patterns." width="80%" />
+<p class="caption">
+FIGURE 4.2: Histograms of country-level fertility rate, created with , with 10, 20, and 40 bins (left to right). Increasing the number of bins reveals more detail in the distribution but introduces more irregular patterns.
+</p>
+</div>
+<p>The first histogram on the far left panel of figure <a href="ch4.html#fig:histpanels51020">4.2</a>, with 10 bars hints a slightly bimodal distribution of scores, while not drawing attention to it as sharply as the histogram with 20 bars. For the purpose of displaying the bimodal distribution — fertility rates of less than three are common, but there is also a distinct group of countries with a relatively high fertility rate between four and six — the histogram with 20 bars is probably preferable, while with 40 bars the histogram is difficult to read with narrow multiple bars. Before breaking down the components of the <strong>ggplot2</strong> histogram, consider the most basic parts of the histogram, present in any graphic.</p>
+<div id="elements-of-a-ggplot2-visualization" class="section level3 unnumbered hasAnchor">
+<h3>Elements of a ggplot2 visualization<a href="ch4.html#elements-of-a-ggplot2-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The name “ggplot” references an influential book, <em>The Grammar of Graphics</em> <span class="citation">(<a href="#ref-wilkinson1999">Wilkinson 1999</a>)</span> that presents a set of rules, or a grammar, for conceptualizing graphics. The “gg” refers to this “grammar of graphics”, a translation of the grammar into a system for creating visualizations in <strong>R</strong> <span class="citation">(<a href="#ref-wickham2010">Wickham 2010</a>)</span>. The histogram in Figure <a href="ch4.html#fig:GDPhistv">4.1</a> displays parts of this grammar. We will review other parts with a review of the code for creating it.</p>
+<p>There are four fundamental elements of a data visualization: (1) data, (2) coordinate system, (3) aesthetics, and (4) geometry.</p>
+<ol style="list-style-type: decimal">
+<li><p>The histogram contains data. This part is obvious; without data, there is nothing to graph. The histogram references a data table containing a column of continuous GDP values by country, organized on rows. Perhaps a less obvious way of thinking about this first grammatical element is that it is about the organization of the data: in what form will it be represented in the graph, how the data cells are organized into tabular form in the data, and whether any measures within the data will be transformed or presented as is.</p></li>
+<li><p>The graph contains a coordinate system. The bars are presented on a Cartesian — right angle X and Y — set of coordinate axes. This set of X and Y axes is the most familiar way to structure a graphic in a coordinate system.</p></li>
+<li><p>The graph contains aesthetics. An aesthetic is anything visible on a graph. We can break these aesthetics down into specific aesthetic items, some of which we tend to take for granted. One aesthetic consists of what we map onto the X (horizontal) and Y (vertical) axes. In Figure <a href="ch4.html#fig:GDPhistv">4.1</a> we have mapped GDP per capita values. There are other aesthetics, such as the gray-colored background of the graphic, and the bounding box for the plot area. The size and choice of font for the axis labels are another aesthetic.</p></li>
+<li><p>The graph expresses the aesthetics through a geometry. The aesthetics are expressed through a particular geometric shape. Just like the mapping of a measure onto X and Y, the geometric shape is an aesthetic. In Figure <a href="ch4.html#fig:GDPhistv">4.1</a> this shape consists of vertical bars.</p></li>
+</ol>
+</div>
+<div id="the-ggplot2-syntax" class="section level3 unnumbered hasAnchor">
+<h3>The ggplot2 syntax<a href="ch4.html#the-ggplot2-syntax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To learn how to construct a ggplot2 graphic, we will locate each of these elements of a graph in the syntax for the histogram in Figure <a href="ch4.html#fig:GDPhistv">4.1</a>, reproduced below:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ch4.html#cb114-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gdpfert) <span class="sc">+</span></span>
+<span id="cb114-2"><a href="ch4.html#cb114-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(NY.GDP.PCAP.KD), </span>
+<span id="cb114-3"><a href="ch4.html#cb114-3" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">&quot;gray87&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">bins=</span><span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb114-4"><a href="ch4.html#cb114-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;GDP per capita (in constant 2000 US Dollars)&quot;</span>,</span>
+<span id="cb114-5"><a href="ch4.html#cb114-5" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&quot;count&quot;</span>)</span></code></pre></div>
+<p>The code for <strong>ggplot2</strong> graphics are organized by functions, one per line, which are layered together. The style of writing visualization code in <strong>ggplot2</strong> is to organize the layers line by line — combined across multiple lines.</p>
+<p>The data, an implied coordinate system, the aesthetics, and the geometry are within the first two lines of the graphic. The <code>ggplot()</code> function identifies the data table in the argument <code>data=gdpfert</code>. A <code>+</code> sign is placed at the end of a line to signal that another will follow. The plus sign is interpreted as “and then”. But we will also learn about another “and then” operator, <code>%&gt;%</code>, which is used to link together multiple lines of code. The two symbols do basically the same thing; the ggplot2 package predates the invention of the <code>%&gt;%</code> syntax. When working on graphics, remember to use <code>+</code> to add together layers of graphical elements in <strong>ggplot2</strong>. The next line specifies the remaining three of coordinate system, aesthetics, and geometry:</p>
+<p><code>geom_histogram(aes(NY.GDP.PCAP.KD)</code>. We have a histogram, so the obvious geometry on the graph is a set of bars; this geometry is specified with the function <code>geom_histogram()</code>.</p>
+<p>Another function appears within the <code>geom_col()</code> function, the <code>aes()</code> function. The “aes” is an abbreviation for “aesthetic”; this function specifies the aesthetic mapping of the graph, the aesthetic that links measures within the dataset to the components of a coordinate system. Implicitly the “aes” argument means <code>aes(x=NY.GDP.PCAP.KD)</code> and Y for plotting the counts of countries in bins.</p>
+<p>Within the <code>geom_histogram()</code> function, the number of bins is set by <code>bins=</code>, the default is 30. And there are additional, optional adornments: the bar fill color is set by the color name <code>fill="gray87"</code> and <code>color="black"</code> for the bar fill and outline.</p>
+<p>As a basic template, a <strong>ggplot2</strong> graphic would look like the following, with the three essential components substituted for the uppercase letters:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="ch4.html#cb115-1" tabindex="-1"></a><span class="fu">ggplot</span>(DATA) <span class="sc">+</span></span>
+<span id="cb115-2"><a href="ch4.html#cb115-2" tabindex="-1"></a><span class="fu">GEOM_FUNCTION</span>(<span class="fu">aes</span>(MAPPING))</span></code></pre></div>
+<p>To generalize from this example to a template, it would require the name of a dataset for DATA, a geometry for GEOM_FUNCTION, which implies a coordinate system, and a corresponding aesthetic “mapping” on to the coordinate system in aes() for the MAPPING. The data can be any dataframe stored within the R environment. For the geometry, there are many different geometries; <code>geom_point()</code> is the geometry for a scatterplot, for example. For the aesthetic “mapping”, think of it as the ‘what’ within the data, the aspect of it that should be graphed and to any axes such as X or Y. Within this function, you identify specific variables from a dataset.</p>
+<p>There is one additional, optional element to the graphic, an argument for <code>labs()</code> to alter the default labels, specifying what appears on the X- and Y-axes. While left off the graphic, a title can be specified within <code>labs()</code> as <code>labs(title="title here")</code> next to the labels for <code>x=" "</code> and <code>y= " "</code>).</p>
+<p>A “stat” is another graphical element. It is a feature of the data calculated for presentation in the graphic. Rather than being recorded directly as a variable in the dataset, it is calculated in the <code>aes()</code> function. For a histogram, a stat is useful for displaying the Y-axis in percentages, rather than frequency counts. The calculation of each histogram’s percentage scaling is to multiply the width of each bar by the bar’s “density” (the bar’s proportional height, compared to one). The expression is simply <code>y=stat(width*density)</code>, which then instructs <strong>ggplot2</strong> to calculate the Y-axis in these terms based on the content of the <code>stat()</code> element. Try substituting this line for the histogram and observe the results: <code>geom_histogram(aes(NY.GDP.PCAP.KD, y = stat(width*density)*100), bins=20)</code>. </p>
+</div>
+</div>
+<div id="box-whiskers" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Box-Whiskers<a href="ch4.html#box-whiskers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The box-whiskers plot focuses attention on a set of five statistics, or five quantities, to summarize a distribution: (1) minimum value; (2) 25th percentile score; (3) 50th percentile, or median; (4) 75th percentile; and (5) maximum value.</p>
+<p>The median, or 50th percentile rank, is the focal point of the box-whiskers plot. The box-whiskers plot is a visualization in which the median is marked, while the 25th and 75th percentiles (as quartiles — groups of four) are used to mark the upper and lower limits of a box. The “whiskers” extend to the farthest out points that are not outliers. Outliers are defined as any point further than the distance of 1.5 times the difference between the 25th and 75th percentiles (the interquartile range (IQR)); this definition of an outlier is specific to this graphic; it is not a general definition of an outlier. </p>
+<p>Figure <a href="ch4.html#fig:mccainbw">4.3</a> displays these calculations, and the resulting box-whiskers plot for feeling thermometer scores for the late US Senator John McCain, measured during the fall 2004 presidential election campaign. The data are from the 2004 American National Election Studies survey, a nationally representative sample survey of US citizens. The ‘feeling thermometer’ survey question asks respondents to rate how warmly or coolly they feel toward, for example, Senator McCain.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:mccainbw"></span>
+<img src="addfigures/ch4addfigures/mccainbw.png" alt="Tabular frequencies and summary statistics for feeling thermometer ratings of US Senator John McCain (2004 ANES), followed by a box-whiskers plot that visually summarizes the distribution. The frequency table and summary quartiles help interpret key features of the plot, such as the median, interquartile range, and outliers." width="80%" />
+<p class="caption">
+FIGURE 4.3: Tabular frequencies and summary statistics for feeling thermometer ratings of US Senator John McCain (2004 ANES), followed by a box-whiskers plot that visually summarizes the distribution. The frequency table and summary quartiles help interpret key features of the plot, such as the median, interquartile range, and outliers.
+</p>
+</div>
+<p>The box-whiskers plot for McCain shows a skewed distribution; the public’s feelings toward the Senator in 2004 were relatively warm. The median, or average respondent, felt relatively warm toward McCain, at 60 degrees, with the IQR centered fairly uniformly around that median. The presence of outliers at the minimum end of the distribution, but not the upper, reveals that relatively few respondents have cool feelings toward McCain, less than 20 degrees, and show that the distribution is left (or negative) skewed.</p>
+<p>While the example of a feeling toward McCain shows a single box-whiskers graph, within <em>ggplot2</em> box-whiskers are intended to be visualized in a comparative fashion. The aesthetic of a <em>ggplot2</em> box-whiskers requires two variables: one is a continuous measure for graphing the boxplot, and the second is a categorical (factor) measure across which <em>ggplot2</em> will draw the box-whiskers. As many box-whiskers will be drawn as there are levels of the categorical measure.</p>
+<p>We will read in an additional dataset, ideological “NOMINATE” scores for the U.S. House of Representatives. We take up these types of scores, based on roll call votes, in Chapter <a href="ch7.html#ch7">7</a>. The name refers to the technical details of how the scores are estimated. The key point to keep in mind is that the scale ranges from -1 (most left) to 1 (most right) on an ideological scale reflecting left to right economic conflict, the extent to which the federal government should intervene to reduce inequalities resulting from market forces <span class="citation">(<a href="#ref-poole2006">K. T. Poole and Rosenthal 2006</a>)</span>. Each representative is assigned a score, based on their roll call vote history during a session of Congress, much like the ratings interest groups give legislators. This specific dataset is for voting members of the U.S. House of Representatives during the 86th U.S. Congress (1959 - 1961), coinciding with election of John F. Kennedy to the White House.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ch4.html#cb116-1" tabindex="-1"></a>dw_86<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;86_house_dw.csv&quot;</span>)</span></code></pre></div>
+<p>Figure <a href="ch4.html#fig:boxdw86">4.4</a> displays the ideology scores by party caucus of the legislator in a box-whiskers graphic. Switching a histogram with a box-whiskers graphic in this instance requires only a change in the data and the geometry, with one addition to the aesthetic: <code>geom_boxplot(aes(x = party, y = nominate_dim1))</code>. The <code>geom_boxplot()</code> draws the boxplot but requires both a factor variable on the X-axis and the continuous measure on the Y-axis. The boxplot is drawn across groups identified on the X-axis.</p>
+<p>The geometries are arranged vertically, with the party caucus membership arranged on the X-axis, and the ideology score plotted on the Y-axis. The Democratic caucus is negative (or ‘left-’) skewed toward the liberal end of the scale. With a few outlying liberals, in the Democratic caucus of this Congress, there are far more moderates than liberals. The upper whisker extends to the 25th percentile of the Republican caucus. And combined with the corresponding overlap from the Republican lower whisker, the graph displays the same overlap of caucus members from the histogram, moderates from both party. It is interesting that the Republican caucus has more liberal and more conservative outliers, while the presence of outliers is one-sided among Democrats. While compared to the histogram, the box-whiskers does not display the count of representatives falling into this moderate middle; it does display concisely the ideological center (median) of each caucus, and how closely the caucus members are spread around the median. The Republican caucus is narrowly distributed around the caucus median compared to the Democratic caucus. In the exercises at the end of the chapter, you are asked to compare this plot to a histogram divided between party caucuses.</p>
+<pre><code>## # A tibble: 444 × 4
+##   state_abbrev bioname                 nominate…¹ party
+##   &lt;chr&gt;        &lt;chr&gt;                        &lt;dbl&gt; &lt;fct&gt;
+## 1 AL           ANDREWS, George William     -0.03  Demo…
+## 2 AL           BOYKIN, Frank William       -0.105 Demo…
+## 3 AL           ELLIOTT, Carl Atwood        -0.381 Demo…
+## 4 AL           GRANT, George McInvale      -0.117 Demo…
+## 5 AL           HUDDLESTON, George Jr.      -0.115 Demo…
+## # … with 439 more rows, and abbreviated variable name
+## #   ¹​nominate_dim1</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="ch4.html#cb118-1" tabindex="-1"></a><span class="fu">ggplot</span>(dw_86) <span class="sc">+</span></span>
+<span id="cb118-2"><a href="ch4.html#cb118-2" tabindex="-1"></a>     <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> party, <span class="at">y =</span> nominate_dim1)) <span class="sc">+</span></span>
+<span id="cb118-3"><a href="ch4.html#cb118-3" tabindex="-1"></a>     <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Ideologies of Representatives to the</span></span>
+<span id="cb118-4"><a href="ch4.html#cb118-4" tabindex="-1"></a><span class="st">          U.S. House, </span><span class="sc">\n</span><span class="st"> 86th Congress (1959-1961)&quot;</span>,</span>
+<span id="cb118-5"><a href="ch4.html#cb118-5" tabindex="-1"></a>          <span class="at">x =</span> <span class="st">&quot;Party&quot;</span>,</span>
+<span id="cb118-6"><a href="ch4.html#cb118-6" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">&quot;NOMINATE Score (left (-1) to right (1))&quot;</span>) <span class="sc">+</span></span>
+<span id="cb118-7"><a href="ch4.html#cb118-7" tabindex="-1"></a>     <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:boxdw86"></span>
+<img src="bookdown_files/figure-html/boxdw86-1.png" alt="Box-whisker plot of legislator ideology scores by party caucus for members of the U.S. House, 86th Congress (1959–1961), created with \textbf{ggplot2}. The plot shows the distribution of ideology scores for Democrats and Republicans, with the box indicating the interquartile range, the horizontal line marking the median, and the whiskers and dots identifying outliers." width="80%" />
+<p class="caption">
+FIGURE 4.4: Box-whisker plot of legislator ideology scores by party caucus for members of the U.S. House, 86th Congress (1959–1961), created with . The plot shows the distribution of ideology scores for Democrats and Republicans, with the box indicating the interquartile range, the horizontal line marking the median, and the whiskers and dots identifying outliers.
+</p>
+</div>
+<p>To illustrate a useful feature for titling graphics, in the code, the title in the <code>labs()</code> function also adds the trick of a line break, <code>\n</code> to split the title into two lines. In addition to specifying a title, there are <code>labs()</code> options for a <code>subtitle=()</code> and <code>caption=()</code>. </p>
+</div>
+<div id="density" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Density<a href="ch4.html#density" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A density plot is another common visualization for continuous measures. It is essentially a smoothed histogram, as if a curve is drawn over the height of the bars to represent the distribution of the data. The ‘density’ refers to the Y-axis scaling, where the axis is scaled so that the total area under the density curve is equal to one, making the curve a probability density. This same idea can be applied to histograms: when a histogram is scaled to show density rather than frequency, the total area of all bars also equals one.</p>
+<p>Two density plots appear in Figures <a href="ch4.html#fig:densitydw1">4.5</a> and <a href="ch4.html#fig:densitydw2">4.6</a>, displaying the densities for NOMINATE scores in the 86th Congress. The geometry of the density plot is simply <code>geom_density()</code> requiring only one aesthetic, the continuous measure to visualize as a density: <code>geom_density(aes(nominate_dim1))</code>. Figure <a href="ch4.html#fig:densitydw1">4.5</a> displays the scores for the House as a whole, while in Figure <a href="ch4.html#fig:densitydw2">4.6</a> the scores are grouped by party caucus. The shape of the densities resemble the histograms. Density plots are often used to compare distribution shapes, since the lines are overlaid and easily comparable. In this case, the density plots provide a sense of the degree of ideological overlap between the party caucuses.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ch4.html#cb119-1" tabindex="-1"></a><span class="fu">ggplot</span>(dw_86) <span class="sc">+</span></span>
+<span id="cb119-2"><a href="ch4.html#cb119-2" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(nominate_dim1)) <span class="sc">+</span> </span>
+<span id="cb119-3"><a href="ch4.html#cb119-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Ideologies of Representatives to the U.S. House, </span></span>
+<span id="cb119-4"><a href="ch4.html#cb119-4" tabindex="-1"></a><span class="st">              </span><span class="sc">\n</span><span class="st"> 86th Congress (1959-1961)&quot;</span>,</span>
+<span id="cb119-5"><a href="ch4.html#cb119-5" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&quot;NOMINATE score left (-1) to right (1)&quot;</span>,</span>
+<span id="cb119-6"><a href="ch4.html#cb119-6" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;party caucus&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:densitydw1"></span>
+<img src="bookdown_files/figure-html/densitydw1-1.png" alt="Density plot of legislator ideology scores in the U.S. House, 86th Congress (1959–1961), created with \textbf{ggplot2}. This plot provides a smoothed estimate of the distribution of ideology scores, illustrating the relative concentration of legislators along the left-right ideological spectrum." width="80%" />
+<p class="caption">
+FIGURE 4.5: Density plot of legislator ideology scores in the U.S. House, 86th Congress (1959–1961), created with . This plot provides a smoothed estimate of the distribution of ideology scores, illustrating the relative concentration of legislators along the left-right ideological spectrum.
+</p>
+</div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ch4.html#cb120-1" tabindex="-1"></a><span class="fu">ggplot</span>(dw_86) <span class="sc">+</span></span>
+<span id="cb120-2"><a href="ch4.html#cb120-2" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(nominate_dim1, <span class="at">color=</span>party, <span class="at">linetype=</span>party)) <span class="sc">+</span> </span>
+<span id="cb120-3"><a href="ch4.html#cb120-3" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb120-4"><a href="ch4.html#cb120-4" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb120-5"><a href="ch4.html#cb120-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Ideologies of Representatives to the U.S. House,</span></span>
+<span id="cb120-6"><a href="ch4.html#cb120-6" tabindex="-1"></a><span class="st">              </span><span class="sc">\n</span><span class="st"> 86th Congress (1959-1961)&quot;</span>,</span>
+<span id="cb120-7"><a href="ch4.html#cb120-7" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&quot;density&quot;</span>,</span>
+<span id="cb120-8"><a href="ch4.html#cb120-8" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;NOMINATE score left (-1) to right (1)&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:densitydw2"></span>
+<img src="bookdown_files/figure-html/densitydw2-1.png" alt="Density plot of legislator ideology scores in the U.S. House, 86th Congress (1959–1961), displayed by party caucus. Created with \textbf{ggplot2}, this plot compares the distribution of ideologies for Democrats (solid line) and Republicans (dashed line), showing the distinct central tendencies and spread of each party’s ideological positions." width="80%" />
+<p class="caption">
+FIGURE 4.6: Density plot of legislator ideology scores in the U.S. House, 86th Congress (1959–1961), displayed by party caucus. Created with , this plot compares the distribution of ideologies for Democrats (solid line) and Republicans (dashed line), showing the distinct central tendencies and spread of each party’s ideological positions.
+</p>
+</div>
+<p>In Figure <a href="ch4.html#fig:densitydw2">4.6</a>, within <code>geom_density()</code> the <code>aes()</code> argument maps the color and line type to party. Then two additional functions specify the colors and the line types.</p>
+</div>
+<div id="scatterplots" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Scatterplots<a href="ch4.html#scatterplots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For a visual comparison of two continuous measures, a scatterplot is by far the most common graphic. We will construct a simple scatterplot for logged GDP per capita and fertility rate at the country level. Since we have already observed this figure, we will simply construct the <em>ggplot2</em> code for it, equivalent to the <code>qplot()</code> code from previous chapters. The geometry for creating a scatterplot is <code>geom_point()</code>; it requires two aesthetic mappings onto X and Y.</p>
+<p>The data will be from <em>countries.csv</em>:</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="ch4.html#cb121-1" tabindex="-1"></a>countries<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;countries.csv&quot;</span>)</span></code></pre></div>
+<p>Two familiar variables are logged GDP per capita by fertility rate.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="ch4.html#cb122-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>countries) <span class="sc">+</span></span>
+<span id="cb122-2"><a href="ch4.html#cb122-2" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate))</span></code></pre></div>
+<p>Try running this code. Notice the log transformation around GDP per capita, <code>log(gdp_pc_pp)</code>. One additional modification to the aesthetic would be to color the points by region, by adding <code>color=region</code> to the aesthetic of <code>geom_point()</code> — observe how the scatterplot changes <code>geom_point(aes(x=log(gdp_pc_pp), y=fert_rate, color=region))</code>. </p>
+<div id="an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart" class="section level3 unnumbered hasAnchor">
+<h3>An aesthetic mapping for a third variable on a scatterplot: bubble chart<a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A bubble chart is a type of scatterplot that displays three — not two — variables. While the X and Y axes encode two different variables, a third one is encoded into the size of the points plotted in the scatterplot (resembling bubbles). The example in Figure <a href="ch4.html#fig:bubbleplotone">4.7</a> displays a figure of this type.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="ch4.html#cb123-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>countries) <span class="sc">+</span></span>
+<span id="cb123-2"><a href="ch4.html#cb123-2" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate,</span>
+<span id="cb123-3"><a href="ch4.html#cb123-3" tabindex="-1"></a>      <span class="at">size=</span>total_population)) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:bubbleplotone"></span>
+<img src="bookdown_files/figure-html/bubbleplotone-1.png" alt="Bubble chart created with \textbf{ggplot2}, displaying the relationship between fertility rate and log GDP per capita. Each point represents a country, with bubble size proportional to total population. This visualization highlights how larger-population countries are distributed across the GDP–fertility relationship." width="672" />
+<p class="caption">
+FIGURE 4.7: Bubble chart created with , displaying the relationship between fertility rate and log GDP per capita. Each point represents a country, with bubble size proportional to total population. This visualization highlights how larger-population countries are distributed across the GDP–fertility relationship.
+</p>
+</div>
+<p>From the data, the three relevant variables are <em>total_population</em>, <em>fert_rate</em>, and <em>gdp_pc_pp</em>. Adding <code>size=total_population</code> to the aesthetic results in variation in the points displayed on the figure.</p>
+<p>There are two additional considerations once the points are plotted by values of an additional variable. One is the magnitude of the change from smallest to largest, and the other is the display of the population figures. The magnitude of the points is set by <code>scale_size()</code>, with limits to indicate how much larger the biggest point should be relative to the smallest. A difference of 10 to 1 would be set with <code>scale_size(range=c(1,10))</code>. In addition, to make the population figures more legible in the graph legend, we could plot population in millions: <code>size=(total_population/1000000)</code>.</p>
+<p>In addition, the bubbles overlap each other, like ink splatters. The different points in Figure <a href="ch4.html#fig:bubbleplotone">4.7</a> are often indistinguishable. So we will make the points a little transparent. Transparency is controlled by what is known as an alpha channel; in R, an alpha setting is controlled by a number, ranging from 0 (transparent) to 1 (opaque). In the figure, to add transparency to the points, we simply add <code>alpha=</code> to <code>geom_point()</code>. The code below for Figure <a href="ch4.html#fig:fgdpalpf">4.8</a> shows the result of setting the magnitude of point size, the scale of population, and alpha transparency.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="ch4.html#cb124-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>countries) <span class="sc">+</span></span>
+<span id="cb124-2"><a href="ch4.html#cb124-2" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate,</span>
+<span id="cb124-3"><a href="ch4.html#cb124-3" tabindex="-1"></a>      <span class="at">size=</span>(total_population<span class="sc">/</span><span class="dv">1000000</span>)), <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb124-4"><a href="ch4.html#cb124-4" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fgdpalpf"></span>
+<img src="bookdown_files/figure-html/fgdpalpf-1.png" alt="Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population. This chart introduces transparency (alpha shading) in the points to reduce overplotting and improve the visibility of overlapping bubbles, especially for countries with similar GDP and fertility levels." width="672" />
+<p class="caption">
+FIGURE 4.8: Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population. This chart introduces transparency (alpha shading) in the points to reduce overplotting and improve the visibility of overlapping bubbles, especially for countries with similar GDP and fertility levels.
+</p>
+</div>
+<p>Once the plots are transparent, the overlapping display of countries is visible. Once we specify the size, <code>ggplot()</code> will automatically include a legend in the figure. The default name of the legend in Figure <a href="ch4.html#fig:fgdpalpf">4.8</a> is the name of the variable encoded into the size of the circles, which could be modified. It would be helpful to add a title, caption, and more descriptive X and Y axes labels. Because <code>geom_point()</code> was modified by <code>size=</code>, we can specify what to call this feature of the data with an option for the <code>labs()</code> function, <code>size="Total population"</code>.</p>
+<p>Filling in some additional labels results in the code and Figure <a href="ch4.html#fig:newgdplabs">4.9</a>. We move the legend to the bottom of the graphic with <code>theme(legend.position = "bottom")</code>:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="ch4.html#cb125-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>countries) <span class="sc">+</span></span>
+<span id="cb125-2"><a href="ch4.html#cb125-2" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate,</span>
+<span id="cb125-3"><a href="ch4.html#cb125-3" tabindex="-1"></a>      <span class="at">size=</span>total_population<span class="sc">/</span><span class="dv">1000000</span>), <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb125-4"><a href="ch4.html#cb125-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;log GDP per capita, 2010 U.S. dollars&quot;</span>,</span>
+<span id="cb125-5"><a href="ch4.html#cb125-5" tabindex="-1"></a>      <span class="at">y=</span><span class="st">&quot;fertility rate (average births per woman)&quot;</span>,</span>
+<span id="cb125-6"><a href="ch4.html#cb125-6" tabindex="-1"></a>      <span class="at">size=</span><span class="st">&quot;Total population in millions&quot;</span>) <span class="sc">+</span></span>
+<span id="cb125-7"><a href="ch4.html#cb125-7" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb125-8"><a href="ch4.html#cb125-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:newgdplabs"></span>
+<img src="bookdown_files/figure-html/newgdplabs-1.png" alt="Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population and alpha transparency applied to improve visibility of overlapping points. This version of the chart refines the axis labels and legend text for greater clarity and audience readability." width="672" />
+<p class="caption">
+FIGURE 4.9: Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population and alpha transparency applied to improve visibility of overlapping points. This version of the chart refines the axis labels and legend text for greater clarity and audience readability.
+</p>
+</div>
+<p> </p>
+<p>Next we add labels (country names) to particular points that we wish to highlight. We will use a function <code>geom_text_repel()</code> from another package that works within <code>ggplot()</code>, <strong>ggrepel</strong> <span class="citation">(<a href="#ref-R-ggrepel">Slowikowski 2023</a>)</span>. The function will need to be installed if it is not already, <code>install.packages("ggrepel")</code>. Then attach it: </p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="ch4.html#cb126-1" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span></code></pre></div>
+<p>The use of the function here is to have a geometry added to a <strong>ggplot2</strong> graphic, so that names of countries appear in a legible form on the figure, positioned sufficiently close but still legible next to the point each one represents. The function name is <code>geom_text_repel()</code>, and it requires the same aesthetics as <code>geom_point()</code>, with one additional <code>label=</code> argument for the name of the countries. The geometry is added as a separate layer to the graphic — as if plotting selected text over the points, so we have to re-specify the <code>aes()</code> part of the graphic. If we wanted to plot all of the country names, we would simply type <code>geom_text_repel(aes(x=log(NY.GDP.PCAP.KD), y=SP.DYN.TFRT.IN, label=country))</code>. The <em>country</em> variable is the first one in the countries dataframe. Nonetheless, plotting all the country names would make for an unintelligible plot. So we want to specify a subset of the data.</p>
+<p>To subset the part of the data we wish to plot points on, we would use the <code>subset()</code> function on the dataframe, to select observations within the dataframe meeting a particular condition. We could specify a subset of fertility rates greater than six. In <code>geom_text_repel()</code>, this data subset would look like <code>data=subset(wbdata1, SP.DYN.TFRT.IN &gt; 6)</code>.</p>
+<p>Putting it all together, along with another alpha parameter to have the country names a little lighter than the points, we have the following function:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="ch4.html#cb127-1" tabindex="-1"></a><span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(wbdata1, SP.DYN.TFRT.IN <span class="sc">&gt;</span> <span class="dv">6</span>), </span>
+<span id="cb127-2"><a href="ch4.html#cb127-2" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(NY.GDP.PCAP.KD), </span>
+<span id="cb127-3"><a href="ch4.html#cb127-3" tabindex="-1"></a>                <span class="at">y=</span>SP.DYN.TFRT.IN, <span class="at">label=</span>country),<span class="at">alpha=</span>.<span class="dv">6</span>) </span></code></pre></div>
+<p>Added as a separate line to Figure <a href="ch4.html#fig:gdptextcountry">4.10</a>:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ch4.html#cb128-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>countries) <span class="sc">+</span></span>
+<span id="cb128-2"><a href="ch4.html#cb128-2" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate,</span>
+<span id="cb128-3"><a href="ch4.html#cb128-3" tabindex="-1"></a>      <span class="at">size=</span>total_population<span class="sc">/</span><span class="dv">1000000</span>), <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb128-4"><a href="ch4.html#cb128-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;log GDP per capita, 2010 U.S. dollars&quot;</span>,</span>
+<span id="cb128-5"><a href="ch4.html#cb128-5" tabindex="-1"></a>      <span class="at">y=</span><span class="st">&quot;fertility rate (average births per woman)&quot;</span>,</span>
+<span id="cb128-6"><a href="ch4.html#cb128-6" tabindex="-1"></a>      <span class="at">size=</span><span class="st">&quot;Total population in millions&quot;</span>) <span class="sc">+</span></span>
+<span id="cb128-7"><a href="ch4.html#cb128-7" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>), <span class="at">guide=</span><span class="st">&quot;legend&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb128-8"><a href="ch4.html#cb128-8" tabindex="-1"></a> <span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(countries, fert_rate <span class="sc">&gt;</span> <span class="dv">6</span>), </span>
+<span id="cb128-9"><a href="ch4.html#cb128-9" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate, </span>
+<span id="cb128-10"><a href="ch4.html#cb128-10" tabindex="-1"></a>            <span class="at">label=</span>country), <span class="at">alpha=</span>.<span class="dv">6</span>)  <span class="sc">+</span></span>
+<span id="cb128-11"><a href="ch4.html#cb128-11" tabindex="-1"></a>   <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb128-12"><a href="ch4.html#cb128-12" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:gdptextcountry"></span>
+<img src="bookdown_files/figure-html/gdptextcountry-1.png" alt="Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population, and country names based on the condition of fertility rates higher than six average births per woman." width="672" />
+<p class="caption">
+FIGURE 4.10: Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population, and country names based on the condition of fertility rates higher than six average births per woman.
+</p>
+</div>
+<p>Finally, we could add a linear trend line summarizing the relationship between Y and X on the figure. The trend line requires adding a <code>stat()</code> layer. In this case, the stat we want to use is <code>stat_smooth()</code>, which stands for a smoothed line, either nonlinear or linear. Because it is a separate layer, we need to specify <code>aes()</code> for the text layer: <code>stat_smooth(se=FALSE, method="lm", aes(x=log(gdp_pc_pp), y=fert_rate), color="red")</code>. There are a couple of other options to add. We do not have a sample, so we do not need to see a measure of sampling uncertainty around the line, thus we set <code>se=FALSE</code>. In the function, <code>method="lm"</code> where the “lm” stands for linear model, while <code>color="red"</code> simply draws the line in red. Leaving <code>method="lm"</code> out of the layer will result in a nonlinear best fitting curve to the data. Adding this last line to the data results in Figure <a href="ch4.html#fig:newbubfig">4.11</a>:</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="ch4.html#cb129-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>countries) <span class="sc">+</span></span>
+<span id="cb129-2"><a href="ch4.html#cb129-2" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate,</span>
+<span id="cb129-3"><a href="ch4.html#cb129-3" tabindex="-1"></a>      <span class="at">size=</span>total_population<span class="sc">/</span><span class="dv">1000000</span>), <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb129-4"><a href="ch4.html#cb129-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;log GDP per capita, 2010 U.S. dollars&quot;</span>,</span>
+<span id="cb129-5"><a href="ch4.html#cb129-5" tabindex="-1"></a>      <span class="at">y=</span><span class="st">&quot;fertility rate (average births per woman)&quot;</span>,</span>
+<span id="cb129-6"><a href="ch4.html#cb129-6" tabindex="-1"></a>      <span class="at">size=</span><span class="st">&quot;Total population in millions&quot;</span>) <span class="sc">+</span></span>
+<span id="cb129-7"><a href="ch4.html#cb129-7" tabindex="-1"></a> <span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(countries, fert_rate <span class="sc">&gt;</span> <span class="dv">6</span>), </span>
+<span id="cb129-8"><a href="ch4.html#cb129-8" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate, </span>
+<span id="cb129-9"><a href="ch4.html#cb129-9" tabindex="-1"></a>            <span class="at">label=</span>country), <span class="at">alpha=</span>.<span class="dv">6</span>)  <span class="sc">+</span></span>
+<span id="cb129-10"><a href="ch4.html#cb129-10" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb129-11"><a href="ch4.html#cb129-11" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb129-12"><a href="ch4.html#cb129-12" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate), <span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:newbubfig"></span>
+<img src="bookdown_files/figure-html/newbubfig-1.png" alt="Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population.  A trend line summarizes the negative relationship between GDP per capita and fertility rate." width="672" />
+<p class="caption">
+FIGURE 4.11: Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population. A trend line summarizes the negative relationship between GDP per capita and fertility rate.
+</p>
+</div>
+<p></p>
+</div>
+</div>
+<div id="bubble-charts-in-motion" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Bubble charts in motion<a href="ch4.html#bubble-charts-in-motion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As referenced in Chapter <a href="ch1.html#ch1">1</a>, a classic use of bubble plots is in building a dynamic iteration of change over time — both in the size of the bubbles and movement through the X and Y space. These “Gapminder” plots, conceived by Hans Rosling to explain global economic and social development, can be created in R with the <strong>plotly</strong> package <span class="citation">(<a href="#ref-sievert2020">Sievert 2020</a>)</span>, designed to create dynamic graphics such as these. A Gapminder plot is essentially a series of static bubble charts compiled together, one after another, indexed over a series of years. Showing change over time, the plots require typically four or five measured variables from data: X, Y, point size, time period, and perhaps a point color to represent region. The data must consist of a time series cross-sectional dataset, containing the same cross-sectional observations repeated over years.</p>
+<p>Because the plots are dynamic, the visualizations must be embedded within an HTML file. The graphics can be rendered in <em>RStudio</em> or a web browser, but not exported to a PDF. Below the code and dynamic output consists of a screengrab of the dynamic graphic. Run the code to observe how the dynamic graphic is created.</p>
+<p>Putting an existing bubble chart in motion, such as Figure <a href="ch4.html#fig:gdptextcountry">4.10</a>, begins with saving it as a graphic object, with a few modifications, such as changing the country labels.</p>
+<p>The function <em>ggplotly()</em> from the <strong>plotly</strong> package will render a static <strong>ggplot2</strong> graphic and add dynamic elements. </p>
+<p>First install the <em>plotly</em> package if needed (<code>install.packages("plotly")</code>), then attach it:</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="ch4.html#cb130-1" tabindex="-1"></a><span class="fu">library</span>(plotly)</span></code></pre></div>
+<p>The modifications to the bubble plot involve removing the lines from the <strong>ggrepel</strong> package, which is not compatible with <strong>plotly</strong>, adding a <code>color=region</code> argument to <code>geom_point()</code>, and saving the bubble plot to the data object <em>dynbubble1</em>:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="ch4.html#cb131-1" tabindex="-1"></a>dynbubble1<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>countries) <span class="sc">+</span></span>
+<span id="cb131-2"><a href="ch4.html#cb131-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate, <span class="at">color=</span>region,</span>
+<span id="cb131-3"><a href="ch4.html#cb131-3" tabindex="-1"></a>      <span class="at">size=</span>total_population<span class="sc">/</span><span class="dv">1000000</span>), <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb131-4"><a href="ch4.html#cb131-4" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>), <span class="at">guide=</span><span class="st">&quot;none&quot;</span>) </span>
+<span id="cb131-5"><a href="ch4.html#cb131-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;log GDP per capita, 2010 U.S. dollars&quot;</span>,</span>
+<span id="cb131-6"><a href="ch4.html#cb131-6" tabindex="-1"></a>      <span class="at">y=</span><span class="st">&quot;fertility rate (average births per woman)&quot;</span>,</span>
+<span id="cb131-7"><a href="ch4.html#cb131-7" tabindex="-1"></a>      <span class="at">size=</span><span class="st">&quot;Total population in millions&quot;</span>)  </span></code></pre></div>
+<p>Place the saved graphic object in the <code>ggplotly()</code> function:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="ch4.html#cb132-1" tabindex="-1"></a><span class="fu">ggplotly</span>(dynbubble1)</span></code></pre></div>
+<p>Running this code results in a graphic rendered in the Viewer pane on the lower right-hand side of RStudio. The graph is interactive, with the cursor revealing additional information about the points. The interactivity of the graph is changed with various functions. See the Resources section at the end of the chapter for details.</p>
+<p>To set the graphic in motion, we first need to read in a dataset compiling the same cross-sectional measurements, year over year. Import the <em>countries_tsxs.csv</em> CSV file:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="ch4.html#cb133-1" tabindex="-1"></a>countriestsxs<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;countries_tsxs.csv&quot;</span>)</span></code></pre></div>
+<p>We add an additional global aesthetic <code>aes(frame=year, ids=country)</code> to the <code>ggplot()</code> function at the beginning of the graphic, and change the data source to <em>countriestsxs</em>. For higher contrast colors, the line <code>scale_colour_viridis_d()</code> appears at the bottom of the graphic: </p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="ch4.html#cb134-1" tabindex="-1"></a>graph_dynamic<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>countriestsxs, </span>
+<span id="cb134-2"><a href="ch4.html#cb134-2" tabindex="-1"></a>                       <span class="fu">aes</span>(<span class="at">frame=</span>year, <span class="at">ids=</span>country)) <span class="sc">+</span></span>
+<span id="cb134-3"><a href="ch4.html#cb134-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdp_pc_pp), <span class="at">y=</span>fert_rate, <span class="at">color=</span>region,</span>
+<span id="cb134-4"><a href="ch4.html#cb134-4" tabindex="-1"></a>      <span class="at">size=</span>total_population<span class="sc">/</span><span class="dv">1000000</span>), <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb134-5"><a href="ch4.html#cb134-5" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>), <span class="at">guide=</span><span class="st">&quot;none&quot;</span>) </span>
+<span id="cb134-6"><a href="ch4.html#cb134-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;log GDP per capita, 2010 U.S. dollars&quot;</span>,</span>
+<span id="cb134-7"><a href="ch4.html#cb134-7" tabindex="-1"></a>      <span class="at">y=</span><span class="st">&quot;fertility rate (average births per woman)&quot;</span>,</span>
+<span id="cb134-8"><a href="ch4.html#cb134-8" tabindex="-1"></a>      <span class="at">size=</span><span class="st">&quot;Total population in millions&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb134-9"><a href="ch4.html#cb134-9" tabindex="-1"></a>    <span class="fu">scale_colour_viridis_d</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="ch4.html#cb135-1" tabindex="-1"></a><span class="fu">ggplotly</span>(graph_dynamic)</span></code></pre></div>
+<p>Once <em>graph_dynamic</em> is loaded, the result is an interactive bubble plot like Figure <a href="ch4.html#fig:dynamic">4.12</a> appearing in the Viewer.</p>
+<div class="figure"><span style="display:block;" id="fig:dynamic"></span>
+<img src="includegraphics/ch%204%20includegraphics/screen%20capture%20plotly.png" alt="Interactive, dynamic bubble chart created with the \textbf{plotly} package, showing the relationship between fertility rate and log GDP per capita over time (1960–2020). Each point represents a country, with bubble size proportional to population and color indicating region. The animation slider allows exploration of changes in these relationships over time." width="100%" />
+<p class="caption">
+FIGURE 4.12: Interactive, dynamic bubble chart created with the package, showing the relationship between fertility rate and log GDP per capita over time (1960–2020). Each point represents a country, with bubble size proportional to population and color indicating region. The animation slider allows exploration of changes in these relationships over time.
+</p>
+</div>
+<p>In the figure, a slider and “Play” button allows the graphic to become dynamic as the relationships change over time.</p>
+</div>
+<div id="resources-3" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch4.html#resources-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The political scientist Edward Tufte published <em>The Visual Display of Quantitative Information</em> <span class="citation">(<a href="#ref-tufte2001">2001</a>)</span>, one of the pillars of the subject’s study.</p>
+<p>See Healy <span class="citation">(<a href="#ref-healy2019">2019</a>)</span> for an in-depth review of creating data visualizations with <strong>ggplot2</strong>.</p>
+<p>In the context of skills in data science, Baumer et al. <span class="citation">(<a href="#ref-baumer2017">2017</a>)</span> consider data visualization from an abstract theory and practice of <strong>ggplot2</strong> functions.</p>
+<p>Chang’s <em>R Graphics Cookbook</em> <span class="citation">(<a href="#ref-chang2018">2018</a>)</span> illustrates and explains R code for about every data visualization type imaginable, as does the R Graph Gallery <a href="https://r-graph-gallery.com/" class="uri">https://r-graph-gallery.com/</a>. See a gallery of <strong>plotly</strong> graphics and <strong>R</strong> code at <a href="https://plotly.com/r/" class="uri">https://plotly.com/r/</a>.</p>
+</div>
+<div id="exercises-2" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Exercises<a href="ch4.html#exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>Import <em>86_house_dw.csv</em>. Create a histogram of ideology (<em>nominate_dim1</em>) in the U.S. House, grouped by party caucus. Use <code>facet_wrap(~party)</code> as an additional line of below <code>geom_histogram()</code>. Compare the faceted histograms to the faceted box-whisker plot introduced in the chapter. What patterns in ideology and party are visible from the histogram that are not as apparent from the box-whiskers plot?</p></li>
+<li><p>Import <em>poll_ft.csv</em>. Pick three feeling thermometer scores for political figures and three for political groups. For each one, create a visualization of the distribution of feelings in the electorate toward each group. (Create at least one each of a density plot, histogram, and box-whisker plot among the six.) Describe the results. Pick two groups or figures showing evidence of polarization (bimodality) and use <code>facet_wrap(~)</code> to compare feelings by individual group characteristics, such as gender or party identification. From the chosen characteristic, which groups are more polarizing and which are less so? Describe the evidence across the visualizations.</p></li>
+<li><p>Collect some data from the World Bank, using your data collection and organization skills from Chapters <a href="ch2.html#ch2">2</a> and <a href="ch3.html#ch3">3</a>. After collecting and organizing the data, present summary statistics and at least one dynamic visualization (or a series of static) visualizations, to show how country level carbon dioxide (<span class="math inline">\(\mathrm{CO}_2\)</span>) emissions have changed over time, as economies develop. You will want to search for (<span class="math inline">\(\mathrm{CO}_2\)</span>) emissions and GDP measures in the World Bank development indicators database. Explain your choice of measures and organization of the dataset. Present the graphic(s) and/or link to a webpage for the dynamic graphic. In two paragraphs, interpret the summary statistics and graphics, explaining how emissions and economies have changed together, paying particular attention to any unusual or countries of particular interest to you.</p></li>
+<li><p>Construct a scatterplot on two continuous variables, grouped by color. If necessary, apply a transformation to linearity on one or both variables. Add a linear trend line fit across all observations. If applicable, comment on the extent to which the line should be fit excluding outliers, within a paragraph explaining what you observe within the scatterplot.</p></li>
+<li><p>Use the <strong>plotly</strong> package to construct a dynamic graphic displaying how greenhouse gas emissions and GDP, at country level, have covaried over time. Describe the changes in the graphic over time.</p></li>
+<li><p>Prepare a presentation, explanatory quality visualization to highlight some feature of the data from any of the datasets within this chapter. Explain how the graphic is prepared as a presentation quality visualization rather than an exploratory graphic. To highlight the intended features of the data, if necessary, look through help sources to add additional code to improve the presentation quality of the graphic.</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-baumer2017" class="csl-entry">
+Baumer, Benjamin S., Daniel T. Kaplan, and Nicholas J. Horton. 2017. <em>Modern Data Science with r</em>. 1st ed. Texts in Statistical Science. Boca Raton, FL: Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-cairo2019" class="csl-entry">
+Cairo, Alberto. 2019. <em>How Charts Lie: Getting Smarter about Visual Information</em>. New York: W.W. Norton &amp; Company.
+</div>
+<div id="ref-chang2018" class="csl-entry">
+Chang, Winston. 2018. <em>R Graphics Cookbook: Practical Recipes for Visualizing Data</em>. 2nd ed. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-gelman2002" class="csl-entry">
+Gelman, Andrew, Cristian Pasarica, and Rahul Dodhia. 2002. <span>“Let’s Practice What We Preach: Turning Tables into Graphs.”</span> <em>The American Statistician</em> 56 (2): 121–30.
+</div>
+<div id="ref-gelmanunwin2013" class="csl-entry">
+Gelman, Andrew, and Antony Unwin. 2013. <span>“Infovis and Statistical Graphics: Different Goals, Different Looks.”</span> <em>Journal of Computational and Graphical Statistics</em> 22 (1): 2–28. <a href="https://doi.org/10.1080/10618600.2012.761137">https://doi.org/10.1080/10618600.2012.761137</a>.
+</div>
+<div id="ref-healy2019" class="csl-entry">
+Healy, Kieran. 2019. <em>Data Visualization: A Practical Introduction</em>. Princeton, NJ: Princeton University Press.
+</div>
+<div id="ref-poole2006" class="csl-entry">
+Poole, Keith T., and Howard Rosenthal. 2006. <em>Ideology and Congress: A Political Economic History of Roll Call Voting</em>. 2nd ed. New Brunswick, NJ: Transaction Publishers.
+</div>
+<div id="ref-sievert2020" class="csl-entry">
+Sievert, Carson. 2020. <em>Interactive Web-Based Data Visualization with r, Plotly, and Shiny</em>. The r Series. Boca Raton, FL: Chapman &amp; Hall/CRC Press. <a href="https://plotly-r.com">https://plotly-r.com</a>.
+</div>
+<div id="ref-R-ggrepel" class="csl-entry">
+Slowikowski, Kamil. 2023. <em>Ggrepel: Automatically Position Non-Overlapping Text Labels with Ggplot2</em>. <a href="https://github.com/slowkow/ggrepel">https://github.com/slowkow/ggrepel</a>.
+</div>
+<div id="ref-tufte2001" class="csl-entry">
+Tufte, Edward R. 2001. <em>The Visual Display of Quantitative Information</em>. 2nd ed. Cheshire, CT: Graphics Press.
+</div>
+<div id="ref-unwin2018" class="csl-entry">
+Unwin, Antony. 2018. <em>Graphical Data Analysis with r</em>. The r Series. Boca Raton, FL: Chapman &amp; Hall/CRC Press.
+</div>
+<div id="ref-wickham2010" class="csl-entry">
+Wickham, Hadley. 2010. <span>“A Layered Grammar of Graphics.”</span> <em>Journal of Computational and Graphical Statistics</em> 19 (1): 3–28. <a href="https://doi.org/10.1198/jcgs.2009.07098">https://doi.org/10.1198/jcgs.2009.07098</a>.
+</div>
+<div id="ref-tidyverse2019" class="csl-entry">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-wickham2016" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-wilkinson1999" class="csl-entry">
+Wilkinson, Leland. 1999. <em>The Grammar of Graphics</em>. Statistics and Computing. New York: Springer.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/04-data-visualization.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

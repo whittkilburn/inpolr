@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Importing, Cleaning, and Describing Data | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Importing, Cleaning, and Describing Data | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Importing, Cleaning, and Describing Data | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch2.html"/>
+<link rel="next" href="ch4.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch3" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Importing, Cleaning, and Describing Data<a href="ch3.html#ch3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch3.html#ch3">3</a> introduces the organization of rectangular datasets in <strong>R</strong>, fundamental operations on datasets, along with measurements of, and relationships between, columns in datasets.</p>
+<div id="learning-objectives-and-chapter-resources-1" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch3.html#learning-objectives-and-chapter-resources-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this chapter you should be able to: (1) organize and differentiate forms of tabular, tidy data tables; (2) use summary and descriptive statistics for central tendency (mean, median, mode) and variability (range, IQR, standard deviation, MAD) to describe data tables given specific levels of measurement; (3) import, export, and merge data tables; (4) construct common measurement scale transformations. The material in the chapter requires the following packages: <strong>tidyverse</strong> <span class="citation">(<a href="#ref-R-tidyverse">Wickham 2023b</a>)</span> and <strong>WDI</strong> <span class="citation">(<a href="#ref-R-WDI">Arel-Bundock 2022</a>)</span>, which should already be installed. The material uses the following datasets <em>gdpfert.csv</em>, <em>hdi_2021.csv</em>, <em>vdem_data.csv</em>, and <em>countries_tsxs.csv</em> from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="introduction-1" class="section level2 unnumbered hasAnchor">
+<h2>Introduction<a href="ch3.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In Chapter <a href="ch3.html#ch3">3</a>, we will learn about the organization and description of data in a form usually preferred for analysis: a rectangular matrix of rows and columns. This form, with observations on (horizontal) rows and the characteristics of the observations on (vertical) columns, is a standard form in which researchers analyze data. The term “Data” does not refer exclusively to information organized into this format, but typically the analysis of data will involve its representation in this form. Beyond organizing data, we will learn about common summary statistics and measurement scales.</p>
+</div>
+<div id="rectangular-data-structure" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Rectangular data structure<a href="ch3.html#rectangular-data-structure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The process of collecting and organizing data is often the most time consuming in any research project. A common rule of thumb is the ‘80/20 rule’. You should expect to spend about 80 percent of your time cleaning and organizing data to get it into a clean, usable format, and only about 20 percent actually analyzing it <span class="citation">(<a href="#ref-dasu2003">Dasu and Johnson 2003</a>)</span>. So, learning how to organize and clean data into an amenable format for analysis is an essential skill.</p>
+<p>Table <a href="ch3.html#tab:wbdata1-tab12">3.1</a> displays a tidy (or clean) data table from the World Bank in this structured form. The units of observation are countries, in rows (read horizontally), while the characteristics of each country (gross domestic product per capita, labelled <em>NY.GDP.PCAP.KD</em> and average births per woman, labelled <em>SP.DYN.TFRT.IN</em>). In this example, if the plan were to collect data on economies and fertility rates around the world, a necessary step would be to organize the observations into this tabular form. The rows organize the units of observations, countries, while the columns organize the features, often referred to as variables regardless of how much the features of each country actually vary. Such a dataset, with only a single entry for each cell of the table, would be regarded as a tidy, clean dataset or data table. In the first row of a clean data table, there may or may not be a header row, the first row of the table containing the names of each of the columns. If the table consists of nothing else besides a header row and the entries for each unit of observation (no additional footnotes or additional text explanations below the table), the dataset is also machine readable, meaning it can be imported into <strong>R</strong> for analysis.</p>
+<table>
+<caption><span id="tab:wbdata1-tab12">TABLE 3.1: </span>National GDP per capita and fertility rate, in 2010, downloaded from the World Bank</caption>
+<thead>
+<tr>
+<th align="left">country</th>
+<th align="right">NY.GDP.PCAP.KD</th>
+<th align="right">SP.DYN.TFRT.IN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Andorra</td>
+<td align="right">34667.3</td>
+<td align="right">1.270</td>
+</tr>
+<tr>
+<td align="left">United Arab Emirates</td>
+<td align="right">32534.8</td>
+<td align="right">1.819</td>
+</tr>
+<tr>
+<td align="left">Afghanistan</td>
+<td align="right">526.1</td>
+<td align="right">5.977</td>
+</tr>
+<tr>
+<td align="left">Antigua and Barbuda</td>
+<td align="right">13986.8</td>
+<td align="right">1.988</td>
+</tr>
+<tr>
+<td align="left">Albania</td>
+<td align="right">3577.1</td>
+<td align="right">1.660</td>
+</tr>
+<tr>
+<td align="left">Armenia</td>
+<td align="right">2958.8</td>
+<td align="right">1.722</td>
+</tr>
+<tr>
+<td align="left">Angola</td>
+<td align="right">2994.4</td>
+<td align="right">6.194</td>
+</tr>
+<tr>
+<td align="left">Argentina</td>
+<td align="right">13551.3</td>
+<td align="right">2.346</td>
+</tr>
+<tr>
+<td align="left">American Samoa</td>
+<td align="right">12256.3</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">Austria</td>
+<td align="right">43334.5</td>
+<td align="right">1.440</td>
+</tr>
+</tbody>
+</table>
+<p>In sum a simple clean, tidy, rectangular datafile has the following structure:</p>
+<ol style="list-style-type: decimal">
+<li><p>Rows (across the horizontal) that record observations on units of analysis. And the data file may also include an additional row — appearing in the position of the first row — containing names of the features.</p></li>
+<li><p>Columns (down the vertical) that record features of the observations — also referred to as ‘variables’ — measurements of observation characteristics.</p></li>
+<li><p>And nothing else – no additional notes or explanations of either the rows or columns, appearing anywhere else in the file.</p></li>
+</ol>
+<p>Your goal in analyzing data about politics is nearly always to get the data into tidy form.</p>
+<p>Within <strong>R</strong>, a data table typically exists as a <em>dataframe</em> in an <strong>R</strong> Workspace. There are different ways to get data tables into an <strong>R</strong> Workspace. The most common is to import an existing clean data table into R, by applying an <strong>R</strong> function to an external dataset. Below we will review doing this via the <code>read_csv()</code> function in the <strong>tidyverse</strong> suite of packages.</p>
+</div>
+<div id="importing-and-exporting-data-tables" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Importing and exporting data tables<a href="ch3.html#importing-and-exporting-data-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-csv-file" class="section level3 unnumbered hasAnchor">
+<h3>The CSV file<a href="ch3.html#the-csv-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Comma-Separated Value (CSV) is perhaps the most common way of storing a rectangular, clean dataset for future use. Rows organize observations. Columns organize variables (with or without a header row containing variable names). Across each row, for each observation the variables are separated by commas, hence the “Comma” in the name for this data storage format. Files in this format usually carry the “<em>.csv</em>” or “<em>.CSV</em>” file extension, such as the datafile <em>gdpfert.csv</em>. Files of this type are simply plain text files with alpha numeric records of observations and variables.</p>
+<p>A CSV datafile can be created with a simple text editor, such as WordPad or Notepad (on Windows) or TextEdit (on a Mac). Any app capable of creating a plain text file (such as a file with the extension <em>.txt</em>) can be used to view, edit, or create a CSV file. Try opening the <em>gdpfert.csv</em> file in a text editor. Adding observations, or even creating datasets, can be accomplished with this method. The key is to make sure that the CSV is clean and tidy — only rows and observations, with a header row containing column names. Each row must have the same number of columns. Of course, some observations might have a missing value for a particular feature, when the measure of that feature is missing for the observation. In those cases, a typical solution is to either use a period symbol (<code>.</code>) or <code>NA</code> for missing values. The data analysis software will either guess, or will need to be instructed, what exactly the missing value indicator is.</p>
+</div>
+<div id="importing-editing-and-exporting-csv-files" class="section level3 unnumbered hasAnchor">
+<h3>Importing, editing, and exporting CSV files<a href="ch3.html#importing-editing-and-exporting-csv-files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In RStudio, a CSV file appearing in the Files pane can be opened by clicking on it. If the file has the extension <em>.csv</em>, from within the Files pane, click on it and choose <code>view file</code>. Then it can be edited exactly like in the example discussed above. Try opening the file <em>gdpfert.csv</em> in RStudio. Note that a file can be organized as a CSV file but have <code>.txt</code> as the file extension.</p>
+<p>In Chapter <a href="ch1.html#ch1">1</a>, we used the <code>read_csv()</code> function (part of the <strong>tidyverse</strong> set of packages), without drawing much attention to it. The function reads the datafile from CSV format and saves it as the object we choose. And it will show us the storage type of the measures that it reads. Try it with <em>gdpfert.csv</em>; set the working directory to the location of the file. Then run the <code>read_csv()</code> function:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ch3.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="ch3.html#cb31-1" tabindex="-1"></a>gdpfert<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&#39;gdpfert.csv&#39;</span>)</span></code></pre></div>
+<p>The output from the function shows the “Column specification”, the comma delimiter separating observations as well as the storage type of the columns. Three columns were read as text characters “chr”, and seven were imported as numeric “dbl”.</p>
+<p>To see the contents of the dataset, enter the name of the data object <code>gdpfert</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ch3.html#cb32-1" tabindex="-1"></a>gdpfert</span></code></pre></div>
+<pre><code>## # A tibble: 214 × 13
+##    iso2c country     year NY.GD…¹ SP.DY…² SP.DY…³ iso3c
+##    &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;
+##  1 AD    Andorra     2019  39414.   NA       NA   AND  
+##  2 AE    United Ar…  2019  43785.    1.33    79.7 ARE  
+##  3 AF    Afghanist…  2019    584.    4.87    63.6 AFG  
+##  4 AG    Antigua a…  2019  17697.    1.47    78.7 ATG  
+##  5 AL    Albania     2019   4543.    1.41    79.3 ALB  
+##  6 AM    Armenia     2019   4562.    1.58    75.4 ARM  
+##  7 AO    Angola      2019   2570.    5.44    62.4 AGO  
+##  8 AR    Argentina   2019  12716.    1.99    77.3 ARG  
+##  9 AS    American …  2019  13288.   NA       NA   ASM  
+## 10 AT    Austria     2019  46647.    1.46    81.9 AUT  
+## # … with 204 more rows, 6 more variables:
+## #   region &lt;chr&gt;, capital &lt;chr&gt;, longitude &lt;dbl&gt;,
+## #   latitude &lt;dbl&gt;, income &lt;chr&gt;, lending &lt;chr&gt;, and
+## #   abbreviated variable names ¹​NY.GDP.PCAP.KD,
+## #   ²​SP.DYN.TFRT.IN, ³​SP.DYN.LE00.IN</code></pre>
+<p>The result is a neatly formatted excerpt of the dataset commented as <code># A tibble: 214 x 13</code>. The <code>tibble</code> formatting is the result of using the <code>read_csv()</code> function from the <em>tidyverse</em>, explained in Chapter <a href="ch5.html#ch5">5</a>.</p>
+<p>To write out the <code>gdpfert</code> dataset to an external file, we use <code>write_csv()</code>, specifying the data table (or dataset object) to write out as a CSV file, and then the name of the CSV file we would like to have saved. For example, the line below would write out <code>gdpfert</code> as a CSV file, saving it as <code>gdpfertdata.csv</code>“:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ch3.html#cb34-1" tabindex="-1"></a><span class="fu">write_csv</span>(gdpfert, <span class="st">&quot;gdpfertdata.csv&quot;</span>)</span></code></pre></div>
+<p>The datafile <em>gdpfertdata.csv</em> appears as a file in the current working directory.</p>
+</div>
+<div id="other-datafile-formats" class="section level3 unnumbered hasAnchor">
+<h3>Other datafile formats<a href="ch3.html#other-datafile-formats" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Of course, beyond comma-separated, there are many other potential delimiters — a ‘tab’ key delimited ( <em>.tvs</em> ) file is common. Another popular file format is JSON ( <em>.json</em> ), short for Java Script Object Notation . It is a file format commonly used by coders building web applications, and is increasingly used to store data accessible to the public. While JSON-formatted data can be organized into multiple nested sets of observations, for a simple pair of CSV rows, JSON organizes observations into key-value pairs.</p>
+<p>Opened in a text file editor, a JSON formatted snippet of the <em>gdpfertdata.csv</em> datafile would appear like this:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="ch3.html#cb35-1" tabindex="-1"></a>[</span>
+<span id="cb35-2"><a href="ch3.html#cb35-2" tabindex="-1"></a>  {</span>
+<span id="cb35-3"><a href="ch3.html#cb35-3" tabindex="-1"></a>    <span class="st">&quot;country&quot;</span><span class="sc">:</span> <span class="st">&quot;United States&quot;</span>,</span>
+<span id="cb35-4"><a href="ch3.html#cb35-4" tabindex="-1"></a>    <span class="st">&quot;year&quot;</span><span class="sc">:</span> <span class="dv">2020</span>,</span>
+<span id="cb35-5"><a href="ch3.html#cb35-5" tabindex="-1"></a>    <span class="st">&quot;gdp_per_capita&quot;</span><span class="sc">:</span> <span class="dv">63543</span>,</span>
+<span id="cb35-6"><a href="ch3.html#cb35-6" tabindex="-1"></a>    <span class="st">&quot;fertility_rate&quot;</span><span class="sc">:</span> <span class="fl">1.73</span></span>
+<span id="cb35-7"><a href="ch3.html#cb35-7" tabindex="-1"></a>  },</span>
+<span id="cb35-8"><a href="ch3.html#cb35-8" tabindex="-1"></a>  {</span>
+<span id="cb35-9"><a href="ch3.html#cb35-9" tabindex="-1"></a>    <span class="st">&quot;country&quot;</span><span class="sc">:</span> <span class="st">&quot;Canada&quot;</span>,</span>
+<span id="cb35-10"><a href="ch3.html#cb35-10" tabindex="-1"></a>    <span class="st">&quot;year&quot;</span><span class="sc">:</span> <span class="dv">2020</span>,</span>
+<span id="cb35-11"><a href="ch3.html#cb35-11" tabindex="-1"></a>    <span class="st">&quot;gdp_per_capita&quot;</span><span class="sc">:</span> <span class="dv">46292</span>,</span>
+<span id="cb35-12"><a href="ch3.html#cb35-12" tabindex="-1"></a>    <span class="st">&quot;fertility_rate&quot;</span><span class="sc">:</span> <span class="fl">1.50</span></span>
+<span id="cb35-13"><a href="ch3.html#cb35-13" tabindex="-1"></a>  }</span>
+<span id="cb35-14"><a href="ch3.html#cb35-14" tabindex="-1"></a>]</span></code></pre></div>
+<p>Within the brackets, braces <code>{ }</code> separate observations that are neatly labeled by the corresponding column header. In Chapter <a href="ch6.html#ch6">6</a> we will work with JSON-formatted map data — datafiles recording the boundary lines of US Congressional districts, for example. The package <strong>jsonlite</strong> <span class="citation">(<a href="#ref-R-jsonlite">Ooms 2014</a>)</span> will read in JSON data. Once the file is read into <strong>R</strong> as a dataframe, regardless of the format of the existing dataset, you would apply analysis functions to it like any other dataframe.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
+</div>
+<div id="summary-measures-of-data-objects" class="section level3 unnumbered hasAnchor">
+<h3>Summary measures of data objects<a href="ch3.html#summary-measures-of-data-objects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Regardless of the file format, once imported as a data object, basic summary statistics are accessed with the <code>summary()</code> function. We can access summary statistics for the entire <code>gdpfert</code> dataset by entering <code>summary(gdpfert)</code>. With large datasets, it’s better to identify a specific variable by name. Individual columns of data can be identified with the <code>$</code> symbol:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ch3.html#cb36-1" tabindex="-1"></a><span class="fu">summary</span>(gdpfert<span class="sc">$</span>SP.DYN.TFRT.IN)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.918   1.590   2.106   2.585   3.329   6.961 
+##    NA&#39;s 
+##       7</code></pre>
+<p>We will review the importance of these summary statistics further below. For now, just note that the default output is to report — from left to right — the minimum value, 25th percentile (<code>1st Qu.</code>), median or 50th percentile, arithmetic mean, 75th percentile (<code>3rd Qu.</code>), and maximum value. The summary means, for example, at the minimum one country averages just .918 births per woman, while the average country level rate is 2.585 births per woman. The entry <code>NA's</code> refers to seven countries that are missing fertility rates from the dataset.</p>
+<p>Other functions useful for summarizing the contents of dataframes include <code>glimpse(gdpfert)</code>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ch3.html#cb38-1" tabindex="-1"></a><span class="fu">glimpse</span>(gdpfert)</span></code></pre></div>
+<pre><code>## Rows: 214
+## Columns: 13
+## $ iso2c          &lt;chr&gt; &quot;AD&quot;, &quot;AE&quot;, &quot;AF&quot;, &quot;AG&quot;, &quot;AL&quot;, …
+## $ country        &lt;chr&gt; &quot;Andorra&quot;, &quot;United Arab Emirat…
+## $ year           &lt;dbl&gt; 2019, 2019, 2019, 2019, 2019, …
+## $ NY.GDP.PCAP.KD &lt;dbl&gt; 39413.6, 43785.4, 584.4, 17697…
+## $ SP.DYN.TFRT.IN &lt;dbl&gt; NA, 1.334, 4.870, 1.468, 1.414…
+## $ SP.DYN.LE00.IN &lt;dbl&gt; NA, 79.73, 63.56, 78.69, 79.28…
+## $ iso3c          &lt;chr&gt; &quot;AND&quot;, &quot;ARE&quot;, &quot;AFG&quot;, &quot;ATG&quot;, &quot;A…
+## $ region         &lt;chr&gt; &quot;Europe &amp; Central Asia&quot;, &quot;Midd…
+## $ capital        &lt;chr&gt; &quot;Andorra la Vella&quot;, &quot;Abu Dhabi…
+## $ longitude      &lt;dbl&gt; 1.522, 54.370, 69.176, -61.846…
+## $ latitude       &lt;dbl&gt; 42.508, 24.476, 34.523, 17.117…
+## $ income         &lt;chr&gt; &quot;High income&quot;, &quot;High income&quot;, …
+## $ lending        &lt;chr&gt; &quot;Not classified&quot;, &quot;Not classif…</code></pre>
+<p>And to see a snippet of the top and bottom rows of the table, the functions <code>head()</code> and <code>tail()</code> will print these rows. For example, <code>head(gdpfer)</code> will print the top several rows of the table:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ch3.html#cb40-1" tabindex="-1"></a><span class="fu">head</span>(gdpfert)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 13
+##   iso2c country      year NY.GD…¹ SP.DY…² SP.DY…³ iso3c
+##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;
+## 1 AD    Andorra      2019  39414.   NA       NA   AND  
+## 2 AE    United Ara…  2019  43785.    1.33    79.7 ARE  
+## 3 AF    Afghanistan  2019    584.    4.87    63.6 AFG  
+## 4 AG    Antigua an…  2019  17697.    1.47    78.7 ATG  
+## 5 AL    Albania      2019   4543.    1.41    79.3 ALB  
+## 6 AM    Armenia      2019   4562.    1.58    75.4 ARM  
+## # … with 6 more variables: region &lt;chr&gt;,
+## #   capital &lt;chr&gt;, longitude &lt;dbl&gt;, latitude &lt;dbl&gt;,
+## #   income &lt;chr&gt;, lending &lt;chr&gt;, and abbreviated
+## #   variable names ¹​NY.GDP.PCAP.KD, ²​SP.DYN.TFRT.IN,
+## #   ³​SP.DYN.LE00.IN</code></pre>
+<p>Of course, the data table can be inspected visually in spreadsheet form with the <code>View()</code> function, which with <code>View(gdpfert)</code> would bring up the spreadsheet view of the data. The use of this function is equivalent to clicking on the spreadsheet icon next to the data in the Environment pane of RStudio.</p>
+</div>
+</div>
+<div id="data-organization-cross-sectional-and-time-series" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Data organization: cross-sectional and time series<a href="ch3.html#data-organization-cross-sectional-and-time-series" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data tables record variation, which can occur in two different directions, cross sectionally (across observations) and time series (across time), or a combination of both. For example, the data tables generated from <strong>gdpfert.csv</strong> are cross-sectional — each row of the table consists of an observation on countries, with each column recording different characteristics of the countries each at one point in time.</p>
+<p>The file <em>countries_tsxs.csv</em>, which varies both across countries and over time, is a cross-sectional time series dataset.</p>
+<p>To illustrate the organization of data varying across the two dimensions, use the <code>read_csv()</code> function to read in the datafile to the data object <em>countries_tsxs</em>.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ch3.html#cb42-1" tabindex="-1"></a>countries_tsxs<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;countries_tsxs.csv&quot;</span>)</span></code></pre></div>
+<p>The imported data object, <em>countries_tsxs</em> contains observations of various development characteristics on countries around the world, from 2000 to 2019. The data is both cross sectional and time series — on any one unit of analysis (a country) there are observations on development characteristics over the 20 year period. The first five rows and seven columns of the dataset display the variation across Afghanistan on two development indicators. This portion of the data table is selected with subscripts, bracketed rows and columns <code>[r,c]</code> to select on a dataframe. The rows for entries one through five are selected with <code>1:5</code> and one through seven with <code>1:7</code>:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="ch3.html#cb43-1" tabindex="-1"></a>countries_tsxs[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>]</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 7
+##   country     region  iso2c iso3c  year gdp_c…¹ gdp_g…²
+##   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Afghanistan South … AF    AFG    2003 8.22e 9    8.83
+## 2 Afghanistan South … AF    AFG    2014 1.97e10    2.72
+## 3 Afghanistan South … AF    AFG    2007 1.11e10   13.8 
+## 4 Afghanistan South … AF    AFG    2013 1.92e10    5.60
+## 5 Afghanistan South … AF    AFG    2017 2.10e10    2.65
+## # … with abbreviated variable names ¹​gdp_constant,
+## #   ²​gdp_growth</code></pre>
+<p>A time series data table contains measurements over time on a single unit of observation. Quite simply, an example of a time series component of <em>countries_tsxs</em> could be illustrated by simply subsetting it on a single development indicator on a single country, such as the observations on <code>gdp_growth</code> and <code>gdp_pc_constant</code> on Afghanistan. Using row and column subscripts to select only columns recording the year and those two indicators <code>c(5, 7, 8, 9)</code> on the first 20 rows <code>1:20</code> of the dataset:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ch3.html#cb45-1" tabindex="-1"></a>countries_tsxs[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)]</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 4
+##     year gdp_growth gdp_constant_int_pp gdp_pc_constant
+##    &lt;dbl&gt;      &lt;dbl&gt;               &lt;dbl&gt;           &lt;dbl&gt;
+##  1  2003      8.83         29265058689.            363.
+##  2  2014      2.72         70158264545.            603.
+##  3  2007     13.8          39589169630.            429.
+##  4  2013      5.60         68297470349.            608.
+##  5  2017      2.65         74711922906.            589.
+##  6  2010     14.4          57116893447.            569.
+##  7  2016      2.26         72785293848.            590.
+##  8  2004      1.41         29678901146.            354.
+##  9  2012     12.8          64675178731.            596.
+## 10  2001     NA                     NA              NA 
+## 11  2000     NA                     NA              NA 
+## 12  2011      0.426        57360414055.            551.
+## 13  2002     NA            26890054382.            360.
+## 14  2005     11.2          33011757108.            380.
+## 15  2019      3.91         78557606649.            584.
+## 16  2008      3.92         41143038133.            437.
+## 17  2006      5.36         34780330056.            384.
+## 18  2018      1.19         75600418109.            579.
+## 19  2015      1.45         71176481723.            592.
+## 20  2009     21.4          49943751387.            512.</code></pre>
+<p>Implicit in the organization of the data is that it refers to a single country, Afghanistan, which is not recorded explicitly anywhere within it. Adding any additional country observations would introduce cross-sectional variation, turning it back to being a cross-sectional time series dataset.</p>
+</div>
+<div id="data-measurement-levels-and-storage-types" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Data measurement levels and storage types<a href="ch3.html#data-measurement-levels-and-storage-types" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The measures, or columns of a data table can be categorized into different groups: qualitative and quantitative. These terms do not have a precise definition. Typically, the term “qualitative measure” refers to a variable that records a set of categories without an inherent numerical measure. For example, party identification “Are you a Democrat, Republican, Independent, or what?” is a qualitative measure. Another example is a survey question asking, “How many of the people running the government are corrupt?”, where responses are recorded on a scale including categories such as “All”, “Most”, “About half”, “A few”, and “None”. A quantitative measure typically refers to broadly a meaningful numerical score. A measure of GDP per capita measured in US dollars, a percentage or a count of votes cast, would be quantitative measures. Quantitative measures are often further described as discrete (a count of votes — integers) or continuous (a measure of GDP per capita — in theory any real number). The characteristics of these measures can be further refined into four levels of measurement, which matter for determining appropriate summary statistics applied to each one.</p>
+<div id="measurement-as-categorical-ordinal-interval-or-ratio" class="section level3 unnumbered hasAnchor">
+<h3>Measurement as categorical, ordinal, interval or ratio<a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A fundamental measurement distinction is between nominal, ordinal, interval, or ratio. In a data table, any variable can be described by one of these terms, either due to the inherent qualities of the measure or assumptions about it.</p>
+<p>Nominal measures are variables with distinct categories without an underlying order. For example, in a survey, a measure of religious identity (“Buddhist, Christian, Hindu, Jewish, or Muslim?”) is nominal. A nominal measure is qualitative, and can be summarized with a mode (the most frequent category). While it would not make sense to ask what the average religious identity is, it would make sense to tally up the most common identity.</p>
+<p>Ordinal measures are ordered categories reflecting an underlying rank quantity. For example, a Likert scale in survey research in which respondents indicate their level of agreement on a five-point scale ranging from “Strongly Disagree” to “Strongly Agree” is an ordinal scale. An ordinal measure could be interpreted as qualitative or quantitative. There is no inherent numerical quality to differentiate “Strongly Disagree” from “Disagree”, only a rank order of stronger disagreement. An ordinal measure can be summarized by a median or mode. Yet as explained further below, ordinal measures are often treated as quantitative, interval measures in which the categories as assigned numerical scores, such as a 1 for “Strongly Disagree” and 2 for “Strongly Agree” and so on. Only with this added assumption of equal difference (from 2 to 1) between categories could an ordinal scale convert into an interval measure.</p>
+<p>Interval and ratio measures are inherently quantitative. With the assumption of equal intervals between measured points, a survey question asking individuals how strongly they identify as Democrats or Republicans on a seven-point scale ranging from 1 for “Strong Democrat” through “Independent” to 7 for “Strong Republican” would be an interval scale. A ratio measure is a meaningful zero indicating the absence of a quantity. For example, a measure of percentage change in Gross Domestic Product (GDP) includes a meaningful zero point and is ratio in scale. Vote counts are ratio. The term “ratio” references the fact that because there is a meaningful zero, quantities can be compared in ratio form – such as one candidate receiving twice as many votes as another. For interval and ratio measures, summary statistics of a mode, median, and a mean are appropriate.</p>
+</div>
+<div id="storage-types-in-r-numeric-factor-character" class="section level3 unnumbered hasAnchor">
+<h3>Storage types in R: numeric, factor, character<a href="ch3.html#storage-types-in-r-numeric-factor-character" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In <strong>R</strong> levels of measurement roughly correspond to different storage types in dataframes. The three primary types of storage you will encounter are “numeric”, “character”, and “factor”. Each type has its own unique characteristics and uses.</p>
+<p>The function <code>str()</code> will reveal the storage type of a each column in a dataframe, such as <code>str(gdpfert)</code>. When reading in an external CSV file with <code>read_csv()</code>, you will generally find that the storage types are either numeric or character. For example, in the <code>str(gdpfert)</code> output the three-letter code <code>chr</code> refers to character storage for the variables <em>iso2c</em> and <em>country</em>.</p>
+<p>A character data type stores text strings, such as the names of countries. Counterintuitively, character storage types can also include numbers. Typically character storage types are reserved for text-heavy data without an inherent order or any quantitative measurement quality. Nonetheless, it is often better to have text-heavy data stored as a “factor” storage type when text values are repeated frequently. Factor storage types are explained after numeric types:</p>
+<p>Most of the columns in <em>gdpfert</em> are of course numeric and store numbers. Numbers can be either integers or decimals. What is important to recognize is that for any data analysis, numeric types are required. Even if a column of numbers appears as if it is numeric, for various reasons it could be stored as a character set. For example, the functions to convert columns of data between numeric and character are <code>as.numeric()</code> and <code>as.character()</code>, although these should be used with caution as the results may not always be as intended.</p>
+<p>To illustrate the differences, we could create a (nonsensical) character version of GDP per capita:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="ch3.html#cb47-1" tabindex="-1"></a>gdpfert<span class="sc">$</span>gdp_character<span class="ot">&lt;-</span><span class="fu">as.character</span>(gdpfert<span class="sc">$</span>NY.GDP.PCAP.KD)</span></code></pre></div>
+<p>It appears at the end of the dataset. (Try <code>names(gdpfert)</code>.) We can compare the storage types and data entries to observe how differently the character and numeric versions are treated, viewing the first four observations on these two variables:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ch3.html#cb48-1" tabindex="-1"></a><span class="fu">str</span>(gdpfert[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">14</span>)])</span></code></pre></div>
+<pre><code>## tibble [4 x 2] (S3: tbl_df/tbl/data.frame)
+## $ NY.GDP.PCAP.KD: num [1:4] 39414 43785 584 17697
+## $ gdp_character : chr [1:4] &quot;39413.6344732996&quot; &quot;43785.4172694435&quot; </code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="ch3.html#cb50-1" tabindex="-1"></a><span class="fu">head</span>(gdpfert[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">14</span>)])</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   NY.GDP.PCAP.KD gdp_character   
+##            &lt;dbl&gt; &lt;chr&gt;           
+## 1         39414. 39413.6344732996
+## 2         43785. 43785.4172694435
+## 3           584. 584.386882896106
+## 4         17697. 17697.2311549703</code></pre>
+<p>The numeric version by default does not print out decimal places, athough these values are stored within the variable. The character version may appear to be more precise with five decimal places represented in the dataframe snippet. But applying the <code>summary()</code> function displays a problem:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="ch3.html#cb52-1" tabindex="-1"></a><span class="fu">summary</span>(gdpfert<span class="sc">$</span>NY.GDP.PCAP.KD)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     270    2431    6430   16840   20140  191194 
+##    NA&#39;s 
+##      12</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="ch3.html#cb54-1" tabindex="-1"></a><span class="fu">summary</span>(gdpfert<span class="sc">$</span>gdp_character)</span></code></pre></div>
+<pre><code>##    Length     Class      Mode 
+##       214 character character</code></pre>
+<p>As a character storage type, <strong>R</strong> is unable to calculate any summary statistics as expected. So interval or ratio scaled measures should be stored as numeric types. Nominal and ordinal measures could be stored as characters or a third type of storage, “factor”.</p>
+<p>A factor is a hybrid of character and numeric, combining numeric scores and verbal labels. A factor has numeric scores associated with verbal labels. For example, country names may be stored numerically within a dataset, but <strong>R</strong> indexes the countries to a set of verbal labels associated with each country score. Factors are preferred over characters for ordinal data because the label still facilitates data analysis. For example, you can easily calculate the frequency of each category or use factors in <strong>R</strong> functions that require categorical (not continuous) input.</p>
+<p>We create a new variable <em>region_factor</em> with the function <code>as.factor()</code>:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="ch3.html#cb56-1" tabindex="-1"></a>gdpfert<span class="sc">$</span>region_factor <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gdpfert<span class="sc">$</span>region)</span></code></pre></div>
+<p>Then observe the storage type:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="ch3.html#cb57-1" tabindex="-1"></a><span class="fu">str</span>(gdpfert<span class="sc">$</span>region_factor)</span></code></pre></div>
+<pre><code>##  Factor w/ 7 levels &quot;East Asia &amp; Pacific&quot;,..: 2 4 6 3 2 2 7 3 1 2 ...</code></pre>
+<p>Notice in the storage type in <code>str()</code> there are seven <code>levels</code> or labels of the factor that are associated with numeric placeholders from 1 through 7.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="ch3.html#cb59-1" tabindex="-1"></a><span class="fu">summary</span>(gdpfert<span class="sc">$</span>region)</span></code></pre></div>
+<pre><code>##    Length     Class      Mode 
+##       214 character character</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="ch3.html#cb61-1" tabindex="-1"></a><span class="fu">summary</span>(gdpfert<span class="sc">$</span>region_factor)</span></code></pre></div>
+<pre><code>##        East Asia &amp; Pacific      Europe &amp; Central Asia 
+##                         36                         56 
+##  Latin America &amp; Caribbean Middle East &amp; North Africa 
+##                         42                         21 
+##              North America                 South Asia 
+##                          3                          8 
+##         Sub-Saharan Africa 
+##                         48</code></pre>
+<p>The summary function as applied to a factor allows a tabulation of frequencies.</p>
+</div>
+</div>
+<div id="constructing-and-merging-data-tables" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Constructing and merging data tables<a href="ch3.html#constructing-and-merging-data-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To practice running <strong>R</strong> functions and applying some basic principles of organizing data tables, we will download and construct a data table from the World Bank. Then we will merge it with country level data on quality of democracy. We will use functions from the <strong>tidyverse</strong> set of packages and download World Bank data with the <strong>WDI</strong> package, which was introduced in Chapter <a href="ch2.html#ch2">2</a> but will need to be installed if not already (<code>install.packages('WDI', repos='http://cran.us.r-project.org')</code>.</p>
+<p>The <strong>tidyverse</strong> package is already attached from earlier parts of Chapter <a href="ch3.html#ch3">3</a>. We will attach the <strong>WDI</strong> package:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="ch3.html#cb63-1" tabindex="-1"></a><span class="fu">library</span>(WDI)</span></code></pre></div>
+<p>We are constructing the data table from scratch, downloading data directly from the World Bank. We first need to find the indicators (variables) that interest us.</p>
+<p>We will first search for data using the <code>WDIsearch()</code> function. We search on a specific key term, which depending on the function argument could be the World Bank’s descriptive label for the indicator, the alphanumeric abbreviation such as <em>NY.GDP.PCAP.KD</em> for GDP per capita. The descriptive label for the World Bank’s data is called the “name”, while the “indicator” is the World Bank’s term for the alphanumeric identifier of the measure.The default is to search the verbal label. We will search for any measures mentioning fertility:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="ch3.html#cb64-1" tabindex="-1"></a><span class="fu">WDIsearch</span>(<span class="at">string=</span><span class="st">&quot;fertility&quot;</span>)</span></code></pre></div>
+<pre><code>##            indicator
+## 17316 SP.DYN.TFRT.IN
+## 17317 SP.DYN.TFRT.Q1
+## 17318 SP.DYN.TFRT.Q2
+##                                                              name
+## 17316                    Fertility rate, total (births per woman)
+## 17317  Total fertility rate (TFR) (births per woman): Q1 (lowest)
+## 17318           Total fertility rate (TFR) (births per woman): Q2</code></pre>
+<p>In this text the output is abbreviated to save space. In your console the result is a list of all the indicators that include “fertility” in the name. Each separate row is an indicator, a separate measure. There are various fertility-related metrics available; some appear identical in subject matter, perhaps only differing by source data. Indicators <code>17316</code> and <code>17315</code> both record a total fertility rate. We will download data after searching for a few other measures; the <code>WDIsearch()</code> function searches the database, but does not download observations on countries.</p>
+<p>Try searching for GDP per capita, <code>WDIsearch(string="GDP per capita")</code>. Then try searching for “life expectancy” (<code>string="life expectancy"</code>) and “income”. Note that for general measures or subject matter at the core of the World Bank’s business, such as GDP, the result can be several hundred indicators.</p>
+<p>We will download data on GDP per capita and fertility. The function <code>WDI()</code> downloads the data. The required arguments are a list of countries (<code>"all"</code> for all countries) and a list of indicators, as well as a start year and end year. For a cross-sectional dataset, the <code>start=</code> and <code>end=</code> arguments are the same. In this case, we will download the data for the year 2010 and save it as the data object wbdata1. The data are downloaded and stored through the assignment operator <code>&lt;-</code> as data object <code>wbdata1</code>.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="ch3.html#cb66-1" tabindex="-1"></a>wbdata1<span class="ot">&lt;-</span><span class="fu">WDI</span>(<span class="at">country=</span><span class="st">&quot;all&quot;</span>, <span class="at">indicator=</span><span class="fu">c</span>(<span class="st">&quot;NY.GDP.PCAP.KD&quot;</span>,</span>
+<span id="cb66-2"><a href="ch3.html#cb66-2" tabindex="-1"></a>          <span class="st">&quot;SP.DYN.TFRT.IN&quot;</span>), <span class="at">start=</span><span class="dv">2010</span>, <span class="at">end=</span><span class="dv">2010</span>, <span class="at">extra=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Inspect the first few lines of data by entering <code>head(wbdata1)</code>. The dataset includes regional aggregate statistics. For a dataset intended to comprise of country-level observations, these regional aggregates should be excluded. We use the <code>subset()</code> function to remove aggregate totals Arab world, East Asia, etc. We subset the data by the condition <code>region!="Aggregates"</code> as the subsetting criterion. The symbol <code>!=</code> means “not equal to”. So we instruct RStudio to subset the data, keeping all rows of the data that are <strong>not</strong> <code>Aggregates</code>.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ch3.html#cb67-1" tabindex="-1"></a>wbdata1<span class="ot">&lt;-</span><span class="fu">subset</span>(wbdata1, region<span class="sc">!=</span><span class="st">&quot;Aggregates&quot;</span>) </span></code></pre></div>
+<p>The subsetted data is overwritten on the existing data object <code>wbdata1</code>. Try typing the name of the object to observe that it now no longer includes the regional aggregates.</p>
+<p>We can create a neat presentation table with a function from the <strong>knitr</strong> package <span class="citation">(<a href="#ref-R-knitr">Xie 2023b</a>)</span> that powers RMarkdown, <code>kable()</code> (as in ‘table’ but with a k). The main argument to <code>kable()</code> is the name of a dataframe. While the function will produce table output in the Console window, the main purpose of it is to generate tables in RMarkdown that are knitted to PDF or Word format. Try running <code>kable(wbdata1)</code> and a large unwieldy table will scroll through the Console.</p>
+<p>If, for example, we wished to print a table consisting of the country name, GDP and fertility rate, we could subscript the dataframe to include just these three columns, which occur in column positions 1, 7, and 8: <code>kable(wbdata1[, c(1,7,8)])</code>. And to limit the number of observations, we will select just the first ten rows: <code>kable(wbdata1[1:10, c(1,7,8)])</code>.</p>
+<p>Adding <code>caption=</code> yields Table <a href="ch3.html#tab:wbdatafig">3.2</a>:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="ch3.html#cb68-1" tabindex="-1"></a><span class="fu">kable</span>(wbdata1[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">8</span>)], <span class="at">caption=</span><span class="st">&quot;Table of National GDP per capita</span></span>
+<span id="cb68-2"><a href="ch3.html#cb68-2" tabindex="-1"></a><span class="st">      and fertility rate in 2010, created with the kable() function.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:wbdatafig">TABLE 3.2: </span>Table of National GDP per capita and fertility rate in 2010, created with the kable() function.</caption>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">country</th>
+<th align="right">NY.GDP.PCAP.KD</th>
+<th align="right">SP.DYN.TFRT.IN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">Afghanistan</td>
+<td align="right">542.9</td>
+<td align="right">6.195</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Albania</td>
+<td align="right">3579.8</td>
+<td align="right">1.653</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Algeria</td>
+<td align="right">4456.6</td>
+<td align="right">2.875</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">American Samoa</td>
+<td align="right">12446.3</td>
+<td align="right">3.292</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Andorra</td>
+<td align="right">36277.3</td>
+<td align="right">1.275</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">Angola</td>
+<td align="right">3540.8</td>
+<td align="right">6.194</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">Antigua and Barbuda</td>
+<td align="right">16135.4</td>
+<td align="right">1.785</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">Argentina</td>
+<td align="right">13387.2</td>
+<td align="right">2.411</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">Armenia</td>
+<td align="right">2796.1</td>
+<td align="right">1.500</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left">Aruba</td>
+<td align="right">25429.2</td>
+<td align="right">1.855</td>
+</tr>
+</tbody>
+</table>
+<p>Note that when using the function in an RMarkdown document, you will need to call up the function from the <strong>knitr</strong> package with <code>knitr::</code>, as in <code>knitr::kable(wbdata1[1:10, c(1,7,8)])</code>, or attach the <strong>knitr</strong> package with <code>library(knitr)</code> prior to using the function. If knitting directly to PDF instead of Word, the argument <code>booktabs=TRUE</code> adds additional formatting lines.</p>
+<p>A simple way to make a quick scatterplot is with <code>qplot()</code>, a function from the <strong>tidyverse</strong> suite of packages. Enter the name of the X and Y variables, and identify the dataset. The result is Figure <a href="ch3.html#fig:qplotkdin">3.1</a>:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="ch3.html#cb69-1" tabindex="-1"></a><span class="fu">qplot</span>(NY.GDP.PCAP.KD, SP.DYN.TFRT.IN,  <span class="at">data=</span>wbdata1)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:qplotkdin"></span>
+<img src="bookdown_files/figure-html/qplotkdin-1.png" alt="Scatterplot of country-level fertility rate (births per woman) by GDP per capita (constant 2010 USD). GDP per capita is right-skewed, with most countries clustered at lower values and a few outliers at high levels. This skew compresses the majority of observations along the X-axis, making it difficult to discern the relationship between GDP and fertility." width="672" />
+<p class="caption">
+FIGURE 3.1: Scatterplot of country-level fertility rate (births per woman) by GDP per capita (constant 2010 USD). GDP per capita is right-skewed, with most countries clustered at lower values and a few outliers at high levels. This skew compresses the majority of observations along the X-axis, making it difficult to discern the relationship between GDP and fertility.
+</p>
+</div>
+<p>The function picks a plot type given the measurement qualities of the input data; in this case it produces a scatterplot since the two measures are stored as numeric. We have constructed a tidy data table and created a visualization based on two of the measures. Next we will combine data from multiple data tables.</p>
+<div id="merging-data-tables" class="section level3 unnumbered hasAnchor">
+<h3>Merging data tables<a href="ch3.html#merging-data-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Researchers often need to combine data from multiple sources, for example where different data tables hold different indicators or measurements on units of interest. Many different research programs collect international-level data, releasing extensive tables containing multiple political, economic, and social conditions of countries around the world. Yet despite the comprehensiveness of different sources, it may be necessary to merge together the sources.</p>
+<p>For example, in a country-level dataset one source contains various measures of public health, while another contains measures of the quality of democracy, and the challenge is to combine the two data tables into one. If the units of observation in each data table match exactly and are few in number, a merge is feasible with a simple spreadsheet. Even when merging one to one, where each row from one table matches up exactly with a row from another table, cut-and-paste manipulation of a spreadsheet is error prone. And once the units differ slightly from table to table, or cover multiple years, such a merge quickly becomes unwieldy and requires the use of a merge function in code.</p>
+<p>Merges are performed pairwise — two tables are compared at a time. And before beginning, start the merge with the end product in mind. For example, will the merged dataset be created as a new data table, one that contains only rows in common between the two tables? Or will the rows of the merged dataset contain all rows of one table, combined with any matching rows from another? Or perhaps are there many rows from one table to match with single rows from another table, a so-called “many to one” match?</p>
+<p>After thinking ahead to the type of merge, the next step is to identify how the tables will be merged. It requires a “key” field (a column or set of columns in the data table) that uniquely identifies each row — each unit of observation. For example, in merging two data tables collected at the country level, the key field could be the name of each country, but if the data tables included multiple years of observations, then the key field would be the country name and year. (In the language of databases, the key field in the main table is the “primary” key, while in a second table – to merge on to the main table – the key is referred to as a “foreign” key. See Wickham and Grolemund <span class="citation">(<a href="#ref-wickham2016">2016</a>)</span> for a further explanation.)</p>
+<p>As an example, we will work with a small subset of the Varieties of Democracy <span class="citation">(<a href="#ref-Vdemorganization2022"><strong>Vdemorganization2022?</strong></a>)</span> core dataset <span class="citation">(<a href="#ref-VDemV12">Coppedge et al. 2022</a>)</span>, two indicators, measures of polyarchy and liberal democracy. And we will merge these country-level indicators with a data table containing the United Nations Development Programme’s Human Development Indicators (HDI) index <span class="citation">(<a href="#ref-undp2022">2022</a>)</span><a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</p>
+<p>We will construct a data table containing only the rows (observations) that match within each source table; we will see that this type of merge reduces the total number of countries included within the data, to the subset of countries found within both tables. Then we will compare this table to a merge that preserves the country rows from either table.</p>
+<p>An excerpt from the Varieties of Democracy data is the file <em>vdem_data.csv</em>. So we first read in the excerpted data with the <code>read_csv()</code> function from the <em>tidyverse</em> package:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="ch3.html#cb70-1" tabindex="-1"></a>vdem_data<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;vdem_data.csv&quot;</span>)</span></code></pre></div>
+<p>And we can see it consists of 179 rows and four columns:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="ch3.html#cb71-1" tabindex="-1"></a>vdem_data</span></code></pre></div>
+<pre><code>## # A tibble: 179 × 4
+##    country_name country_text_id v2x_libdem v2x_polyar…¹
+##    &lt;chr&gt;        &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Afghanistan  AFG                  0.021        0.16 
+##  2 Albania      ALB                  0.403        0.478
+##  3 Algeria      DZA                  0.145        0.284
+##  4 Angola       AGO                  0.19         0.351
+##  5 Argentina    ARG                  0.658        0.819
+##  6 Armenia      ARM                  0.556        0.739
+##  7 Australia    AUS                  0.808        0.854
+##  8 Austria      AUT                  0.749        0.825
+##  9 Azerbaijan   AZE                  0.068        0.194
+## 10 Bahrain      BHR                  0.052        0.122
+## # … with 169 more rows, and abbreviated variable name
+## #   ¹​v2x_polyarchy</code></pre>
+<p>We are merging it with the HDI, in the comma-separated value file <em>hdi_2021.csv</em>. Read in the HDI data to see what might potentially be a matching key field for <code>vdem_data</code>:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="ch3.html#cb73-1" tabindex="-1"></a>hdi_2021<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;hdi_2021.csv&quot;</span>)</span></code></pre></div>
+<p>Then the HDI file consists of 191 columns and six rows:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="ch3.html#cb74-1" tabindex="-1"></a>hdi_2021</span></code></pre></div>
+<pre><code>## # A tibble: 191 × 6
+##    Country           hdi life_…¹ expec…² mean_…³ gni_pc
+##    &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Afghanistan     0.478    62      10.3     3     1824
+##  2 Albania         0.796    76.5    14.4    11.3  14131
+##  3 Algeria         0.745    76.4    14.6     8.1  10800
+##  4 Andorra         0.858    80.4    13.3    10.6  51167
+##  5 Angola          0.586    61.6    12.2     5.4   5466
+##  6 Antigua and Ba… 0.788    78.5    14.2     9.3  16792
+##  7 Argentina       0.842    75.4    17.9    11.1  20925
+##  8 Armenia         0.759    72      13.1    11.3  13158
+##  9 Australia       0.951    84.5    21.1    12.7  49238
+## 10 Austria         0.916    81.6    16      12.3  53619
+## # … with 181 more rows, and abbreviated variable names
+## #   ¹​life_expect, ²​expect_school, ³​mean_school</code></pre>
+</div>
+<div id="combining-rows-of-two-tables" class="section level3 unnumbered hasAnchor">
+<h3>Combining rows of two tables<a href="ch3.html#combining-rows-of-two-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The process of merging begins with identifying the key fields. In the <em>hdi_2021</em> dataframe, the only possibility is “Country”. The <em>vdem_data</em> frame includes both a three character abbreviation and “country_name”. The starting point for merging the files is to find matches (and the observations that do not match) in comparing “Country” to “country_name”. For the functions to find the matching exact rows within the key fields, the country names have to be exact matches in capitalization, spacing, and use of any additional characters such as parentheses or slash marks. So, for example, in an exact match “Vietnam” would not be identified as matching “Viet Nam”.</p>
+<p>Before merging the files together, it is often useful to first inspect which rows (countries) are not matched.</p>
+<p>This detection works in two directions:</p>
+<ol style="list-style-type: decimal">
+<li>from the VDEM data to find countries not present in the HDI data; and</li>
+<li>from the HDI data to find countries not present in the VDEM data.</li>
+</ol>
+<p>To find the rows that do not match, we use the <code>anti_join()</code> function from the <code>tidyverse</code> package. Like other join functions from the package, the <code>anti_join()</code> function requires three arguments, two dataframes and the key field, <code>anti_join(DATAFRAME1,DATAFRAME2, KEY_FIELD)</code>. The function will identify all rows in <em>DATAFRAME1</em> that are missing from <em>DATAFRAME2</em>. For example, to identify the rows from <em>DATAFRAME1</em> that do not match, we enter the names of the datasets to compare, then a <code>by=c("KEY_FIELD1" = "KEY_FIELD2")</code> to identify the names of the key fields that should be compared for matches. If the names of the key fields were the same across the two datasets, the identification of the key field would be <code>by="KEY_FIELD"</code>. In this example, the <code>anti_join()</code> function specifies the two dataframes, <code>vdem_data, hdi_2021</code>, followed by the key fields corresponding to the dataframes in order, <code>by=c("country_name" = "Country"))</code>.</p>
+<p>Let’s see how many mismatches are identified:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="ch3.html#cb76-1" tabindex="-1"></a><span class="fu">anti_join</span>(vdem_data, hdi_2021, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;country_name&quot;</span> <span class="ot">=</span> <span class="st">&quot;Country&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 4
+##   country_name        country_text_id v2x_lib…¹ v2x_p…²
+##   &lt;chr&gt;               &lt;chr&gt;               &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Kosovo              XKX                 0.421   0.601
+## 2 North Korea         PRK                 0.015   0.085
+## 3 Palestine/Gaza      PSG                 0.06    0.134
+## 4 Palestine/West Bank PSE                 0.143   0.253
+## 5 Somalia             SOM                 0.093   0.163
+## 6 Somaliland          SML                 0.259   0.413
+## 7 Taiwan              TWN                 0.699   0.813
+## 8 Zanzibar            ZZB                 0.198   0.263
+## # … with abbreviated variable names ¹​v2x_libdem,
+## #   ²​v2x_polyarchy</code></pre>
+<p>The tables shows the eight rows — eight countries — of the VDEM dataset that do not match any rows in the HDI dataset. To find the reverse, the countries in the HDI dataset that do not appear in the VDEM dataset reverse the order of the datasets and key fields : <code>anti_join(hdi_2021, vdem_data, by=c("Country"="country_name"))</code>. Try running this reversed <code>anti_join()</code> function to observe how many countries are not matched in <em>vdem_data</em> from <em>hdi_2021</em>.</p>
+<p>From the <code>anti_join()</code> function, it’s clear that the intersection of the two datasets, the matching country observations, will be fewer than either single dataset. To find the intersection of the two datasets, we use the <code>inner_join()</code> function. The function is symmetric with respect to which observations (rows) are selected, so in that sense it does not matter which dataset is specified first in the function:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="ch3.html#cb78-1" tabindex="-1"></a><span class="fu">inner_join</span>(hdi_2021, vdem_data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;Country&quot;</span><span class="ot">=</span><span class="st">&quot;country_name&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 171 × 9
+##    Country   hdi life_…¹ expec…² mean_…³ gni_pc count…⁴
+##    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  
+##  1 Afghan… 0.478    62      10.3     3     1824 AFG    
+##  2 Albania 0.796    76.5    14.4    11.3  14131 ALB    
+##  3 Algeria 0.745    76.4    14.6     8.1  10800 DZA    
+##  4 Angola  0.586    61.6    12.2     5.4   5466 AGO    
+##  5 Argent… 0.842    75.4    17.9    11.1  20925 ARG    
+##  6 Armenia 0.759    72      13.1    11.3  13158 ARM    
+##  7 Austra… 0.951    84.5    21.1    12.7  49238 AUS    
+##  8 Austria 0.916    81.6    16      12.3  53619 AUT    
+##  9 Azerba… 0.745    69.4    13.5    10.5  14257 AZE    
+## 10 Bahrain 0.875    78.8    16.3    11    39497 BHR    
+## # … with 161 more rows, 2 more variables:
+## #   v2x_libdem &lt;dbl&gt;, v2x_polyarchy &lt;dbl&gt;, and
+## #   abbreviated variable names ¹​life_expect,
+## #   ²​expect_school, ³​mean_school, ⁴​country_text_id</code></pre>
+<p>The results show the 171 matching rows from each dataset, with columns from <em>hdi_2021</em> first followed by <em>vdem_data</em>. The functions for these joins find the respective rows, but do not automatically save the results into a new dataframe. The new dataframe must be specified with an object name and the assignment operator. To name the merged data <em>hdi_vdem</em>:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="ch3.html#cb80-1" tabindex="-1"></a>hdi_vdem<span class="ot">&lt;-</span><span class="fu">inner_join</span>(hdi_2021, vdem_data, </span>
+<span id="cb80-2"><a href="ch3.html#cb80-2" tabindex="-1"></a>                     <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;Country&quot;</span><span class="ot">=</span><span class="st">&quot;country_name&quot;</span>))</span></code></pre></div>
+<p>The order of the columns in the new dataset appears in the order specified in the function, <em>hdi_2021</em>, followed by <em>vdem_data</em>, including the column “country_text_id” from <em>vdem_data</em>, but only the key field from <em>hdi_2021</em>.</p>
+</div>
+<div id="merging-columns-on-an-existing-table" class="section level3 unnumbered hasAnchor">
+<h3>Merging columns on an existing table<a href="ch3.html#merging-columns-on-an-existing-table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While <code>inner_join()</code> finds the intersecting observations, other functions add any matching observations onto an existing dataset — to preserve all row observations within the existing table.</p>
+<p>A <code>left_join()</code> of <code>hdi_2021, vdem_data</code>, starts at the data on the left-hand side, <em>hdi_2021</em>:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="ch3.html#cb81-1" tabindex="-1"></a><span class="fu">left_join</span>(hdi_2021, vdem_data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;Country&quot;</span><span class="ot">=</span><span class="st">&quot;country_name&quot;</span>))</span></code></pre></div>
+<p>The function adds countries from <em>vdem_data</em> to <em>hdi_2021</em> — keeping all rows of <em>hdi_2021</em>.</p>
+<p>Notice that the row entries for the two democracy indicators of <em>vdem_data</em> include a few missing values, <code>&lt;NA&gt;</code> entries, for the countries in the <em>HDI</em> data not included in it.</p>
+<p>This <code>left_join()</code> would be useful to merge any additional datasets onto the <em>hdi_2021</em> dataset. For example,</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="ch3.html#cb82-1" tabindex="-1"></a>hdi_2021<span class="ot">&lt;-</span><span class="fu">left_join</span>(hdi_2021, vdem_data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;Country&quot;</span><span class="ot">=</span><span class="st">&quot;country_name&quot;</span>))</span></code></pre></div>
+<p>would replace the existing <em>hdi_2021</em> with the <code>left_join()</code> version. A complementary function, <code>right_join()</code> would keep observations in <code>vdem_data</code> and add rows to it from <code>hdi_2021</code>.</p>
+<p>For most purposes, these inner, left and right joins are sufficient. For a more detailed discussion of different types of data merges, see Wickham and Grolemund <span class="citation">(<a href="#ref-wickham2016">2016</a>)</span>. Note that for data tables in which the units of observation in rows within two tables match each other exactly in their row order, the function <code>cbind()</code> appends one dataset onto another by adding columns; hence “c” is for “column”. (To append rows to a table, in which the order of the columns match exactly, the row bind, or <code>rbind()</code> will add rows.)</p>
+</div>
+</div>
+<div id="measurement-characteristics-center-and-spread" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Measurement characteristics: center and spread<a href="ch3.html#measurement-characteristics-center-and-spread" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Given a clean data table, summary statistics are the starting point for a data analysis. While fundamental, the statistics provide insight into a typical (‘average’ value) or by how much the measures vary. With the two measures from the assembled World Bank dataframe <em>wbdata1</em>, such statistics could help answer questions such as, “What is the typical fertility rate globally or in regions?” and “How much does fertility vary within those regions?” To be clear, we will define these measures and review functions for calculating each one.</p>
+<div id="mean-median-and-mode" class="section level3 unnumbered hasAnchor">
+<h3>Mean, median, and mode<a href="ch3.html#mean-median-and-mode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We have already seen the mean from <code>summary()</code> applied to a numeric variable. The arithmetic mean (the “average”) is the most commonly used measure of central tendency. Given a quantitative numeric measure, interval or ratio in scale (such as a country’s life expectancy), represented by <span class="math inline">\(x\)</span>, on a total of <span class="math inline">\(n\)</span> different units of observation: <span class="math inline">\(x_1, x_2, x_3,...,x_n\)</span>, the mean is calculated as</p>
+<p><span class="math display">\[\bar{x} = \frac{x_1 + x_2 + x_3+...+x_n}{n}=\frac{1}{n} \sum_{i=1}^{n} x_i\]</span></p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is the mean, <span class="math inline">\(n\)</span> is the number of values or units of observation, and <span class="math inline">\(x_i\)</span> is the <span class="math inline">\(i^{th}\)</span> observation value.</p>
+<p>Beyond the <code>summary()</code> function, the <code>mean()</code> function will calculate a mean, but it requires an argument you will see repeatedly when working with election survey data, <code>na.rm=TRUE</code>, which ensures that missing values are dropped from the calculation. <code>mean(wbdata1$NY.GDP.PCAP.KD, na.rm = TRUE)</code>. (The default in <code>summary()</code> is to drop missing observations.)</p>
+<p>The median is another measure of central tendency, but one that is less sensitive to highly unusual observations such as high GDP countries, the observations often referred to as “outliers”. Like the mean, in <strong>R</strong> the <code>summary()</code> function reports the median, as does <code>median()</code> with <code>na.rm=TRUE()</code> as needed. The median accounts for the middle position within a set of (<span class="math inline">\(n\)</span>) observations that are ordered from lowest to highest (or the reverse), separating the lower half of the data from the upper half. The median is also the 50th percentile. Conceptually, the median is simply the middle value if the number of observations is odd in total number, and if even, the median is the average of the two middle values. The median is a positional measure of central tendency; it only accounts for the order of the observations, not the values of the observations like the mean. A graph displaying the mean and median of GDP per capita is shown in Figure <a href="ch3.html#fig:meanongdp">3.2</a>.</p>
+<div class="figure"><span style="display:block;" id="fig:meanongdp"></span>
+<img src="bookdown_files/figure-html/meanongdp-1.png" alt="Histogram of country-level GDP per capita (constant 2010 USD) for 2010. The dashed vertical line marks the mean (14,947 USD), while the solid vertical line marks the median (5,206 USD). The large gap between the mean and median reflects the right-skewed distribution of GDP per capita, where a small number of wealthy countries pull the mean far above the median." width="672" />
+<p class="caption">
+FIGURE 3.2: Histogram of country-level GDP per capita (constant 2010 USD) for 2010. The dashed vertical line marks the mean (14,947 USD), while the solid vertical line marks the median (5,206 USD). The large gap between the mean and median reflects the right-skewed distribution of GDP per capita, where a small number of wealthy countries pull the mean far above the median.
+</p>
+</div>
+<p>The mean and median are graphed as lines intersecting the X-axis by adding an additional layer separated by a <code>+</code> symbol, drawn with <code>geom_vline()</code>. Most countries fall below the mean level of 15,538 USD, but the skewed distribution of GDP per capita — with some countries having much larger economies than the rest of the world — is pulling higher than the median. The median level 5,417 USD is less than half the mean, showing that half of the countries have a GDP per capita at or less than this value.</p>
+<p>One last measure of central tendency is the <strong>mode</strong>. The mode is simply the most frequent observational value. For a continuous, ratio-level measure such as GDP per capita, the modal value is not very illuminating. But for a nominal (versus ordinal or interval/ratio) measure, it is the only appropriate measure of central tendency.</p>
+<p>Different measures of central tendency are appropriate for different levels of measurement. For a continuous, interval or ratio level, measure, the mean, median, and mode are all valid summary statistics. For highly skewed measures, such as GDP per capita, the median is often preferred over the mean, since it accounts for the order of observations, not the numeric values. In the absence of skew, the mean may be preferable. A mode is unlikely to provide much insight, given that the range of values is so great that a mode will be proportionally a tiny fraction of the different observations. For ordinal measures, a median or mode is appropriate. It is not uncommon to see ordinal measures treated as interval, and a mean calculated. In the absence of an assumption about interval scaling, the median is appropriate. With nominal measures, only the mode is an appropriate measure of central tendency, since the observations cannot be ordered on the measure.</p>
+</div>
+<div id="interquartile-range" class="section level3 unnumbered hasAnchor">
+<h3>Interquartile range<a href="ch3.html#interquartile-range" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The interquartile range (IQR) encompasses both data centrality and dispersion. It, too, is reported through the <code>summary()</code> function applied to numeric measures. It represents the range within which the central 50% of the data values fall. The IQR is calculated as the difference between the 75th percentile (Q3) and the 25th percentile (Q1).</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="ch3.html#cb83-1" tabindex="-1"></a><span class="fu">summary</span>(wbdata1<span class="sc">$</span>NY.GDP.PCAP.KD)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     253    2142    5442   15588   20740  141815 
+##    NA&#39;s 
+##       7</code></pre>
+<p>Percentiles (and the nearly identical “quantile”) divide a numeric variable into groups (counts of observations) of equal size, providing insight into the relative position of a value compared to the rest of the variable. The <code>summary()</code> function divides a variable into quartiles, marked by the 25th, 50th, and 75th percentiles.</p>
+<p>The <code>quantile()</code> function will calculate quantiles with an input argument of specific values to create. By default, it calculates quartiles. For example, to find three equal-sized groups of observations: <code>quantile(wbdata1$NY.GDP.PCAP.KD, c(0,1/3,2/3, 1), na.rm=TRUE)</code>. In the argument <code>c(0,1/3,2/3, 1)</code> the second entry <code>1/3</code> is evaluated as close to .3333. Or specifying ten equal groups (deciles) would require the argument <code>c(0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1)</code>. Thus the IQR is a calculation built from quartiles.
+The IQR encompasses both data centrality and dispersion. It is reported through the summary() function applied to numeric measures and represents the range within which the central 50 percent of the data values fall. The IQR is calculated as the difference between the 75th percentile (Q3) and the 25th percentile (Q1). A quantile of .50 corresponds to the 50th percentile, the only difference being the scale. The 50th percentile for GDP tells us that at the value of 5,417 USD marks the midpoint in the distribution of GDP per capita around the world. The 0.25 quantile of 2,116 USD (Q1 or <code>1st Qu.</code>) marks the point below which 25 percent of the data fall, while the .75 quantile 20,641 USD (Q3 or <code>3rd Qu.</code>) marks the point below which 75 percent of the data fall. This division of the data into four groups (quartiles) of equal size — the 25th, 50th, and 75th quantile — yields the IQR, the difference between Q3 and Q1.</p>
+<p>IQR = (20641 - 2116) = 18525</p>
+<p>There is an <code>IQR()</code> function in <strong>R</strong>, but of course it can be easily gleaned from the <code>summary()</code>. The IQR provides a measure of the spread of the middle half of the data, one which is less sensitive to extreme values (outliers) than other measures of data spread reviewed further below. Thus the IQR is especially useful in understanding the variability in skewed distributions or datasets with outliers. In the case of GDP, the IQR range of 18,528 USD shows us that fully half of the countries fall within the range of the IQR of 2,116 to 20,641. Comparing the width to the minimum and maximum shows how skewed the distribution is, with typical countries falling relatively much lower on the scale compared to the maximum.</p>
+</div>
+<div id="measuring-spread" class="section level3 unnumbered hasAnchor">
+<h3>Measuring spread<a href="ch3.html#measuring-spread" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While average values are important to investigate, another characteristic is the spread – how dispersed or spread out from the average is a measure? For example, two countries could have similar average or arithmetic mean income levels, but strongly differ by the degree of income inequality, a difference that would be measured in spread or dispersion.</p>
+<p>Range is the simplest measure, the difference between the largest and smallest value on a set of measurements. The range is useful for comparing overall variation across a measure, and of course is easily observable from the <code>summary()</code> function. The <code>Min.</code> and <code>Max.</code> output correspond to the 0th percentile and 100th percentile, respectively. The range of 141,815-290 USD, or 141,525 USD, relative to the median value of 5,417 USD reveals the highly skewed distribution of GDP per capita.</p>
+<p>The median absolute deviation (MAD) is a measure of disperson relative to the median. The measure is constructed from ‘absolute’ deviations of each observation from the median, the absolute difference between each observation and the median of the distribution. Then the median — of the absolute deviations — summarizes the spread. Formulaically, the MAD is as follows:</p>
+<p><span class="math display">\[ \text{MAD} = \text{median}(|x_i - \text{median}(x)|) \]</span></p>
+<p>where <span class="math inline">\(x_i\)</span> is an observation on a variable and <span class="math inline">\(median(x)\)</span> represents the median of the variable <span class="math inline">\(x\)</span>. Then <span class="math inline">\(\text{median}(|x_i - \text{median}(x)|\)</span> calculates the absolute deviation of each observation from the median. Like the median itself, as a measure of dispersion the MAD is less sensitive to outliers.</p>
+<p>The function for calculating a MAD is the <code>MAD()</code> function:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="ch3.html#cb85-1" tabindex="-1"></a><span class="fu">mad</span>(wbdata1<span class="sc">$</span>NY.GDP.PCAP.KD, <span class="at">constant=</span><span class="dv">1</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 4506</code></pre>
+<p>Note that by default, the <code>mad()</code> function in <strong>R</strong> ‘scales up’ the MAD to make it comparable to the standard deviation, a dispersion measure discussed below. Adding the argument <code>constant = 1</code> calculates the raw MAD as in the formula. The argument <code>na.rm=TRUE</code> removes missing values from the calculation.</p>
+</div>
+<div id="the-standard-deviation" class="section level3 unnumbered hasAnchor">
+<h3>The standard deviation<a href="ch3.html#the-standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By far, the two most common and important measures of dispersion are the standard deviation and its related quantity, the variance. Both measures capture spread relative to the mean. Let’s break down conceptually the “deviation” and the “standard”. The “deviation” refers to the difference between an observation, <span class="math inline">\(x_i\)</span> and the distribution mean <span class="math inline">\(\bar{x}\)</span>. Some observations will be above the mean and others below it, of course, and by definition of the mean the sum of the deviations <span class="math inline">\(\sum_{i=1}^n (x_i - \bar{x})\)</span> must equal zero. So to sum up the total deviations, the standard deviation measures the squares of the deviations, <span class="math inline">\(\sum_{i=1}^n (x_i - \bar{x})^2\)</span>. This quantity is also known as a sum of squares, which we will return to in later chapters. The ‘squared’ units of this metric is known as the variance, discussed below. By taking the square root
+<span class="math inline">\(\sqrt{ \sum_{i=1}^n (x_i - \bar{x}) ^2}\)</span> the quantity is converted back into its original unit of measurement. Finally, by averaging out this total over the total number of observations, <span class="math inline">\(n\)</span>, the standard deviation measures an average distance of each observation from the mean, a measure of population-level standard deviation. For a sample of <span class="math inline">\(n\)</span> observations, the divisor in the sample standard deviation is <span class="math inline">\(n-1\)</span>. The sample standard deviation <span class="math inline">\(sd\)</span> is:</p>
+<p><span class="math display">\[sd = \sqrt{\frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n-1} }\]</span></p>
+<p>The sample standard deviation and variance are divided by n-1 instead of n (as an average) to correct for bias in the use of sample data to estimate population-level standard deviation and variance. The adjustment is meant to account for the fact that sample data tend to underestimate these quantities. (Consult a statistics textbook for a further explanation.) The base <strong>R</strong> <code>sd()</code> function calculates a standard deviation and assumes the data at hand are sample data.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="ch3.html#cb87-1" tabindex="-1"></a><span class="fu">sd</span>(wbdata1<span class="sc">$</span>NY.GDP.PCAP.KD, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 22296</code></pre>
+<p>The result, 22,297 USD indicates the average amount by which an individual country differs from the mean level of GDP per capita.</p>
+<p>The variance is simply the squared standard deviation — or in the formula above, the sum of the standard deviations divided by <span class="math inline">\(n-1\)</span>.</p>
+<p><span class="math display">\[var = {\frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n-1} }\]</span></p>
+<p>In base <em>R</em>, calculated directly by the <code>var()</code> function or squaring the standard deviation <code>sd(wbdata1$NY.GDP.PCAP.KD, na.rm=TRUE)^2</code>, the answers are identical.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="ch3.html#cb89-1" tabindex="-1"></a><span class="fu">var</span>(wbdata1<span class="sc">$</span>NY.GDP.PCAP.KD, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 497096060</code></pre>
+<p>Thus in squared GDP per capita units, the variance measures the dispersion as 497,169,686 “squared US dollar GDP per capita”.</p>
+</div>
+<div id="the-empirical-rule-for-standard-deviations" class="section level3 unnumbered hasAnchor">
+<h3>The empirical rule for standard deviations<a href="ch3.html#the-empirical-rule-for-standard-deviations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For distributions that are approximately bell-shaped, unimodal, and symmetric, such as Figure <a href="ch3.html#fig:bellshape">3.3</a>, the standard deviation has a particular property that is useful in understanding data.</p>
+<p>For a symmetric, bell shaped distribution, from the mean:</p>
+<ul>
+<li>Approximately 68 percent of the observations fall within one standard deviation, between <span class="math inline">\(\bar{x} - s\)</span> and <span class="math inline">\(\bar{x} + s\)</span>.</li>
+<li>Approximately 95 percent of the observations fall within two standard deviations, between <span class="math inline">\(\bar{x} - 2s\)</span> and <span class="math inline">\(\bar{x} + 2s\)</span>.</li>
+<li>Approximately 99.7 percent (or nearly all) of the observations fall within three standard deviations, between <span class="math inline">\(\bar{x} - 3s\)</span> and <span class="math inline">\(\bar{x} + 3s\)</span>.</li>
+</ul>
+<p>Figure <a href="ch3.html#fig:bellshape">3.3</a> displays the bell-shaped, symmetrical ‘normal’ distribution, which is a theoretical construct – an idea based on infinite sampling. In the real world, while not perfectly normal, data distributions can be approximate enough that the empirical rule provides a close enough reference.</p>
+<div class="figure"><span style="display:block;" id="fig:bellshape"></span>
+<img src="bookdown_files/figure-html/bellshape-1.png" alt="Bell-shaped or 'normal' curve displaying the mean plus or minus one, two, and three standard deviations. This curve, with mean 0 and a standard deviation of 1 is often referred to as a 'standard normal' curve." width="672" />
+<p class="caption">
+FIGURE 3.3: Bell-shaped or ‘normal’ curve displaying the mean plus or minus one, two, and three standard deviations. This curve, with mean 0 and a standard deviation of 1 is often referred to as a ‘standard normal’ curve.
+</p>
+</div>
+<p>The <code>dnorm()</code> function will draw the contour of a ‘normal’ curve given an input mean, standard deviation, and a set of X values over which to draw on Y the curve, representing the density of the area under different portions of the curve.</p>
+<p>For example, the curve in Figure <a href="ch3.html#fig:bellshape">3.3</a> is drawn from first setting the values on X with <code>seq()</code>: <code>Xvalues &lt;- seq(-4, 4, length = 1000)</code>. The large number of points (<code>1000</code>) on X ranging from <code>-4</code> to <code>4</code> ensures a smoothly drawn curve. The function <code>dnorm()</code> draws the curve over the X values, by default with a mean of 0 and a standard deviation of 1,<code>dnorm(Xvalues)</code>. (The default can be changed by substituting in values for the mean and standard deviation; for example, a mean of 2.5 and a standard deviation of .7 would be <code>dnorm(2.5, .7)</code>.) Storing the result from <code>dnorm(0)</code> as <code>Yvalues</code>, then the curve can be drawn with <code>qplot()</code>.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="ch3.html#cb91-1" tabindex="-1"></a>Xvalues <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length =</span> <span class="dv">1000</span>)</span>
+<span id="cb91-2"><a href="ch3.html#cb91-2" tabindex="-1"></a>Yvalues <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(Xvalues)</span>
+<span id="cb91-3"><a href="ch3.html#cb91-3" tabindex="-1"></a><span class="fu">qplot</span>(Xvalues, Yvalues)</span></code></pre></div>
+<p>These three lines will draw the same curve as in Figure <a href="ch3.html#fig:bellshape">3.3</a>, without the labels.</p>
+</div>
+</div>
+<div id="measuring-relationships-between-variables" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Measuring relationships between variables<a href="ch3.html#measuring-relationships-between-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Covariance and Pearson’s correlation coefficients are fundamental measures to describe the relationship between two continuous variables. Covariance quantifies how much two variables change together. If the covariance is positive, the variables tend to increase or decrease together; if negative, one variable increases while the other decreases.</p>
+<p>The formula for the covariance between two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is</p>
+<p><span class="math display">\[cov(X,Y)=\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})\frac{1}{n}\]</span>
+The covariance captures the average product of the deviations of X and Y from their respective means, <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(\bar{Y}\)</span>, whether large values of <span class="math inline">\(X\)</span> tend to correspond to large values of <span class="math inline">\(Y\)</span>, and similarly for small values.</p>
+<p>The <code>cov()</code> function calculates covariance. For example, in the merged <em>hdi_vdem</em> dataset, the covariance between the quality of liberal democracy and gross national income (GNI) per capita is:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="ch3.html#cb92-1" tabindex="-1"></a><span class="fu">cov</span>(hdi_vdem<span class="sc">$</span>v2x_libdem, hdi_vdem<span class="sc">$</span>gni_pc)</span></code></pre></div>
+<pre><code>## [1] 2750</code></pre>
+<p>The result is 2750, which is not in interpretable units, but does show that the two variables tend to move in the same direction. Because covariance is measured in the combined units of the two variables, it is not readily intuitive to interpret across different measurement scales. From the covariance, Pearson’s r correlation is a standardized, more intuitive metric.</p>
+<p>The formula for a Pearson’s r correlation is essentially the covariance of the two variables divided by the product of their standard deviations.</p>
+<p><span class="math display">\[r=\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y}})}\]</span>
+Pearson’s correlation coefficient standardizes the covariance by dividing it by the product of the standard deviations of the two variables. The correlation is a standardized measure of the strength of linear association, a value that ranges from -1 to 1, where 1 indicates a perfect positive linear relationship, -1 indicates a perfect negative linear relationship, and 0 suggests no linear relationship. The <code>cor()</code> function calculates the correlation:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="ch3.html#cb94-1" tabindex="-1"></a><span class="fu">cor</span>(hdi_vdem<span class="sc">$</span>v2x_libdem, hdi_vdem<span class="sc">$</span>gni_pc)</span></code></pre></div>
+<pre><code>## [1] 0.5275</code></pre>
+<p>The result, .5275, suggests only a moderate correlation between democracy and income.</p>
+</div>
+<div id="measurement-scaling-z-linear-and-log" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Measurement scaling: z, linear, and log<a href="ch3.html#measurement-scaling-z-linear-and-log" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Beyond percentiles, another measure of an observation’s position on a distribution is the z score. The z score is also commonly used to facilitate the comparison of distributions on different measurement scales. To measure position or to facilitate comparisons on different scales, the z score combines information about an observation’s distance from the mean and the distribution’s standard deviation – to measure position in standard deviation units. To illustrate the use of a z score, consider the following example with World Bank data.</p>
+<p>In 2020 the USA’s life expectancy was 77.3 years. To make sense of this life expectancy (is it relatively long? short?), we would need to know at least the mean life expectancy around the world. That figure is 72.3 years. So we know the USA is 5 years above the mean, but is this higher-than-average life expectancy unusual or not? Of course, we could visually skim the data to get a sense of it, but for any level of precision, we need to know the standard deviation of life expectancy as well — how spread out was life expectancy around the world in 2020? The meaning of the USA’s life expectancy changes considerably if we knew the standard deviation of life expectancy was, for example, 5 years versus 10 years. For a standard deviation of 5 years, the USA’s life expectancy would be <span class="math inline">\(5/5 = 1\)</span> standard deviation above the mean. Yet, for a standard deviation of 10, the USA’s life expectancy would be <span class="math inline">\(5/10\)</span> only .5 standard deviations above the mean — much closer to the mean.</p>
+<p>Supporting this intuition is the calculation of a z score. In this example of life expectancy in 2020, the standard deviation is 7.6 years. The USA’s life expectancy is <span class="math inline">\(77.3 - 72.3  = 5.0\)</span> years above the mean. The USA’s distance from the mean is <span class="math inline">\(5 / 7.6  =.66\)</span> standard deviations above the mean; this measure of the USA’s life expectancy relative to the rest of the world, .66, is the USA’s z score:</p>
+<p><span class="math display">\[ z = \frac{observation - mean}{standard\ deviation}= \frac{77.3 - 72.3}{7.6} = .6579 \]</span></p>
+<p>More generally, the formula for a z score is</p>
+<p><span class="math display">\[ z = \frac{x_i - \bar{x}}{s}\]</span></p>
+<p>In this formula, <span class="math inline">\(x_i\)</span> is an observation from a distribution, <span class="math inline">\(\bar{x}\)</span> is the distribution mean, while <span class="math inline">\(s\)</span> is the distribution standard deviation. The <span class="math inline">\(z\)</span> score measures the distance of an observation from the mean, per standard deviation — for any observation, the number of standard deviations from the mean. Thus in these units, any variable converted to a z distribution will have a mean of 0 and a standard deviation of 1. In converting to z scores, a z distribution now has a mean of 0 and a standard deviation of 1.</p>
+<p>One additional example shows why the z score is essential for comparing position across different distributions. For example, how does the USA’s better than average (or z= .66) life expectancy compare to the USA’s position in the world on fertility rates, given a fertility rate of 1.64 average births per woman in 2020?</p>
+<p>To answer we construct a z score, given the mean of the corresponding z score for the USA is <span class="math inline">\((1.64 - 2.55) / 1.29 = -0.70\)</span> standard deviations below the mean. So, in addition to being below the mean fertility rate, the USA’s fertility rate is more unusual than its life expectancy. Z scores provide insight into measures collected over time. For example, while we can observe that the USA’s life expectancy grew from 69.8 years in 1960 to 77.3 years in 2020, to know how the USA’s 2020 standing in the world compares to 1960 requires the calculation of a z score: <span class="math inline">\((69.8 - 54.0)/ 11.78  = 1.34\)</span> standard deviations above the mean, illustrating how the rest of the world caught up to the USA.</p>
+<p>In base R, the function <code>scale()</code> will construct a z transformation of a variable. For example:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="ch3.html#cb96-1" tabindex="-1"></a>wbdata1<span class="sc">$</span>zgdp<span class="ot">&lt;-</span><span class="fu">scale</span>(wbdata1<span class="sc">$</span>NY.GDP.PCAP.KD)</span>
+<span id="cb96-2"><a href="ch3.html#cb96-2" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="ch3.html#cb96-3" tabindex="-1"></a><span class="fu">summary</span>(wbdata1<span class="sc">$</span>zgdp)</span></code></pre></div>
+<pre><code>##        V1        
+##  Min.   :-0.688  
+##  1st Qu.:-0.603  
+##  Median :-0.455  
+##  Mean   : 0.000  
+##  3rd Qu.: 0.231  
+##  Max.   : 5.661  
+##  NA&#39;s   :7</code></pre>
+<p>The positive skew is revealed in the comparison of quartiles. The 1st quartile is a z score of -.596, and a median at -.453 showing that fully 50 percent of the countries are nearly half a standard deviation below the mean. We can use tools from Chapter <a href="ch5.html#ch5">5</a> to sort the data by the z scores and print a table.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="ch3.html#cb98-1" tabindex="-1"></a>wbdata1<span class="ot">&lt;-</span><span class="fu">as_tibble</span>(wbdata1)</span>
+<span id="cb98-2"><a href="ch3.html#cb98-2" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="ch3.html#cb98-3" tabindex="-1"></a>wbdata1 <span class="sc">%&gt;%</span> </span>
+<span id="cb98-4"><a href="ch3.html#cb98-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(zgdp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb98-5"><a href="ch3.html#cb98-5" tabindex="-1"></a>  <span class="fu">select</span>(country, zgdp, NY.GDP.PCAP.KD) <span class="sc">%&gt;%</span> </span>
+<span id="cb98-6"><a href="ch3.html#cb98-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 213 × 3
+##    country          zgdp[,1] NY.GDP.PCAP.KD
+##    &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt;
+##  1 Monaco               5.66        141815.
+##  2 Bermuda              4.61        118383.
+##  3 Luxembourg           4.08        106544.
+##  4 Switzerland          2.95         81315.
+##  5 Cayman Islands       2.87         79483.
+##  6 Macao SAR, China     2.63         74195.
+##  7 Norway               2.57         72804.
+##  8 Qatar                2.55         72334.
+##  9 Isle of Man          2.47         70748.
+## 10 Channel Islands      2.20         64723.
+## 11 Australia            1.71         53768.
+## 12 United States        1.66         52556.
+## 13 Denmark              1.60         51209.
+## 14 San Marino           1.53         49673.
+## 15 Iceland              1.52         49528.
+## # … with 198 more rows</code></pre>
+<p>The code is syntax from packages in the <strong>tidyverse</strong>. In the first line, the <code>as_tibble()</code> function simply assigns the <em>tibble</em> print format. In what follows, each line is chained together by a <code>%&gt;%</code> symbol. In English, the code would correspond to saying, “take the <em>wbdata1</em> dataframe, and then arrange it by descending order of <em>zgdp</em> and then keep only the variables <em>country</em>, <em>zgdp</em>, and <em>NY.GDP.PCAP.KD</em>, and then print the first 15 observations of the dataset”.</p>
+<p>The table clearly displays how ‘unusual’ or how much of an outlier is any particular observation. Take for example Monaco, while a per capita GDP of 132,094 USD is clearly large, the fact that Monaco is over 5 standard deviations above the mean is what makes it so much of an outlier.</p>
+<div id="further-exploring-the-empirical-rule-and-z-distributions" class="section level3 unnumbered hasAnchor">
+<h3>Further exploring the empirical rule and z distributions<a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Regardless of the original scaling of the distribution, no matter its mean and standard deviation, when transformed to a standardized z score, the z-transformed distribution will always have a mean of 0 and a standard deviation of 1. An observation with a z score of 0 means that the observation is exactly at the distribution mean, and a z score of -1 (or +1) means that the observation is exactly one standard deviation away from the distribution mean. A z score communicates not just information about the individual observation, but also the mean and the standard deviation.</p>
+<p>The function <code>pnorm()</code> will calculate the area to the left of a z score, the “cumulative distribution function” (CDF), with the z score as the sole argument to the function. In probabilistic terms, it returns the probability that a standard normal random variable (mean = 0, standard deviation = 1) is less than or equal to that value. For example, for a z score of 1.34:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="ch3.html#cb100-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.34</span>)  </span></code></pre></div>
+<pre><code>## [1] 0.9099</code></pre>
+<p>The result, 0.9099, is the probability of a standard normal random variable being less than or equal to 1.34 is about .91 or 91%. In the language of area under the z curve, we could say that about 91% of the values in a standard normal distribution are less than or equal to 1.34. Also the z score of 1.34 is about at the 91st percentile of the standard normal distribution.</p>
+<p>Subtracting the function from 1 provides the upper proportion:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="ch3.html#cb102-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fl">1.34</span>)  </span></code></pre></div>
+<pre><code>## [1] 0.09012</code></pre>
+<p>Here, .0901, or about 9% of observations would fall above a z score of 1.34 in a standard normal distribution.</p>
+</div>
+<div id="measurement-scaling-linear-versus-log" class="section level3 unnumbered hasAnchor">
+<h3>Measurement scaling: linear versus log<a href="ch3.html#measurement-scaling-linear-versus-log" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In each graphic and table presented thus far, all measurements have been presented in a linear scale. For example, life expectancy and fertility rates are both measured in numbers corresponding to how we would intuitively choose to count such concepts — births incrementing in countable averages, from 6.099 births per woman in Afghanistan, to 1.656 in Albania, to 2.843 in Algeria. This measurement of the concept of a fertility rate is placed on a linear scale — imagine a number line – in which the distance between any two fertility rates is equal to the numerical difference between the values they represent. For example, all along a number line representing the range of fertility rates, all equal intervals along the line correspond to equal differences in the measured fertility rates.</p>
+<p>A logarithmic scale differs from a linear scale. In a logarithmic scale the distance between two observations increases exponentially as the values they represent increase — the distance is not constant as in a linear scale. The key to understanding the use of logarithmic scales is that equal intervals on a logarithmic scale represent equal ratios rather than equal differences.</p>
+<p>For example, consider the difference between a value of 10 and 100 on a linear scale; the difference is 90 units. However, on a logarithmic scale, specifically using a base-10 logarithm (explained further below), the difference is represented by the ratio 10:100. This ratio simplifies to 1:10, meaning that each step on the scale represents a tenfold increase. In other words, moving from 10 to 100 on a logarithmic scale covers the same distance as moving from 1 to 10, because both represent an increase by a factor of 10. Why would researchers use a logarithmic scale? One reason, with respect to the GDP per capita measure in which Monaco was more than 5 standard deviations above the mean, is that it allows for a more ‘compact’ representation of highly skewed data, making it easier to visualize and compare values that differ greatly in size.</p>
+<p>Log scaling, or logarithms, starts from different bases. A ‘logarithm’ or ‘log’ of a country’s GDP is the number to which we need to exponentiate (raise) the base to recover that GDP. For example, let’s compare the GDP per capita of Afghanistan (543 USD) with that of Monaco (13,2094 USD) and Sweden (48,370 USD). The two most used logs are a base-10 log (also known as a ‘common log’) and a base-<span class="math inline">\(e\)</span> log (also known as a ‘natural log’). </p>
+<p>Let’s start with Afghanistan. Given a base of 10, the log of 543 USD is the number to which we need to raise 10 in order to recover 543. In base <strong>R</strong> logs can be calculated easily with the <code>log()</code> function. The functon arguments are the number to apply the logarithm, followed by the base:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="ch3.html#cb104-1" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">543</span>, <span class="at">base=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## [1] 2.735</code></pre>
+<p>Here, <span class="math inline">\(log_{10}(543) = 2.735\)</span>. To observe that this quantity is, in fact, the number to which we raise 10 could be verified as <span class="math inline">\(10^{2.735}\)</span> or in <strong>R</strong> <code>10^2.735</code> which is approximately 543, differing only due to rounding of the logarithm. (The 543 USD can be recovered exactly in <strong>R</strong> with <span class="math inline">\(10^{log(543, 10)}\)</span>). Try calculating the base-10 logarithms for Monaco and Sweden.</p>
+<p>Compiled together into a data table shows the differences in scaling. a dataframe from the calculations (using the <code>as.dataframe()</code> function) to illustrate the differences in scaling:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="ch3.html#cb106-1" tabindex="-1"></a>country <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Afghanistan&quot;</span>, <span class="st">&quot;Sweden&quot;</span>, <span class="st">&quot;Monaco&quot;</span>)</span>
+<span id="cb106-2"><a href="ch3.html#cb106-2" tabindex="-1"></a>GDP <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">543</span>,<span class="dv">48370</span>,  <span class="dv">132094</span>)</span>
+<span id="cb106-3"><a href="ch3.html#cb106-3" tabindex="-1"></a>logGDP <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.735</span>,<span class="fl">4.685</span>,<span class="fl">5.121</span> )</span>
+<span id="cb106-4"><a href="ch3.html#cb106-4" tabindex="-1"></a></span>
+<span id="cb106-5"><a href="ch3.html#cb106-5" tabindex="-1"></a><span class="fu">data.frame</span>(country, GDP, logGDP)</span></code></pre></div>
+<pre><code>##       country    GDP logGDP
+## 1 Afghanistan    543  2.735
+## 2      Sweden  48370  4.685
+## 3      Monaco 132094  5.121</code></pre>
+<p>Compare the increase on the base-10 logarithm scale to the original unit scale. On any base-10 scale, a unit increase corresponds to a tenfold (or multiple of 10) increase in the linear scale. In the base-10 log scale, the <span class="math inline">\(log_{10}(10)=1\)</span> and <span class="math inline">\(10^1=10\)</span> while <span class="math inline">\(log_{10}(100)=2\)</span> and <span class="math inline">\(10^2=100\)</span>. For example, the almost two-point increase in the <em>logGDP</em> variable from Afghanistan to Sweden (<span class="math inline">\(4.685-2.735=1.94\)</span>) corresponds to a nearly <span class="math inline">\(10 * 10\)</span> or 100x increase in the original GDP scale. Multiplying Afghanistan’s GDP by 100, <span class="math inline">\(543*100\)</span> yields 54,300 USD, a few thousand more than Sweden’s 48,730 USD. This change in the scale from linear to log illustrates how a log transformation ‘pulls inward’ the outlier large scores, reducing huge differences.</p>
+<p>While a base of 10 is commonly used in political science because of the ease of interpreting unit changes, another common base to use is Euler’s number <em>e</em> (2.718282) as a <code>natural logarithm</code>. So the natural log of 543 is the number to which we need to raise the constant <em>e</em> to recover 543. The natural logarithm, often abbreviated as <span class="math inline">\(ln()\)</span> to distinguish it from other logarithms is the default for <code>log()</code>:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="ch3.html#cb108-1" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">543</span>)</span></code></pre></div>
+<pre><code>## [1] 6.297</code></pre>
+<p>Again, the value of 6.297 is the number to which we raise the base <span class="math inline">\(e\)</span>. Each unit increase on a natural logarithm scale corresponds to the multiplicative or ‘<span class="math inline">\(e\)</span>-fold’ increase by a factor of about 2.718. Natural logarithms are often used in subjects such as finance and demography, often because of particular mathematical properties of a natural logarithm. For our purposes in this text, the applications of logarithmic scaling make relatively little difference as to the base. Sticking to a common base-10 logarithm is a safe choice.</p>
+<p>To illustrate the scaling difference for a highly skewed measure such as GDP, Figure <a href="ch3.html#fig:logandnotgdp">3.4</a> displays the difference between the scaled and unscaled measure of GDP. The visualization is a histogram, displaying values of GDP grouped into bins, or equally spaced intervals of GDP, with the number of countries falling in-to each bin plotted on the Y-axis. The extreme ‘right’ or positive skew is evident in the top portion of the figure. On the base-10 logarithmic scale, however, the extreme values are ‘pulled inward’.</p>
+<div class="figure"><span style="display:block;" id="fig:logandnotgdp"></span>
+<img src="bookdown_files/figure-html/logandnotgdp-1.png" alt="Histograms of country-level GDP per capita (constant 2010 USD), displayed on two different scales. The upper panel uses a linear scale, showing a highly right-skewed distribution with most countries clustered at lower GDP levels. The lower panel applies a base-10 logarithmic scale to GDP per capita, which compresses the higher values and spreads the lower values more evenly, reducing skewness." width="672" />
+<p class="caption">
+FIGURE 3.4: Histograms of country-level GDP per capita (constant 2010 USD), displayed on two different scales. The upper panel uses a linear scale, showing a highly right-skewed distribution with most countries clustered at lower GDP levels. The lower panel applies a base-10 logarithmic scale to GDP per capita, which compresses the higher values and spreads the lower values more evenly, reducing skewness.
+</p>
+</div>
+<p>One consequence of transforming the scale of GDP is that in comparing it to other measures with which we should expect to see a clear linear dependency, the log transformation makes this dependency clearer. This purpose in converting a skewed measure such as GDP to a log scale is known as a ‘transformation to linearity’, which appears in Figure <a href="ch3.html#fig:fertloggdp">3.5</a>. The lower panel displays a clear linear trend between fertility and GDP, although the bunching up of countries at low levels of fertility between 10 and 11 on the log GDP scale suggests that perhaps fertility, too, is a skewed measure that would benefit from a transformation.</p>
+<p>The answer to the question of which scale — linear or logarithmic — is the ‘correct’ one is that they both are. Both are appropriate measurement scales depending on the analytical purpose. If the purpose is to emphasize the skewed nature of linear counting units, then the linear scale is appropriate. If the skewed distribution is problematic, then the logarithmic scale is appropriate, particularly in displaying the linear relationship with fertility rates in the bottom half of Figure <a href="ch3.html#fig:fertloggdp">3.5</a>.</p>
+<div class="figure"><span style="display:block;" id="fig:fertloggdp"></span>
+<img src="bookdown_files/figure-html/fertloggdp-1.png" alt="Scatterplots of fertility rate (births per woman) by GDP per capita (constant 2010 USD) for 2010, displayed on two scales. The upper panel uses a linear scale for GDP, where the relationship between GDP and fertility is obscured due to the right-skewed distribution of GDP. The lower panel applies a base-10 logarithmic scale to GDP per capita, revealing a clearer negative linear relationship: as GDP increases, fertility rates tend to decline." width="672" />
+<p class="caption">
+FIGURE 3.5: Scatterplots of fertility rate (births per woman) by GDP per capita (constant 2010 USD) for 2010, displayed on two scales. The upper panel uses a linear scale for GDP, where the relationship between GDP and fertility is obscured due to the right-skewed distribution of GDP. The lower panel applies a base-10 logarithmic scale to GDP per capita, revealing a clearer negative linear relationship: as GDP increases, fertility rates tend to decline.
+</p>
+</div>
+<p>In this chapter we reviewed key concepts in the organization and management of data tables. We reviewed data measurement levels and storage types, applying different summary statistics. We reviewed data transformations including the construction of z scores and log transformations. We have already constructed histograms and scatterplots, two common data visualization types. In Chapter <a href="ch4.html#ch4">4</a> we will learn about principles in visualizing data and additional <strong>R</strong> packages for doing so.</p>
+</div>
+</div>
+<div id="resources-2" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch3.html#resources-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Varieties of Democracy project <a href="https://v-dem.net/" class="uri">https://v-dem.net/</a> and the Quality of Governance project <a href="https://www.gu.se/en/quality-government" class="uri">https://www.gu.se/en/quality-government</a> collect a wide range of politics related country level measures.</p>
+<p>The Data Futures Exchange of the United Nations (UN) Development Programme collects data on UN related programs <a href="https://data.undp.org/" class="uri">https://data.undp.org/</a>.
+<a href="https://www.data.gov/" class="uri">https://www.data.gov/</a>.</p>
+<p>Data.gov is the open data portal for the U.S. federal government. It is searchable and organized by topic. It includes links to other open data portals for U.S. States and governments around the world <a href="https://www.data.gov/open-gov/" class="uri">https://www.data.gov/open-gov/</a>.</p>
+<p><a href="https://data.census.gov/cedsci/" class="uri">https://data.census.gov/cedsci/</a> The United States Census Bureau provides access to data tables to download and import into RStudio as CSV files.</p>
+</div>
+<div id="exercises-1" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Exercises<a href="ch3.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Answer the questions below within an RMarkdown document. Include code and relevant output as supporting evidence to your answers.</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a scatterplot of country-level fertility compared to log scaled GDP, as in Figure <a href="ch3.html#fig:fertloggdp">3.5</a>. Then compare it to another scatterplot converting fertility rate to a log scale. Describe how the observed trends in the scatterplots change from one to the other.</p></li>
+<li><p>Import the CSV file containing observations on the quality of democracy around the world. In a paragraph, describe the status of polyarchy — pay attention to the overall shape of the measure around the world, the presence of outliers, the center, and spread.</p></li>
+<li><p>Download data from the World Bank via the <strong>WDI</strong> package: find three indicators that interest you, such as particular measure of an economy, resources, or population. Create a dataset that includes these measures. Remove the regional aggregates from the data to create a clean data table. Summarize the center and variability of the measures and create at least one visualization with <code>qplot()</code>.</p></li>
+<li><p>For each of the measures in the dataset from Question 3, construct and compare z scores across each to answer the question of how the USA compares to other countries around the world on each of the different measures.</p></li>
+<li><p>Import the cross-sectional international dataset. Among different World Bank income groups, what is the average and variation in fertility rate among countries within each set of incomes? And within each group, how much does the fertility rate vary? Identify and report appropriate summary statistics.</p></li>
+</ol>
+<p>Grouped summary statistics can be calculated through the <code>tapply()</code> function — “table apply”. It requires three arguments: (1) a variable upon which to calculate summary statistics, (2) a grouping variable, and then (3) the name of the particular summary statistic function, such as <code>mean()</code>, <code>sd()</code>, or <code>range()</code>. For example, to calculate <code>mean</code> fertility rates across regions: <code>tapply(wbdata1$fertility_rate, wbdata1$region, mean, na.rm = TRUE)</code>. Another method is to chain together commands within <strong>tidyverse</strong> functions, a method covered in Chapter <a href="ch5.html#ch5">5</a>. The <code>group_by()</code> function identifies groups, and the <code>summarize()</code> function creates summaries. The result is a table of summary statistics such as:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="ch3.html#cb110-1" tabindex="-1"></a>wbdata1 <span class="sc">%&gt;%</span></span>
+<span id="cb110-2"><a href="ch3.html#cb110-2" tabindex="-1"></a><span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb110-3"><a href="ch3.html#cb110-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_level =</span> <span class="fu">mean</span>(SP.DYN.TFRT.IN,<span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb110-4"><a href="ch3.html#cb110-4" tabindex="-1"></a>            <span class="at">std_dev =</span> <span class="fu">sd</span>(SP.DYN.TFRT.IN,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Find the two CSV datafiles containing measures the HDI and Vdem data, and create a merged dataset. Construct scatterplots to investigate whether stronger democracies tend to have higher HDI scores, and higher incomes. Use the <code>qplot()</code> function.</p></li>
+<li><p>Import one of the cross-sectional CSV datasets containing a measure of life expectancy. Use the <code>subset()</code> function to subset the data to only those countries with life expectancy over 70 years of age. From the example in the chapter, you will need to identify the life expectancy variable and use <code>&gt; 70</code> and the name of the life expectancy variable in place of <code>region!="Aggregates"</code>.</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-R-WDI" class="csl-entry">
+Arel-Bundock, Vincent. 2022. <em>WDI: World Development Indicators and Other World Bank Data</em>. <a href="https://vincentarelbundock.github.io/WDI/">https://vincentarelbundock.github.io/WDI/</a>.
+</div>
+<div id="ref-VDemV12" class="csl-entry">
+Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, Nazifa Alizada, David Altman, et al. 2022. <span>“<span class="nocase">V-Dem Country-Year Dataset v12</span>.”</span> <a href="https://www.v-dem.net/data/the-v-dem-dataset/" class="uri">https://www.v-dem.net/data/the-v-dem-dataset/</a>; Varieties of Democracy (V-Dem) Project. <a href="https://doi.org/10.23696/vdemds22">https://doi.org/10.23696/vdemds22</a>.
+</div>
+<div id="ref-dasu2003" class="csl-entry">
+Dasu, Tamraparni, and Theodore Johnson. 2003. <em>Exploratory Data Mining and Data Cleaning</em>. Wiley Series on Methods and Applications in Data Mining. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-R-jsonlite" class="csl-entry">
+Ooms, Jeroen. 2014. <span>“The Jsonlite Package: A Practical and Consistent Mapping Between JSON Data and r Objects.”</span> <em>arXiv:1403.2805 [Stat.CO]</em>. <a href="https://arxiv.org/abs/1403.2805">https://arxiv.org/abs/1403.2805</a>.
+</div>
+<div id="ref-R-foreign" class="csl-entry">
+R-core. 2023. <em>Foreign: Read Data Stored by ’Minitab’, ’s’, ’SAS’, ’SPSS’, ’Stata’, ’Systat’, ’Weka’, ’dBase’, ...</em> <a href="https://CRAN.R-project.org/package=foreign">https://CRAN.R-project.org/package=foreign</a>.
+</div>
+<div id="ref-undp2022" class="csl-entry">
+United Nations Development Programme. 2022. <em>Human Development Report 2021/2022: Uncertain Times, Unsettled Lives: Shaping Our Future in a Transforming World</em>. New York: United Nations Development Programme.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2023b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-R-readxl" class="csl-entry">
+Wickham, Hadley, and Jennifer Bryan. 2023. <em>Readxl: Read Excel Files</em>. <a href="https://CRAN.R-project.org/package=readxl">https://CRAN.R-project.org/package=readxl</a>.
+</div>
+<div id="ref-wickham2016" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. Sebastopol, CA: O’Reilly Media.
+</div>
+<div id="ref-R-haven" class="csl-entry">
+Wickham, Hadley, and Evan Miller. 2023. <em>Haven: Import and Export ’SPSS’, ’Stata’ and ’SAS’ Files</em>. <a href="https://CRAN.R-project.org/package=haven">https://CRAN.R-project.org/package=haven</a>.
+</div>
+<div id="ref-R-knitr" class="csl-entry">
+———. 2023b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="11">
+<li id="fn11"><p> Datafiles are often made available in the proprietary file formats of commercial software publishers such as SAS or Stata. There are various <strong>R</strong> packages designed to import data from these formats into an <strong>R</strong> Workspace. The <strong>foreign</strong> <span class="citation">(<a href="#ref-R-foreign">R-core 2023</a>)</span> package will read in commercial formatted data and store it as a dataframe, while the <strong>haven</strong> <span class="citation">(<a href="#ref-R-haven">Wickham and Miller 2023</a>)</span> package will store it as a dataframe with the print formatting of a <em>tibble</em>. Both packages interact differently with various data storage types found in commercial software titles. For a package specifically designed for reading in worksheets in Microsoft Excel format (rather than CSV), see the <strong>readxl</strong> <span class="citation">(<a href="#ref-R-readxl">Wickham and Bryan 2023</a>)</span> package.<a href="ch3.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>See the Human Development Reports data center <a href="https://hdr.undp.org/data-center/human-development-index#/indicies/HDI" class="uri">https://hdr.undp.org/data-center/human-development-index#/indicies/HDI</a>.<a href="ch3.html#fnref12" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/03-datatables-measures-summarystats.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

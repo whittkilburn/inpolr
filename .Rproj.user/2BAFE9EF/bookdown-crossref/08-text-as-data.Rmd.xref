@@ -1,0 +1,24 @@
+h1:ch8 Patterns in Text as Data
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:text-as-data Text as data
+h2:organizing-text-as-data Organizing text as data
+h3:importing-text-documents Importing text documents
+h2:corpus-tokens-and-the-document-features-matrix Corpus, tokens, and the document features matrix
+h3:tokenizing-a-text Tokenizing a text
+h3:constructing-a-document-term-matrix Constructing a document-term matrix
+h3:describing-the-dfm-with-token-frequency Describing the DFM with token frequency
+h3:subsetting-a-dfm-by-function-and-content-words Subsetting a dfm by function and content words
+h2:scaling-function-words-in-the-federalist-papers Scaling function words in  papers
+fig:fed123mfw Two-dimensional scaling of distances between \\emph{The Federalist} papers, measured on 123 function words.  The papers of each individual author tend to cluster together, with the disputed authorship papers situated between Hamilton and Madison
+h3:normalizing-frequencies-across-different-text-lengths Normalizing frequencies across different text lengths
+h2:thematic-content-words-in-the-federalist-papers Thematic content words in  papers
+h3:content-word-clouds Content word clouds
+fig:fedwordcloud Word cloud of the full text of \\emph{The Federalist} papers, function words removed.
+fig:fedwordcloudcomp A comparison word cloud of the full text of \\emph{The Federalist} papers, function words removed, divided by known author.
+h2:term-frequency-times-inverse-document-frequency Term frequency  inverse document frequency
+h3:automatically-calculating-the-tf-x-idf Automatically calculating the TF x IDF
+h3:topic-models Topic models
+h2:corpus-themes-comments-on-a-proposed-title-ix-rule Corpus themes: comments on a proposed Title IX Rule
+h2:resources Resources
+h2:exercises Exercises
+

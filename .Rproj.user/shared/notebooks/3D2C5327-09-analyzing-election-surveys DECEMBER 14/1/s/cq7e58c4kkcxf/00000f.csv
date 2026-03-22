@@ -1,0 +1,2 @@
+"0","table3<-prop.table(svytable(~partyid + attend, design = anes2020, "
+"0","                            round=TRUE), margin=2)"

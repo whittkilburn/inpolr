@@ -1,0 +1,10 @@
+`r if (knitr:::is_html_output()) '# References {-}'`
+
+```{r include=FALSE}
+### NOT WORKING WITH MY ADDITIONS 'tidyverse', 'survey', 'WDI',
+# generate a BibTeX database automatically for some R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'survey'), 'packages.bib')
+#knitr::write_bib(c("WDI", "survey", "tidyverse"), "packages2.bib", width = 60)
+```
+

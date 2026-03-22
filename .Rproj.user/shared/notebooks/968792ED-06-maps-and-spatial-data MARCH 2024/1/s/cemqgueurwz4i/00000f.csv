@@ -1,0 +1,7 @@
+"0","# library(ggplot2)"
+"0","# library(ggspatial)"
+"0","ggplot() + "
+"0","  geom_sf(data=sa_admin_boundaries) +"
+"0","  annotation_north_arrow(location = ""bl"", "
+"0","        style = north_arrow_fancy_orienteering) +"
+"0"," annotation_scale(location = ""bl"", width_hint = 0.4) "

@@ -1,0 +1,1 @@
+"0","nmds_results<-mds(dissimat, ndim=2,  type=""ordinal"") "

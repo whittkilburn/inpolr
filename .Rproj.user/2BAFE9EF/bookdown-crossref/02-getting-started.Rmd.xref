@@ -1,0 +1,45 @@
+h1:ch2 Getting Started with R for Data Analysis
+h2:learning-objectives-and-waterials Learning objectives and waterials
+h2:getting-started-with-r-and-rstudio Getting started with R and RStudio
+h3:downloading-r Downloading R
+fig:cranlinks Comprehensive R Archive Network (CRAN) is the home of the \\textbf{R} computing language.  At the top of the CRAN home page, click the link for your computer operating system to download the base \\textbf{R} app.
+h3:downloading-rstudio Downloading RStudio
+fig:rstudiolink Click the Download RStudio icon at the Posit.co website to find the version of RStudio Desktop for your operating system.
+h2:orientation-to-the-rstudio-interface Orientation to the RStudio interface
+fig:Rstudioconsole2 RStudio interface. The left pane displays the Console window, through which commands are entered at the > prompt. The upper right pane shows an Environment tab, which displays data loaded into RStudio. The History tab shows previously issued commands. On the lower right side, the Files tab displays all files, while the Plots tab displays data visualizations.
+h3:enter-r-code-at-the-command-line-prompt Enter R code at the command line prompt
+h2:use-functions-for-data-analysis Use functions for data analysis
+h3:functions-are-nested Functions are nested
+h3:functions-are-case-sensitive Functions are case sensitive
+h3:hashtags-are-for-explanatory-comments-and-output Hashtags are for explanatory comments and output
+h3:finding-a-help-file-for-a-function Finding a help file for a function
+h3:create-objects-to-store-data Create objects to store data
+h2:packages-extend-the-functionality-of-r Packages extend the functionality of R
+h3:installing-packages Installing packages
+h3:attaching-or-loading-a-package Attaching or loading a package
+h2:a-brief-example-from-data-import-to-report-writing A brief example from data import to report writing
+h3:organize-folders-for-analysis-files Organize folders for analysis files
+h3:set-the-working-directory Set the working directory
+fig:setwd Set the working directory in RStudio using the Session menu, so \\textbf{R} can locate your  \\emph{chapter2.r} script and \\emph{gdpfert.csv} dataset.
+fig:fileschapter2 The Files pane in RStudio showing \\emph{chapter2.r} and \\emph{gdpfert.csv} after setting the working directory.
+h3:writing-and-running-code-in-a-script-file Writing and running code in a script file
+fig:scriptconsole The \\emph{chapter2.r} script file after it has been opened in RStudio.
+h3:running-r-code-to-import-the-gdpfert.csv-dataset Running R code to import the gdpfert.csv dataset
+h3:dataframes Dataframes
+h3:rstudio-features-for-examining-datasets RStudio features for examining datasets
+fig:environmentpane After importing \\emph{gdpfert.csv} the Environment pane displays the dataset with 214 observations and 13 variables, confirming a successful import.
+h3:a-simple-scatterplot A simple scatterplot
+fig:firstqplot Output of \\texttt{qplot()} showing GDP per capita and fertility rate for countries in the gdpfert.csv dataset.
+h3:saving-data-in-an-r-workspace Saving data in an R Workspace
+h2:authoring-a-data-analysis-report-rmarkdown Authoring a data analysis report: RMarkdown
+fig:Rmarkdowncreate File menu in RStudio to select R Markdown and begin creating a new report.
+fig:Rmarkdownname Dialog box for creating a new RMarkdown document. Enter a title and your name as the author.
+fig:RMarkdownbase Default RMarkdown template, including a header, setup code chunk, narrative text, and an example \\textbf{R} code chunk.
+fig:Rknitr Click the triangle next to the Knit button in RStudio to open the output format menu. Select Knit to Word to generate a Word document, which will appear in your working directory.
+fig:codechunkmarkdown RMarkdown file prepared for use with \\textbf{R} code from the \\emph{chapter2.r} script. Replace the placeholder text inside the \\textbf{R} code chunk with your own analysis code. Any content within a code chunk (delimited by triple backticks) is treated as \\textbf{R} code.
+h3:saving-r-work Saving R work
+h2:getting-help Getting help
+h2:key-points Key points
+h2:resources Resources
+h2:exercises Exercises
+

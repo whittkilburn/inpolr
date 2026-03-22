@@ -1,0 +1,10 @@
+"0","anes_20 <-anes_20 %>%"
+"0","  mutate(attend = fct_recode(attend,"
+"0","        ""2. few times a year, monthly"" = ""2. A few times a year"","
+"0","        ""2. few times a year, monthly"" = ""3. Once or twice a month"","
+"0","        ""3. almost every week"" = ""4. Almost every week"","
+"0","        ""4. every week"" = ""5. Every week""))"
+"2","Warning: [38;5;232mThere was 1 warning in `mutate()`.[39m
+[38;5;232m[36mℹ[38;5;232m In argument: `attend = fct_recode(...)`.[39m
+Caused by warning:
+[33m![39m Unknown levels in `f`: 2. A few times a year, 3. Once or twice a month, 4. Almost every week, 5. Every week"

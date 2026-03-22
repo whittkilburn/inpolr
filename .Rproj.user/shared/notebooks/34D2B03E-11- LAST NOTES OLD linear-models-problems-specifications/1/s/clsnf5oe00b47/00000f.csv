@@ -1,0 +1,5 @@
+"0","anes_20 <- anes_20 %>%"
+"0","  mutate(catholic = ifelse(relig_trad == ""4. Roman Catholic"", 1, 0))"
+"2","Error in anes_20 %>% mutate(catholic = ifelse(relig_trad == ""4. Roman Catholic"",  : 
+  could not find function ""%>%""
+"

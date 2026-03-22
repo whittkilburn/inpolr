@@ -1,0 +1,3 @@
+"0","leaflet() %>%"
+"0"," addPolygons(data=mi_senate_2011, popup=~popup_content) %>%"
+"0"," addTiles()"

@@ -1,0 +1,7 @@
+"0","ggplot(data=countries) +"
+"0","geom_point(aes(x=log(gdp_pc_pp), y=fert_rate,"
+"0","      size=total_population/1000000), alpha=.3) +"
+"0","  labs(x=""GDP per capita, 2010 U.S. dollars"","
+"0","      y=""fertility rate (average births per woman)"","
+"0","      size=""Total population in millions"") +"
+"0","  theme(legend.position = ""bottom"")"

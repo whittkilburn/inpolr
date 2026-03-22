@@ -1,0 +1,28 @@
+h1:ch12 Linear Models for Binary Outcomes
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:introduction Introduction
+h2:conceptualizing-binary-logistic-regression Conceptualizing binary logistic regression
+fig:logisticcurve Hypothetical logistic regression S-shaped curve relating observations on a continuous X to a dichotomous Y.
+h3:modeling-support-versus-opposition-to-the-death-penalty Modeling support versus opposition to the death penalty
+h2:estimating-the-binary-logistic-regression-model Estimating the binary logistic regression model
+h3:interpreting-the-logistic-regression-model-summary Interpreting the logistic regression model summary
+h3:estimating-the-model-with-the-complex-survey-design Estimating the model with the complex survey design
+h2:generating-model-based-predicted-probabilities Generating model-based predicted probabilities
+fig:logitmdp Predicted probability of supporting the death penalty across levels of education for White, non-Hispanic male respondents, with 95 percent confidence intervals.
+fig:logitpredictions Predicted probabilities of supporting the death penalty by sex and educational attainment (White, non-Hispanic), from less than high school (1) to graduate degree (5). The error bars (95 percent confidence intervals) overlap, displaying the lack of statistically significant difference between sexes at each level of educational attainment.
+h3:quick-package-functions-for-model-based-predictions Quick package functions for model-based predictions
+fig:predictoreffects Panel of predicted probabilities from the \\textbf{effects} package. The \\texttt{predictorEffects()} function creates a graphic displaying predicted probabilities across each range of each independent variable.  For each panel, all other independent variables are held at a mean (for numeric) or reference category (for factor) variables.
+h2:assessing-model-fit Assessing model fit
+h3:comparing-a-fitted-to-a-null-model Comparing a fitted to a null model
+h3:pseudo-r2-statistics Pseudo R^2 statistics
+h3:akaike-information-criterion-aic Akaike Information Criterion (AIC)
+h2:model-summary-tables-and-coefficient-graphics Model summary tables and coefficient graphics
+h2:checking-model-assumptions-and-diagnostics Checking model assumptions and diagnostics
+fig:model2devresid Plot of residuals versus fitted values from \\emph{model2}.  While the two blobs of residuals centered around 0 on the Y-axis are not unusual for a model with categorical X-variables, the fanning pattern (and curvy trend line) from top-left to bottom-right reveal potential problems in model specification, particularly the problem of heteroskedasticity. The larger spread of residuals at higher fitted values shows that the model fit varies --- fit is worse at higher predicted values.
+h2:modeling-and-interpreting-interactions Modeling and interpreting interactions
+h3:predicted-probabilities Predicted probabilities
+fig:predprobssj Predicted probabilities produced with the \\textbf{sjPlot} package.  The lines display predicted probabilities of supporting the death penalty at each of the levels of religious service attendance, treated as a numeric measure.  The two different slopes of the lines for Catholic and non-Catholic show that for Catholic identifiers, increased service attendance lowers the predicted probabilty of supporting the death penalty, controlling for other factors, while it appears to slightly increase for non-Catholics.
+h2:key-considerations-in-data-preparation-model-specification-and-interpretation Key considerations in data preparation, model specification, and interpretation
+h2:resources Resources
+h2:exercises Exercises
+

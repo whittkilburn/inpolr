@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Analyzing Election Studies | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Analyzing Election Studies | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Analyzing Election Studies | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch8.html"/>
+<link rel="next" href="ch10.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch9" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Analyzing Election Studies<a href="ch9.html#ch9" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch9.html#ch9">9</a> introduces methods for analyzing election polls, such as the 2020 American National Election Studies (ANES) survey.</p>
+<div id="learning-objectives-and-chapter-resources-7" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch9.html#learning-objectives-and-chapter-resources-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this chapter, you should be able to: (1) import the American National Election Studies (ANES) survey and explain the structure of the data; (2) adjust the ANES data for the survey sample design; (3) create and interpret tables, descriptive statistics, and cross-tabulations (contingency tables); (4) interpret inferential tests of independence and confidence intervals on means and proportions; (5) visualize tabulations and cross-tabulations through bar charts with error bars. The material in the chapter requires the <strong>survey</strong> and <span class="citation">(<a href="#ref-R-survey">Lumley 2021</a>)</span> <strong>kableExtra</strong> <span class="citation">(<a href="#ref-R-kableExtra">Zhu 2024</a>)</span> packages, which will need to be installed, as well as packages from the <strong>tidyverse</strong> <span class="citation">(<a href="#ref-R-tidyverse">Wickham 2023b</a>)</span> along with a pre-installed package, <strong>knitr</strong> <span class="citation">(<a href="#ref-R-knitr">Xie 2023b</a>)</span>. The dataset required for chapter exercises is the <strong>anes_20</strong> dataframe in the <strong>R</strong> Workspace <em>anes 2020 survey data.rdata</em> available from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="election-polling" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Election polling<a href="ch9.html#election-polling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the defining moments in modern American presidential campaigns occurred in 1948, on election day at the end of a campaign that would send incumbent President Truman back to the White House.In that autumn, Truman’s campaign was declared all but dead, both by pundits and especially pollsters, based on the relatively new polls conducted by George Gallup and Elmo Roper, who both predicted confidently that Truman would lose <span class="citation">(<a href="#ref-erikson2015">Erikson and Tedin 2015</a>)</span>. So confident were the pundits that on November 4, the <em>Chicago Daily Tribune</em> ran an early edition with a banner headline declaring “DEWEY DEFEATS TRUMAN”. Famously, Truman was photographed holding it aloft in a victory celebration that day <span class="citation">(<a href="#ref-jones2020">Jones 2020</a>)</span>. Defying the polls, Truman won a majority of Electoral College votes. In the popular vote, it was a relatively close 49.5 percent for Democrat Truman, and 45.1 percent for Republican Dewey <span class="citation">(<a href="#ref-presidency2024">Woolley and Peters 2024</a>)</span>.</p>
+<p>Yet if pundits had access to a groundbreaking polling initiative launched that year, they might
+have been much more cautious in predicting a Dewey victory. In 1948, the ANES conducted its inaugural survey using an innovating probability based sampling method, known today as ‘area probability cluster sampling’. The ANES developed a more representative sample than the quota sampling methods used at the time by Gallup and Roper. The two principal investigators, social scientists Angus Campbell and Robert L. Kahn fielded a survey in which 662 individuals, representative of the adult US population, were interviewed both before and after the election; the survey respondents were asked a series of questions about the upcoming election, policy issues, and their own demographic background <span class="citation">(<a href="#ref-campbell1948">Campbell and Kahn 1948</a>)</span>.</p>
+<p>In the pre-election survey, respondents were asked whether they intended to vote in the presidential election and the party of their vote choice. Among likely voters, 47.09 percent chose the Democratic party and 49.24 percent Republican. The survey showed Dewey with more support than Truman, well within the survey’s 3.8 percent margin of error, making the election too close to call. Given the candidate centered focus of American politics, even as early as 1948 a survey question asking about party support would have been a fuzzy indicator of vote choice. In the post-election survey, respondents were asked for which candidate they voted back in November. Among likely voters, 50.2 percent of respondents reported voting for Truman and 42.2 percent for Dewey. While under-counting Dewey’s support, support for Truman differed by less than a percentage point, just barely exceeding the margin of error. The ANES could have called the election correctly.</p>
+<p>Conducted in each presidential election since 1948, the ANES has grown to become the preeminent election survey in the United States. In Chapter <a href="ch9.html#ch9">9</a> we learn to analyze data from the 2020 ANES. The chapter does assume some prior familiarity with introductory statistics. We will (1) tabulate survey responses; (2) construct cross-tabulations (contingency tables), a fundamental tool for exploring associations between two categorical measures; and (3) calculate sample means and proportions. For each of these, we will account for likely ranges of population-level characteristics given the ANES sample, and test the sample against hypothetical population values. Finally we will create data visualizations commonly used in the study of public opinion. Prior to analyzing the 2020 ANES data, however, we first need to become familiar with basic aspects of national election poll sampling.</p>
+<div id="sampling-a-national-electorate" class="section level3 unnumbered hasAnchor">
+<h3>Sampling a national electorate<a href="ch9.html#sampling-a-national-electorate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A fundamental distinction in survey sampling is the difference between a simple versus a complex random sample. In a simple random sample of the U.S. electorate, every member of the population (e.g., registered voters or voting age citizens) would have a known and equal probability of selection. For national election polling, implementing a true simple random sample is nearly impossible in practice.</p>
+<p>To make national samples feasible, cost-effective, and representative, researchers rely on complex sampling methods. These methods usually involve three key components: (1) sampling within strata, (2) clustering interviews, and (3) applying observation weights. The process begins by dividing the country into strata — geographic or demographic regions — ensuring broad national coverage. Within each stratum, interviews are often clustered in specific areas, which reduces costs but increases sampling uncertainty because individuals within clusters tend to be more similar to one another. This clustering effect necessitates adjustments to standard errors during analysis to account for the inflated uncertainty. Finally, observation weights are applied to correct for unequal probabilities of selection and to address over or under representation of certain groups in the sample <span class="citation">(<a href="#ref-groves2011">Groves et al. 2011</a>; <a href="#ref-weisberg1996">Weisberg, Krosnick, and Bowen 1996</a>)</span>.</p>
+<p>Analyzing election survey data almost always requires incorporating strata, clustering, and individual weights into the analysis in order to accurately tabulate responses from the sample and correctly infer population level characteristics. After loading the 2020 ANES data, we will explore its structure, key distinctions in data storage types, and introduce functions from the <strong>survey</strong> package to account for the complex sample characteristics and analyze the survey responses.</p>
+</div>
+<div id="the-2020-anes-survey" class="section level3 unnumbered hasAnchor">
+<h3>The 2020 ANES survey<a href="ch9.html#the-2020-anes-survey" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The 2020 ANES survey dataset is stored within an R Workspace, <em>anes_2020_survey_data.rdata</em>.</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="ch9.html#cb451-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;anes 2020 survey data.rdata&quot;</span>)</span></code></pre></div>
+<p>After loading, the dataframe <em>anes_20</em> appears in the Environment pane. Rows are survey respondents, and the columns record the different alpha-numeric variables. The <a href="app.html#app">A</a> presents a brief ANES codebook explaining the data. Nearly all of the columns refer to different survey questions. In the Console, enter <code>names(anes_20)</code> to list the names of each column. For example, the sixth variable <em>V201005</em>. In the <a href="app.html#app">A</a> codebook following the name is a variable label, which explains that the subject matter of the question is “<em>How often does [respondent] pay attention to politics and elections</em>”. In the second section of the codebook the exact wording of the survey question is “How often do you pay attention to what’s going on in government and politics?”</p>
+<p>While not accounting for the survey design, we can tabulate the contents of this variable with a simple <code>table()</code> function, specifying the name of the dataframe and the column following the <code>$</code>sign:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="ch9.html#cb452-1" tabindex="-1"></a><span class="fu">table</span>(anes_20<span class="sc">$</span>V201005)</span></code></pre></div>
+<pre><code>## 
+##              1. Always    2. Most of the time 
+##                   1158                   1863 
+## 3. About half the time    4. Some of the time 
+##                    920                    795 
+##               5. Never 
+##                     47</code></pre>
+<p>The results show the (unweighted) frequencies. For example, 1158 people out of the total sample selecting “Always”, which is labeled in the response scale as point 1 on a five-point scale ranging from “1. Always” to “5. Never”.</p>
+<p>The variables in the survey are either <em>factor</em> or <em>numeric</em> storage types. Since the columns mostly record individual survey questions, the storage type reflects the survey response scale — whether responses are recorded as numeric scores or verbal response scales. Variable <code>V201005</code> is a factor; enter <code>str(anes_20$V201005)</code> to observe the variable’s storage type. In the factor, numeric scores are placeholders for the verbally labeled responses. The <code>summary()</code> or <code>table()</code> responses will display the response categories and unweighted frequencies, such as <code>summary(anes_20$V201005)</code>.</p>
+<p>Variables stored in the numeric storage type are purely numeric scores without a verbal label attached, such as age or a feeling thermometer score. Variable <code>V202162</code> records feelings toward labor unions. Entering <code>str(anes_20$V202162)</code> shows that it is stored as a numeric score <code>num</code>. Because the variable is recorded as numbers, <code>summary()</code> will report summary statistics:</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="ch9.html#cb454-1" tabindex="-1"></a><span class="fu">summary</span>(anes_20<span class="sc">$</span>V202162)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0    50.0    60.0    58.7    70.0   100.0 
+##    NA&#39;s 
+##      88</code></pre>
+<p>As with any other numeric variable, the <code>summary()</code> function reports the five-number summary (min, max, median and 25th and 75th percentiles), along with the arithmetic mean and number of missing values (<code>NA's</code>). Because the factor storage type associates numeric scores with each verbal label, we could instruct R to treat the variable for political interest (<code>V201005</code>) as numeric, with the <code>as.numeric()</code> function wrapped around the name of the variable, <code>as.numeric(anes_20$V201005)</code>:</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="ch9.html#cb456-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">as.numeric</span>(anes_20<span class="sc">$</span>V201005))</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    2.00    2.00    2.31    3.00    5.00</code></pre>
+<p>Treating the variable as numeric returns quantitative summary statistics, where the first ordered category in the response scale (“1. Always”) is assigned a value of 1 and the last category (“5. Never”) is assigned a value of 5. These numeric assignments are based on the order of the factor levels, not the labels themselves. The “Always” response is assigned a score of 1 because it is the first factor label, not because it is explicitly labeled as “1.” In survey data analysis, raw survey responses and labels are often not immediately usable and typically require transformation. We will see examples of these transformations further below, after establishing the complex survey design.</p>
+</div>
+</div>
+<div id="specifying-a-survey-sample-design" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Specifying a survey sample design<a href="ch9.html#specifying-a-survey-sample-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The standard package for analyzing complex sample data in <strong>R</strong> is <strong>survey</strong> <span class="citation">(<a href="#ref-R-survey">Lumley 2021</a>)</span>. If needed, install the package <code>install.packages("survey")</code> and attach it:</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="ch9.html#cb458-1" tabindex="-1"></a><span class="fu">library</span>(survey)</span></code></pre></div>
+<p>To account for the complex survey design, analyses must adjust for the three key elements: strata, clusters, and weights. These elements are specified using the <code>svydesign()</code> function from the <strong>survey</strong> package. . Once the survey design is established, subsequent analysis functions automatically incorporate these adjustments, modifying observation frequencies and ensuring accurate measures of uncertainty, such as standard errors. For the 2020 ANES survey data, the sample design is specified as follows:</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="ch9.html#cb459-1" tabindex="-1"></a>anes2020<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">strata=</span><span class="sc">~</span>V200015d,</span>
+<span id="cb459-2"><a href="ch9.html#cb459-2" tabindex="-1"></a>                    <span class="at">ids =</span> <span class="sc">~</span>V200015c, <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The function has four main arguments to identify different parts of the design. The first is the identification of the dataset stored in the <strong>R</strong> environment, <code>data=</code>. The remaining arguments specify columns within the dataframe, each associated with a distinct component of the survey design.</p>
+<p>The package uses a ‘tilde’ <code>~</code> symbol to indicate a specific variable (usually found next to the number 1 on a keyboard). The second argument, <code>strata=~</code>, identifies the strata in the dataset. Third, <code>ids=~</code> specifies the interview clusters within the strata, and fourth, <code>weights=~</code> assigns the appropriate survey weights. In some cases, such as this example, the argument <code>nest=TRUE</code> is also required to indicate that the clusters are nested.</p>
+<!-- We could also specify a survey design that just incorporates the weights and ignores the complex survey sample design. We would not specify nest, or strata since these are used for more complex sampling designs. We set the ids argument to ~1. This effectively tells R that there’s no clustering in the sample (i.e., every unit is its own cluster).-->
+<p>The object anes2020 represents the survey design. When performing analysis with functions from the <strong>survey</strong> package, the survey design object (assigned the contents of <code>svydesign()</code>) is specified as an argument instead of the dataset itself. We will explore how to use these functions for analyzing nominal and ordinal variables (saved as factor variables), as well as interval/ratio variables (numeric), focusing on tabulations, means, and proportions.</p>
+</div>
+<div id="tabulating-and-cross-tabulating-survey-measures" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Tabulating and cross-tabulating survey measures<a href="ch9.html#tabulating-and-cross-tabulating-survey-measures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>svytable()</code> function tabulates the weighted frequencies for a variable, such as <em>V201005</em>. Two arguments are required: the variable to tabulate and the survey design object, <code>svytable(~V201005, design = anes2020)</code>. The <code>~</code> symbol is essential, as it indicates that <em>V201005</em> is a column within the <em>anes2020</em> survey dataset. Without it, the function will not interpret the variable correctly.</p>
+<p>The results display weighted tabulations, where each observation’s contribution is scaled by its survey weight. Basically, weights adjust the influence of each observation by multiplying its frequency by its weight, ensuring the tabulations reflect population estimates rather than the sample distribution. To round the tabulations to the nearest integer, add the argument <code>round=TRUE</code>; without it, frequencies will include decimals:</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="ch9.html#cb460-1" tabindex="-1"></a><span class="fu">svytable</span>(<span class="sc">~</span>V201005, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## V201005
+##              1. Always    2. Most of the time 
+##                   1004                   1713 
+## 3. About half the time    4. Some of the time 
+##                    986                   1027 
+##               5. Never 
+##                     54</code></pre>
+<p>The <code>design =</code> description can be omitted. Compare these weighted tabulations to the previously unweighted tabulations from <code>table()</code>. The difference is not trivial, substantially affecting proportion or percentage calculations. Placing the <code>prop.table()</code> function around the tabulation will yield proportions:</p>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="ch9.html#cb462-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201005, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## V201005
+##              1. Always    2. Most of the time 
+##                0.20987                0.35807 
+## 3. About half the time    4. Some of the time 
+##                0.20610                0.21467 
+##               5. Never 
+##                0.01129</code></pre>
+<p>Then multiplying the proportions by 100, percentages:</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="ch9.html#cb464-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201005, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>))<span class="sc">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## V201005
+##              1. Always    2. Most of the time 
+##                 20.987                 35.807 
+## 3. About half the time    4. Some of the time 
+##                 20.610                 21.467 
+##               5. Never 
+##                  1.129</code></pre>
+<p>For example, from the tabulation, we observe that a narrow majority of about 57 percent of US citizens 18 or older report paying attention to politics “always” or “most of the time”.</p>
+<div id="formatting-tabulations" class="section level3 unnumbered hasAnchor">
+<h3>Formatting tabulations<a href="ch9.html#formatting-tabulations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For proportions or percentages in a print-ready format, we can use the <code>prop.table()</code> function alongside <code>knitr::kable()</code> from the <strong>knitr</strong> <span class="citation">(<a href="#ref-R-knitr">Xie 2023b</a>)</span> package. Tables in this format work especially well for inclusion in RMarkdown documents knitted to Word or PDF format.</p>
+<p>To store these percentages for further formatting, we assign the output to an object, such as <code>table1</code>:</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="ch9.html#cb466-1" tabindex="-1"></a>table1<span class="ot">&lt;-</span><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201005, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>))<span class="sc">*</span><span class="dv">100</span></span></code></pre></div>
+<p>Next, we use <code>knitr::kable()</code> to format the table with reduced decimal places and an appropriate caption. The package is preinstalled in RStudio; without needing to use <code>library()</code>, we use it by identifying the package and function separated by two colons: <code>knitr::kable()</code>. The result is a table formatted as in Table <a href="ch9.html#tab:knittab">9.1</a>:</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="ch9.html#cb467-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table1, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb467-2"><a href="ch9.html#cb467-2" tabindex="-1"></a>        <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Attention to Politics&quot;</span>, <span class="st">&quot;Percentage&quot;</span>),</span>
+<span id="cb467-3"><a href="ch9.html#cb467-3" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Survey respondent attention </span></span>
+<span id="cb467-4"><a href="ch9.html#cb467-4" tabindex="-1"></a><span class="st">          paid to politics, 2020 ANES.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:knittab">TABLE 9.1: </span>Survey respondent attention
+paid to politics, 2020 ANES.</caption>
+<thead>
+<tr>
+<th align="left">Attention to Politics</th>
+<th align="right">Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1. Always</td>
+<td align="right">20.99</td>
+</tr>
+<tr>
+<td align="left">2. Most of the time</td>
+<td align="right">35.81</td>
+</tr>
+<tr>
+<td align="left">3. About half the time</td>
+<td align="right">20.61</td>
+</tr>
+<tr>
+<td align="left">4. Some of the time</td>
+<td align="right">21.47</td>
+</tr>
+<tr>
+<td align="left">5. Never</td>
+<td align="right">1.13</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>caption=</code> and number of <code>digits=</code> are optional arguments. The argument <code>col.names=()</code> changes the default column names from <code>table1</code> in Table <a href="ch9.html#tab:knittab">9.1</a>.</p>
+</div>
+<div id="cross-tabulation-contingency-tables" class="section level3 unnumbered hasAnchor">
+<h3>Cross-tabulation (contingency) tables<a href="ch9.html#cross-tabulation-contingency-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A cross-tabulation table displays the frequency distribution of two categorical variables, how frequencies on one categorical variable covary with the other. For example, pollsters often include cross-tabulations as part of a press release accompanying a poll, displaying how vote choice varies over demographic characteristics. Cross-tabulations are fundamental to bivariate hypothesis testing, given the identification of one variable as independent and the other dependent. Researchers compare proportions or percentages within levels of an independent variable, to observe variation in levels of a dependent variable.</p>
+<p>For example, tabulating how frequency of attention to politics varies by sex (variable <em>V201600</em>) creates a contingency table. From <code>svytable()</code> add an additional variable with a plus (<code>+</code>) sign in front of the second variable:</p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="ch9.html#cb468-1" tabindex="-1"></a><span class="fu">svytable</span>(<span class="sc">~</span>V201005 <span class="sc">+</span> V201600, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##                         V201600
+## V201005                  -9. Refused 1. Male 2. Female
+##   1. Always                        6     568       429
+##   2. Most of the time              6     856       851
+##   3. About half the time           7     384       594
+##   4. Some of the time              4     454       569
+##   5. Never                         0      28        26</code></pre>
+<p>The result is a tabulation of frequencies of political interest (as the row variable) by sex (on the column). Notice that in <em>V201600</em> (<code>svytable(~ V201600, anes2020, round=TRUE)</code>), 24 respondents refused to answer the question, and are marked by the standard “Refused” code of <em>-9</em> in the ANES. For respondent sex, the reason why 24 people refused is beyond the scope of the ANES, and is too small from which to generalize. So typically in an analysis we would convert the “Refused” respondents to a missing value (<code>NA</code>) in the dataset — then construct a new table of respondent sex by political attention.</p>
+<p>Since the frequencies are from a sample, percentages or proportions interest us more than raw frequencies. Before creating a table of percentages, first we will observe how to remove responses such as “Refused” from a table, by creating a transformed survey measure of respondent sex as a new column in the <em>anes_20</em> dataframe.</p>
+</div>
+<div id="creating-and-recoding-a-new-survey-measure" class="section level3 unnumbered hasAnchor">
+<h3>Creating and recoding a new survey measure<a href="ch9.html#creating-and-recoding-a-new-survey-measure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This process of creating new variables in the data frame and transforming the response scales in survey data is often referred to as “recoding”. There are at least a few reasons why recoding could be useful: (1) dropping “Don’t know” or “Refused” responses; (2) reversing scale directions such as “1. Always” to “5. Never”; (3) categorizing a measure such as age into groups; or (4) simply creating new alphanumeric variables with memorable names.</p>
+<p>For <em>V201600</em>, we will clone a copy of it into a new variable <em>sex</em>, then convert to a missing value <code>NA</code> the respondents recorded as <em>-9. Refused</em>. Then in a revised table, contrast <em>sex</em> with variation in political attention. Various <strong>tidyverse</strong> functions facilitate recoding, which starts with creating the variable <em>sex</em> as a copy of <em>V201600</em>:</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="ch9.html#cb470-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb470-2"><a href="ch9.html#cb470-2" tabindex="-1"></a></span>
+<span id="cb470-3"><a href="ch9.html#cb470-3" tabindex="-1"></a>anes_20 <span class="ot">&lt;-</span> anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb470-4"><a href="ch9.html#cb470-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex=</span>V201600)</span></code></pre></div>
+<p>Enter <code>names(anes_20)</code> to observe <em>sex</em> now appears at the end of the dataset. To recode factor labels, we use <code>fct_recode()</code>. We specify a new label for each old one we want to replace: the order being ‘new label = old label’. Labels are specified in quotes, although for <em>sex</em> we want to recode the “Refused” label to <code>NULL</code> or <code>NA</code>, two system level values for missing data.</p>
+<p>Below a newly recoded <em>sex</em> variable is created and recoded from the existing <em>V201600</em>. The second line creates the new variable with <code>mutate(sex = )</code>, in which <code>fct_recode(V201600, NULL = "-9. Refused")</code> specifies the recoded categories:</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="ch9.html#cb471-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span> anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb471-2"><a href="ch9.html#cb471-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">fct_recode</span>(V201600, <span class="at">NULL =</span> <span class="st">&quot;-9. Refused&quot;</span>))</span></code></pre></div>
+<p>The <code>mutate()</code> function could have also been expressed as <code>mutate(sex = na_if(V201600,"-9. Refused"))</code>: the <code>na_if()</code> function assigns a missing value <code>NA</code> for values listed in the second argument. Either creates the newly recoded <em>sex</em> variable.</p>
+<p>One important step in analyzing data with the <em>survey</em> package is that each time a new variable is created, the <code>svydesign()</code> function must be run again, so that the names of the new variables are stored within the <code>svydesign()</code> object.</p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="ch9.html#cb472-1" tabindex="-1"></a>anes2020<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">ids =</span> <span class="sc">~</span>V200015c,</span>
+<span id="cb472-2"><a href="ch9.html#cb472-2" tabindex="-1"></a>          <span class="at">strata=</span><span class="sc">~</span>V200015d, <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Then <code>svytable()</code> displays the cross-tabulation:</p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="ch9.html#cb473-1" tabindex="-1"></a><span class="fu">svytable</span>(<span class="sc">~</span>V201005 <span class="sc">+</span> sex, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##                         sex
+## V201005                  1. Male 2. Female
+##   1. Always                  568       429
+##   2. Most of the time        856       851
+##   3. About half the time     384       594
+##   4. Some of the time        454       569
+##   5. Never                    28        26</code></pre>
+</div>
+<div id="column-and-row-proportions-in-a-contingency-table" class="section level3 unnumbered hasAnchor">
+<h3>Column and row proportions in a contingency table<a href="ch9.html#column-and-row-proportions-in-a-contingency-table" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The function <code>prop.table()</code> wrapped around the <code>svytable()</code> creates a table of proportions. Using <code>prop.table()</code> with argument <code>margin=1</code> calculates proportions summing to one along the rows (row proportions). Setting <code>margin=2</code> calculates proportions summing to one along the columns (column proportions).</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="ch9.html#cb475-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201005 <span class="sc">+</span> sex, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>), <span class="at">margin=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##                         sex
+## V201005                  1. Male 2. Female
+##   1. Always              0.24803   0.17375
+##   2. Most of the time    0.37380   0.34467
+##   3. About half the time 0.16769   0.24058
+##   4. Some of the time    0.19825   0.23046
+##   5. Never               0.01223   0.01053</code></pre>
+<p>As column proportions, summing down the column of entries under <em>“1. Male”</em> and <em>“2. Female”</em>, the totals are 1. Column proportions reflect the logic of a particular conditional probability. For the column proportions, that probability is: given someone’s sex, what is the probability of reporting a particular level of attentiveness to politics? If the hypothesis is, for example, that females are more likely than males to report paying a great deal of attention to politics, then this is the probability of interest and an analysis table should include column rather than row proportions.</p>
+<p>From the column proportions, we can observe, for example, that given male sex the probability of reporting “Always” paying attention is about .25 compared to female .17. About 25 percent of males report “Always” paying attention, compared to 17 percent of Females. With sex as the independent variable <span class="math inline">\(x\)</span>, and attention to politics as the dependent variable <span class="math inline">\(y\)</span>, the column proportions are the quantities needed to assess how categories on <span class="math inline">\(y\)</span> vary given values of <span class="math inline">\(x\)</span> — for example, how does attention vary, given that someone is male? Female? Without specifying a margin, <code>prop.table()</code> calculates total proportions — the frequencies within each category of column and row given the total frequencies.</p>
+<p>To create percentages, the contents of <code>prop.table()</code> can be saved to a table object, multiplied by 100 within <code>knitr::kable()</code>. Table <a href="ch9.html#tab:tabknit1">9.2</a> displays a table formatted in this style:</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="ch9.html#cb477-1" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201005 <span class="sc">+</span> sex, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>), </span>
+<span id="cb477-2"><a href="ch9.html#cb477-2" tabindex="-1"></a>                   <span class="at">margin=</span><span class="dv">2</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="ch9.html#cb478-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table2<span class="sc">*</span><span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">2</span>,<span class="at">caption =</span> <span class="st">&quot;Survey respondent sex by</span></span>
+<span id="cb478-2"><a href="ch9.html#cb478-2" tabindex="-1"></a><span class="st">             attention paid to politics, column percentages 2020 ANES.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tabknit1">TABLE 9.2: </span>Survey respondent sex by
+attention paid to politics, column percentages 2020 ANES.</caption>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="right">1. Male</th>
+<th align="right">2. Female</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1. Always</td>
+<td align="right">24.80</td>
+<td align="right">17.38</td>
+</tr>
+<tr>
+<td align="left">2. Most of the time</td>
+<td align="right">37.38</td>
+<td align="right">34.47</td>
+</tr>
+<tr>
+<td align="left">3. About half the time</td>
+<td align="right">16.77</td>
+<td align="right">24.06</td>
+</tr>
+<tr>
+<td align="left">4. Some of the time</td>
+<td align="right">19.83</td>
+<td align="right">23.05</td>
+</tr>
+<tr>
+<td align="left">5. Never</td>
+<td align="right">1.22</td>
+<td align="right">1.05</td>
+</tr>
+</tbody>
+</table>
+<p>From Table <a href="ch9.html#tab:tabknit1">9.2</a>, we could conclude that respondents identifying as male rather than female identifiers are more likely to report paying attention always (24.8 percent compared to 17.38 percent) or most of the time (37.38 percent compared to 34.47 percent).</p>
+<p>In cross-tabulations, the rule of thumb to remember is ‘always percent-agize on the independent variable’ — to calculate proportions (or percentages) that sum to 1 within each category of the independent variable. Typically researchers add marginal totals (row and column total proportions or percentages) along with frequencies in the same table. The frequencies and proportions or percentages from <code>prop.table()</code> can be combined into one table within word processing software.</p>
+</div>
+</div>
+<div id="test-of-independence-for-contingency-tables" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Test of independence for contingency tables<a href="ch9.html#test-of-independence-for-contingency-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The cross-tabulation of political interest by sex showed an association, yet a separate question is whether the association observed within the sample table is large enough to reject the null hypothesis of no relationship within the population. The standard Chi-squared test of independence tests this null hypothesis. The test compares the observed frequencies within the table to a hypothetical set of expected frequencies under the assumption of independence (no relationship) between the variables. The greater the difference between the observed frequencies from expected, the greater the Chi-squared test statistic, and the greater the evidence against the null hypothesis.</p>
+<p>The adjusted Chi-squared test for the complex survey design of the ANES reports an F-statistic (the ratio of two Chi-squared distributions) and an associated p-value for the probability of observing a test statistics that large (or larger) if the null hypothesis of independence is true. Given a chosen ‘alpha level’, or threshold of the p-value for determining statistical significance and rejecting the null. The standard alpha level (<span class="math inline">\(\alpha = .05\)</span>) of .05, means that if the we observe a <span class="math inline">\(p &lt; .05\)</span> we reject the null hypothesis.</p>
+<p>To test the null of no relationship between political attention and sex in the ANES population, the function is <code>svychisq()</code> in place of <code>svytable()</code>:</p>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="ch9.html#cb479-1" tabindex="-1"></a><span class="fu">svychisq</span>(<span class="sc">~</span>V201005 <span class="sc">+</span> sex, anes2020) </span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
+## 
+## data:  svychisq(~V201005 + sex, anes2020)
+## F = 8.4, ndf = 3.7, ddf = 187.2, p-value = 5e-06</code></pre>
+<p>The results show a statistically significant association between interest and sex. The test statistic has an F-value of 8.4 (degrees of freedom <span class="math inline">\(\frac{3.7}{187.2}\)</span>), with a p-value of 0.000005, well below a significance threshold of 0.05. From the p-value we reject the null hypothesis of independence between interest and sex. The test result suggests that the observed relationship between interest and sex is much stronger than would be expected on the basis of chance and sampling error alone, so we can conclude that interest and sex are related within the sampled population. Note that the test does not measure the strength or direction of association; the test result would be the same, for example, if the categories in interest were scrambled.</p>
+<div id="contingency-tables-controlling-for-a-third-factor" class="section level3 unnumbered hasAnchor">
+<h3>Contingency tables controlling for a third factor<a href="ch9.html#contingency-tables-controlling-for-a-third-factor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In a contingency table we could observe that two measures are related (a <span class="math inline">\(y\)</span> covarying with <span class="math inline">\(x\)</span>), but the possibility remains that the relationship is spurious — any observed association in the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> could be the result of a third variable <span class="math inline">\(z\)</span> that influences both. To test the extent to which the relationship within a contingency table persists when controlling for a third factor, we subset the data on values of the third factor and recalculate the contingency table. To demonstrate, we will cross-tabulate party identification by religious service attendance, then on levels of <em>sex</em>, to observe whether there is evidence — controlling for sex — that Democrats report less religiosity than Republicans. To do so, we will work through some useful variable recoding functions.</p>
+</div>
+<div id="recoding-for-a-table-of-party-identification-by-religiosity" class="section level3 unnumbered hasAnchor">
+<h3>Recoding for a table of party identification by religiosity<a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The two relevant variables from the survey are <em>V201228</em> for party identification, and for religious service attendance the variable <em>attend</em>, constructed from <em>V201452</em> and <em>V201453</em>. First check the existing response labels in party identification, <code>table(anes_20$V201228)</code>. Variable <em>V201228</em> is stored as a factor; recoding functions from the <strong>forcats</strong> package <span class="citation">(<a href="#ref-R-forcats">Wickham 2023a</a>)</span> in the <strong>tidyverse</strong> modify the factor levels. The recoding function below with <code>fct_recode()</code> assigns the “Refused”, “Don’t know”, and “No preference” respondents to the Independent category, while excluding the “Other party” respondents.</p>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="ch9.html#cb481-1" tabindex="-1"></a>anes_20 <span class="ot">&lt;-</span> anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb481-2"><a href="ch9.html#cb481-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">partyid =</span> <span class="fu">fct_recode</span>(V201228,</span>
+<span id="cb481-3"><a href="ch9.html#cb481-3" tabindex="-1"></a>      <span class="st">&quot;3. Independent&quot;</span> <span class="ot">=</span> <span class="st">&quot;-9. Refused&quot;</span>,</span>
+<span id="cb481-4"><a href="ch9.html#cb481-4" tabindex="-1"></a>      <span class="st">&quot;3. Independent&quot;</span> <span class="ot">=</span> <span class="st">&quot;-8. Don&#39;t know&quot;</span>,</span>
+<span id="cb481-5"><a href="ch9.html#cb481-5" tabindex="-1"></a>      <span class="st">&quot;3. Independent&quot;</span> <span class="ot">=</span> <span class="st">&quot;0. No preference {VOL - video/phone only}&quot;</span>,</span>
+<span id="cb481-6"><a href="ch9.html#cb481-6" tabindex="-1"></a>      <span class="at">NULL =</span> <span class="st">&quot;5. Other party {SPECIFY}&quot;</span>),</span>
+<span id="cb481-7"><a href="ch9.html#cb481-7" tabindex="-1"></a>        <span class="at">partyid =</span> <span class="fu">fct_relevel</span>(partyid, <span class="st">&quot;1. Democrat&quot;</span>, <span class="st">&quot;2. Republican&quot;</span>,</span>
+<span id="cb481-8"><a href="ch9.html#cb481-8" tabindex="-1"></a>                              <span class="st">&quot;3. Independent&quot;</span>))</span></code></pre></div>
+<p>The function <code>fct_relevel()</code> sets the order of the labels. Enter <code>table(anes_20$partyid)</code> and observe that after reassigning the respondents, only three categories remain tabulated: Democrat, Republican, and Independent.</p>
+<p>Creating a measure that summarizes a survey respondent’s attendance at religious services requires combining responses from two different survey questions. First, respondents are asked whether they attend religious services at all:</p>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="ch9.html#cb482-1" tabindex="-1"></a><span class="fu">table</span>(anes_20<span class="sc">$</span>V201452)</span></code></pre></div>
+<pre><code>## 
+##    -9. Refused -8. Don&#39;t know         1. Yes 
+##             30              2           2266 
+##          2. No 
+##           2485</code></pre>
+<p>Then if they respond “Yes”, they are asked how frequently:</p>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="ch9.html#cb484-1" tabindex="-1"></a><span class="fu">table</span>(anes_20<span class="sc">$</span>V201453)</span></code></pre></div>
+<pre><code>## 
+##              -9. Refused           -8. Don&#39;t know 
+##                       11                        1 
+##            1. Every week     2. Almost every week 
+##                      727                      528 
+## 3. Once or twice a month    4. A few times a year 
+##                      375                      565 
+##                 5. Never 
+##                       59</code></pre>
+<p>The two variables are combined into one through the <code>case_when()</code> function inside <code>mutate()</code>. The function is similar to <code>filter()</code>, in that <code>case_when()</code> evaluates whether a condition is true for each observation, and if so, assigns that observation a particular score in the new variable. For example in the third line below, <code>case_when()</code> evaluates whether observations <code>V201452 == "2. No"</code>; then for all observations where the responses for <em>V201452</em> are recorded as “2. No”, the responses for <em>attend</em> are assigned “1. Never”. For each line, along the right-hand side after the tilde symbol <code>~</code> appears the resulting scale in <em>attend</em>, ranging from “1. Never” attend services to “5. Every week”.</p>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="ch9.html#cb486-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb486-2"><a href="ch9.html#cb486-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">attend =</span> <span class="fu">case_when</span>(</span>
+<span id="cb486-3"><a href="ch9.html#cb486-3" tabindex="-1"></a>    V201452 <span class="sc">==</span> <span class="st">&quot;2. No&quot;</span> <span class="sc">~</span> <span class="st">&quot;1. Never&quot;</span>,</span>
+<span id="cb486-4"><a href="ch9.html#cb486-4" tabindex="-1"></a>    V201453 <span class="sc">==</span> <span class="st">&quot;5. Never&quot;</span> <span class="sc">~</span> <span class="st">&quot;1. Never&quot;</span>,</span>
+<span id="cb486-5"><a href="ch9.html#cb486-5" tabindex="-1"></a>    V201453 <span class="sc">==</span> <span class="st">&quot;4. A few times a year&quot;</span> <span class="sc">~</span> <span class="st">&quot;2. A few times a year&quot;</span>,</span>
+<span id="cb486-6"><a href="ch9.html#cb486-6" tabindex="-1"></a>    V201453 <span class="sc">==</span> <span class="st">&quot;3. Once or twice a month&quot;</span> <span class="sc">~</span> <span class="st">&quot;3. Once or twice a month&quot;</span>,</span>
+<span id="cb486-7"><a href="ch9.html#cb486-7" tabindex="-1"></a>    V201453 <span class="sc">==</span> <span class="st">&quot;2. Almost every week&quot;</span> <span class="sc">~</span> <span class="st">&quot;4. Almost every week&quot;</span>,</span>
+<span id="cb486-8"><a href="ch9.html#cb486-8" tabindex="-1"></a>    V201453 <span class="sc">==</span> <span class="st">&quot;1. Every week&quot;</span> <span class="sc">~</span> <span class="st">&quot;5. Every week&quot;</span>))</span></code></pre></div>
+<p>The first condition matched in <code>case_when()</code> is from <em>V201452</em>, while the others are the variation in response scales from <em>V201453</em>. The result is a five-point attendance scale:</p>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="ch9.html#cb487-1" tabindex="-1"></a><span class="fu">table</span>(anes_20<span class="sc">$</span>attend)</span></code></pre></div>
+<pre><code>## 
+##                 1. Never    2. A few times a year 
+##                     2544                      565 
+## 3. Once or twice a month     4. Almost every week 
+##                      375                      528 
+##            5. Every week 
+##                      727</code></pre>
+<p>A further change to the scale could be to combine the responses, “A few times a year” with “Once or twice a month”, so that respondents are arranged from “Never”, to infrequently (“A few times a year” or “Once or twice a month”) to near weekly and weekly:</p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="ch9.html#cb489-1" tabindex="-1"></a>anes_20 <span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb489-2"><a href="ch9.html#cb489-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">attend =</span> <span class="fu">fct_recode</span>(attend,</span>
+<span id="cb489-3"><a href="ch9.html#cb489-3" tabindex="-1"></a>        <span class="st">&quot;2. few times a year, monthly&quot;</span> <span class="ot">=</span> <span class="st">&quot;2. A few times a year&quot;</span>,</span>
+<span id="cb489-4"><a href="ch9.html#cb489-4" tabindex="-1"></a>        <span class="st">&quot;2. few times a year, monthly&quot;</span> <span class="ot">=</span> <span class="st">&quot;3. Once or twice a month&quot;</span>,</span>
+<span id="cb489-5"><a href="ch9.html#cb489-5" tabindex="-1"></a>        <span class="st">&quot;3. almost every week&quot;</span> <span class="ot">=</span> <span class="st">&quot;4. Almost every week&quot;</span>,</span>
+<span id="cb489-6"><a href="ch9.html#cb489-6" tabindex="-1"></a>        <span class="st">&quot;4. every week&quot;</span> <span class="ot">=</span> <span class="st">&quot;5. Every week&quot;</span>))</span></code></pre></div>
+<p>Once the measures are recoded, we respecify the survey design object <em>anes2020</em> so that it accounts for the new variables <em>partyid</em> and <em>attend</em>:</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="ch9.html#cb490-1" tabindex="-1"></a>anes2020<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">ids =</span> <span class="sc">~</span>V200015c,</span>
+<span id="cb490-2"><a href="ch9.html#cb490-2" tabindex="-1"></a>          <span class="at">strata=</span><span class="sc">~</span>V200015d, <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Then we can create the tables. The contingency table with (column) proportions to display the percentage of each attendance category identifying as Republican, Democrat, or Independent is <code>prop.table(svytable(~partyid + attend, design=anes2020, round=TRUE), margin=2)</code>. Saving the table as <em>table3</em>, converting it to percentages and formatting with <code>knitr::kable()</code>, the result appears in Table <a href="ch9.html#tab:table3knitrextra">9.3</a>.</p>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="ch9.html#cb491-1" tabindex="-1"></a>table3<span class="ot">&lt;-</span><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>partyid <span class="sc">+</span> attend, <span class="at">design =</span> anes2020, </span>
+<span id="cb491-2"><a href="ch9.html#cb491-2" tabindex="-1"></a>                            <span class="at">round=</span><span class="cn">TRUE</span>), <span class="at">margin=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="ch9.html#cb492-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb492-2"><a href="ch9.html#cb492-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table3<span class="sc">*</span><span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">2</span>, </span>
+<span id="cb492-3"><a href="ch9.html#cb492-3" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Contingency table of party identification </span></span>
+<span id="cb492-4"><a href="ch9.html#cb492-4" tabindex="-1"></a><span class="st">        by religious service attendance, column percentages, 2020 ANES.&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb492-5"><a href="ch9.html#cb492-5" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;scale_down&quot;</span>))</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:table3knitrextra">TABLE 9.3: </span><span id="tab:table3knitrextra">TABLE 9.4: </span>Contingency table of party identification
+by religious service attendance, column percentages, 2020 ANES.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+<ol style="list-style-type: decimal">
+<li>Never
+</th>
+<th style="text-align:right;">
+<ol start="2" style="list-style-type: decimal">
+<li>few times a year, monthly
+</th>
+<th style="text-align:right;">
+<ol start="3" style="list-style-type: decimal">
+<li>almost every week
+</th>
+<th style="text-align:right;">
+<ol start="4" style="list-style-type: decimal">
+<li>every week
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<ol style="list-style-type: decimal">
+<li>Democrat
+</td>
+<td style="text-align:right;">
+36.12
+</td>
+<td style="text-align:right;">
+37.55
+</td>
+<td style="text-align:right;">
+27.11
+</td>
+<td style="text-align:right;">
+25.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol start="2" style="list-style-type: decimal">
+<li>Republican
+</td>
+<td style="text-align:right;">
+23.11
+</td>
+<td style="text-align:right;">
+35.21
+</td>
+<td style="text-align:right;">
+47.19
+</td>
+<td style="text-align:right;">
+49.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol start="3" style="list-style-type: decimal">
+<li>Independent
+</td>
+<td style="text-align:right;">
+40.77
+</td>
+<td style="text-align:right;">
+27.23
+</td>
+<td style="text-align:right;">
+25.70
+</td>
+<td style="text-align:right;">
+24.55
+</td>
+</tr>
+</tbody>
+</table></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<p>The code to generate a table similar to Table <a href="ch9.html#tab:table3knitrextra">9.3</a> could be as simple as <code>knitr::kable(table3*100, digits = 2)</code>; the code above includes additional options to format the table on a printed page. Table <a href="ch9.html#tab:table3knitrextra">9.3</a> shows that of those “Never” attending services, 23 percent identify as Republican compared to 36 percent as Democrat, a 13 point difference. At the other end of the scale, about half of those attending services “every week” identify as Republican versus only about 26 percent as Democrat. Enter <code>svychisq(~partyid + attend, design = anes2020)</code> to observe a statistically significant F-statistic.</p>
+<p>Yet given the possibility that these relationships break down when controlling for sex, we recreate the cross-tabulation on each value of the <em>sex</em> variable. In constructing control tables such as these, the goal is to test whether any observed relationship between the independent and dependent variable persists for each level of the control variable. If the relationship between party identification and religious service attendance appears at least somewhat null across levels of <em>sex</em> (<code>1. Male</code> and <code>2.Female</code>), then this pattern would be evidence of spuriousness. Of course, it is unlikely that <em>sex</em> would be a source of spuriousness; it is much more likely that we would observe <em>sex</em> as an additive effect shifting party identification and religious attendance in a particular direction.</p>
+<p>To construct the table, for the value of <em>sex</em> <code>1. Male</code>, we subset the survey design object with <code>subset(anes2020, sex== "1. Male")</code> in place of the survey design object:</p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="ch9.html#cb493-1" tabindex="-1"></a><span class="fu">svytable</span>(<span class="sc">~</span>partyid <span class="sc">+</span> attend, <span class="fu">subset</span>(anes2020, sex<span class="sc">==</span> <span class="st">&quot;1. Male&quot;</span>), </span>
+<span id="cb493-2"><a href="ch9.html#cb493-2" tabindex="-1"></a>         <span class="at">round=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##                 attend
+## partyid          1. Never 2. few times a year, monthly
+##   1. Democrat         375                          158
+##   2. Republican       314                          144
+##   3. Independent      539                          120
+##                 attend
+## partyid          3. almost every week 4. every week
+##   1. Democrat                      32            78
+##   2. Republican                   128           170
+##   3. Independent                   63            64</code></pre>
+<p>The result is a “control table”, a tabulation of religious service attendance by party identification, controlling for gender. Creating a formatted table from <code>knitr::kable()</code> results in Table <a href="ch9.html#tab:tablemale">9.5</a>:</p>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="ch9.html#cb495-1" tabindex="-1"></a>table4<span class="ot">&lt;-</span><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>partyid <span class="sc">+</span> attend, </span>
+<span id="cb495-2"><a href="ch9.html#cb495-2" tabindex="-1"></a>                   <span class="fu">subset</span>(anes2020, sex<span class="sc">==</span> <span class="st">&quot;1. Male&quot;</span>), <span class="at">round=</span><span class="cn">TRUE</span>), </span>
+<span id="cb495-3"><a href="ch9.html#cb495-3" tabindex="-1"></a>                   <span class="at">margin=</span><span class="dv">2</span>)</span></code></pre></div>
+<p>A simple table without a caption would be <code>knitr::kable(table4*100, digits = 2)</code>.</p>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="ch9.html#cb496-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb496-2"><a href="ch9.html#cb496-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table4<span class="sc">*</span><span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb496-3"><a href="ch9.html#cb496-3" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Party identification by religious </span></span>
+<span id="cb496-4"><a href="ch9.html#cb496-4" tabindex="-1"></a><span class="st">    service attendance, column percentages, male respondents only.&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb496-5"><a href="ch9.html#cb496-5" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;scale_down&quot;</span>))</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tablemale">TABLE 9.5: </span><span id="tab:tablemale">TABLE 9.6: </span>Party identification by religious
+service attendance, column percentages, male respondents only.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+<ol style="list-style-type: decimal">
+<li>Never
+</th>
+<th style="text-align:right;">
+<ol start="2" style="list-style-type: decimal">
+<li>few times a year, monthly
+</th>
+<th style="text-align:right;">
+<ol start="3" style="list-style-type: decimal">
+<li>almost every week
+</th>
+<th style="text-align:right;">
+<ol start="4" style="list-style-type: decimal">
+<li>every week
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<ol style="list-style-type: decimal">
+<li>Democrat
+</td>
+<td style="text-align:right;">
+30.54
+</td>
+<td style="text-align:right;">
+37.44
+</td>
+<td style="text-align:right;">
+14.35
+</td>
+<td style="text-align:right;">
+25.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol start="2" style="list-style-type: decimal">
+<li>Republican
+</td>
+<td style="text-align:right;">
+25.57
+</td>
+<td style="text-align:right;">
+34.12
+</td>
+<td style="text-align:right;">
+57.40
+</td>
+<td style="text-align:right;">
+54.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol start="3" style="list-style-type: decimal">
+<li>Independent
+</td>
+<td style="text-align:right;">
+43.89
+</td>
+<td style="text-align:right;">
+28.44
+</td>
+<td style="text-align:right;">
+28.25
+</td>
+<td style="text-align:right;">
+20.51
+</td>
+</tr>
+</tbody>
+</table></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<p>Table <a href="ch9.html#tab:tablemale">9.5</a> shows, for example, among males the gap between Democrats and Republicans among weekly service attendees grows to 29 points. About 54 percent of weekly attendees identify as Republican. Among males, party appears dependent on religiosity. Then creating an additional table for the other level of the <em>sex</em> variable, “2. Female”, results in Table <a href="ch9.html#tab:tablefemale">9.7</a>. Again, the relationship persists between party and religiosity. Among non-attendees, 41.84 percent identify as Democrats, and only 20 percent as Republican, while among weekly attendees, 45.24 percent identify as Republican compared to 26.51 percent as Democrat:</p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="ch9.html#cb497-1" tabindex="-1"></a>table5<span class="ot">&lt;-</span><span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>partyid <span class="sc">+</span> attend, </span>
+<span id="cb497-2"><a href="ch9.html#cb497-2" tabindex="-1"></a>                    <span class="fu">subset</span>(anes2020, sex<span class="sc">==</span> <span class="st">&quot;2. Female&quot;</span>), <span class="at">round=</span><span class="cn">TRUE</span>), </span>
+<span id="cb497-3"><a href="ch9.html#cb497-3" tabindex="-1"></a>                    <span class="at">margin=</span><span class="dv">2</span>)</span></code></pre></div>
+<p>The <strong>kableExtra</strong> <span class="citation">(<a href="#ref-R-kableExtra">Zhu 2024</a>)</span> package is optional, for formatting the tables on the printed page.</p>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="ch9.html#cb498-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb498-2"><a href="ch9.html#cb498-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table5<span class="sc">*</span><span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">&quot;Party </span></span>
+<span id="cb498-3"><a href="ch9.html#cb498-3" tabindex="-1"></a><span class="st">       identification by religious service attendance, column </span></span>
+<span id="cb498-4"><a href="ch9.html#cb498-4" tabindex="-1"></a><span class="st">       percentages, female respondents only&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb498-5"><a href="ch9.html#cb498-5" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;scale_down&quot;</span>))</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tablefemale">TABLE 9.7: </span><span id="tab:tablefemale">TABLE 9.8: </span>Party
+identification by religious service attendance, column
+percentages, female respondents only
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+<ol style="list-style-type: decimal">
+<li>Never
+</th>
+<th style="text-align:right;">
+<ol start="2" style="list-style-type: decimal">
+<li>few times a year, monthly
+</th>
+<th style="text-align:right;">
+<ol start="3" style="list-style-type: decimal">
+<li>almost every week
+</th>
+<th style="text-align:right;">
+<ol start="4" style="list-style-type: decimal">
+<li>every week
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<ol style="list-style-type: decimal">
+<li>Democrat
+</td>
+<td style="text-align:right;">
+41.84
+</td>
+<td style="text-align:right;">
+37.79
+</td>
+<td style="text-align:right;">
+37.59
+</td>
+<td style="text-align:right;">
+26.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol start="2" style="list-style-type: decimal">
+<li>Republican
+</td>
+<td style="text-align:right;">
+20.72
+</td>
+<td style="text-align:right;">
+36.05
+</td>
+<td style="text-align:right;">
+39.05
+</td>
+<td style="text-align:right;">
+45.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol start="3" style="list-style-type: decimal">
+<li>Independent
+</td>
+<td style="text-align:right;">
+37.44
+</td>
+<td style="text-align:right;">
+26.16
+</td>
+<td style="text-align:right;">
+23.36
+</td>
+<td style="text-align:right;">
+28.24
+</td>
+</tr>
+</tbody>
+</table></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<p>The two tables are constructed for the purpose of evaluating – at each measured level in <em>sex</em>, do respondents reporting less-frequent religious service attendance tend to identify as Democrats, compared to Republicans? If sex is a source of spuriousness in the relationship between political party identification and service attendance, then the table would display no relationship between party and service attendance. Yet across both tables, the direction and strength of the relationship between party and service attendance persists. Checking the Chi-squared test on each sub-sample (as in <code>svychisq(~partyid + attend, subset(anes2020, sex== "2. Female"))</code>) would show a significant association.</p>
+<p>Among males and females, the gap between Democrats and Republicans among those reporting that they “Never” attend services is about 5 and 21 percent, respectively. Among those attending services weekly, the gap between Republicans and Democrats is 29 and 18 percent. Rather than being a source of spuriousness, <em>sex</em> is better described as an additive factor — pushing up Republican party identity among males and Democratic party identity among females. Notice that among non-attendees, 41.84 percent of females identify as Democrats, an 11 percent gap compared to males, while only 45.24 percent of females attending services weekly identify as Republican, a similar gap compared to males.</p>
+</div>
+</div>
+<div id="confidence-intervals-and-tests-on-proportions-and-means" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Confidence intervals and tests on proportions and means<a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Given the proportions of the respondents within each category of party identification from <code>svytable(~partyid, anes2020)</code>, two functions from the <strong>survey</strong> package can be combined to estimate confidence intervals on proportions.</p>
+<p>The function <code>confint()</code> calculates, by default, 95 percent confidence intervals. For a variable stored as a factor, with ordered or nominal categories, the <code>svymean()</code> function calculates the proportions based on a mean (from each category scaled to a value of 1), and wrapped within <code>confint()</code> reports the lower and upper bounds of a confidence interval. Because there are missing values recorded for some respondents, the argument <code>na.rm=TRUE</code> is necessary:</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="ch9.html#cb499-1" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">svymean</span>(<span class="sc">~</span>partyid, anes2020, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>##                        2.5 % 97.5 %
+## partyid1. Democrat    0.3183 0.3591
+## partyid2. Republican  0.3014 0.3372
+## partyid3. Independent 0.3245 0.3595</code></pre>
+<p>The shorthand interpretation of the results would be that the table displays the range of proportions of Independents, Democrats, or Republicans, for which we can be 95 percent confident that the true population-level proportion lies. For example, for Democrats, our best estimate (with 95 percent confidence) is that between 32 to 36 percent of the voting age U.S. citizenry identifies as a Democrat. While the confidence interval for Republicans contains the lowest proportion at 30 percent, the confidence intervals all substantially overlap, indicating the true population proportions of each are indiscernibly different. Of course, in this example it is important to keep in mind the assumptions made in recoding it so that anyone choosing “something else” is treated as independents.</p>
+<p>The same functions applied to a numeric variable results in a mean and confidence interval on the underlying scale. For example, the feeling thermometer for the “U.S. Supreme Court” ranges from 0 to 100. The sample mean is</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="ch9.html#cb501-1" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>V202165, anes2020, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##         mean  SE
+## V202165 59.5 0.5</code></pre>
+<p>And a 95 percent confidence interval is</p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="ch9.html#cb503-1" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">svymean</span>(<span class="sc">~</span>V202165, anes2020, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>##         2.5 % 97.5 %
+## V202165 58.51  60.49</code></pre>
+<p>The sample mean is 59.5 degrees, while the 95 percent confidence interval for the mean feeling toward the Court ranges from 58.5 to 60.49 degrees.</p>
+<div id="tables-of-means-for-levels-of-a-categorical-variable" class="section level3 unnumbered hasAnchor">
+<h3>Tables of means for levels of a categorical variable<a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>svyby()</code> function can be combined with <code>svymean()</code> to calculate a table of means on a categorical (factor) variable. For example, we could create age groups based on the survey question <em>V201507x</em> recording the survey respondent’s age, and compare feeling thermometer scores across age groups. Feelings toward “transgender people” is recorded in variable <em>V202172</em>.</p>
+<p>We first create an age category variable, with <code>case_when()</code> . Then a second <code>mutate()</code> function stores it as a factor and sets the factor levels.</p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="ch9.html#cb505-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb505-2"><a href="ch9.html#cb505-2" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">agecat=</span> <span class="fu">case_when</span>(</span>
+<span id="cb505-3"><a href="ch9.html#cb505-3" tabindex="-1"></a>     V201507x <span class="sc">%in%</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">29</span> <span class="sc">~</span> <span class="st">&quot;18 to 29&quot;</span>,</span>
+<span id="cb505-4"><a href="ch9.html#cb505-4" tabindex="-1"></a>     V201507x <span class="sc">%in%</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">49</span> <span class="sc">~</span> <span class="st">&quot;30 to 49&quot;</span>,</span>
+<span id="cb505-5"><a href="ch9.html#cb505-5" tabindex="-1"></a>     V201507x <span class="sc">%in%</span> <span class="dv">50</span><span class="sc">:</span><span class="dv">59</span> <span class="sc">~</span> <span class="st">&quot;50 to 59&quot;</span>,</span>
+<span id="cb505-6"><a href="ch9.html#cb505-6" tabindex="-1"></a>     V201507x <span class="sc">%in%</span> <span class="dv">60</span><span class="sc">:</span><span class="dv">100</span> <span class="sc">~</span> <span class="st">&quot;60 and above&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb505-7"><a href="ch9.html#cb505-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agecat =</span> <span class="fu">as_factor</span>(agecat),</span>
+<span id="cb505-8"><a href="ch9.html#cb505-8" tabindex="-1"></a>         <span class="at">agecat =</span> <span class="fu">fct_relevel</span>(agecat, <span class="st">&quot;18 to 29&quot;</span>, </span>
+<span id="cb505-9"><a href="ch9.html#cb505-9" tabindex="-1"></a>         <span class="st">&quot;30 to 49&quot;</span>, <span class="st">&quot;50 to 59&quot;</span>, <span class="st">&quot;60 and above&quot;</span>))</span></code></pre></div>
+<p>Check the categories with <code>table(anes_20$agecat)</code>. To create the table we reset the <code>svydesign()</code> function.</p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="ch9.html#cb506-1" tabindex="-1"></a>anes2020<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">ids =</span> <span class="sc">~</span>V200015c,</span>
+<span id="cb506-2"><a href="ch9.html#cb506-2" tabindex="-1"></a>          <span class="at">strata=</span><span class="sc">~</span>V200015d, <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span>
+<span id="cb506-3"><a href="ch9.html#cb506-3" tabindex="-1"></a> </span>
+<span id="cb506-4"><a href="ch9.html#cb506-4" tabindex="-1"></a><span class="fu">svyby</span>(<span class="sc">~</span>V202172 ,<span class="sc">~</span>agecat, anes2020, svymean, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##                    agecat V202172     se
+## 18 to 29         18 to 29   66.24 1.6865
+## 30 to 49         30 to 49   59.92 0.8281
+## 50 to 59         50 to 59   56.35 1.1294
+## 60 and above 60 and above   55.16 0.9076</code></pre>
+<p>The syntax in <code>svyby()</code> references first the numeric variable, followed by the categorical, and <code>svymean</code> identifies the function to apply to <em>V202172</em> across levels of <em>agecat</em>. The results show for each age group the mean feeling score (under <code>V202172</code>) and the standard error of the mean (under <code>se</code>). Among 18- to 29-year-olds, the sample mean feeling toward transgender people is 66.24 degrees, and among those 60 and above 55.16 degrees. Calculating confidence intervals:</p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="ch9.html#cb508-1" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">svyby</span>(<span class="sc">~</span>V202172 ,<span class="sc">~</span>agecat, anes2020, svymean, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>##              2.5 % 97.5 %
+## 18 to 29     62.93  69.54
+## 30 to 49     58.30  61.55
+## 50 to 59     54.13  58.56
+## 60 and above 53.38  56.93</code></pre>
+<p>The youngest age group feels warmer toward transgender people compared to older age groups. The confidence intervals show, for example, a statistically significant difference between younger respondents (18 to 29 years old) compared to older groups.</p>
+</div>
+<div id="hypothesis-tests-on-means" class="section level3 unnumbered hasAnchor">
+<h3>Hypothesis tests on means<a href="ch9.html#hypothesis-tests-on-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>svyttest()</code> function formally tests a mean against a hypothetical value or tests for a statistically significant difference in means across two levels of a categorical variable. A ‘one-sample’ t-test compares the mean of a continuous variable in the population to a specific hypothetical value. A ‘two-sample’ t-test checks for a significant difference in means between two groups. Researchers usually emphasize confidence intervals around sample means, but a hypothesis test is useful for more directly comparing sample means to a specific, hypothetical population value.</p>
+<p>For example, we may be interested in testing whether there is evidence of population-based differences, by gender, in feeling thermometer scores. One approach would be to calculate and compare 95 percent confidence intervals. Another is to directly test the hypothesis that the mean feeling differs across groups, a two-sample test. To compare, for example, feelings toward the “Me too movement” (feeling thermometer <em>V202183</em>), the <code>svytest()</code> function argument is the feeling thermometer <em>V202183</em> by <em>sex</em>:</p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="ch9.html#cb510-1" tabindex="-1"></a><span class="fu">svyttest</span>(V202183 <span class="sc">~</span> sex, anes2020, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Design-based t-test
+## 
+## data:  V202183 ~ sex
+## t = 7.7, df = 49, p-value = 6e-10
+## alternative hypothesis: true difference in mean is not equal to 0
+## 95 percent confidence interval:
+##   7.74 13.24
+## sample estimates:
+## difference in mean 
+##              10.49</code></pre>
+<p>The results display the t-distribution score, corresponding degrees of freedom for the test, followed by the p-value. The small degrees of freedom are determined by the design effect of the survey, the complexity of the sampling design, so that the t-test accounts for the additional variability introduced by stratification and clustering. For this and other adjustments to statistical tests, see Lumley <span class="citation">(<a href="#ref-lumley2011">2011</a>)</span>. Because the default test is whether the difference in <em>V202183</em> means across groups is 0, the alternative is nondirectional, whether the difference is not equal to 0. The sample difference in the mean is 10.49, a difference large enough to reject the null hypothesis of no difference within the population, given the minuscule p-value. The 95 percent confidence interval shows the range for the difference of 7.74 to 13.24 degrees.</p>
+</div>
+</div>
+<div id="data-visualization-for-election-polls" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Data visualization for election polls<a href="ch9.html#data-visualization-for-election-polls" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="bar-plots" class="section level3 unnumbered hasAnchor">
+<h3>Bar plots<a href="ch9.html#bar-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Perhaps the most common data visualization type for public opinion research is the bar chart, sometimes accompanied by “error bars” to display confidence intervals on a proportion or percentage. Responses to survey questions measured on nominal or ordinal scales, such as vote choice or a Likert type scale (e.g., “Favor strongly” to “Oppose strongly”), are visualized as bar charts. Within the <code>ggplot()</code> function, <code>geom_bar()</code> will plot bar heights corresponding to a survey response quantity such as a frequency, proportion, or percentage.</p>
+<p>To create bar charts, instead of sending the entire <em>anes_20</em> dataframe directly to <code>ggplot()</code>, we first create a smaller data frame containing only the quantities to be plotted. For this example, we will visualize attitudes toward capital punishment (“Do you favor or oppose the death penalty for persons convicted of murder?”) using variable <em>V201345x</em>. To enhance the analysis, we will also compare these attitudes by respondent sex in side-by-side bar plots.</p>
+<p>To plot the percentages supporting and opposing the death penalty, we start by tabulating and cross-tabulating the measures. Using <code>svytable()</code>, we calculate the proportions, convert the results into percentages, and save the tabulation as a miniature dataset in a dataframe:</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="ch9.html#cb512-1" tabindex="-1"></a>table1<span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201345x, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>))<span class="sc">*</span><span class="dv">100</span> </span>
+<span id="cb512-2"><a href="ch9.html#cb512-2" tabindex="-1"></a>table1<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(table1)</span>
+<span id="cb512-3"><a href="ch9.html#cb512-3" tabindex="-1"></a>table1</span></code></pre></div>
+<pre><code>##                 V201345x  Freq
+## 1      1. Favor strongly 42.07
+## 2  2. Favor not strongly 21.10
+## 3 3. Oppose not strongly 19.35
+## 4     4. Oppose strongly 17.48</code></pre>
+<p>From <code>as.data.frame()</code> (or <code>as_tibble()</code>), the dataframe <code>table1</code> has two column headings, <em>V201345x</em> and <em>Freq</em>. We will relabel these columns to “Response” and “Percentage”, then send the data to <code>ggplot()</code>:</p>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="ch9.html#cb514-1" tabindex="-1"></a><span class="fu">colnames</span>(table1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Response&quot;</span>, <span class="st">&quot;Percentage&quot;</span>)</span></code></pre></div>
+<p>Enter the table name <code>table1</code> and observe how the column names have changed. Then as displayed in Figure <a href="ch9.html#fig:table1bar1">9.1</a> <code>geom_bar()</code> plots the bar heights with an argument <code>stat="identity"</code>, which instructs <code>geom_bar()</code> to plot the heights ‘as is’, without changes:</p>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="ch9.html#cb515-1" tabindex="-1"></a><span class="fu">ggplot</span>(table1, <span class="fu">aes</span>(<span class="at">x =</span> Response, <span class="at">y =</span> Percentage)) <span class="sc">+</span></span>
+<span id="cb515-2"><a href="ch9.html#cb515-2" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb515-3"><a href="ch9.html#cb515-3" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Death penalty attitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Percentage&quot;</span>) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:table1bar1"></span>
+<img src="bookdown_files/figure-html/table1bar1-1.png" alt="Attitude toward capital punishment (death penalty) in the 2020 ANES survey, categorized by strength of favor or opposition. Bars represent the proportion of respondents in each category." width="672" />
+<p class="caption">
+FIGURE 9.1: Attitude toward capital punishment (death penalty) in the 2020 ANES survey, categorized by strength of favor or opposition. Bars represent the proportion of respondents in each category.
+</p>
+</div>
+<p>To contrast death penalty support by respondent sex, we construct the cross-tabulation and save it as a dataframe, <code>table2</code>:</p>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="ch9.html#cb516-1" tabindex="-1"></a>table2<span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="fu">svytable</span>(<span class="sc">~</span>V201345x <span class="sc">+</span> sex, anes2020, <span class="at">round=</span><span class="cn">TRUE</span>), </span>
+<span id="cb516-2"><a href="ch9.html#cb516-2" tabindex="-1"></a>                    <span class="at">margin=</span><span class="dv">2</span>)<span class="sc">*</span><span class="dv">100</span> </span>
+<span id="cb516-3"><a href="ch9.html#cb516-3" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(table2)</span>
+<span id="cb516-4"><a href="ch9.html#cb516-4" tabindex="-1"></a>table2</span></code></pre></div>
+<pre><code>##                 V201345x       sex  Freq
+## 1      1. Favor strongly   1. Male 44.65
+## 2  2. Favor not strongly   1. Male 21.15
+## 3 3. Oppose not strongly   1. Male 17.88
+## 4     4. Oppose strongly   1. Male 16.33
+## 5      1. Favor strongly 2. Female 39.75
+## 6  2. Favor not strongly 2. Female 21.08
+## 7 3. Oppose not strongly 2. Female 20.62
+## 8     4. Oppose strongly 2. Female 18.55</code></pre>
+<p>Notice there are three columns, which we will rename, then pass on to <code>ggplot()</code>.</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="ch9.html#cb518-1" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Response&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;Percentage&quot;</span>)</span></code></pre></div>
+<p>The aesthetic argument <code>fill=sex</code> colors the bars by sex, while in <code>geom_bar()</code>, <code>position="dodge"</code> places the bars side by side rather than stacked. Figure <a href="ch9.html#fig:bardodge">9.2</a> displays the bar graph with error bars:</p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="ch9.html#cb519-1" tabindex="-1"></a><span class="fu">ggplot</span>(table2, <span class="fu">aes</span>(<span class="at">x =</span> Response, <span class="at">y =</span> Percentage, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb519-2"><a href="ch9.html#cb519-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb519-3"><a href="ch9.html#cb519-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Response&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Percentage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb519-4"><a href="ch9.html#cb519-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb519-5"><a href="ch9.html#cb519-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb519-6"><a href="ch9.html#cb519-6" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:bardodge"></span>
+<img src="bookdown_files/figure-html/bardodge-1.png" alt="Attitude toward capital punishment (death penalty) by respondent sex in the 2020 ANES survey, categorized by strength of favor or opposition. Bars represent the proportion of respondents by sex in each category." width="100%" />
+<p class="caption">
+FIGURE 9.2: Attitude toward capital punishment (death penalty) by respondent sex in the 2020 ANES survey, categorized by strength of favor or opposition. Bars represent the proportion of respondents by sex in each category.
+</p>
+</div>
+<p>The line <code>theme_minimal()</code> removes the grey background and <code>scale_fill_grey()</code> distinguishes the bars in grey versus black. The single bar plot visualizes the tabulation, the side-by-side bars display the cross-tabulated percentages. Because the percentages in the bar plot are the percentages of males and females holding each position, these quantities in the bars match the column percentages from the cross-tabulation.</p>
+</div>
+<div id="bar-graph-with-error-bars" class="section level3 unnumbered hasAnchor">
+<h3>Bar graph with error bars<a href="ch9.html#bar-graph-with-error-bars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For both bar graphs, we can plot the 95 percent confidence intervals as error bars on each one. We calculate the error bar quantities for each subset of sex, and then combine these quantities with the dataframe for <code>ggplot()</code>.</p>
+<p>The first step is to calculate the standard error of level of support, relying on the <code>svymean()</code> function.</p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="ch9.html#cb520-1" tabindex="-1"></a>error_table1<span class="ot">&lt;-</span><span class="fu">svymean</span>(<span class="sc">~</span>V201345x, anes2020, <span class="at">na.rm=</span><span class="cn">TRUE</span>) </span></code></pre></div>
+<p>It is converted to a dataframe and attached as additional columns onto <em>table1</em> with <code>cbind()</code>:</p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="ch9.html#cb521-1" tabindex="-1"></a>error_table1<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(error_table1)</span>
+<span id="cb521-2"><a href="ch9.html#cb521-2" tabindex="-1"></a>table1<span class="ot">&lt;-</span><span class="fu">cbind</span>(table1, error_table1)</span></code></pre></div>
+<p>The small dataframe <em>table1</em> now includes both the quantities for the bar heights and standard errors. To construct the 95 percent confidence interval, we multiple the standard error by the corresponding z score of 1.96, creating a new variable <em>error</em>:</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="ch9.html#cb522-1" tabindex="-1"></a>table1<span class="ot">&lt;-</span>table1 <span class="sc">%&gt;%</span></span>
+<span id="cb522-2"><a href="ch9.html#cb522-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">error =</span> (<span class="fl">1.96</span><span class="sc">*</span>SE)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div>
+<p>The error is multiplied by 100, because the bars are scaled as percentages.</p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="ch9.html#cb523-1" tabindex="-1"></a>table1</span></code></pre></div>
+<pre><code>##                 Response Percentage   mean       SE
+## 1      1. Favor strongly      42.07 0.4206 0.010141
+## 2  2. Favor not strongly      21.10 0.2110 0.007772
+## 3 3. Oppose not strongly      19.35 0.1936 0.007045
+## 4     4. Oppose strongly      17.48 0.1747 0.008413
+##   error
+## 1 1.988
+## 2 1.523
+## 3 1.381
+## 4 1.649</code></pre>
+<p>The dataframe includes row names, which can be deleted with <code>row.names(table1)&lt;-NULL</code>. The dataframe <em>table1</em> is fed into <code>ggplot()</code>. The geometry <code>geom_errorbar()</code>, specifying the minimum and maximum values of the error bars, specified as <code>aes(ymin = Percentage - error, ymax = Percentage + error)</code>. Figure <a href="ch9.html#fig:errorbarplot1">9.3</a> displays the bar plot with error bars marked in black.</p>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="ch9.html#cb525-1" tabindex="-1"></a><span class="fu">ggplot</span>(table1, <span class="fu">aes</span>(<span class="at">x =</span> Response, <span class="at">y =</span> Percentage)) <span class="sc">+</span></span>
+<span id="cb525-2"><a href="ch9.html#cb525-2" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb525-3"><a href="ch9.html#cb525-3" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Death penalty attitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Percentage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb525-4"><a href="ch9.html#cb525-4" tabindex="-1"></a><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Percentage <span class="sc">-</span> error, <span class="at">ymax =</span> Percentage <span class="sc">+</span> error),</span>
+<span id="cb525-5"><a href="ch9.html#cb525-5" tabindex="-1"></a>      <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb525-6"><a href="ch9.html#cb525-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb525-7"><a href="ch9.html#cb525-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:errorbarplot1"></span>
+<img src="bookdown_files/figure-html/errorbarplot1-1.png" alt="Attitude toward capital punishment (death penalty) in the 2020 ANES survey, categorized by strength of favor or opposition. Error bars measure the margin of error (95 percent confidence intervals) on each category." width="100%" />
+<p class="caption">
+FIGURE 9.3: Attitude toward capital punishment (death penalty) in the 2020 ANES survey, categorized by strength of favor or opposition. Error bars measure the margin of error (95 percent confidence intervals) on each category.
+</p>
+</div>
+<p>The length of the black lines along the bars marks the 95 percent confidence intervals, with the width (<code>width = 0.25</code>) a commonly used adornment to make the bars more noticeable.</p>
+<p>For a bar plot displaying the cross-tabulation of attitude by sex, the steps are essentially the same. We already have <em>table2</em> with a label <em>Response</em> for attitudes toward the death penalty, <em>sex</em> and <em>Percentage</em>. To calculate the standard errors, we rely on <code>svymean()</code> with <code>subset()</code> for each level of sex.</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="ch9.html#cb526-1" tabindex="-1"></a>table2_m<span class="ot">&lt;-</span><span class="fu">svymean</span>(<span class="sc">~</span>V201345x , <span class="fu">subset</span>(anes2020, sex<span class="sc">==</span><span class="st">&quot;1. Male&quot;</span>), </span>
+<span id="cb526-2"><a href="ch9.html#cb526-2" tabindex="-1"></a>                  <span class="at">round=</span><span class="cn">TRUE</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">*</span><span class="dv">100</span> </span>
+<span id="cb526-3"><a href="ch9.html#cb526-3" tabindex="-1"></a></span>
+<span id="cb526-4"><a href="ch9.html#cb526-4" tabindex="-1"></a>table2_f<span class="ot">&lt;-</span><span class="fu">svymean</span>(<span class="sc">~</span>V201345x , <span class="fu">subset</span>(anes2020, sex<span class="sc">==</span><span class="st">&quot;2. Female&quot;</span>), </span>
+<span id="cb526-5"><a href="ch9.html#cb526-5" tabindex="-1"></a>                  <span class="at">round=</span><span class="cn">TRUE</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">*</span><span class="dv">100</span> </span></code></pre></div>
+<p>We convert the two tables to dataframes.</p>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="ch9.html#cb527-1" tabindex="-1"></a>table2_m<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(table2_m)</span>
+<span id="cb527-2"><a href="ch9.html#cb527-2" tabindex="-1"></a>table2_f<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(table2_f)</span></code></pre></div>
+<p>The data table <code>table2</code> is arranged in long form; we row bind the <code>table2_m</code> and <code>table2_f</code> data tables and then column bind the result back to <code>table2</code>:</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="ch9.html#cb528-1" tabindex="-1"></a>table2_m<span class="ot">&lt;-</span> <span class="fu">rbind</span>(table2_m, table2_f)</span></code></pre></div>
+<p>Quantities for males appear first, followed by female. Then we column bind this table on to <em>table2</em>:</p>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="ch9.html#cb529-1" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">cbind</span>(table2, table2_m)</span></code></pre></div>
+<p>Enter the name of the data table at the prompt (<code>table2</code>) to observe the combined tables. We create the <em>error</em> column, and then plot the result:</p>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="ch9.html#cb530-1" tabindex="-1"></a>table2<span class="ot">&lt;-</span>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb530-2"><a href="ch9.html#cb530-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">error =</span> (<span class="fl">1.96</span><span class="sc">*</span>SE)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div>
+<p>Figure <a href="ch9.html#fig:errorbarmf">9.4</a> displays the two versions of the graphic, one reoriented to a horizontal bar chart, a popular variation on the presentation of bar charts, often used to make verbal labels more legible or to simply change the orientation so that the graph is wider and shorter vertically. The horizontal bars are arranged by adding <code>coord_flip()</code> and the legend is moved to the bottom of each graphic <code>theme(legend.position = "bottom")</code>.</p>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="ch9.html#cb531-1" tabindex="-1"></a><span class="fu">ggplot</span>(table2, <span class="fu">aes</span>(<span class="at">x =</span> Response, <span class="at">y =</span> Percentage, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb531-2"><a href="ch9.html#cb531-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb531-3"><a href="ch9.html#cb531-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Death penalty attitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Percentage&quot;</span>) <span class="sc">+</span></span>
+<span id="cb531-4"><a href="ch9.html#cb531-4" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Percentage <span class="sc">-</span> error,</span>
+<span id="cb531-5"><a href="ch9.html#cb531-5" tabindex="-1"></a>                    <span class="at">ymax =</span> Percentage <span class="sc">+</span> error),</span>
+<span id="cb531-6"><a href="ch9.html#cb531-6" tabindex="-1"></a>      <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb531-7"><a href="ch9.html#cb531-7" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb531-8"><a href="ch9.html#cb531-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb531-9"><a href="ch9.html#cb531-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb531-10"><a href="ch9.html#cb531-10" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>()</span></code></pre></div>
+<p>Note that for the error bars grouped by sex, the additional argument in <code>geom_errorbar()</code>, <code>position = position_dodge(width = 0.8)</code>, lines up the error bars with the ‘dodged’ or side-by-side bars.</p>
+<div class="figure"><span style="display:block;" id="fig:errorbarmf"></span>
+<img src="bookdown_files/figure-html/errorbarmf-1.png" alt="Attitude toward capital punishment (death penalty) by sex in the 2020 ANES survey, categorized by strength of favor or opposition. Error bars measure the margin of error (95 percent confidence intervals) on each category." width="672" />
+<p class="caption">
+FIGURE 9.4: Attitude toward capital punishment (death penalty) by sex in the 2020 ANES survey, categorized by strength of favor or opposition. Error bars measure the margin of error (95 percent confidence intervals) on each category.
+</p>
+</div>
+</div>
+<div id="weighted-histograms" class="section level3 unnumbered hasAnchor">
+<h3>Weighted histograms<a href="ch9.html#weighted-histograms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In Chapter <a href="ch4.html#ch4">4</a> visualizations of feeling thermometers ignored the survey design. We can apply a weight to the visualization as an argument to a geometry in <code>ggplot()</code>. For example, a weighted histogram of feelings toward ‘Donald Trump’ takes the observations and multiplies each one by the weight, adjusting the bar heights accordingly. The weight argument is simply <code>weight=V200015b</code>, as in Figure <a href="ch9.html#fig:weighthist">9.5</a>:</p>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="ch9.html#cb532-1" tabindex="-1"></a><span class="fu">ggplot</span>(anes_20) <span class="sc">+</span></span>
+<span id="cb532-2"><a href="ch9.html#cb532-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>V202179, <span class="at">y=</span><span class="fu">after_stat</span>(width<span class="sc">*</span>density)<span class="sc">*</span><span class="dv">100</span>, </span>
+<span id="cb532-3"><a href="ch9.html#cb532-3" tabindex="-1"></a>                       <span class="at">weight=</span>V200015b), <span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span> </span>
+<span id="cb532-4"><a href="ch9.html#cb532-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;feelings toward &#39;Donald Trump&#39;&quot;</span>,</span>
+<span id="cb532-5"><a href="ch9.html#cb532-5" tabindex="-1"></a>         <span class="at">y=</span><span class="st">&quot;Percentage of respondents&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:weighthist"></span>
+<img src="bookdown_files/figure-html/weighthist-1.png" alt="A weighted histogram of feelings toward Donald Trump, 2020 ANES." width="672" />
+<p class="caption">
+FIGURE 9.5: A weighted histogram of feelings toward Donald Trump, 2020 ANES.
+</p>
+</div>
+<p>The <em>survey</em> package includes a histogram visualization function <code>svyhist()</code>, along with other visualization types for survey data described by a <code>svydesign()</code> function. (See the help files for the package for details.)</p>
+</div>
+</div>
+<div id="resources-8" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch9.html#resources-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The American Association for Public Opinion Research <a href="https://aapor.org/" class="uri">https://aapor.org/</a>, the leading professional association for public opinion researchers, maintains primers for topics in survey data analysis and particularly election polling.</p>
+<p>The American National Election Studies (ANES) <a href="https://electionstudies.org/" class="uri">https://electionstudies.org/</a> maintains the catalog of ANES data and other resources.</p>
+</div>
+<div id="exercises-7" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> Exercises<a href="ch9.html#exercises-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Knit <strong>R</strong> code into a document to answer the following questions, based on the 2020 ANES data:</p>
+<ol style="list-style-type: decimal">
+<li><p>Tabulate percentages and create a bar graph from a nominal or ordinal measure. In a paragraph, identify the question wording and response scale; explain any recoding or transformations of the responses in the variable and describe the results. Be sure to set the <code>svydesign()</code> and find the relevant proportions with <code>svytable()</code>.</p></li>
+<li><p>Create a crosstabulation between any nominal or ordinal survey measure and respondent age in groups — if necessary use the example in this chapter to create a variable that categorizes age. Identify the independent and dependent variables, write a hypothesis relating the two variables. In the table include frequencies and appropriate percentages, and describe the extent to which the table supports your hypothesis.</p></li>
+<li><p>Following the previous question, construct a set of control tables on sex. Controlling for this third measure, does the relationship still hold? How or how not?</p></li>
+<li><p>Create a histogram for a continuous measure across levels of a categorical variable such as sex or age group. Apply the weight to <code>ggplot()</code>, and record percentages rather than frequency counts on the appropriate axis. Interpret the graphic.</p></li>
+<li><p>Construct a crosstabulation of respondent gun ownership by party identification (Democrat, Republican, Independent), displaying frequencies and appropriate percentages. Locate the gun ownership variable, constructing a categorical measure of 0, 1, and 2 or more guns. In a paragraph answer the question, ‘How much more likely are Republicans to own guns than Democrats?’ Describe the table and include an inferential test of independence.</p></li>
+<li><p>Locate the respondent authoritarianism variable, and calculate 95 percent confidence intervals on mean levels of authoritarianism by educational attainment. Describe the results in a paragraph – is authoritarianism related to education? How so?</p></li>
+<li><p>Find the modern sexism, respondent age group, and sex variables. To what extent is there evidence of an age gap in attitudes toward sexism, and how do attitudes toward sexism vary by age? Does any relationship persist controlling for sex?</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-campbell1948" class="csl-entry">
+Campbell, Angus, and Robert L. Kahn. 1948. <span>“Codebook Introduction File: 1948 Pre-Post Study (1948.t).”</span> Survey Research Center, University of Michigan; <a href="https://electionstudies.org/data-center/1948-time-series-study/" class="uri">https://electionstudies.org/data-center/1948-time-series-study/</a>. <a href="https://electionstudies.org/data-center/1948-time-series-study/">https://electionstudies.org/data-center/1948-time-series-study/</a>.
+</div>
+<div id="ref-erikson2015" class="csl-entry">
+Erikson, Robert S., and Kent L. Tedin. 2015. <em>American Public Opinion</em>. 9th ed. Boston: Pearson.
+</div>
+<div id="ref-groves2011" class="csl-entry">
+Groves, Robert M., Floyd J. Jr. Fowler, Mick P. Couper, James M. Lepkowski, Eleanor Singer, and Roger Tourangeau. 2011. <em>Survey Methodology</em>. 2nd ed. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-jones2020" class="csl-entry">
+Jones, Tim. 2020. <span>“Dewey Defeats Truman: The Most Famous Wrong Call in Electoral History.”</span> <em>Chicago Tribune</em>.
+</div>
+<div id="ref-lumley2011" class="csl-entry">
+Lumley, Thomas. 2011. <em>Complex Surveys: A Guide to Analysis Using r</em>. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-R-survey" class="csl-entry">
+———. 2021. <em>Survey: Analysis of Complex Survey Samples</em>. <a href="http://r-survey.r-forge.r-project.org/survey/">http://r-survey.r-forge.r-project.org/survey/</a>.
+</div>
+<div id="ref-weisberg1996" class="csl-entry">
+Weisberg, Herbert F., Jon A. Krosnick, and Bruce D. Bowen. 1996. <em>An Introduction to Survey Research, Polling, and Data Analysis</em>. 3rd ed. Thousand Oaks, CA: SAGE Publications, Inc.
+</div>
+<div id="ref-R-forcats" class="csl-entry">
+———. 2023a. <em>Forcats: Tools for Working with Categorical Variables (Factors)</em>. <a href="https://CRAN.R-project.org/package=forcats">https://CRAN.R-project.org/package=forcats</a>.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2023b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-presidency2024" class="csl-entry">
+Woolley, John T., and Gerhard Peters. 2024. <span>“The American Presidency Project.”</span> <a href="https://www.presidency.ucsb.edu/statistics/elections" class="uri">https://www.presidency.ucsb.edu/statistics/elections</a>. <a href="https://www.presidency.ucsb.edu/statistics/elections">https://www.presidency.ucsb.edu/statistics/elections</a>.
+</div>
+<div id="ref-R-knitr" class="csl-entry">
+———. 2023b. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+</div>
+<div id="ref-R-kableExtra" class="csl-entry">
+Zhu, Hao. 2024. <em>kableExtra: Construct Complex Table with Kable and Pipe Syntax</em>. <a href="https://CRAN.R-project.org/package=kableExtra">https://CRAN.R-project.org/package=kableExtra</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch8.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch10.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/09-analyzing-election-surveys.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

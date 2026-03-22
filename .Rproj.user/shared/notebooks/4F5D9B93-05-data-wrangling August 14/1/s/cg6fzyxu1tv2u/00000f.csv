@@ -1,0 +1,7 @@
+"0","## A dotplot:"
+"0","MI_prez_2016_wide %>%"
+"0","  ggplot(aes(reorder(CountyName, Trump), Trump)) +"
+"0","  geom_point() +"
+"0","  labs(title=""Trump Votes by Michigan County, 2016"","
+"0","       x=""County"", y=""Number of Votes"") +"
+"0","  coord_flip()"

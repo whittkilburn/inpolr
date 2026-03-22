@@ -1,0 +1,4 @@
+"0","nmds.results<-smacofSym(dissimat_fed, ndim=2) "
+"2","Error in if (p > (n - 1)) stop(""Maximum number of dimensions is n-1!"") : 
+  argument is of length zero
+"

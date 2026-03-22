@@ -1,0 +1,3 @@
+"0","# install.packages(""tmap"")"
+"0","library(tmap)"
+"0","qtm(michigan, fill=""indicator"", fill.palette=c(""red"", ""blue""))"

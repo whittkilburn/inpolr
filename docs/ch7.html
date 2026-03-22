@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Scaling and Clustering for Pattern Detection | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Scaling and Clustering for Pattern Detection | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Scaling and Clustering for Pattern Detection | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch6.html"/>
+<link rel="next" href="ch8.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch7" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Scaling and Clustering for Pattern Detection<a href="ch7.html#ch7" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch7.html#ch7">7</a> reviews the use of distance metrics for summarizing and exploring relationships between observations.</p>
+<div id="learning-objectives-and-chapter-resources-5" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch7.html#learning-objectives-and-chapter-resources-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this chapter you should be able to: (1) describe conceptually the use of multi-dimensional scaling (MDS) as a tool for analyzing data; (2) prepare a data table and construct a matrix of Euclidean or Manhattan distance metrics; (3) apply functions for estimating and evaluating nonmetric MDS solutions; (4) interpret a measure of model goodness of fit; (5) contrast the use of distance metrics in MDS with hierarchical clustering; and (6) interpret a dendrogram. The material in the chapter requires the following packages: <strong>smacof</strong> <span class="citation">(<a href="#ref-R-smacof">Mair, De Leeuw, and Groenen 2022</a>)</span>, which will need to be installed, as well as <strong>ggrepel</strong> <span class="citation">(<a href="#ref-R-ggrepel">Slowikowski 2023</a>)</span>, and <strong>tidyverse</strong> <span class="citation">(<a href="#ref-R-tidyverse">Wickham 2023b</a>)</span>. The material uses the following datasets <em>poll_ft.csv</em>, <em>co_na_h_votes_117_wide.csv</em>, <em>co_117_euc_distances.csv</em>, and <em>s_memb_votes_117_wide.csv</em> from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="spatial-politics-and-distance-metrics" class="section level2 unnumbered hasAnchor">
+<h2>Spatial politics and distance metrics<a href="ch7.html#spatial-politics-and-distance-metrics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We frequently conceptualize politics in spatial terms. The ubiquity of variations on the phrase ‘liberal to conservative spectrum’ captures this intuition. Spatial representations of politics are a kind of political science ‘brand’, encompassing how the discipline explains lines of political conflict through one- or two-dimensional figures <span class="citation">(<a href="#ref-Brady2011"><strong>Brady2011?</strong></a>)</span>. An analytic method for taking data and generating insight into spatial politics through visualization is multidimensional scaling (MDS) — a technique closely tied to spatial theories of politics and one that political scientists have actively developed and refined <span class="citation">(<a href="#ref-armstrong2020">Armstrong et al. 2020</a>; <a href="#ref-jacoby2014b">William G. Jacoby and Armstrong 2014</a>; <a href="#ref-bradycollier2011">Brady, Collier, and Box-Steffensmeier 2011</a>)</span>.</p>
+<p>In Chapter <a href="ch7.html#ch7">7</a>, we review the use of MDS, along with a related method, cluster analysis. There are many varieties of these methods; our discussion is limited to an overview of nonmetric MDS <span class="citation">(<a href="#ref-rabinowitz1975">Rabinowitz 1975</a>)</span> and ‘hierarchical’ clustering <span class="citation">(<a href="#ref-bartholomew2008">Bartholomew et al. 2008</a>)</span>. While related, each provides distinctly different insight into the same data. We will review the conceptual foundations of MDS and cluster analysis with the creation of ‘distance metrics’, the primary data input for these procedures, followed by three examples. First, we will apply MDS to the spatial configuration of the American public’s feelings toward political candidates and figures. Second, we will apply MDS to explore the spatial relationships between legislators in the U.S. Congress as revealed through roll call voting. Third, we will contrast the insights from MDS with a cluster analysis of the same data sources.</p>
+</div>
+<div id="introduction-to-multidimensional-scaling" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Introduction to multidimensional scaling<a href="ch7.html#introduction-to-multidimensional-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Multidimensional scaling procedures are a graphical, data visualization focused method of analyzing data. Often the purpose is exploratory, to observe patterns of similarity between subjects of political interest, such as the voting behavior of legislators or an electorates’ feelings toward political figures. Just about any dataset composed of measures of a common set of observations could be analyzed through MDS, such as country-level measures of political and economic development. Whatever the input source data, the analytical output leads to a dimensional representation of the similarity among the observations.</p>
+<p>An example of such a figure – a typical product of an MDS analysis – appears in Figure <a href="ch7.html#fig:mdsfig1">7.1</a>. The figure displays in two dimensions the patterns of feeling thermometer scores toward political figures and groups in the 2004 ANES survey; it is a typical ‘output’ of an MDS analysis, a two-dimensional scatterplot, given the input of individual-level thermometer scores. The figure shows the location of the subjects, where subjects grouped closer together elicited more similar feelings from the electorate. Based on input matrix summarizing the patterns of dissimilarity between the feeling thermometer scores across the figures and groups, the MDS algorithm constructed a set of two-dimensional coordinates for each one, so that the coordinates mirror the dissimilarities as much as possible.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:mdsfig1"></span>
+<img src="includegraphics/ch%207%20includegraphics/ftmds.png" alt="Nonmetric multidimensional scaling (MDS) plot of feeling thermometer ratings from the 2004 ANES survey, reduced to two dimensions. The plot arranges political figures and social groups based on similarity in respondents' ratings: groups with more similar ratings appear closer together. The familiar partisan and ideological fault lines of American politics emerge, with political figures clustering along ideological directions away from the center, where social groups tend to cluster." width="80%" />
+<p class="caption">
+FIGURE 7.1: Nonmetric multidimensional scaling (MDS) plot of feeling thermometer ratings from the 2004 ANES survey, reduced to two dimensions. The plot arranges political figures and social groups based on similarity in respondents’ ratings: groups with more similar ratings appear closer together. The familiar partisan and ideological fault lines of American politics emerge, with political figures clustering along ideological directions away from the center, where social groups tend to cluster.
+</p>
+</div>
+<p>The MDS input data is a square matrix of dissimilarities, measures that quantify the degree of difference between objects of political interest, considered in pairs. A matrix of dissimilarity data from feeling thermometers could be measures that summarize how differently the public feels toward political figures. There are two basic varieties of MDS procedures: metric and nonmetric. A metric MDS procedure makes interval-level assumptions about the input dissimilarities, finding output distances that reflect the numeric score dissimilarities in the input data. A nonmetric MDS procedure makes only ordinal-level assumptions about the input dissimilarities. In effect the input dissimilarity scores between objects of interest are rank ordered, from least to most similar, and the algorithm finds an optimal translation of the rank-ordered dissimilarities into distances. Below I conceptually review the steps in a nonmetric MDS. A concise and technical introduction to metric and nonmetric is Jacoby <span class="citation">(<a href="#ref-jacoby1991">1991</a>)</span> or Jacoby and Ciuk <span class="citation">(<a href="#ref-jacoby2018">2018</a>)</span>. Nonetheless, both methods start with the construction of dissimilarity matrices. Two commonly used metrics for summarizing dissimilarities are Euclidean and Manhattan distances.</p>
+</div>
+<div id="euclidean-and-manhattan-distances" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Euclidean and Manhattan distances<a href="ch7.html#euclidean-and-manhattan-distances" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Perhaps the most common dissimilarity measure used in MDS is the Euclidean distance metric. The distance measures the straight line path between two points in a multidimensional space. Figure <a href="ch7.html#fig:eucliddiagram">7.2</a> illustrates a Euclidean distance between two points (or objects) in a two-dimensional space, X and Y. The Euclidean distance is based on the familiar Pythagorean theorem, <span class="math inline">\(a^2 + b^2 = c^2\)</span>, describing the length of the hypotenuse of a right triangle on these two dimensions. Figure <a href="ch7.html#fig:eucliddiagram">7.2</a> displays the Euclidean, straight line distance between the two points, calculated from the squared sum of the distances between each point on the X and Y dimensions. Working through the arithmetic in <strong>R</strong> illustrates how it works.</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="ch7.html#cb278-1" tabindex="-1"></a><span class="fu">sqrt</span>((<span class="dv">6-1</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (<span class="dv">5-2</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 5.831</code></pre>
+<p>The distance can be generalized to any number of dimensions and points. If we added a third point and a third dimension, identified <em>p</em> , <em>q</em>, and <em>r</em>:</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="ch7.html#cb280-1" tabindex="-1"></a>p<span class="ot">=</span><span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">7</span>)</span>
+<span id="cb280-2"><a href="ch7.html#cb280-2" tabindex="-1"></a>q<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb280-3"><a href="ch7.html#cb280-3" tabindex="-1"></a>r<span class="ot">=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>, <span class="dv">12</span>)</span></code></pre></div>
+<p>We can combine rows of the points together (<code>rbind()</code>) into a matrix <em>matx</em> and apply the distance function <code>dist()</code> to calculate the Euclidean distance:</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="ch7.html#cb281-1" tabindex="-1"></a>mat<span class="ot">&lt;-</span><span class="fu">rbind</span>(p,q,r)</span>
+<span id="cb281-2"><a href="ch7.html#cb281-2" tabindex="-1"></a></span>
+<span id="cb281-3"><a href="ch7.html#cb281-3" tabindex="-1"></a>mat </span></code></pre></div>
+<pre><code>##   [,1] [,2] [,3]
+## p    6    5    7
+## q    1    2   10
+## r    2    5   12</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="ch7.html#cb283-1" tabindex="-1"></a><span class="fu">dist</span>(mat)</span></code></pre></div>
+<pre><code>##       p     q
+## q 6.557      
+## r 6.403 3.742</code></pre>
+<p>The result is a Euclidean distance matrix.</p>
+<div class="figure"><span style="display:block;" id="fig:eucliddiagram"></span>
+<img src="bookdown_files/figure-html/eucliddiagram-1.png" alt="Euclidean distance formula and calculation of the distance between two points on two dimensions, X and Y." width="672" />
+<p class="caption">
+FIGURE 7.2: Euclidean distance formula and calculation of the distance between two points on two dimensions, X and Y.
+</p>
+</div>
+<p>Another way of calculating the distance is via a Manhattan or ‘city block’ distance. Figure <a href="ch7.html#fig:manhattandiagram">7.3</a> displays how the Manhattan distance is calculated like walking city blocks, over and up or down. The Manhattan distance is the sum of the absolute difference between the dimensions. For the distance between <em>p</em> and <em>q</em> on the two dimensions, the difference calculated in <strong>R</strong> is 8: <code>abs(6-1) + abs(5-2)</code>. Adding a <code>distance="manhattan"</code> argument to <code>dist()</code> creates the distances for <em>matx</em>:</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="ch7.html#cb285-1" tabindex="-1"></a><span class="fu">dist</span>(mat,  <span class="at">method=</span><span class="st">&quot;manhattan&quot;</span>)</span></code></pre></div>
+<pre><code>##    p  q
+## q 11   
+## r  9  6</code></pre>
+<div class="figure"><span style="display:block;" id="fig:manhattandiagram"></span>
+<img src="bookdown_files/figure-html/manhattandiagram-1.png" alt="Manhattan 'city block' distance formula and calculation of the distance between two points on two dimensions, X and Y." width="672" />
+<p class="caption">
+FIGURE 7.3: Manhattan ‘city block’ distance formula and calculation of the distance between two points on two dimensions, X and Y.
+</p>
+</div>
+<p>Instead of abstract points, in an MDS analysis, distance matrices are created with measurements on political objects of interest — for example, for feeling thermometers, the dimensions (like X and Y) are each a survey respondent’s rating of a candidate, or for legislators, the dimensions are the roll call votes. Give a matrix of dissimilarity, the MDS algorithm translates the dissimiliarities into distances.</p>
+<p>In a nonmetric MDS, the algorithm accounts for the ordinal arrangement of the dissimilarities starting with “target distances” (or “disparities”), the distances that the algorithm tries to reproduce in the low-dimensional space. The target distances are a new distance matrix, one that preserves the rank order of pairs of objects in their similarity, but not necessarily the exact numerical value of the original matrix of distances. The goal is to find a one- or two-dimensional configuration of the points (as the output visualization) where the actual distances between points closely approximate these target distances. The algorithm focuses on preserving the rank order of the dissimilarities, ensuring that objects perceived as more similar remain closer together in the plot. The fit of the model is evaluated using the function applied by the algorithm to find the configuration, referred to as the “Stress function”, which measures the degree of mismatch between the actual distances and the disparities, with lower stress indicating a better fit. The fit statistic is discussed further below. For now, we will work through an example in <strong>R</strong>.</p>
+</div>
+<div id="scaling-feelings-toward-political-figures-and-groups" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Scaling feelings toward political figures and groups<a href="ch7.html#scaling-feelings-toward-political-figures-and-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will work through an example of an MDS analysis of feeling thermometer scores <em>poll_ft.csv</em>, to illustrate how the procedure works. To begin, we will load two packages, <strong>tidyverse</strong> and <strong>ggrepel</strong> (for labeling graphics), then read in the dataset and store it as object <em>polfigures</em>. We use the <code>read_csv()</code> function from the <strong>tidyverse</strong> package:</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="ch7.html#cb287-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb287-2"><a href="ch7.html#cb287-2" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="ch7.html#cb288-1" tabindex="-1"></a>polfigures<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;poll_ft.csv&quot;</span>)</span></code></pre></div>
+<p>Once it is stored as <em>polfigures</em>, we will remove the columns that do not contain feeling thermometer scores, to simplify the process of applying a distance metric to the data.</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="ch7.html#cb289-1" tabindex="-1"></a>polfigures<span class="ot">&lt;-</span> polfigures <span class="sc">%&gt;%</span></span>
+<span id="cb289-2"><a href="ch7.html#cb289-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>gender, <span class="sc">-</span>campint, <span class="sc">-</span>fair, <span class="sc">-</span>prezapp, <span class="sc">-</span>libcon, <span class="sc">-</span>party, <span class="sc">-</span>partyid, </span>
+<span id="cb289-3"><a href="ch7.html#cb289-3" tabindex="-1"></a>         <span class="sc">-</span>race, <span class="sc">-</span>conservatives, <span class="sc">-</span>abor, <span class="sc">-</span>educ)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="ch7.html#cb290-1" tabindex="-1"></a>polfigures</span></code></pre></div>
+<pre><code>## # A tibble: 1,212 × 30
+##    bushft kerryft naderft cheneyft edwardsft lbushft
+##     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+##  1     70      85       0       50        50      NA
+##  2     40      85      NA       40        70      60
+##  3    100      50      50      100        50     100
+##  4     50      60      60       40        70      60
+##  5    100       0      50       85         0     100
+##  6     60      30     100       15        30      50
+##  7     85      15      40       70        50      70
+##  8     50      70      85       60       100      70
+##  9     30      70      15       15        60      85
+## 10    100       0       0      100         0     100
+## # … with 1,202 more rows, and 24 more variables:
+## #   hclintonft &lt;dbl&gt;, bclintonft &lt;dbl&gt;,
+## #   powellft &lt;dbl&gt;, ashcroftft &lt;dbl&gt;, mccainft &lt;dbl&gt;,
+## #   reaganft &lt;dbl&gt;, hispanicft &lt;dbl&gt;,
+## #   christfunft &lt;dbl&gt;, catholicsft &lt;dbl&gt;,
+## #   feministsft &lt;dbl&gt;, fedgovft &lt;dbl&gt;, jewsft &lt;dbl&gt;,
+## #   liberalsft &lt;dbl&gt;, midclassft &lt;dbl&gt;, …</code></pre>
+<p>Now the dataset consists solely of 30 feeling thermometer scores, queried from the 1,212 respondents to the 2004 ANES survey, a representative cross-section of the U.S. citizenry, 18 years of age or older by the November 2004 election day. (See the Appendix for data details.) The scores for each political figure or social group is rated on the feeling thermometer scale from 0 to 100, the figure of group identified by name, such as <em>reaganft</em> for Ronald Reagan. Missing values, <em>NA</em>, correspond to “don’t know” type responses or any other reason in which a rating was not recorded. Observing the first five rows and columns:</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="ch7.html#cb292-1" tabindex="-1"></a>polfigures[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 5
+##   bushft kerryft naderft cheneyft edwardsft
+##    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1     70      85       0       50        50
+## 2     40      85      NA       40        70
+## 3    100      50      50      100        50
+## 4     50      60      60       40        70
+## 5    100       0      50       85         0</code></pre>
+<p>The <code>dist()</code> function to create the summary distance measures between the candidates requires the input matrix to be transposed from its current form. The candidates are currently on the columns, and survey respondent raters are on the rows. The function requires that the ‘stimuli’, the objects to be assessed for differences, appear on the rows. A transpose function <code>t()</code> will switch rows and columns:</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="ch7.html#cb294-1" tabindex="-1"></a><span class="fu">t</span>(polfigures[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+<pre><code>##          [,1] [,2] [,3] [,4]
+## bushft     70   40  100   50
+## kerryft    85   85   50   60
+## naderft     0   NA   50   60
+## cheneyft   50   40  100   40</code></pre>
+<p>The transpose <code>t()</code> function is necessary to transpose the input dataset, moving column (candidates) to rows and each survey respondent to the columns.</p>
+<p>Notice the <em>NA</em> value <em>naderft</em> from the survey respondent in the second column. The <code>dist()</code> function handles missing values by simply dropping any pairwise comparisons that involve <em>NA</em> values. So for example, across the first four survey respondents or ‘dimensions’ of comparison, the Euclidean distance between <em>naderft</em> and <em>kerryft</em> is <span class="math inline">\(\sqrt{(85-0)^2 + (50-50)^2 + (60-60)^2}\)</span>, dropping from the calculation the undefined difference between <span class="math inline">\((85-\)</span><em>NA</em><span class="math inline">\()^2\)</span>. From among these four survey respondents, the distance between <em>naderft</em> and <em>kerryft</em> would be based on comparisons between three respondents, while comparisons between <em>kerryft</em> and <em>bushft</em> for example would be based on all four. In addition to dropping any pairwise comparisons involving an <em>NA</em> value, the <code>dist()</code> function also applies a scaling adjustment to any distance calculations in which the number of pairwise comparisons used are less than the total possible number of comparisons.</p>
+<p>To observe how the scaling adjustment works, we will apply the <code>dist()</code> function to this <span class="math inline">\(4 \times 4\)</span> subset of the data.</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="ch7.html#cb296-1" tabindex="-1"></a><span class="fu">dist</span>(<span class="fu">t</span>(polfigures[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]))</span></code></pre></div>
+<pre><code>##          bushft kerryft naderft
+## kerryft   69.64                
+## naderft  100.00   98.15        
+## cheneyft  22.36   78.42   84.85</code></pre>
+<p>Notice in the matrix of distances, the Euclidean distance between <em>kerryft</em> and <em>naderft</em> is 98.14955. This distance differs from the result of 85 from <code>sqrt((85-0)^2 + (50-50)^2 + (60-60)^2)</code>. The difference is accounted for by the adjustment factor, <span class="math inline">\(\sqrt{\frac{n}{k}}\)</span>, where <span class="math inline">\(n\)</span> is the total possible number of comparisons, the total number of ‘dimensions’ or respondent ratings if there were no <em>NA</em> values. Then <span class="math inline">\(k\)</span> is the number of non-<em>NA</em> comparisons. The weight is multiplied by the Euclidean distance; for the distance between <em>kerryft</em> and <em>naderft</em> for these four survey respondents, the scaled distance would be <span class="math inline">\(\sqrt{\frac{4}{3}} \times 85\)</span>, or</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="ch7.html#cb298-1" tabindex="-1"></a><span class="fu">sqrt</span>((<span class="dv">4</span><span class="sc">/</span><span class="dv">3</span>))<span class="sc">*</span><span class="dv">85</span></span></code></pre></div>
+<pre><code>## [1] 98.15</code></pre>
+<p>The result matches the distance in the matrix of six entries on the four columns from the <code>dist()</code> function. With the full matrix of scores, we apply the transpose function inside the <code>dist()</code> function to create the input distance matrix. The result is stored as <em>dissimat</em>:</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="ch7.html#cb300-1" tabindex="-1"></a>dissimat<span class="ot">&lt;-</span><span class="fu">dist</span>(<span class="fu">t</span>(polfigures))</span></code></pre></div>
+<p>The result is a ‘distance object’, <em>dissimat</em>, a <span class="math inline">\(30 \times 30\)</span> matrix containing (by default) Euclidean distances between each feeling thermometer subject. While the default is Euclidean distance, it can be changed with the <code>method=</code> argument, such as <code>dist(t(polfigures), method='manhattam')</code>. Researchers usually refer to these matrices as ‘dissimilarity matrices’ or ‘dissimilarity measures’ to avoid confusion with the output of an MDS algorithm, a visualization translating these dissimilarities into distances in the visualization.</p>
+<p>To view a snippet of the dissimilarity matrix, we first convert it to a matrix and then view the first few rows and columns:</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="ch7.html#cb301-1" tabindex="-1"></a>dissimat_matrix<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(dissimat)</span>
+<span id="cb301-2"><a href="ch7.html#cb301-2" tabindex="-1"></a></span>
+<span id="cb301-3"><a href="ch7.html#cb301-3" tabindex="-1"></a>dissimat_matrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##           bushft kerryft naderft cheneyft edwardsft
+## bushft       0.0  1878.6    1429    782.9    1790.1
+## kerryft   1878.6     0.0    1220   1678.8     651.4
+## naderft   1429.5  1220.4       0   1251.3    1208.0
+## cheneyft   782.9  1678.8    1251      0.0    1642.7
+## edwardsft 1790.1   651.4    1208   1642.7       0.0</code></pre>
+<p>The subscripts <code>[1:5, 1:5]</code> refer to row and column <code>[r, c]</code> selections, selecting the first through fifth row. The matrix is symmetric and the main diagonal entries displaying the distance from one political figure on a column to the same political figure on the row is, of course, 0. Across the first row, the distance between <em>bushft</em> and <em>kerryft</em> is 1878.63. The distance between <em>cheneyft</em> and <em>bushft</em> is 782.869. Again, these are the scaled distances between pairs of feeling thermometers, calculated across all available pairs of non- <em>NA</em> feeling thermometer scores.</p>
+<p>The object <code>dissimat</code> is the input into the MDS algorithm that translates these dissimilarities into distances. Using the <strong>smacof</strong> package <span class="citation">(<a href="#ref-R-smacof">Mair, De Leeuw, and Groenen 2022</a>)</span>, the <code>mds()</code> function will find a set of output coordinates for the input dissimilarity matrix, for a given number of dimensions. The function requires that we specify the input matrix (in this example, <code>dissimat</code>), the number of dimensions (<code>ndim=</code>) and for a nonmetric MDS, <code>type="ordinal"</code>. Install the package if necessary, <code>install.packages("smacof")</code>.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="ch7.html#cb303-1" tabindex="-1"></a><span class="fu">library</span>(smacof)</span></code></pre></div>
+<p>The results will be stored as object <em>nmds_results</em>:</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="ch7.html#cb304-1" tabindex="-1"></a>nmds_results<span class="ot">&lt;-</span><span class="fu">mds</span>(dissimat, <span class="at">ndim=</span><span class="dv">2</span>,  <span class="at">type=</span><span class="st">&quot;ordinal&quot;</span>) </span></code></pre></div>
+<p>Typing the name of the object <em>nmds_results</em> reveals details about how the algorithm, in particular a measure of ‘badness of fit’, which we will review further below. The main result of the <code>mds()</code> function is the set of dimensional positions of the feeling thermometers, which is stored as the configuration of points, <em>nmds_results$conf</em>. Typing this object out, or viewing the top six rows with <code>head()</code>:</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="ch7.html#cb305-1" tabindex="-1"></a><span class="fu">head</span>(nmds_results<span class="sc">$</span>conf)</span></code></pre></div>
+<pre><code>##                D1       D2
+## bushft     1.0878 -0.51103
+## kerryft   -0.9208 -0.02963
+## naderft   -0.2673 -0.94219
+## cheneyft   0.7874 -0.65896
+## edwardsft -0.7895  0.08626
+## lbushft    0.7167  0.04366</code></pre>
+<p>The output displays the positions of the thermometer objects, political figures and groups, on the two dimensions, labeled <em>D1</em> and <em>D2</em>. Visualizing these configurations is the end goal of the MDS, so the next step is to save the configurations to a dataframe and visualize it:</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="ch7.html#cb307-1" tabindex="-1"></a>nmds1<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(nmds_results<span class="sc">$</span>conf)</span></code></pre></div>
+<p>As a dataframe, it is organized into rows and columns:</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="ch7.html#cb308-1" tabindex="-1"></a><span class="fu">head</span>(nmds1)</span></code></pre></div>
+<pre><code>##                D1       D2
+## bushft     1.0878 -0.51103
+## kerryft   -0.9208 -0.02963
+## naderft   -0.2673 -0.94219
+## cheneyft   0.7874 -0.65896
+## edwardsft -0.7895  0.08626
+## lbushft    0.7167  0.04366</code></pre>
+<p>Note the dataframe contains row names of the thermometers rather than a column within the dataframe; these are row names, stored as <code>row.names()</code> within it. The results plotted as points with the label row names in <code>ggplot()</code>. Figure <a href="ch7.html#fig:mdsfig1">7.1</a> displays the MDS algorithm’s solution to the problem of finding an arrangement of the feeling thermometers in a two-dimensional X - Y plot, so that the relative distances between each of the points preserves as much as possible the rank order of the disparities calculated from the matrix of Euclidean distances. The <code>ggplot()</code> code to generate the figure appears below. The graphic suppresses the numeric placeholders for the scaling solution, as the coordinates of the points do not have inherent meaning on their own.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="ch7.html#cb310-1" tabindex="-1"></a><span class="fu">ggplot</span>(nmds1) <span class="sc">+</span></span>
+<span id="cb310-2"><a href="ch7.html#cb310-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>D2, <span class="at">y=</span>D1)) <span class="sc">+</span></span>
+<span id="cb310-3"><a href="ch7.html#cb310-3" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x=</span>D2, <span class="at">y=</span>D1, <span class="at">label=</span><span class="fu">row.names</span>(nmds1))) <span class="sc">+</span></span>
+<span id="cb310-4"><a href="ch7.html#cb310-4" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>))<span class="sc">+</span></span>
+<span id="cb310-5"><a href="ch7.html#cb310-5" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>))<span class="sc">+</span></span>
+<span id="cb310-6"><a href="ch7.html#cb310-6" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Dimension 2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb310-7"><a href="ch7.html#cb310-7" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb310-8"><a href="ch7.html#cb310-8" tabindex="-1"></a>          <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>() )<span class="sc">+</span> </span>
+<span id="cb310-9"><a href="ch7.html#cb310-9" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb310-10"><a href="ch7.html#cb310-10" tabindex="-1"></a>          <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>() )</span></code></pre></div>
+<p>The figure visualizes the extent to which figures and groups tend to elicit similarly warm or cool feelings; figures such as these date back to the first thermometer items included in the ANES; for example, see Rusk <span class="citation">(<a href="#ref-rusk1972">1972</a>)</span>. In interpreting MDS solutions, the key is the relative spacing of the points, the direction or clustering of points — and not to focus exclusively on the movement along the X and Y axes defined in the graphic. Overall, the arrangement in Figure <a href="ch7.html#fig:mdsfig1">7.1</a> reflects a familiar clustering of groups and figures associated with the ‘left’, ‘right’ and the Democratic and Republican parties, respectively.</p>
+<p>As a map of the electorate’s feelings toward figures and groups, clearly there are clusters of Democratic and Republican figures anchoring the upper and lower portions of the graph, perhaps reflecting a partisan ideological dimension of comparison. There are clusters within these regions of the graph, figures and groups associated together, such as the upper-left quadrant clustering Bush, Cheney, Ashcroft, and “Christian Fundamentalists”. The social groups tend to cluster in the middle of the graph, perhaps reflecting a lack of polarized feeling toward each. Note that because the interpretation is about the relative position of the points toward each other, the points can be rotated geometrically around the graph if it helps interpretation; scaling texts such as Armstrong and Bakker <span class="citation">(<a href="#ref-armstrong2020">2020</a>)</span> and Jacoby <span class="citation">(<a href="#ref-jacoby1991">William G. Jacoby 1991</a>)</span> explain how.</p>
+<div id="assessing-mds-model-fit" class="section level3 unnumbered hasAnchor">
+<h3>Assessing MDS model fit<a href="ch7.html#assessing-mds-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before presenting the analysis of roll call votes, there are two additional concerns that must accompany any MDS analysis: how ‘good’ of a fit is the dimensional arrangement of observations? And how many dimensions should be visualized? The “Stress” measure of model fit, and an additional figure – a “Shepard diagram” — help to answer these questions.</p>
+<p>The Stress statistic, often referred to as “Stress type 1” to differentiate it from other measures is a standard for assessing how well a visual configuration of the observations reflects the dissimilarity input matrix <span class="citation">(<a href="#ref-bartholomew2008">Bartholomew et al. 2008</a>)</span>. While not technically an average, it can be interpreted as the average deviation between the disparities and the fitted distances in the figure. Typing the name of the MDS object, <em>nmds_results</em>, reveals the Stress measure and the basic configuration of the model.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="ch7.html#cb311-1" tabindex="-1"></a>nmds_results </span></code></pre></div>
+<pre><code>## 
+## Call:
+## mds(delta = dissimat, ndim = 2, type = &quot;ordinal&quot;)
+## 
+## Model: Symmetric SMACOF 
+## Number of objects: 30 
+## Stress-1 value: 0.092 
+## Number of iterations: 36</code></pre>
+<p>The Stress measures how well the distances in the solution match the dissimilarities from the input data. It ranges from 0 to 1, where lower values indicate better fit, thus it is a ‘badness of fit’ measure. If the arrangement of the fitted distances between the thermometers in the one- or two-dimensional space perfectly reflects the rank=ordered distances of the thermometers in the input matrix, then the Stress value would be 0, a perfect fit. From there, some guidelines are .05 is a “good” fit, while .2 or higher is a “poor” fit <span class="citation">(<a href="#ref-bartholomew2008">Bartholomew et al. 2008</a>)</span>. There is a tradeoff between better fit through higher dimensionality versus interpretability. In the example of the feeling thermometers, the Stress value shows a good fit, which could be improved with an additional dimension at the expense of parsimony. Researchers typically plot configurations of one to two dimensions <span class="citation">(<a href="#ref-jacoby2018">William G. Jacoby and Ciuk 2018</a>)</span>.</p>
+</div>
+<div id="shepard-diagrams" class="section level3 unnumbered hasAnchor">
+<h3>Shepard diagrams<a href="ch7.html#shepard-diagrams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Shepard diagram is a diagnostic scatterplot for assessing the fit of an MDS <span class="citation">(<a href="#ref-shepard1962">Shepard 1962</a>)</span>. The plot displays information about the fit between the observed dissimilarities or disparities (the input data) and the fitted distances (the output figure). For each pair of points, on the X-axis the figure plots the original dissimilarities or disparities, the ‘target distances’ that represent the ordinal rank order of similarity between the pairs. The Y-axis plots the fitted distances. If the model fits perfectly — fitted distances match dissimilarities exactly – the points would line up on a straight 45-degree diagonal line from the origin.</p>
+<p>The <code>plot()</code> function extracts the information from <em>nmds_results</em> , specifying <code>plot.type="Shepard"</code>.</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="ch7.html#cb313-1" tabindex="-1"></a><span class="fu">plot</span>(nmds_results , <span class="at">plot.type=</span><span class="st">&quot;Shepard&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:shepfig"></span>
+<img src="bookdown_files/figure-html/shepfig-1.png" alt="Shepard diagram for the nonmetric multidimensional scaling (MDS) solution of feeling thermometer ratings from the 2004 ANES,  in two dimensions. The plot compares original dissimilarities to the distances in the MDS configuration." width="672" />
+<p class="caption">
+FIGURE 7.4: Shepard diagram for the nonmetric multidimensional scaling (MDS) solution of feeling thermometer ratings from the 2004 ANES, in two dimensions. The plot compares original dissimilarities to the distances in the MDS configuration.
+</p>
+</div>
+<p>In Figure <a href="ch7.html#fig:shepfig">7.4</a>, the diagram displays in gray points measurements on pairs of points, the input dissimilarities on X and the fitted distances in the output on Y. As would be expected from a Stress statistic of .092, the fit is not perfect, but the model fits somewhat well, with points clustered along the 45-degree line, although clearly for lower dissimilarities the fit is worse. The spread of points at the lower left side of the graph corresponds to the difficulty in scaling distances over two dimensions for the points with low dissimilarity. With less spread, as dissimilarity increases, fit improves. This contrast makes sense, given that for social groups scaled relatively close together, the algorithm was less successful in finding an optimal arrangement of the points, compared to the more polarizing cluster of political figures toward the edges of the output visualization.</p>
+<p>The black points on the Shepard diagram represent the transformed dissimilarities, or disparities, which serve as the target distances for the MDS algorithm. These points reflect the idealized monotonic fit, preserving the rank order of the original dissimilarities. Notice that, from left to right, the black points either increase or remain constant, but never decrease, ensuring the monotonic relationship. Similar to the imaginary 45-degree line in metric MDS, the grey points, which represent the actual distances in the low-dimensional solution, should lie as close as possible to the black points for a good fit. The components of a Shepard diagram can be recovered from the MDS solution object, <em>mdsgroup_results</em> contains additional information about the MDS solution, accessible as “variables” within the object <code>names(mdsgroup_results)</code>, with <code>$</code> and the specific item. See the documentation for the <strong>smacof</strong> package.</p>
+</div>
+</div>
+<div id="scaling-roll-call-votes-in-the-us-congress" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Scaling roll call votes in the US Congress<a href="ch7.html#scaling-roll-call-votes-in-the-us-congress" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Voting in legislatures is central to the study of politics. Models of voting behavior have a lengthy history in political science <span class="citation">(<a href="#ref-poole2005">K. T. Poole 2005</a>)</span>. Roll call votes in US Congress are votes in which each member’s position (‘yea’, ‘nay’, or ‘present’) is individually recorded, for everything from motions and amendments to votes on final passage of legislation. The recorded votes are entered into the official Congressional Record. Interest groups base their ratings of legislators on these votes. The most prominent estimates of legislator ideology, ‘DW-NOMINATE’ scores, are based on roll call votes <span class="citation">(<a href="#ref-poole2005">K. T. Poole 2005</a>)</span>. We will analyze votes from an MDS perspective, to visualize patterns of voting – differences between party caucuses and individual members.</p>
+<p>Roll call votes are from the 117th US Congress (2021 to 2023). We first work through the process of tidying the data to prepare a matrix of votes for the <code>mds()</code> algorithm. While useful for practicing data skills, this step can be skipped, and the matrix of votes can be downloaded directly from the textbook’s website. Or, to practice data tidying and MDS analysis skills, download the full datafiles from Voteview.com <span class="citation">(<a href="#ref-lewis2023">Lewis et al. 2023</a>)</span>. For each Congress, Voteview organizes the data into three files: one for the voting records, a second for the members, and a third for descriptions of the roll call votes. We will first work with the votes and members’ data, then the roll calls to find specific type of legislation. The two datasets used to create the matrix of votes are <em>HS117_votes.csv</em> and <em>HS117_members.csv</em>, both of which include the House and Senate.</p>
+<p>We will first work with Euclidean distances, and to keep the data manageable at first limit it to the Colorado delegation, then examples with the full House and Senate, illustrating properties of the Manhattan distance metric. Either start with the Voteview datafiles, or skip below to the matrix <code>mds()</code> input files beginning with <em>co_117_euc_distances.csv</em>.</p>
+<p>Read in the votes data:</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="ch7.html#cb314-1" tabindex="-1"></a>HS117_votes<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;HS117_votes.csv&quot;</span>)</span></code></pre></div>
+<p>Familiarize yourself with the contents of it. We subset it to four columns:</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="ch7.html#cb315-1" tabindex="-1"></a>HS117_votes <span class="ot">&lt;-</span> HS117_votes <span class="sc">%&gt;%</span></span>
+<span id="cb315-2"><a href="ch7.html#cb315-2" tabindex="-1"></a>  <span class="fu">select</span>(chamber, rollnumber, icpsr, cast_code)</span></code></pre></div>
+<p>Next we recode the numeric values for the ‘yeas’, ‘nays’, present, and absent votes. The ‘nays’ are scored at 0, ‘yeas’ at 1, and to make it easier to recall, 5 for present and 10 for absent.</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="ch7.html#cb316-1" tabindex="-1"></a>HS117_votes <span class="ot">&lt;-</span> HS117_votes <span class="sc">%&gt;%</span></span>
+<span id="cb316-2"><a href="ch7.html#cb316-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cast_code =</span> <span class="fu">case_when</span>(</span>
+<span id="cb316-3"><a href="ch7.html#cb316-3" tabindex="-1"></a>    cast_code<span class="sc">==</span><span class="dv">6</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb316-4"><a href="ch7.html#cb316-4" tabindex="-1"></a>    cast_code<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb316-5"><a href="ch7.html#cb316-5" tabindex="-1"></a>    cast_code<span class="sc">==</span><span class="dv">7</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
+<span id="cb316-6"><a href="ch7.html#cb316-6" tabindex="-1"></a>    cast_code<span class="sc">==</span><span class="dv">9</span> <span class="sc">~</span> <span class="dv">10</span>))</span></code></pre></div>
+<p>Try <code>table(HS117_votes$cast_code)</code> to observe the values for votes cast. Next we read in the data on members:</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="ch7.html#cb317-1" tabindex="-1"></a>HS117_members<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;HS117_members.csv&quot;</span>)</span></code></pre></div>
+<p>The data table contains demographic information about each member, as well as an ideology score <span class="citation">(<a href="#ref-poole2006">K. T. Poole and Rosenthal 2006</a>)</span>. The key field in the members’ data is a unique identifier for each member, <em>icpsr</em>. The member data needs to be merged with the votes. We want, for each row of votes in <em>HS117_votes</em>, to have the member information appended as additional columns matched to <em>icpsr</em>. We use a <code>right_join()</code> function to merge the votes and members, saving the new merged dataset as <em>hs_memb_votes_117</em>.</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="ch7.html#cb318-1" tabindex="-1"></a>hs_memb_votes_117 <span class="ot">&lt;-</span> HS117_members <span class="sc">%&gt;%</span></span>
+<span id="cb318-2"><a href="ch7.html#cb318-2" tabindex="-1"></a>  <span class="fu">select</span>(icpsr, bioname, state_abbrev, party_code) <span class="sc">%&gt;%</span></span>
+<span id="cb318-3"><a href="ch7.html#cb318-3" tabindex="-1"></a>  <span class="fu">right_join</span>(HS117_votes, <span class="at">by=</span><span class="st">&quot;icpsr&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb318-4"><a href="ch7.html#cb318-4" tabindex="-1"></a>  <span class="fu">select</span>(chamber, bioname, party_code, state_abbrev, </span>
+<span id="cb318-5"><a href="ch7.html#cb318-5" tabindex="-1"></a>         cast_code, rollnumber, icpsr)</span></code></pre></div>
+<p>In the language of mutating joins in the <em>tidyverse</em> <span class="citation">(<a href="#ref-wickham2016">Wickham and Grolemund 2016</a>)</span>, <em>HS117_members</em> is the X, and <em>HS117_votes</em> is the Y. So we would like X matched to Y. There are multiple matches from member information to their row-wise record of votes, identified by <em>icpsr</em>. So a warning message will appear letting us know that these multiple matches did in fact occur.</p>
+<p>The Voteview data includes mock votes from public positions taken by presidents. Inspect the dataset to observe the presidents in the first few rows. We will remove the presidents:</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="ch7.html#cb319-1" tabindex="-1"></a>hs_memb_votes_117 <span class="ot">&lt;-</span> hs_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb319-2"><a href="ch7.html#cb319-2" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev<span class="sc">!=</span><span class="st">&quot;USA&quot;</span>)</span></code></pre></div>
+<p>Then we create a new dataset for House votes: work with votes from the House, extracting the <em>House</em> chamber votes to save it as <em>h_memb_votes_117</em>.</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="ch7.html#cb320-1" tabindex="-1"></a>h_memb_votes_117 <span class="ot">&lt;-</span> hs_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb320-2"><a href="ch7.html#cb320-2" tabindex="-1"></a>  <span class="fu">filter</span>(chamber<span class="sc">==</span><span class="st">&quot;House&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb320-3"><a href="ch7.html#cb320-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>chamber)</span></code></pre></div>
+<p>In the House, there are 996 possible votes they could have taken. (Enter <code>table(h_memb_votes_117$bioname)</code> to observe the count of Representatives and votes. We want to limit the data to just those representatives serving a full term. So we filter the data to all representatives with exactly 996 rows:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="ch7.html#cb321-1" tabindex="-1"></a>h_memb_votes_117 <span class="ot">&lt;-</span> h_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb321-2"><a href="ch7.html#cb321-2" tabindex="-1"></a>  <span class="fu">group_by</span>(bioname) <span class="sc">%&gt;%</span></span>
+<span id="cb321-3"><a href="ch7.html#cb321-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">==</span> <span class="dv">996</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb321-4"><a href="ch7.html#cb321-4" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<p>To limit the data and make it more manageable for learning MDS, we subset it to Colorado:</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="ch7.html#cb322-1" tabindex="-1"></a>co_h_votes_117<span class="ot">&lt;-</span> h_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb322-2"><a href="ch7.html#cb322-2" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev<span class="sc">==</span><span class="st">&quot;CO&quot;</span>)</span></code></pre></div>
+<p>Enter <em>co_h_votes_117</em> at the prompt to familiarize yourself with it. For labeling the output we need to create a simple label with name, party, and State, which we will use with the entire House and Senate as well.<br />
+We use the <code>separate()</code> function on the <em>bioname</em> column, specifying the <code>sep=", "</code> as the place to separate the name. Notice the white space after the comma, which prevents a leading white space appended to the first name; <code>remove=FALSE</code>.</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="ch7.html#cb323-1" tabindex="-1"></a>co_h_votes_117<span class="ot">&lt;-</span> co_h_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb323-2"><a href="ch7.html#cb323-2" tabindex="-1"></a>  <span class="fu">separate</span>(bioname, <span class="fu">c</span>(<span class="st">&quot;last_name&quot;</span>, <span class="st">&quot;first&quot;</span>), <span class="at">sep=</span><span class="st">&quot;, &quot;</span> )</span></code></pre></div>
+<p>Now the <em>bioname</em> column is separated into parts:</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="ch7.html#cb324-1" tabindex="-1"></a>co_h_votes_117</span></code></pre></div>
+<pre><code>## # A tibble: 6,972 × 7
+##    last_n…¹ first party…² state…³ cast_…⁴ rolln…⁵ icpsr
+##    &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 LAMBORN  Doug      200 CO            0       1 20704
+##  2 LAMBORN  Doug      200 CO            1       2 20704
+##  3 LAMBORN  Doug      200 CO            0       3 20704
+##  4 LAMBORN  Doug      200 CO            0       4 20704
+##  5 LAMBORN  Doug      200 CO            0       5 20704
+##  6 LAMBORN  Doug      200 CO            1       6 20704
+##  7 LAMBORN  Doug      200 CO            0       7 20704
+##  8 LAMBORN  Doug      200 CO            1       8 20704
+##  9 LAMBORN  Doug      200 CO            1       9 20704
+## 10 LAMBORN  Doug      200 CO            1      10 20704
+## # … with 6,962 more rows, and abbreviated variable
+## #   names ¹​last_name, ²​party_code, ³​state_abbrev,
+## #   ⁴​cast_code, ⁵​rollnumber</code></pre>
+<p>Next we will change the <em>party_code</em> to a “D” or “R” and combine the <em>last_name</em>, <em>state_abbrev</em>, and <em>party_code</em> together, and then drop the remaining <em>first</em> and <em>icpsr</em> columns:</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="ch7.html#cb326-1" tabindex="-1"></a>co_h_votes_117<span class="ot">&lt;-</span> co_h_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb326-2"><a href="ch7.html#cb326-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">party_code =</span> <span class="fu">case_when</span>(</span>
+<span id="cb326-3"><a href="ch7.html#cb326-3" tabindex="-1"></a>    party_code <span class="sc">==</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">&quot;D&quot;</span>, </span>
+<span id="cb326-4"><a href="ch7.html#cb326-4" tabindex="-1"></a>    party_code <span class="sc">==</span> <span class="dv">200</span>  <span class="sc">~</span> <span class="st">&quot;R&quot;</span>))  <span class="sc">%&gt;%</span></span>
+<span id="cb326-5"><a href="ch7.html#cb326-5" tabindex="-1"></a>  <span class="fu">unite</span>(name, <span class="fu">c</span>(<span class="st">&quot;last_name&quot;</span>, <span class="st">&quot;state_abbrev&quot;</span>, <span class="st">&quot;party_code&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb326-6"><a href="ch7.html#cb326-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>first, <span class="sc">-</span>icpsr)</span></code></pre></div>
+<p>At this point we have to decide how to handle the votes cast that are not ‘yeas’ and ‘nays’, the problem being that there is no order or at least ordinal scale that links these votes with a vote of ‘present’ or an absence from voting. –A vote of ‘present’ or an absence is not meaningfully higher or lower than the ‘yeas’ and ‘nays’.</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="ch7.html#cb327-1" tabindex="-1"></a>co_h_votes_117  <span class="sc">%&gt;%</span></span>
+<span id="cb327-2"><a href="ch7.html#cb327-2" tabindex="-1"></a>  <span class="fu">count</span>(cast_code) <span class="sc">%&gt;%</span></span>
+<span id="cb327-3"><a href="ch7.html#cb327-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop. =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) </span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+##   cast_code     n    prop.
+##       &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;
+## 1         0  2284 0.328   
+## 2         1  4571 0.656   
+## 3         5     1 0.000143
+## 4        10   116 0.0166</code></pre>
+<p>There is only one ‘present’ vote, and 116 absences, about 1.6 percent of the total. We could count up presences and absences by Representative:</p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="ch7.html#cb329-1" tabindex="-1"></a>co_h_votes_117 <span class="sc">%&gt;%</span>  </span>
+<span id="cb329-2"><a href="ch7.html#cb329-2" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb329-3"><a href="ch7.html#cb329-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">summary_absences =</span> <span class="fu">sum</span>(cast_code <span class="sc">==</span> <span class="dv">10</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb329-4"><a href="ch7.html#cb329-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(summary_absences))</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 2
+##   name            summary_absences
+##   &lt;chr&gt;                      &lt;int&gt;
+## 1 BUCK_CO_R                     55
+## 2 BOEBERT_CO_R                  24
+## 3 LAMBORN_CO_R                  20
+## 4 CROW_CO_D                      6
+## 5 DeGETTE_CO_D                   5
+## 6 PERLMUTTER_CO_D                5
+## 7 NEGUSE_CO_D                    1</code></pre>
+<p>Or change the <em>cast_code</em> to <em>5</em> to observe Boebert cast the lone ‘present’.</p>
+<p>We will calculate the distance metrics between the Representatives while converting the ‘present’ (<em>5</em>) and absent (<em>10</em>) votes to <em>NA</em> values:</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="ch7.html#cb331-1" tabindex="-1"></a>co_na_h_votes_117 <span class="ot">&lt;-</span> co_h_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb331-2"><a href="ch7.html#cb331-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cast_code =</span> <span class="fu">case_when</span>(</span>
+<span id="cb331-3"><a href="ch7.html#cb331-3" tabindex="-1"></a>    cast_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb331-4"><a href="ch7.html#cb331-4" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> cast_code))</span></code></pre></div>
+<p>Inspect the dataset to observe the <em>NA</em> values. Next we pivot the data, converting it from long format to wide format with <code>pivot_wider()</code> from the <strong>tidyverse</strong>.</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="ch7.html#cb332-1" tabindex="-1"></a>co_na_h_votes_117_wide<span class="ot">&lt;-</span>co_na_h_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb332-2"><a href="ch7.html#cb332-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> cast_code, <span class="at">names_from =</span> rollnumber)</span></code></pre></div>
+<p>Before continuing, take time to observe the structure of the data <code>co_na_h_votes_117_wide</code> in wide format, and think ahead to how the distance metric will handle missing values <em>NA</em>. For example, enter <code>co_na_h_votes_117_wide %&gt;% select(1:11)</code> and observe that Buck has a missing <em>NA</em> value in roll call vote 10. In calculating the distances between the Representatives, all comparisons with Buck will ignore roll call vote 10. For all other distances between Representatives, across the 10 votes, each will be included in the distance calculation. Across all votes, if two Representatives have any <em>NA</em> values in the votes being compared, only that specific distance calculation involving an <em>NA</em> value will be excluded, with all others included. With the wide dataset, to prepare it for the distance calculations, next we move the <em>name</em> variable to the defined names of the rows (in place of numbered row names), which will be necessary for identifying the representatives in the measure of dissimilarity and then the output visualizations.</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="ch7.html#cb333-1" tabindex="-1"></a>co_na_h_votes_117_wide <span class="ot">&lt;-</span> co_na_h_votes_117_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb333-2"><a href="ch7.html#cb333-2" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var=</span><span class="st">&quot;name&quot;</span>)</span></code></pre></div>
+<p>With the Representatives on row names and votes organized across columns, we can calculate and compare two different distance metrics, Euclidean and Manhattan:</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="ch7.html#cb334-1" tabindex="-1"></a>co_117_euc_distances<span class="ot">&lt;-</span><span class="fu">dist</span>(co_na_h_votes_117_wide, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)</span></code></pre></div>
+<p>The Euclidean distances are the following:</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="ch7.html#cb335-1" tabindex="-1"></a>co_117_euc_distances</span></code></pre></div>
+<pre><code>##                 LAMBORN_CO_R PERLMUTTER_CO_D BUCK_CO_R
+## PERLMUTTER_CO_D       24.746                          
+## BUCK_CO_R             12.960          26.880          
+## CROW_CO_D             24.551           3.335    26.755
+## NEGUSE_CO_D           24.778           3.885    26.882
+## BOEBERT_CO_R          14.645          27.845    11.121
+## DeGETTE_CO_D          24.850           3.893    26.880
+##                 CROW_CO_D NEGUSE_CO_D BOEBERT_CO_R
+## PERLMUTTER_CO_D                                   
+## BUCK_CO_R                                         
+## CROW_CO_D                                         
+## NEGUSE_CO_D         3.755                         
+## BOEBERT_CO_R       27.785      27.880             
+## DeGETTE_CO_D        4.266       2.837       27.831</code></pre>
+<p>The matrix hints at the furthest ‘right’ Representative being Boebert, who is the most distant from Colorado Democrats. The Democrats have relatively close distances. Compare this matrix with the Manhattan distances:</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="ch7.html#cb337-1" tabindex="-1"></a>co_117_man_distances<span class="ot">&lt;-</span><span class="fu">dist</span>(co_na_h_votes_117_wide, <span class="at">method=</span><span class="st">&quot;manhattan&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="ch7.html#cb338-1" tabindex="-1"></a>co_117_man_distances</span></code></pre></div>
+<pre><code>##                 LAMBORN_CO_R PERLMUTTER_CO_D BUCK_CO_R
+## PERLMUTTER_CO_D      612.371                          
+## BUCK_CO_R            167.974         722.526          
+## CROW_CO_D            602.734          11.123   715.842
+## NEGUSE_CO_D          613.945          15.091   722.630
+## BOEBERT_CO_R         214.475         775.354   123.686
+## DeGETTE_CO_D         617.499          15.152   722.526
+##                 CROW_CO_D NEGUSE_CO_D BOEBERT_CO_R
+## PERLMUTTER_CO_D                                   
+## BUCK_CO_R                                         
+## CROW_CO_D                                         
+## NEGUSE_CO_D        14.099                         
+## BOEBERT_CO_R      772.029     777.291             
+## DeGETTE_CO_D       18.201       8.048      774.552</code></pre>
+<p>Because the data includes <em>NA</em> values, the Manhattan distances are not whole numbers, distances with the scaling factor applied to each calculation. If calculated without the scaling factor, a Manhattan distance has an interesting interpretation. Since the Manhattan distance sums the absolute difference between each roll call vote scored 0 ‘nay’ and 1 ‘yea’, the unadjusted Manhattan distance counts the number of votes where two legislators differ. If two legislators cast a different ‘yea’ or ‘nay’ on 300 votes, their Manhattan distance would be 300.</p>
+<p>We can compare the scaled up Manhattan distances with the distances calculated on the votes not containing any missing values, by selecting out each of those columns:</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="ch7.html#cb340-1" tabindex="-1"></a>co_117_man_comp_distances <span class="ot">&lt;-</span> co_na_h_votes_117_wide <span class="sc">%&gt;%</span></span>
+<span id="cb340-2"><a href="ch7.html#cb340-2" tabindex="-1"></a>  <span class="fu">select_if</span>(<span class="sc">~</span> <span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb340-3"><a href="ch7.html#cb340-3" tabindex="-1"></a>  <span class="fu">dist</span>(<span class="at">method=</span><span class="st">&quot;manhattan&quot;</span>)</span></code></pre></div>
+<p>The line <code>select_if()</code> function is applied to a “formula” <code>~ all(!is.na(.))</code>, selecting any column that does not contain a <em>NA</em>. The <code>.</code> dot refers to the current column <code>select_if()</code> is working through to find <em>NA</em> values — and selecting all that do not <code>is.na(.)</code> contain any <em>NA</em> values.</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="ch7.html#cb341-1" tabindex="-1"></a>co_117_man_comp_distances</span></code></pre></div>
+<pre><code>##                 LAMBORN_CO_R PERLMUTTER_CO_D BUCK_CO_R
+## PERLMUTTER_CO_D          554                          
+## BUCK_CO_R                146             644          
+## CROW_CO_D                545               9       639
+## NEGUSE_CO_D              556              12       644
+## BOEBERT_CO_R             188             694       110
+## DeGETTE_CO_D             558              12       644
+##                 CROW_CO_D NEGUSE_CO_D BOEBERT_CO_R
+## PERLMUTTER_CO_D                                   
+## BUCK_CO_R                                         
+## CROW_CO_D                                         
+## NEGUSE_CO_D            13                         
+## BOEBERT_CO_R          693         696             
+## DeGETTE_CO_D           17           8          694</code></pre>
+<p>The distances, in whole numbers, measure the number of votes differing between each legislator. We will compare a one-dimensional representation of the voting similarity between the Euclidean and the unscaled up whole number Manhattan distances. First the Euclidean distances, storing the results in <em>co_h_117_euc_mds</em>:</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="ch7.html#cb343-1" tabindex="-1"></a>co_h_117_euc_mds<span class="ot">&lt;-</span><span class="fu">mds</span>(co_117_euc_distances, <span class="at">ndim=</span><span class="dv">1</span>, <span class="at">type=</span><span class="st">&quot;ordinal&quot;</span>)</span></code></pre></div>
+<p>Stress shows an excellent one-dimensional fit of .0027. (Type <code>co_h_117_euc_mds$stress</code>). We store the coordinates <em>co_h_117_euc_mds$conf</em> as a dataframe, apply and clean up the labels for each representative, then graph the result:</p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="ch7.html#cb344-1" tabindex="-1"></a>co_mds_df_euc <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(co_h_117_euc_mds<span class="sc">$</span>conf) <span class="sc">%&gt;%</span></span>
+<span id="cb344-2"><a href="ch7.html#cb344-2" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb344-3"><a href="ch7.html#cb344-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">str_remove_all</span>(name, <span class="st">&quot;_CO&quot;</span>)) </span></code></pre></div>
+<p>In the second line, the row names are moved to a column; in the third, the <em>name</em> column is edited with <code>str_remove_all()</code> to find and delete each of the State identifiers “<code>_CO</code>”.</p>
+<p>Then <em>co_mds_df_euc</em> is fed into <code>ggplot()</code>. We use <strong>ggrepel</strong> for the labels, like in the prior graphic. One change in the <code>ggplot()</code> is that in place of a variable for a second dimension, we specify <code>y=0</code>, since we want to visualize the points on a single dimension. The result appears in Figure <a href="ch7.html#fig:comdseuc">7.5</a>, which show that the Democrats from Colorado voted more cohesively than the Republicans. Within the delegation, DeGette and Boebert had the most dissimilar voting records, and interpreting the distances in ideological terms both were the most liberal and conservative, respectively.</p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="ch7.html#cb345-1" tabindex="-1"></a><span class="fu">ggplot</span>(co_mds_df_euc) <span class="sc">+</span></span>
+<span id="cb345-2"><a href="ch7.html#cb345-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> D1, <span class="at">y =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb345-3"><a href="ch7.html#cb345-3" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> D1, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> name), <span class="at">max.overlaps =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb345-4"><a href="ch7.html#cb345-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Euclidean distance-based ordering of votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot; &quot;</span>) <span class="sc">+</span></span>
+<span id="cb345-5"><a href="ch7.html#cb345-5" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb345-6"><a href="ch7.html#cb345-6" tabindex="-1"></a>          <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:comdseuc"></span>
+<img src="bookdown_files/figure-html/comdseuc-1.png" alt="One-dimensional solution from multidimensional scaling of U.S. House roll call votes, Colorado delegation, 117th U.S. Congress, Euclidean distances." width="672" />
+<p class="caption">
+FIGURE 7.5: One-dimensional solution from multidimensional scaling of U.S. House roll call votes, Colorado delegation, 117th U.S. Congress, Euclidean distances.
+</p>
+</div>
+<p>We can compare the dimensional solution and visualization from the Euclidean distances with the whole number Manhattan distances that count up the number of differences in votes (‘yeas’ versus ‘nays’) between them. We would repeat the process used to find and graph the Euclidean MDS solution. While this code is not evaluated, in this example the Manhattan distances would provide a practically identical one-dimensional visualization.</p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="ch7.html#cb346-1" tabindex="-1"></a>co_h_117_man_mds<span class="ot">&lt;-</span><span class="fu">mds</span>(co_117_man_comp_distances, <span class="at">ndim=</span><span class="dv">1</span>, <span class="at">type=</span><span class="st">&quot;ordinal&quot;</span>)</span>
+<span id="cb346-2"><a href="ch7.html#cb346-2" tabindex="-1"></a></span>
+<span id="cb346-3"><a href="ch7.html#cb346-3" tabindex="-1"></a>co_mds_df_man <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(co_h_117_man_mds<span class="sc">$</span>conf) <span class="sc">%&gt;%</span></span>
+<span id="cb346-4"><a href="ch7.html#cb346-4" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb346-5"><a href="ch7.html#cb346-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">str_remove_all</span>(name, <span class="st">&quot;_CO&quot;</span>))  </span></code></pre></div>
+<p>Usually the dimensional graphics are visibly sensitive to the choice of distance metrics, although the general conclusions likely remain the same. And with only seven objects, a single dimension fits the data well given the low Stress value. Next, however, we will investigate votes in the U.S. Senate — all 100 Senators — and compare a one- and two-dimensional model fit. We’ll go back to the Senate data, and repeat the steps on the U.S. House data.</p>
+<div id="scaling-votes-in-the-senate" class="section level3 unnumbered hasAnchor">
+<h3>Scaling votes in the Senate<a href="ch7.html#scaling-votes-in-the-senate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We start with the combined House and Senate data and select on the Senate chamber:</p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="ch7.html#cb347-1" tabindex="-1"></a>s_memb_votes_117 <span class="ot">&lt;-</span> hs_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb347-2"><a href="ch7.html#cb347-2" tabindex="-1"></a>  <span class="fu">filter</span>(chamber<span class="sc">==</span><span class="st">&quot;Senate&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb347-3"><a href="ch7.html#cb347-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>chamber)</span></code></pre></div>
+<p>With the U.S. Senate votes saved in <em>s_memb_votes_117</em>, entering <code>table(s_memb_votes_117$bioname)</code>reveals that 949 roll call votes were taken, and that Vice President Harris cast two votes, along with temporary appointee from Georgia, Senator Loeffler. We will remove their two votes to limit the dataset to the elected Senators serving throughout the session of Congress.</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="ch7.html#cb348-1" tabindex="-1"></a>s_memb_votes_117 <span class="ot">&lt;-</span> s_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb348-2"><a href="ch7.html#cb348-2" tabindex="-1"></a> <span class="fu">filter</span>(bioname <span class="sc">!=</span> <span class="st">&quot;LOEFFLER, Kelly&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb348-3"><a href="ch7.html#cb348-3" tabindex="-1"></a> <span class="fu">filter</span>(bioname <span class="sc">!=</span> <span class="st">&quot;HARRIS, Kamala Devi&quot;</span>)</span></code></pre></div>
+<p>Then we follow the same steps from the House votes to form the name-party-State variable and encode the <em>NA</em> missing values for votes of ‘present’ and absences. One additional line is to change the <em>last_name</em> of each Senator to title case and to code the two independent Senators as “I” for party affiliation:</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="ch7.html#cb349-1" tabindex="-1"></a>s_memb_votes_117<span class="ot">&lt;-</span> s_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb349-2"><a href="ch7.html#cb349-2" tabindex="-1"></a>  <span class="fu">separate</span>(bioname, <span class="fu">c</span>(<span class="st">&quot;last_name&quot;</span>, <span class="st">&quot;first&quot;</span>), <span class="at">sep=</span><span class="st">&quot;, &quot;</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb349-3"><a href="ch7.html#cb349-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">last_name =</span> <span class="fu">str_to_title</span>(last_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb349-4"><a href="ch7.html#cb349-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">party_code =</span> <span class="fu">case_when</span>(</span>
+<span id="cb349-5"><a href="ch7.html#cb349-5" tabindex="-1"></a>    party_code <span class="sc">==</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">&quot;D&quot;</span>, </span>
+<span id="cb349-6"><a href="ch7.html#cb349-6" tabindex="-1"></a>    party_code <span class="sc">==</span> <span class="dv">200</span>  <span class="sc">~</span> <span class="st">&quot;R&quot;</span>,</span>
+<span id="cb349-7"><a href="ch7.html#cb349-7" tabindex="-1"></a>    party_code <span class="sc">==</span> <span class="dv">328</span> <span class="sc">~</span> <span class="st">&quot;I&quot;</span>))  <span class="sc">%&gt;%</span></span>
+<span id="cb349-8"><a href="ch7.html#cb349-8" tabindex="-1"></a>  <span class="fu">unite</span>(name, <span class="fu">c</span>(<span class="st">&quot;last_name&quot;</span>, <span class="st">&quot;state_abbrev&quot;</span>, <span class="st">&quot;party_code&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb349-9"><a href="ch7.html#cb349-9" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>first, <span class="sc">-</span>icpsr)  <span class="sc">%&gt;%</span></span>
+<span id="cb349-10"><a href="ch7.html#cb349-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cast_code =</span> <span class="fu">case_when</span>(</span>
+<span id="cb349-11"><a href="ch7.html#cb349-11" tabindex="-1"></a>    cast_code <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb349-12"><a href="ch7.html#cb349-12" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> cast_code))</span></code></pre></div>
+<p>Inspect <em>s_memb_votes_117</em> to observe it matches the format of the House data. Next we pivot the data to wide format (saving it as <em>s_memb_votes_117_wide</em>) and move the <em>name</em> column to the row names of the data table to feed into the <code>mds()</code> function.</p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="ch7.html#cb350-1" tabindex="-1"></a>s_memb_votes_117_wide<span class="ot">&lt;-</span>s_memb_votes_117 <span class="sc">%&gt;%</span></span>
+<span id="cb350-2"><a href="ch7.html#cb350-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> cast_code, <span class="at">names_from =</span> rollnumber) </span></code></pre></div>
+<p>The data is pivoted, then we move the <em>name</em> column to the row names: </p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="ch7.html#cb351-1" tabindex="-1"></a>s_memb_votes_117_wide<span class="ot">&lt;-</span>s_memb_votes_117_wide <span class="sc">%&gt;%</span></span>
+<span id="cb351-2"><a href="ch7.html#cb351-2" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var=</span><span class="st">&quot;name&quot;</span>)</span></code></pre></div>
+<p>Inspect the data table <em>s_memb_votes_117_wide</em> to verify it matches the structure of the House votes data to create the distances. We will create a matrix of Euclidean distances, stored as <em>s_117_euc_distances</em>.</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="ch7.html#cb352-1" tabindex="-1"></a>s_117_euc_distances<span class="ot">&lt;-</span><span class="fu">dist</span>(s_memb_votes_117_wide, <span class="at">method=</span><span class="st">&quot;euclidean&quot;</span>)</span></code></pre></div>
+<p>Like the House distance matrix, this matrix is calculated from each roll call vote without any ‘present’ or ‘absences’. The distance object is too large to view as a whole, but to observe part of it, we can convert it to a matrix and view the first few columns and rows:</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="ch7.html#cb353-1" tabindex="-1"></a>temp_senate_matrix<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(s_117_euc_distances)</span>
+<span id="cb353-2"><a href="ch7.html#cb353-2" tabindex="-1"></a>temp_senate_matrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##                 Tuberville_AL_R Shelby_AL_R
+## Tuberville_AL_R           0.000       8.811
+## Shelby_AL_R               8.811       0.000
+## Murkowski_AK_R           22.538      21.216
+## Sullivan_AK_R            12.832      12.408
+## Sinema_AZ_D              28.611      27.772
+##                 Murkowski_AK_R Sullivan_AK_R
+## Tuberville_AL_R          22.54         12.83
+## Shelby_AL_R              21.22         12.41
+## Murkowski_AK_R            0.00         19.75
+## Sullivan_AK_R            19.75          0.00
+## Sinema_AZ_D              18.01         26.13
+##                 Sinema_AZ_D
+## Tuberville_AL_R       28.61
+## Shelby_AL_R           27.77
+## Murkowski_AK_R        18.01
+## Sullivan_AK_R         26.13
+## Sinema_AZ_D            0.00</code></pre>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="ch7.html#cb355-1" tabindex="-1"></a>s_117_euc_mds<span class="ot">&lt;-</span><span class="fu">mds</span>(s_117_euc_distances, <span class="at">ndim=</span><span class="dv">1</span>, <span class="at">type=</span><span class="st">&quot;ordinal&quot;</span>)</span>
+<span id="cb355-2"><a href="ch7.html#cb355-2" tabindex="-1"></a>s_117_euc_mds<span class="sc">$</span>stress</span></code></pre></div>
+<pre><code>## [1] 0.0243</code></pre>
+<p>The one-dimensional solution Stress is .024, suggesting a one-dimensional structure fits the pattern of ‘yeas’ and ‘nays’. Next we convert it to a dataframe, bringing the row names to a column, then graphing it with <code>ggplot()</code>:</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="ch7.html#cb357-1" tabindex="-1"></a>s_117_euc_mds <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(s_117_euc_mds<span class="sc">$</span>conf) <span class="sc">%&gt;%</span></span>
+<span id="cb357-2"><a href="ch7.html#cb357-2" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;name&quot;</span>)  </span></code></pre></div>
+<p>Figure <a href="ch7.html#fig:seucmds">7.6</a> visualizes the structure. Along a single dimension, Democrats are more closely clustered together, apparently voting with greater party discipline, than are Republicans. The <code>geom_text_repel()</code> function labels observations where a given label fits, in this case pointing out the Republicans with more moderate voting records based on similarity of roll call votes. Inspect the individual scores for each Senator with <code>s_117_euc_mds %&gt;% arrange(D1)</code>.</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="ch7.html#cb358-1" tabindex="-1"></a><span class="fu">ggplot</span>(s_117_euc_mds) <span class="sc">+</span></span>
+<span id="cb358-2"><a href="ch7.html#cb358-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> D1, <span class="at">y =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb358-3"><a href="ch7.html#cb358-3" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> D1, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> name)) <span class="sc">+</span></span>
+<span id="cb358-4"><a href="ch7.html#cb358-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Euclidean distance-based ordering of votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot; &quot;</span>) <span class="sc">+</span></span>
+<span id="cb358-5"><a href="ch7.html#cb358-5" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb358-6"><a href="ch7.html#cb358-6" tabindex="-1"></a>           <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:seucmds"></span>
+<img src="bookdown_files/figure-html/seucmds-1.png" alt="One-dimensional solution from multidimensional scaling of U.S. Senate roll call votes, 117th U.S. Congress, Euclidean distances." width="672" />
+<p class="caption">
+FIGURE 7.6: One-dimensional solution from multidimensional scaling of U.S. Senate roll call votes, 117th U.S. Congress, Euclidean distances.
+</p>
+</div>
+<p>We will investigate whether a two-dimensional representation provides any insight into voting patterns. We calculate the scores for each Senator on the two dimensions:</p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="ch7.html#cb359-1" tabindex="-1"></a>s_117_euc_mds2<span class="ot">&lt;-</span><span class="fu">mds</span>(s_117_euc_distances, <span class="at">ndim=</span><span class="dv">2</span>, <span class="at">type=</span><span class="st">&quot;ordinal&quot;</span>)</span>
+<span id="cb359-2"><a href="ch7.html#cb359-2" tabindex="-1"></a>s_117_euc_mds2<span class="sc">$</span>stress</span></code></pre></div>
+<pre><code>## [1] 0.02038</code></pre>
+<p>The Stress improves only a negligible amount, suggesting little improvement in fit over two dimensions. We create the dataframe, and then feed it into <code>ggplot()</code> for the visualization.</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="ch7.html#cb361-1" tabindex="-1"></a>s_117_euc_mds2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(s_117_euc_mds2<span class="sc">$</span>conf) <span class="sc">%&gt;%</span></span>
+<span id="cb361-2"><a href="ch7.html#cb361-2" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;name&quot;</span>)  </span></code></pre></div>
+<p>Figure <a href="ch7.html#fig:seucmds2">7.7</a> depicts the two-dimensional MDS structure of roll call votes in the Senate. As in the last figure, the tick marks and numerical scaling are excluded with the code within <code>theme()</code>, to avoid giving the impression that the numeric scores have an underlying meaning tied to the points.</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="ch7.html#cb362-1" tabindex="-1"></a><span class="fu">ggplot</span>(s_117_euc_mds2) <span class="sc">+</span></span>
+<span id="cb362-2"><a href="ch7.html#cb362-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> D1, <span class="at">y =</span> D2)) <span class="sc">+</span></span>
+<span id="cb362-3"><a href="ch7.html#cb362-3" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> D1, <span class="at">y =</span> D2, <span class="at">label =</span> name)) <span class="sc">+</span></span>
+<span id="cb362-4"><a href="ch7.html#cb362-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Dimension 2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb362-5"><a href="ch7.html#cb362-5" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb362-6"><a href="ch7.html#cb362-6" tabindex="-1"></a>          <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:seucmds2"></span>
+<img src="bookdown_files/figure-html/seucmds2-1.png" alt="Two-dimensional solution from multidimensional scaling of U.S. Senate roll call votes, 117th U.S. Congress, Euclidean distances." width="672" />
+<p class="caption">
+FIGURE 7.7: Two-dimensional solution from multidimensional scaling of U.S. Senate roll call votes, 117th U.S. Congress, Euclidean distances.
+</p>
+</div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="ch7.html#cb363-1" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb363-2"><a href="ch7.html#cb363-2" tabindex="-1"></a>          <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<pre><code>## List of 2
+##  $ axis.text.y : list()
+##   ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_blank&quot; &quot;element&quot;
+##  $ axis.ticks.y: list()
+##   ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_blank&quot; &quot;element&quot;
+##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;theme&quot; &quot;gg&quot;
+##  - attr(*, &quot;complete&quot;)= logi FALSE
+##  - attr(*, &quot;validate&quot;)= logi TRUE</code></pre>
+<p>The two-dimensional results clearly show the same left to right difference observable on Dimension 1, with Collins, Murkowski, and Graham having the more centrist voting record along it. The two Senators Hawley and Sanders anchor both ends of the dimension. And of course the close clustering of Democrats reveals a high degree of party unity in voting, perhaps to be expected given their slim majority. And like the first, the second dimension shows distinct differences among Republicans. On this second dimension, Graham anchors the bottom of the figure, followed by Tillis and Murkowski. Perhaps this dimension reflects a willingness to vote against the party leadership. Of course, the interpretation of the dimensions is necessarily impressionistic and somewhat subjective, and the arrangement of the points is dependent on the votes and the chosen distance metric. In presenting MDS results, researchers typically investigate the sensitivity of the results to the chosen metric.</p>
+</div>
+</div>
+<div id="clustering-feelings-and-votes" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Clustering feelings and votes<a href="ch7.html#clustering-feelings-and-votes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The term “Cluster analysis” refers to a wide range of analytical methods. Like MDS, it relies on distance metrics as a data input. Unlike MDS, however, rather than uncover a dimensional structure of the data, the purpose is to identify clusters or groups of similar political phenomena. A common approach to cluster analysis is hierarchical agglomerative clustering (HAC) <span class="citation">(<a href="#ref-bartholomew2008">Bartholomew et al. 2008</a>)</span>, which is reviewed conceptually below.</p>
+<p>Cluster analysis, like MDS, starts with a matrix of distances to begin identifying clusters. The typical end product of a cluster analysis is a specific visualization, a dendrogram, which displays the formation of clusters in a hierarchy of similarity.</p>
+<p>The ‘agglomerative’ term means that the clustering process is bottom-up, starting with the maximal number of clusters, then ending up with all observations combined into one cluster. The HAC algorithm proceeds in a series of steps: (1) each observation begins as its own cluster; (2) the algorithm merges the two closest clusters; (3) clusters become larger and are merged until all observations belong to a single cluster. The process of forming clusters yields overarching, ‘hierarchical’ clusters as the name implies.</p>
+<p>The algorithm’s search for clusters requires specific rules for how it should join clusters together. At each step of the clustering process, the input distance matrix is reduced and recalculated among the clusters. The rules are often one of the following: “Single linkage”: the distance between the two closest points in different clusters, “Complete linkage”: the distance between the two farthest points in different clusters, or “Average linkage”: the average distance between all pairs of points in two clusters. The rule for combining clusters determines how clusters are formed, so the results of any cluster analysis are sensitive to the type of linkage used; for an illustration of different linkage effects, see Gareth <em>et al</em> <span class="citation">(<a href="#ref-gareth2013">2013</a>)</span>.</p>
+<p>Hierachical AC is implemented with the <code>hclust()</code> function from the base <strong>R</strong>. The default linkage method is the complete linkage. To illustrate the interpretation of the analysis output, the dendrogram, we will start with the Colorado congressional votes. Given the Colorado matrix of Euclidean distances <em>co_mds_df_euc</em>, a HAC is:</p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="ch7.html#cb365-1" tabindex="-1"></a>hac<span class="ot">&lt;-</span><span class="fu">hclust</span>(co_117_euc_distances)</span>
+<span id="cb365-2"><a href="ch7.html#cb365-2" tabindex="-1"></a></span>
+<span id="cb365-3"><a href="ch7.html#cb365-3" tabindex="-1"></a>hac</span></code></pre></div>
+<pre><code>## 
+## Call:
+## hclust(d = co_117_euc_distances)
+## 
+## Cluster method   : complete 
+## Distance         : euclidean 
+## Number of objects: 7</code></pre>
+<div id="the-dendrogram" class="section level3 unnumbered hasAnchor">
+<h3>The dendrogram<a href="ch7.html#the-dendrogram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The results in <em>hac</em> show that the default complete linkage method was used; alternatives are specified with the argument <code>method=</code>, such as <code>method="single"</code> or <code>"average"</code>. The output is the dendrogram, accessible with the <code>plot()</code> function:</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="ch7.html#cb367-1" tabindex="-1"></a><span class="fu">plot</span>(hac)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:hacdend"></span>
+<img src="bookdown_files/figure-html/hacdend-1.png" alt="Dendrogram based on the Euclidean distance matrix of roll call votes cast by the Colorado delegation." width="672" />
+<p class="caption">
+FIGURE 7.8: Dendrogram based on the Euclidean distance matrix of roll call votes cast by the Colorado delegation.
+</p>
+</div>
+<p>Figure <a href="ch7.html#fig:hacdend">7.8</a> displays the resulting dendrogram. The diagram resembles a tree, with branches showing the sequence of cluster formations from pairs to larger group formations. The vertical axis labeled “Height” refers to the distances at which the clusters merge; clusters joined together in branches at higher levels of height are less similar. At the bottom of the figure, the labels or ‘leaves’, show that at first, the algorithm identified pairs such as Neguse and DeGette, and given the odd number of representatives, one singleton, Lamborn. Then in the next stage the algorithm clustered the four Democrats, then the three Republicans. The dendrogram provides a visual representation of similarity, while forming hierarchically larger (and less similar) groups. <!-- This method, while relatively fundamental, is a simplified version of a more elaborate and theoretically grounded application of cluster analysis in Wolfson, Madjd-Sadjadi, and James [-@Wolfson2004].--></p>
+<p>To illustrate a more complex dendrogram, apply the <code>hclust()</code> function to the set of full Senate distances, <em>s_117_euc_distances</em>.</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="ch7.html#cb368-1" tabindex="-1"></a>hac_s<span class="ot">&lt;-</span><span class="fu">hclust</span>(s_117_euc_distances)</span>
+<span id="cb368-2"><a href="ch7.html#cb368-2" tabindex="-1"></a>hac_s</span></code></pre></div>
+<pre><code>## 
+## Call:
+## hclust(d = s_117_euc_distances)
+## 
+## Cluster method   : complete 
+## Distance         : euclidean 
+## Number of objects: 100</code></pre>
+<p>Plotting a legible dendrogram with 100 objects is not feasible as a small figure on a printed page. Try plotting it and adjust the size to make the labels visible, <code>plot(hac_s)</code>. Like any other data visualization in <strong>R</strong>, there are endless ways to customize the appearance of a dendrogram; packages to do so are reviewed at the end of the chapter. Figure <a href="ch7.html#fig:dendosenate">7.9</a> displays a dendrogram with smaller text labels for the leaves, a suppressed title, and manually rotated, <code>plot(hac_s, cex=.5, main=NULL, xlab=" ")</code>.</p>
+<div class="figure"><span style="display:block;" id="fig:dendosenate"></span>
+<img src="includegraphics/ch%207%20includegraphics/dendogramsenate.png" alt="Dendrogram displaying the clusters of U.S. Senators in the 117th Congress, based on Euclidean distances of roll call votes." width="100%" />
+<p class="caption">
+FIGURE 7.9: Dendrogram displaying the clusters of U.S. Senators in the 117th Congress, based on Euclidean distances of roll call votes.
+</p>
+</div>
+<p>The Senate dendrogram provides a contrasting view of the patterns of roll call votes. Unlike the MDS output, there is no underlying order, beyond similarity within pairs and the increasing hierarchy of larger clusters. Senators Murkowski and Collins pair together, and have a voting record dissimilar enough from other Senators that they are joined by Graham only in later state of clustering after other Senators have been paired into groups of a dozen or more. The party caucuses are divided in two, joined together only in the last stage of the clustering algorithm. Take some time to reflect on other aspects of the dendrogram that interest you.</p>
+</div>
+<div id="general-steps-in-scaling-and-clustering" class="section level3 unnumbered hasAnchor">
+<h3>General steps in scaling and clustering<a href="ch7.html#general-steps-in-scaling-and-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A scaling and clustering analysis starts with a chosen dissimilarity matrix. While there is no one correct distance metric, different input metrics lead to different outputs. In the examples reviewed in this chapter, each of the measures forming the input matrix are on the same scale (0 - 100 degrees; 0 or 1), but in other cases where measures differ widely, standardization may be necessary. And some consideration should be given to the tradeoffs between the characteristics of different distance metrics given the research question <span class="citation">(<a href="#ref-gareth2013">James et al. 2013</a>)</span>. Next, decide on the number of dimensions for the MDS solution. Since the goal of the analysis is a visualization, usually researchers find arrangements for one or two dimensions, while checking the Stress statistic to observe how well the configuration represents the data. Once you have run the MDS algorithm, interpret the resulting configuration by focusing on the relative distances between points: look for spaces, clusters, and directions of points. Are there readily apparent clusters; which observations comprise the clusters, and what do the clustered observations have in common? Keep in mind that the axes in an MDS plot do not have an inherent meaning, and neither do the exact scores of the points on each axis. Assess whether the MDS solution aligns with theoretical expectations or reveals meaningful patterns; in writing up results, include fit statistics and a sensitivity analysis. In a cluster analysis the linkage method affects the formation of clusters, so researchers often try multiple linkage methods to observe how clusters form differently in a dendrogram.</p>
+</div>
+<div id="resources-6" class="section level3 unnumbered hasAnchor">
+<h3>Resources<a href="ch7.html#resources-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The package <strong>unvotes</strong> <span class="citation">(<a href="#ref-R-unvotes">Robinson 2021</a>)</span> organizes votes of member states in the United Nations; the same analyses presented in this chapter could be applied to study patterns of country-level voting.</p>
+<p>The <strong>wnominate</strong> <span class="citation">(<a href="#ref-Rwnominate">K. Poole et al. 2024</a>)</span> package estimates the ideological scores from roll call votes described in this chapter from Voteview.com. It could be applied to votes from <strong>unvotes</strong> or any legislative body.</p>
+<p>As explanatory visualizations, dendrograms are frequently ‘pruned’ (such as excluding one or two branches) or customized. Popular packages for customizing dendrograms include <strong>dendextend</strong> <span class="citation">(<a href="#ref-galili2015">Galili 2015</a>)</span> and <strong>ggdendro</strong> <span class="citation">(<a href="#ref-R-ggdendro">Vries and Ripley 2021</a>)</span>.</p>
+</div>
+</div>
+<div id="exercises-5" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Exercises<a href="ch7.html#exercises-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Knit your R code into a document to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>Using the <em>polfigures.csv</em> data, re-create the two-dimensional representation of the figures (and social groups) using Manhattan distances. How does the different metric change observations about the arrangement of figures and groups in the two-dimensional space?</p></li>
+<li><p>Using <em>poll_ft.csv</em>, subset the data to just the feeling thermometer scores on social groups, with a command such as <code>socialgroups&lt;-poll[,c(21:39)]</code>, limiting the data table to only social group feeling thermometers. Using this subsetted data, <code>socialgroups</code>, use <code>mds()</code> to represent the differences in group feelings within a one-dimensional space. How would you interpret the resulting arrangement of the figures?</p></li>
+<li><p>Import the <em>polfigures_ft.csv</em> dataset, and create a one-dimensional figure based on Manhattan distances with MDS. Explain the code, each step in the analysis, and interpret the resulting figure.</p></li>
+<li><p>Pick a U.S. State with a relatively large delegation to the U.S. House of Representatives. Subset the 117th US Congress roll call voting data to this State and the House delegation. (If you have not already, you will need to download the original raw data from Voteview.com and follow the steps to tidy and subset the data.) Using cluster analysis, create a dendrogram visualizing similarity in voting across the delegation. Try an alternative linkage method to the default. Explain the steps to create the dendrogram, and interpret the results.</p></li>
+<li><p>Create a distance matrix on characteristics of the four country-level components of the Human Development Index in the file <em>hdi_2021.csv</em> and visualize it. To construct the distance matrix, use the <code>scale()</code> function to create standardized z scores for each variable, prior to applying <code>dist()</code>. How do you interpret the figure?</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-armstrong2020" class="csl-entry">
+Armstrong, David A., Ryan Bakker, Royce Carroll, Christopher Hare, Keith T. Poole, and Howard Rosenthal. 2020. <em>Analyzing Spatial Models of Choice and Judgment</em>. 2nd ed. Statistics in the Social and Behavioral Sciences. Boca Raton, FL: Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-bartholomew2008" class="csl-entry">
+Bartholomew, David J., Fiona Steele, Irini Moustaki, and Jane I. Galbraith. 2008. <em>Analysis of Multivariate Social Science Data</em>. 2nd ed. Statistics in the Social and Behavioral Sciences. Boca Raton, FL: Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-bradycollier2011" class="csl-entry">
+Brady, Henry E., David Collier, and Janet M. Box-Steffensmeier. 2011. <span>“Overview of Political Methodology: Post-Behavioral Movements and Trends.”</span> In <em>The Oxford Handbook of Political Science</em>, edited by Robert E. Goodin, 775–802. Oxford University Press.
+</div>
+<div id="ref-galili2015" class="csl-entry">
+Galili, Tal. 2015. <span>“Dendextend: An r Package for Visualizing, Adjusting, and Comparing Trees of Hierarchical Clustering.”</span> <em>Bioinformatics</em> 31 (22): 3718–20. <a href="https://doi.org/10.1093/bioinformatics/btv428">https://doi.org/10.1093/bioinformatics/btv428</a>.
+</div>
+<div id="ref-jacoby1991" class="csl-entry">
+Jacoby, William G. 1991. <em>Data Theory and Dimensional Analysis</em>. Newbury Park, CA: SAGE Publications, Inc.
+</div>
+<div id="ref-jacoby2014b" class="csl-entry">
+Jacoby, William G, and David A Armstrong. 2014. <span>“Bootstrap Confidence Regions for Multidimensional Scaling Solutions.”</span> <em>American Journal of Political Science</em> 58 (1): 264–78.
+</div>
+<div id="ref-jacoby2018" class="csl-entry">
+Jacoby, William G., and David J. Ciuk. 2018. <span>“Multidimensional Scaling: An Introduction.”</span> In <em>The Wiley Handbook of Psychometric Testing: A Multidisciplinary Reference on Survey, Scale and Test Development</em>, edited by Paul Irwing, David A. Booth, and Deborah J. Hughes, 1:375–412. Chichester, UK: Wiley. <a href="https://doi.org/10.1002/9781118489772.ch15">https://doi.org/10.1002/9781118489772.ch15</a>.
+</div>
+<div id="ref-gareth2013" class="csl-entry">
+James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning: With Applications in r</em>. 1st ed. New York: Springer.
+</div>
+<div id="ref-lewis2023" class="csl-entry">
+Lewis, Jeffrey B., Keith Poole, Howard Rosenthal, Adam Boche, Aaron Rudkin, and Luke Sonnet. 2023. <span>“Voteview: Congressional Roll-Call Votes Database.”</span> <a href="https://voteview.com" class="uri">https://voteview.com</a>. <a href="https://voteview.com">https://voteview.com</a>.
+</div>
+<div id="ref-R-smacof" class="csl-entry">
+Mair, Patrick, Jan De Leeuw, and Patrick J. F. Groenen. 2022. <em>Smacof: Multidimensional Scaling</em>. <a href="https://CRAN.R-project.org/package=smacof">https://CRAN.R-project.org/package=smacof</a>.
+</div>
+<div id="ref-poole2005" class="csl-entry">
+Poole, Keith T. 2005. <em>Spatial Models of Parliamentary Voting</em>. Cambridge University Press.
+</div>
+<div id="ref-poole2006" class="csl-entry">
+Poole, Keith T., and Howard Rosenthal. 2006. <em>Ideology and Congress: A Political Economic History of Roll Call Voting</em>. 2nd ed. New Brunswick, NJ: Transaction Publishers.
+</div>
+<div id="ref-Rwnominate" class="csl-entry">
+Poole, Keith, Jeffrey Lewis, James Lo, and Royce Carroll. 2024. <em>Wnominate: Roll Call Analysis Software</em>. <a href="https://doi.org/10.32614/CRAN.package.wnominate">https://doi.org/10.32614/CRAN.package.wnominate</a>.
+</div>
+<div id="ref-rabinowitz1975" class="csl-entry">
+Rabinowitz, George B. 1975. <span>“An Introduction to Nonmetric Multidimensional Scaling.”</span> <em>American Journal of Political Science</em> 19 (2): 343–90.
+</div>
+<div id="ref-R-unvotes" class="csl-entry">
+Robinson, David. 2021. <em>Unvotes: United Nations General Assembly Voting Data</em>. <a href="https://cran.r-project.org/web/packages/unvotes/">https://cran.r-project.org/web/packages/unvotes/</a>.
+</div>
+<div id="ref-rusk1972" class="csl-entry">
+Rusk, Jerrold G., and Herbert F. Weisberg. 1972. <span>“Perceptions of Presidential Sandidates: Implications for Electoral Change.”</span> <em>Midwest Journal of Political Science</em> 16 (3): 388–410.
+</div>
+<div id="ref-shepard1962" class="csl-entry">
+Shepard, Roger N. 1962. <span>“The Analysis of Proximities: Multidimensional Scaling with an Unknown Distance Function.”</span> <em>Psychometrika</em> 27 (2): 125–40.
+</div>
+<div id="ref-R-ggrepel" class="csl-entry">
+Slowikowski, Kamil. 2023. <em>Ggrepel: Automatically Position Non-Overlapping Text Labels with Ggplot2</em>. <a href="https://github.com/slowkow/ggrepel">https://github.com/slowkow/ggrepel</a>.
+</div>
+<div id="ref-R-ggdendro" class="csl-entry">
+Vries, Andrie de, and Brian D. Ripley. 2021. <em>Ggdendro: Create Dendrograms and Tree Diagrams Using ’Ggplot2’</em>. <a href="https://cran.r-project.org/web/packages/ggdendro/">https://cran.r-project.org/web/packages/ggdendro/</a>.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2023b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-wickham2016" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. Sebastopol, CA: O’Reilly Media.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch6.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch8.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/07-clustering-scaling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+h1:ch10 Linear Models
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:introduction Introduction
+h2:simple-linear-model-of-election-fundamentals Simple linear model of election fundamentals
+tab:prezdata1 Data for the model of presidential elections, 1948-2020. The column \\emph{vote} records the incumbent
+h3:correlation-and-simple-linear-regression Correlation and simple linear regression
+h3:line-of-best-fit Line of best fit
+fig:residfig The dashed vertical lines mark the residuals along the Y-axis, the difference between the observed and expected. The residuals for 1984 and 1972 are positive, because the incumbent candidate
+h2:understanding-and-evaluating-model-fit Understanding and evaluating model fit
+h3:root-mean-square-error Root mean square error
+h3:r-squared R-squared
+h3:residuals-and-fitted-values Residuals and fitted values
+fig:residfit A plot of residuals versus fitted values from the simple linear regression of incumbent part vote share on presidential approval. While there is variation in residual size, there is no discernible pattern in the residuals suggesting nonlinearity, as was evident from the scatterplot of vote by approval.
+h2:multiple-linear-model-of-election-fundamentals Multiple linear model of election fundamentals
+h2:population-regression-model Population regression model
+h3:models-and-election-surveys Models and election surveys
+h3:linear-models-with-the-2020-anes Linear models with the 2020 ANES
+h3:measuring-uncertainty-of-the-population-parameters Measuring uncertainty of the population parameters
+h3:accounting-for-the-sample-design-in-the-anes-survey Accounting for the sample design in the ANES survey
+h3:numeric-versus-ordinal-or-categorical-measures Numeric versus ordinal or categorical measures
+h2:multiple-linear-model-of-party-identification Multiple linear model of party identification
+h3:confidence-intervals-on-model-estimates Confidence intervals on model estimates
+h2:model-based-predictions Model-based predictions
+h2:describing-model-estimates-in-tables-and-graphs Describing model estimates in tables and graphs
+fig:regmodelplot Coefficient plot created with the \\textbf{jtools} package showing the magnitude, direction, and statistical significance of slope estimates from a regression model predicting party identification. Each point represents a coefficient estimate, with horizontal lines indicating 95 percent confidence intervals. Estimates to the right of zero suggest a positive association with party identification, while those to the left indicate a negative association. Confidence intervals that do not cross zero are statistically significant.
+h3:key-steps-in-regression-analysis Key steps in regression analysis
+h2:resources Resources
+h2:exercises Exercises
+

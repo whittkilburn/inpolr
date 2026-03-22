@@ -1,0 +1,43 @@
+h1:ch6 Maps and Spatial Data
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:maps-as-data Maps as data
+h3:key-terms-in-geospatial-data Key terms in geospatial data
+h3:map-projection Map projection
+fig:mercatoralberscombo Comparison of two map projections for the continental United States. The upper panel uses the Mercator projection, while the lower panel uses the Albers Equal-Area Conic projection. These maps illustrate how projection choice affects the visual representation of geography.
+h3:geospatial-datafile-formats Geospatial datafile formats
+h3:key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis Key steps and the big picture of maps and spatial data analysis
+h2:visualizing-polygons-and-points Visualizing polygons and points
+fig:leaflet1 Interactive \\textbf{leaflet} map of Cape Town, South Africa, with OpenStreetMap tiles as the base layer, as displayed in the Viewer pane.
+h3:visualizing-political-boundaries Visualizing political boundaries
+fig:leaflet2 Interactive \\textbf{leaflet} map of Cape Town, South Africa, displaying polygon boundaries of administrative units, with OpenStreetMap tiles as the base layer.
+h3:visualizing-boundary-line-attributes Visualizing boundary line attributes
+fig:leaflet3 Interactive \\textbf{leaflet} map of Cape Town, South Africa, displaying polygon boundaries of administrative units, shaded by fine particulate air pollution levels (PM2.5), with OpenStreetMap tiles as the base layer.
+h3:visualizing-points-and-point-densities Visualizing points and point densities
+fig:consulatepoints Interactive \\textbf{leaflet} map of Cape Town, South Africa, with OpenStreetMap tiles as the base layer, displaying three point markers based on latitude and longitude coordinates.
+h3:visualizing-point-densities Visualizing point densities
+fig:dcmaps Interactive \\textbf{leaflet} map of Washington, DC, displaying homicides in 2024, with OpenStreetMap as the base layer. The upper panel shows individual homicide locations as points, while the lower panel presents a heatmap of homicide concentrations.
+h3:creating-static-polygon-and-point-maps Creating static polygon and point maps
+fig:saairfill Heat map of Cape Town, South Africa, showing average PM2.5 air pollution concentration by administrative unit in 2011, visualized with \\textbf{ggplot2}. Shading represents pollution levels, with darker areas indicating higher concentrations.
+h2:mapping-elections-in-red-blue-and-purple Mapping elections in red, blue, and purple
+h3:a-map-of-michigan-counties A map of Michigan counties
+fig:micounties Map of Michigan county boundaries created with \\textbf{ggplot2} to plot spatial data.
+h3:a-choroplethic-map-of-county-level-election-results A choroplethic map of county-level election results
+fig:mi2016map Traditional red-blue election map of Michigan counties visualized with \\textbf{ggplot2}. On the grayscale printed version of the map, blue counties appear darker than red.
+h3:blending-counties-red-blue-and-purple Blending counties: red, blue, and purple
+fig:redpurplebluemi County level election map displaying a percentage margin of victory from red through purple to blue, visualized with \\textbf{ggplot2}. On a graycale printed page, these color transitions are not visible.
+fig:redwhitebluemi2 County level election map displaying a percentage margin of victory from red through white to blue, in increments of ten, visualized with \\textbf{ggplot2}. On a graycale printed page, these color transitions are not visible.
+h2:cartogram-corrections-to-election-maps Cartogram corrections to election maps
+h3:cartogram-of-the-michigan-county-presidential-vote-in-2016 Cartogram of the Michigan county presidential vote in 2016
+fig:micartmap Cartogram representation of the 2016 presidential vote in Michigan Counties, visualized with the \\textbf{cartogram} package.
+h2:measuring-gerrymandering-in-legislative-districts Measuring gerrymandering in legislative districts
+fig:misenate Interactive \\textbf{leaflet} map of the 2011 Michigan Senate districts, with OpenStreetMap tiles as the base layer.
+h3:convex-hull-score Convex Hull score
+fig:hull29 Interactive \\textbf{leaflet} map of Michigan’s 29th Senate district (2011 plan), with OpenStreetMap tiles as the base layer. The district boundary is outlined with a convex hull surrounding it.
+h3:polsby-popper-score Polsby-Popper score
+fig:polsbycircle Interactive \\textbf{leaflet} map of Michigan’s 29th Senate district (2011 plan), with OpenStreetMap tiles as the base layer. The district boundary is outlined with the Polsby-Popper circle surrounding it.
+h3:compactness-calculations-across-a-redistricting-plan Compactness calculations across a redistricting plan
+h2:accessing-us-census-data Accessing US Census data
+fig:censusdata Excerpt of US Census Bureau variables in data table format, accessed through the spreadsheet viewer.
+h2:resources Resources
+h2:exercises Exercises
+

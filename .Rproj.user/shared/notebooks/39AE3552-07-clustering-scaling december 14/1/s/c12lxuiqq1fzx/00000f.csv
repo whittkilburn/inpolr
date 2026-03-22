@@ -1,0 +1,6 @@
+"0","s_117_euc_mds<-mds(s_117_euc_distances, ndim=1, type=""ordinal"")"
+"0","s_117_euc_mds$stress"
+"1","[1]"
+"1"," 0.02429987"
+"1","
+"

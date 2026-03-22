@@ -1,0 +1,28 @@
+h1:ch4 Data Visualization
+h2:learning-objectives-and-chapter-resources Learning objectives and chapter resources
+h2:introduction Introduction
+h2:key-concepts-for-data-visualization-in-r Key concepts for data visualization in R
+h3:visualizing-continuous-measures Visualizing continuous measures
+h2:histogram Histogram
+fig:GDPhistv Histogram of country-level GDP per capita (in constant 2000 USD), created with the \\textbf{ggplot2} package. This figure displays the default \\textbf{ggplot2} style, including light gray background grids, black borders for bars, and axis labels.
+tab:tabhistvalues GDP bins, values, and counts for the histogram of GDP per capita
+h3:elements-of-a-ggplot2-visualization Elements of a ggplot2 visualization
+h3:the-ggplot2-syntax The ggplot2 syntax
+h2:box-whiskers Box-Whiskers
+fig:mccainbw Tabular frequencies and summary statistics for feeling thermometer ratings of US Senator John McCain (2004 ANES), followed by a box-whiskers plot that visually summarizes the distribution. The frequency table and summary quartiles help interpret key features of the plot, such as the median, interquartile range, and outliers.
+fig:boxdw86 Box-whisker plot of legislator ideology scores by party caucus for members of the U.S. House, 86th Congress (1959–1961), created with \\textbf{ggplot2}. The plot shows the distribution of ideology scores for Democrats and Republicans, with the box indicating the interquartile range, the horizontal line marking the median, and the whiskers and dots identifying outliers.
+h2:density Density
+fig:densitydw1 Density plot of legislator ideology scores in the U.S. House, 86th Congress (1959–1961), created with \\textbf{ggplot2}. This plot provides a smoothed estimate of the distribution of ideology scores, illustrating the relative concentration of legislators along the left-right ideological spectrum.
+fig:densitydw2 Density plot of legislator ideology scores in the U.S. House, 86th Congress (1959–1961), displayed by party caucus. Created with \\textbf{ggplot2}, this plot compares the distribution of ideologies for Democrats (solid line) and Republicans (dashed line), showing the distinct central tendencies and spread of each party’s ideological positions.
+h2:scatterplots Scatterplots
+h3:an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart An aesthetic mapping for a third variable on a scatterplot: bubble chart
+fig:bubbleplotone Bubble chart created with \\textbf{ggplot2}, displaying the relationship between fertility rate and log GDP per capita. Each point represents a country, with bubble size proportional to total population. This visualization highlights how larger-population countries are distributed across the GDP–fertility relationship.
+fig:fgdpalpf Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population. This chart introduces transparency (alpha shading) in the points to reduce overplotting and improve the visibility of overlapping bubbles, especially for countries with similar GDP and fertility levels.
+fig:newgdplabs Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population and alpha transparency applied to improve visibility of overlapping points. This version of the chart refines the axis labels and legend text for greater clarity and audience readability.
+fig:gdptextcountry Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population, and country names based on the condition of fertility rates higher than six average births per woman.
+fig:newbubfig Bubble chart of fertility rate by log GDP per capita, with bubble size proportional to total population.  A trend line summarizes the negative relationship between GDP per capita and fertility rate.
+h2:bubble-charts-in-motion Bubble charts in motion
+fig:dynamic Interactive, dynamic bubble chart created with the \\textbf{plotly} package, showing the relationship between fertility rate and log GDP per capita over time (1960–2020). Each point represents a country, with bubble size proportional to population and color indicating region. The animation slider allows exploration of changes in these relationships over time.
+h2:resources Resources
+h2:exercises Exercises
+

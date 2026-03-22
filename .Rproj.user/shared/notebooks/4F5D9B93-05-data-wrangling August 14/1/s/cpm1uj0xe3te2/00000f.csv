@@ -1,0 +1,10 @@
+"0","MI_2016<-read_tsv(file=""~/Documents/Dropbox/inpolr/inpolr/data/ch5 data/2016GEN_MI_CENR_BY_COUNTY.xls"")"
+"2","[1mRows: [22m[34m6082[39m [1mColumns: [22m[34m19[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m (14): ElectionDate, OfficeCode(Text), DistrictCode(Text), StatusCode, CountyName, OfficeDescription, PartyOrder, PartyName, PartyDescri...
+[32mdbl[39m  (3): CountyCode, CandidateID, CandidateVotes
+[33mlgl[39m  (2): CandidateFormerName, Recount(*)"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."

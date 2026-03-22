@@ -1,0 +1,420 @@
+# Evaluating and Extending Linear Models {#ch11}
+
+Chapter \@ref(ch11) introduces common problems and remedies to linear models, and how to explore interactive relationships.   
+
+## Learning objectives and chapter resources {-}
+
+By the end of this chapter, you should be able to (1) construct and interpret diagnostic plots of model residuals and fitted values; (2) identify patterns in residuals to evaluate potential violations of linear model assumptions, such as nonlinearity, error variance, and normality; (3) interpret measures to identify observations as outliers, leverage, and influence; (4) specify and interpret a capturing conditional, interactive relationships between two independent variables. The material in the chapter requires the following packages: **survey** [@R-survey], **dplyr** [@R-dplyr] and **tibble** [@R-tibble] from the **tidyverse** [@R-tidyverse], and a new package requiring installation, __car__ [@R-car]. The material uses the following dataset: _anes 2020 survey.rdata_ from <https://faculty.gvsu.edu/kilburnw/inpolr.html>.  
+ 
+## Examining assumptions underpinning linear models
+
+The assumptions discussed in Chapter \@ref(ch10) about ordinary least squares (OLS) regression form the foundation for evaluating linear models. These assumptions are critical for accurately estimating slopes and y-intercepts and for making valid inferences to population parameters. When these assumptions are violated, the resulting models may be unreliable. Diagnostic tools allow us to detect potential problems, including model misspecification, nonlinearity, nonconstant error variance (heteroskedasticity), or problematic observations like outliers and high leverage points.
+
+The starting point for linear model diagnostics is analyzing residuals. Residuals are a proxy for the unobservable errors $e$ in the population regression model and provide insight into the validity of the model's assumptions. The most fundamental diagnostic plot is the scatterplot of residuals versus fitted values, used to check for linearity, constant error variance, and normality of residuals. Beyond residual analysis, we also evaluate individual observations for leverage, influence, or outlying behavior.
+
+This chapter illustrates common diagnostic techniques using `regmodel4`, the demographic model of party identification introduced in Chapter \@ref(ch10): `svyglm(formula = partyid_num ~ edu + sex + race_category + age + attend_num + never_married, design = anes2020_design)`. We will examine common diagnostic tools to detect and address potential issues in linear models. Some diagnostic tools are not directly compatible with `svyglm()`, so the complex survey design potentially complicates the interpretation of these tools.  For example, residuals in survey-weighted models should be weighted to reflect the contribution of each observation to the regression model. The clustering and stratification in the survey can potentially introduce artifacts in residual plots, such as within-cluster correlations. Yet on the upside, a common problem in cross sectional public opinion research is heteroscedasticity, and fortunately the larger standard errors in svyglm() generally address issues of non-constant error variance, reducing the need for additional corrections.
+
+Despite these challenges, diagnostic tools remain essential for evaluating linear models. This chapter reviews a variety of approaches to assess residuals, fitted values, and observations to detect potential problems and ensure model robustness.
+ 
+
+## Residuals versus fitted values {-}
+
+As discussed in Chapter \@ref(ch10), the most fundamental tool for investigating linear models for problematic features is a plot of residuals versus fitted values. Typically, researchers look for residuals to appear in a random scatter without any clear pattern. Deviations from randomness could indicate a number of potential different problems.  First, any clear curvature or systematic trends in the residuals suggests there may be nonlinearities present in the relationship between Y and any X, which would not be adequately modeled by a linear slope parameter. Second, if the residuals clearly increase or decrease in spread as fitted values increase, it indicates that the error variance is not constant -- parts of the model fit worse than in other parts.  Often it can lead to standard errors that are too small. Third, points that deviate from others within the figure may be evidence of outliers or influential data points, that could potentially influence the model's parameters. 
+
+We use the `residuals()` \index{\texttt{residuals()}} function to extract residuals from the linear model object _regmodel4_, and `fitted()` \index{\texttt{fitted()}} for the fitted values.  We start with the residuals. Typically, researchers inspect residuals for severe departures from normality.  
+
+A common starting point is to plot residuals, for example a histogram, `hist(residuals)` inspected for departures from normality.  A quantile-quantile plot (QQplot) is often used to more explicitly compare the residuals against a normal distribution.  The plot pairs quantiles of the model residuals with residuals from a hypothetical normal distribution, plotting them in pairs; the less the deviation of the observed residuals from the hypothetical, the observations should line up along the 45 degree line. Given the _regmodel4_ _residuals_, the base R functions `qqnorm(residuals)` will create the QQplot while `qqline(residuals,col="red")` will add a 45 degree line marking the equality of the two quantities. 
+
+```{r echo=FALSE}
+residuals <- residuals(regmodel4)
+fitted_values<-fitted(regmodel4)
+```
+
+Figure \@ref(fig:residfitfig1) displays the QQ plot of residuals from _regmodel4_, showing party identification as a function of demographic characteristics. The residuals appear to approximate a normal distribution through the central portion of the plot, where the points closely align with the diagonal line. However, at the extremes (both tails), there are clear departures from normality, with points deviating above and below the line. This indicates the presence of outliers or extreme residuals, suggesting that the residuals are not perfectly normally distributed. While mild departures at the tails are not uncommon, they warrant further investigation to assess their potential impact on model assumptions and results.
+
+```{r residfitfig1, fig.cap="Normal quantile–quantile (QQ) plot of residuals from the model of party identification as a function of demographic characteristics. The figure displays deviations from normality at the ends of the plot."}
+residuals <- residuals(regmodel4)
+
+qqnorm(residuals)
+qqline(residuals,col="red")
+```
+ 
+
+The second plot is residuals paired with fitted values. The residuals and fitted values can be combined into a dataframe for __ggplot2__, or plotted with the base __R__ `plot()` function and as a reference `abline()` for a line drawn through the point at 0 on the residuals axis, as in Figure  \@ref(fig:residfitfig2):
+
+```{r residfitfig2, fig.cap="A plot of model residuals versus fitted values. The line is drawn through the 0 point on the vertical axis."}
+fitted_values<-fitted(regmodel4)
+
+plot(fitted_values, residuals, xlab = "Fitted Values", 
+      ylab = "Residuals", pch=20)
+abline(h = 0, col = "red", lwd = 2) 
+```
+
+For the residuals to meet the assumptions of a linear model, they should be centered around zero and display no discernible pattern across the range of fitted values. In Figure \@ref(fig:residfitfig2), the residuals appear relatively random around the horizontal line at zero. However, there are notable outliers and a slight fanning pattern at both the lower and upper ends of the fitted values, suggesting heteroskedasticity --- again, a violation of the constant error variance assumption.
+
+This heteroskedasticity may arise for a few reasons. First, it could stem from the complex survey design of the data, where nonconstant error variance results from differing regional strata or interview clusters. Fortunately, the `svyglm()` estimator adjusts for this design effect by producing robust standard errors, so we need not be overly concerned about this source. Second, the heteroskedasticity may relate to the distribution of the party identification variable, which is concentrated at the extreme points of the scale (Strong Democrat or Strong Republican). The model's demographic predictors may generate larger residuals for these strong partisans.
+
+Addressing this issue could involve respecifying the model. Potential remedies include adding omitted variables to reduce bias, introducing interaction terms to account for conditional relationships, or considering alternative estimators. For instance, the assumption of one slope across all education levels may not hold, suggesting a more flexible specification. Nonetheless, most of these approaches require intermediate to advanced knowledge of linear modeling, which is beyond the scope of this book.
+
+For now, despite the signs of heteroskedasticity, we proceed with the demographic model of party identification, as the tools available within the `svyglm()` framework sufficiently address design-based sources of variability.
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+load(file="./data/ch 11 data/anes 2020 survey data.rdata")
+
+anes_20 <- anes_20 %>%
+  mutate(partyid7pt = fct_recode(V201231x,
+           NULL = "-9. Refused",
+           NULL = "-8. Don't know"))
+
+anes_20 <- anes_20 %>%
+  mutate(partyid_num = as.numeric(partyid7pt)) %>%
+  mutate(attend_num = as.numeric(attend))
+
+anes_20<- anes_20 %>%
+  mutate(sex = fct_recode(V201600,
+                          NULL = "-9. Refused"))
+
+anes_20<-anes_20 %>%
+    mutate(race_category=fct_recode(V201549x,
+                NULL="-9. Refused",
+                NULL="-8. Don't know"))
+anes_20<-anes_20 %>%
+  mutate(race_category = ifelse(race_category == 
+                          '1. White, non-Hispanic', 0, 1)) 
+
+anes_20 <- anes_20 %>%
+  mutate(age =  V201507x)%>%
+  mutate(age = na_if(age, -9))
+
+anes_20<-anes_20 %>%
+  mutate(edu = V201511x) %>%
+  mutate(edu = fct_recode(edu,
+         NULL = "-9. Refused",
+         NULL = "-8. Don't know")) 
+
+anes_20<-anes_20 %>%
+  mutate(never_married = ifelse(V201508== '6. Never married', 1, 0))
+
+anes_20 <- anes_20 %>%
+  mutate(partyid7pt = fct_recode(V201231x,
+           NULL = "-9. Refused",
+           NULL = "-8. Don't know"))
+
+anes_20<-anes_20 %>%
+  mutate(edu=as.numeric(edu))
+
+anes_20 <- anes_20 %>%
+  mutate(partyid7pt = fct_recode(V201231x,
+           NULL = "-9. Refused",
+           NULL = "-8. Don't know"))
+
+anes_20 <- anes_20 %>%
+  mutate(partyid_num = as.numeric(partyid7pt)) %>%
+  mutate(attend_num = as.numeric(attend))
+
+regmodel4w<-lm(partyid_num ~ edu + sex + race_category + age + 
+    attend_num + never_married, data=anes_20, weights=V200015b)
+```
+
+While heteroskedasticity can undermine confidence in slope estimates, another potential issue is multicollinearity.
+
+### Collinearity of independent variables {-}
+
+Multicollinearity arises when two or more independent variables in a regression model are highly correlated, making it difficult to isolate their individual effects on the dependent variable. In such cases, the regression coefficients may become unstable, inflating standard errors and reducing the statistical significance of the predictors.
+
+In the case of _regmodel4_, the highly significant slopes suggest that multicollinearity is unlikely to be a major concern. However, it is standard practice to assess multicollinearity explicitly using Variance Inflation Factors (VIFs).
+
+VIFs measure how much the variance of a regression coefficient is increased due to correlations with other independent variables in the model. A VIF of 1 indicates no multicollinearity, while higher values signal stronger correlations, making it harder to disentangle a variable’s unique contribution to the model.
+
+To calculate VIFs, we use the vif() function from the car package:
+
+```{r message=FALSE, warning=FALSE}
+library(car)
+```
+
+```{r warning=FALSE, message=FALSE}
+vif(regmodel4)
+```
+
+The VIFs appear under the heading `GVIF`. As expected, the VIFs for _regmodel4_ indicate that multicollinearity is not a concern. All values are close to 1, with the highest being 1.690 for _never_married_, suggesting only a small degree of variance inflation. Generally, VIF values exceeding 5 or 10 are considered a threshold for problematic multicollinearity that may require further attention.
+
+For categorical predictors with multiple levels, the Generalized VIF (GVIF) adapts the standard VIF to account for the number of categories in the variable. By scaling the GVIF, it becomes easier to interpret, similar to the standard VIF used for numeric predictors. This adjustment ensures that multicollinearity is properly assessed in models that include both numeric and categorical predictors [@fox2019].
+
+Note that multicollinearity is not inherently problematic. While it can inflate standard errors and reduce the precision of individual slope estimates, it does not affect the overall fit or predictive power of the model. Addressing multicollinearity --- for example, by dropping a variable or combining correlated predictors into a single index are some common ways to address it. Yet doing so should be guided by theoretical considerations rather than, for example, dropping a variable from a model simply because of a large VIF. 
+
+In this case, the low VIF values suggest that the predictors in _regmodel4_ are sufficiently independent, and their effects can be interpreted with confidence.
+
+## Unusual observations {-}
+
+Even with a large sample size as in _regmodel4_, it is important to check whether individual observations are disproportionately influencing the regression results. Such observations can distort slope estimates and undermine the reliability of the model. There are three key sources of "troublesome" observations: (1) outliers, which have excessively large residuals; (2) high leverage observations, which have unusual values on independent variables; and (3) influential observations, which combine both large residuals and high leverage.
+
+To investigate these issues, we can use tools in base __R__ to examine specific diagnostics: residuals to detect outliers, "hat" values to identify leverage points, and Cook’s distance to measure influence. In addition, the __car__ package provides many additional tools for assessing all of these qualities, briefly reviewed in the Resources section of this chapter. 
+
+### Outliers {-}
+
+Outliers are observations with unusually large residuals, meaning their actual values deviate significantly from the model's predictions. A good starting point for detecting outliers is a residuals versus fitted values plot, which visually highlights observations that do not align with the overall trend. However, numerical diagnostics provide more precise tools for identifying these points.
+
+Studentized residuals are standardized versions of the residuals, adjusted to account for the variability of each residual and the influence of the observation on the model. These residuals are calculated by dividing each residual by its estimated standard deviation. This adjustment makes it easier to compare residuals across observations and detect outliers. Typically, studentized residuals greater than 2 (or greater than 3 in large datasets, such as the ANES survey) signal potential outliers.
+
+The `rstudent()` \index{\texttt{rstudent()}} function calculates studentized residuals.  The `summary()` \index{\texttt{summary()}} function reports any potential outliers. Storing the residuals in _stand_residuals_:  
+
+```{r}
+stand_residuals <- rstudent(regmodel4)
+ 
+summary(stand_residuals)
+```
+
+Notably, some residuals exceed 4 in magnitude, indicating observations with extreme deviations. To count the number of residuals greater than 3 in absolute value (a common threshold for identifying severe outliers), we can apply the `abs()` \index{\texttt{abs()}} and `sum()` \index{\texttt{sum()}} functions:
+
+```{r}
+sum(abs(stand_residuals) > 3)
+```
+
+While 31 outliers may seem notable, they represent a very small fraction of the overall sample size, making their impact on the model likely very limited. In smaller datasets, however, the presence of even a few outliers can pose a significant challenge. Researchers must carefully decide whether to exclude or retain such observations. And there is a tradeoff: Excluding outliers may reduce the influence of extreme observations but risks introducing selection bias, as the data may no longer fully represent the population. Including outliers ensures all observations are considered but may distort the model estimates, particularly the slopes and standard errors.
+
+To determine whether these outliers meaningfully affect the model, we next investigate their leverage and influence on the regression results.
+
+### Leverage and influence {-}
+
+Leverage measures how much an observation influences the regression model’s fitted values based on its scores on the independent variables. Observations with high leverage are those that are far from the “center” of the independent variables — meaning they are distant from the mean values across all predictors. High leverage points can have a substantial impact on the regression results because of their unique positions.
+
+High leverage alone does not always indicate a problematic observation. For an observation to disproportionately influence the model, it must combine high leverage with an unusually large residual (an outlier). This combination indicates that the observation significantly alters the slope estimates or fitted values.
+
+A conventional rule of thumb is that leverage values (or "hat values") exceeding 2 to 3 times the ratio of model parameters (number of slopes + intercept) to the sample size are considered unusually large. For instance, in the case of _regmodel4_, with approximately 20 to 30 model parameters and a sample size of 4433, the threshold for high leverage would be around 0.004 to 0.006. 
+
+To calculate leverage values, use `hatvalues()` \index{\texttt{hatvalues()}} with `summary()` \index{\texttt{summary()}}:
+
+```{r}
+hat_values <- hatvalues(regmodel4)
+
+summary(hat_values)
+```
+
+The results for _regmodel4_ indicate that some observations exceed the leverage threshold, as the maximum value is notably higher than the third quartile. These points warrant further examination to assess their influence on the model.
+
+Cook’s distance \index{\texttt{cooks.distance()}} combines two key diagnostics — a standardized residual and leverage — into a single statistic to identify influential observations. It measures how much the fitted regression values would change if a particular observation were removed. Observations with large Cook’s distance values can disproportionately affect the regression results.
+
+To calculate Cook’s distance, use the `cooks.distance()` function and `summary()`:
+
+```{r}
+influence <- cooks.distance(regmodel4)
+summary(influence)
+```
+
+A common rule of thumb is that observations with a Cook's distance greater than $\frac{4}{n}$ may be considered influential. Since Cook’s distance is always positive, and with $n = 4433$, this threshold is $\frac{4}{4433} \approx 0.0009$. Given that the maximum Cook’s distance in the model is only 0.005, none of the observations appear to be especially problematic.
+
+In this section, we explored key diagnostic tools for evaluating the assumptions of linear regression models. By examining residuals for outliers, patterns, and non-constant variance, we checked for potential violations of linearity and homoskedasticity. Measures of leverage, studentized residuals, and Cook's distance allowed us to identify observations that could disproportionately influence model estimates. While a few observations exhibited high leverage or large residuals, their overall impact on the model appears. minimal.
+
+With confidence in the stability of our current model, we now turn to a more advanced topic: interaction terms. Interaction terms allow us to investigate how the relationship between one independent variable and the dependent variable changes depending on the level of another independent variable, a conditional relationship.
+
+## Exploring interactions in linear models
+
+### Religious belonging x behavior in party identification {-}
+
+The strength of the relationship between service attendance could vary depending on the religious tradition associated with the individual. For example, consider the evangelical Protestant religious tradition (see Steensland et al, for an explanation [-@steensland2000]). It is, of course, likely that evangelical Protestants identify more strongly with the Republican party, relative to the rest of the American electorate. And overall, more frequent religious service attendance is associated with stronger Republican party identification.  Yet it could also be that among evangelical Protestants, perhaps more frequent religious service attendance does not lead to stronger Republican party identification, relative to the electorate as a whole. This intuition implies an interaction between a religious belonging and behavior, instead of separate linear slopes for attendance and evangelical Protestant belonging.  
+
+To illustrate how a linear model accommodates this intuition, we simplify the model of party identification to three independent variables for each of these terms: $X_{1evang}$ for evangelical identity, $X_{2attend}$ for service attendance, and  $X_{1evang}*X_{2attend}$ for the interaction between the two. The model: 
+
+$$Y = a + b_1X_{1evang} + b_2X_{2attend}+b_3X_{1evang} \times X_{2attend}$$ 
+
+For non-evangelicals, the value of $X_{1evang}$ is 0, so the slope on the interaction term drops out of the term $b_3 \times 0 \times X_{2attend}$, leaving 
+
+$$Y = a + b_1X_{1evang} + b_2X_{2attend}$$ 
+as the model. 
+
+For evangelicals, however, the value of $X_{1evang}$ is 1, so the interaction term simplifies to $b_3 \times 1 \times X_{2attend}$=$b_3 \times X_{2attend}$. This slope $b_3X_{2attend}$ is added to the other slope on $X_{2attend}$
+
+For evangelicals: $Y = a + b_1X_{1evang} + (b_2 + b_3)X_{2attend}$
+
+For non-evangelicals: $Y = a + b_1X_{1evang} + b_2X_{2attend}$
+
+The two equations display how the interaction alters the slope for attendance, conditional on evangelical identification.
+
+To explore the model in data, we start with _regmodel4_ from Chapter \@ref(ch10).  We create an indicator for a survey respondent's belonging to the evangelical Protestant religious tradition. After attaching the necessary packages:  
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(survey)
+```
+
+```{r}
+anes_20 <- anes_20 %>%
+  mutate(evang = 
+          ifelse(relig_trad == "2. Evangelical Protestant", 1, 0))
+```
+
+The variable _evang_ is scored 1 for respondent belonging to the evangelical Protestant tradition, 0 otherwise. To explore an interaction between evangelical Protestant religious belonging and service attendance, we will treat service attendance _attend_ as a numeric measure. The numeric variable for religious service attendance is _attend_num_. 
+
+```{r echo=FALSE, message=FALSE}
+anes_20 <- anes_20 %>%
+  mutate(partyid7pt = fct_recode(V201231x,
+           NULL = "-9. Refused",
+           NULL = "-8. Don't know"))
+```
+
+```{r echo=FALSE}
+anes_20 <- anes_20 %>%
+  mutate(partyid_num = as.numeric(partyid7pt)) %>%
+  mutate(attend_num = as.numeric(attend))
+```
+
+```{r echo=FALSE}
+anes_20<- anes_20 %>%
+  mutate(sex = fct_recode(V201600,
+                          NULL = "-9. Refused"))
+
+anes_20<-anes_20 %>%
+    mutate(race_category=fct_recode(V201549x,
+                NULL="-9. Refused",
+                NULL="-8. Don't know"))
+anes_20<-anes_20 %>%
+  mutate(race_category = ifelse(race_category == 
+                          '1. White, non-Hispanic', 0, 1)) 
+
+anes_20 <- anes_20 %>%
+  mutate(age =  V201507x)%>%
+  mutate(age = na_if(age, -9))
+
+anes_20<-anes_20 %>%
+  mutate(edu = V201511x) %>%
+  mutate(edu = fct_recode(edu,
+         NULL = "-9. Refused",
+         NULL = "-8. Don't know")) 
+
+anes_20<-anes_20 %>%
+  mutate(never_married = ifelse(V201508== '6. Never married', 1, 0))
+```
+
+To simplify the model, we will treat formal educational attainment as a numeric variable, _edu_. The _edu_ variable from _regmodel4_ is converted to a numeric with `as.numeric()`:
+
+```{r}
+anes_20<-anes_20 %>%
+  mutate(edu=as.numeric(edu))
+```
+
+```{r echo=FALSE, message=FALSE}
+anes_20 <- anes_20 %>%
+  mutate(partyid7pt = fct_recode(V201231x,
+           NULL = "-9. Refused",
+           NULL = "-8. Don't know"))
+anes_20 <- anes_20 %>%
+  mutate(partyid_num = as.numeric(partyid7pt)) %>%
+  mutate(attend_num = as.numeric(attend))
+```
+
+We will add one additional control, household income, as a numeric measure, to disentangle income from religious service attendance. (See the ANES codebook for scaling.)
+
+```{r}
+anes_20 <- anes_20 %>%
+  mutate(income = fct_recode(V202468x,
+           NULL = "-9. Refused")) %>%
+  mutate(income = as.numeric(income))
+```
+
+After creating new variables we have to rerun the `svydesign()` function: 
+
+```{r message=FALSE}
+anes2020_design<-svydesign(data = anes_20, ids = ~V200015c, 
+                    strata=~V200015d, weights=~V200015b, nest=TRUE)
+```
+
+Then we run the model, including both the _evang_ and _service attendance_ variables: 
+
+```{r}
+regmodel5<-svyglm(partyid_num ~  edu + sex + 
+            race_category + age + never_married + income+
+            evang + attend_num, design=anes2020_design)
+```
+
+Observe the model output with `summary(regmodel5)`. In the model output, you will notice that the _evang_ slope (0.529) is statistically significant, as is _attend_num_ (0.355), both factors on average leading individuals to stronger Republican party identification.  
+
+The interaction between evangelical Protestant identity and attendance is a multiplicative interaction, the product of _evang_ times _attend_num_. Interaction terms can be specified in a model in two ways. In the _anes_20_ dataset, we could create a new variable as the product of the two terms: `anes_20<-anes_20 %>% mutate(evangXattend = evang * attend_num)`. Or simply include the product of the two individual variables within the `svyglm()` \index{survey R package| \texttt{svyglm()}} function, as the last independent variable _evangXattend_num_  \index{multiplicative interaction}: 
+
+```{r}
+regmodel6<-svyglm(partyid_num ~  edu + sex + 
+                    race_category + age + never_married + income +
+                    evang + attend_num + 
+                    evang*attend_num, design=anes2020_design)
+```
+
+To review the results and the differences between the two models, we will use the __memisc__ [@R-memisc] package: 
+
+```{r message=FALSE, warning=FALSE}
+library(memisc)
+```
+
+Storing each model results in `mtable()` \index{memisc R package| \texttt{mtable() }}: 
+```{r warning=FALSE, message=FALSE}
+reg_table <- mtable("Model 1" = regmodel5, "Model 2" = regmodel6,
+                    sdigits = 2)
+```
+
+Printing the table: 
+
+```{r reginttable}
+print(reg_table)
+```
+
+Notice that the demographic characteristics for Model 1 remain relatively stable in Model 2.  In the interactive Model 2, the slopes are interpreted as follows: 
+
+Starting at the bottom of the table, note the statistically significant slope of -0.224 on _evang x attend_num_. The negative sign on the slope indicates the association between increasing religious attendance on party identification is weaker for evangelicals  compared to non-evangelicals.  Specifically, for every one-unit increase in _attend_num_, the slope of attend_num decreases by -0.224 for evangelicals relative to non-evangelicals, meaning that increased service attendance does not strengthen Republican party identification to the extent that it does for the electorate as a whole. 
+The p-value on the slope for _evang X attend_num_ , while arguably on the cusp of statistical significance $(* = p < 0.05)$, nonetheless indicates that the difference slopes between evangelicals and non-evangelicals is statistically significant. The relationship between religious attendance and party identification depends, at least in part, on evangelical Protestant status. 
+
+The magnitude of the relationship between service attendance and party identification --- for evangelicals -- is the linear combination of the slopes for *attend_num* and the interactive term _evangXattend_num_: $0.404+ (−0.224) = 0.181$. While for non-evangelicals a one-unit increase in religious attendance is associated with a .404 point stronger Republican party identification; for evangelicals, the association is about half that, .18 points. 
+
+A useful test is whether this combined effect for evangelicals is likely distinguishable from 0 in the population. --- It could be, for instance, that while weaker than for non-evangelicals, the relationship is null in the population. The _car_ package provides a function `linearHypothesis()` \index{car R package| \texttt{linearHypothesis() }} to test linear combinations of slopes against the null hypothesis that in the population, the linear combination is 0. The argument specifies the linear combination, with variable names from the model specified in the model, in this case _regmodel6_: `attend_num + evang:attend_num = 0`:
+
+```{r}
+linearHypothesis(regmodel6, 
+    hypothesis.matrix = "attend_num + evang:attend_num = 0")
+```
+
+The linear hypothesis test evaluates whether the combined effect of religious service attendance plus the interaction with evangelical status equals zero, testing whether the slope for religious attendance among evangelicals is significantly different from zero while accounting for other predictors in the model. The test indicates the slope for evangelicals on religious service attendance is significantly different from 0 $p=0.032$. The result indicates that religious attendance has a statistically significant, albeit weaker, relationship with party identification among evangelicals.
+
+Interaction terms are symmetrical, and can be interpreted from the other perspective -- considering nominal affiliation with evangelical Protestantism and how it relates to party identification as religious service attendance changes. The coefficient for _evang_, `1.02962`, represents the influence of being an evangelical on party identification when religious attendance _attend_num_ is at 0, or not attending.  Being a nominal evangelical (who never attends religious services) is associated with an increase of approximately 1.03 points on the party identification scale (shifting toward stronger Republican identification), compared to a non-evangelical who also never attends services. 
+
+The influence of being evangelical on party identification, as service attendance increases, depends on the combination of the slope and the interaction term. Among non-attending evangelicals the impact of 1.0296 is the result of $1.02962+ (−0.22359 * 0)=1.02962$. Yet as attendance increases to 3, the impact reduces to $1.02962 + (−0.22359*3) = 1.02962−0.67077 = 0.35885$. At weekly service attendance levels, the effect of being evangelical decreases to about a third of the level for nomina,l (non-attending) evangelicals. 
+
+### Model based predictions {-}
+
+Given the model, we can explore model-based predictions from the interaction term, via `predict()` \index{\texttt{predict()}}. Like before, we create the prediction dataset, specifying 'average' values for the independent variables and particular combinations of the interaction terms. For example, we may be interested in calculating the model based prediction of a party identification for an evangelical who does not report attending religious services, versus one who attends services weekly.  The prediction dataset contrasts service attendance values (0 and 3) and average characteristics, a male with some post high school education or training , 45 years old, and a household income of 65,000 to 69,999 USD (12th quantile), married or divorced:  
+
+```{r}
+predictiondata <- tribble(
+  ~edu, ~sex, ~race_category, ~age, ~never_married, ~income, ~evang,
+        ~attend_num,
+  3, "1. Male", 0, 45, 0, 12, 1, 3,   
+  3, "1. Male", 0, 45, 0, 12, 1, 0)
+```
+
+Given the prediction dataset, the model based predictions and 95 percent confidence intervals: 
+
+```{r}
+predictions<-predict(regmodel6,predictiondata, interval = "confidence")
+
+confint(predictions)
+```
+
+The model based predictions show that a weekly attending evangelical Protestant, given the other characteristics on average identifies as an Independent-leaning Republican (5.33), while a nominal evangelical identifies closely on the scale (4.79), but more Independent.  
+
+## Testing and refining linear models
+
+Presenting and interpreting regression results requires thoughtful model specification and a clear strategy for communicating findings. A standard approach involves presenting a series of nested models, starting with a parsimonious specification focused on the primary relationships of interest and gradually adding covariates as control variables.  The models are combined into a table such as _reg_table_ presented in this chapter. It is not uncommon to see three or four models specified this way. This stepwise approach, a sensitivity analysis, assesses the stability of the primary slopes of interest, as additional control variables are introduced. It also helps distinguish between potential sources of spuriousness (confounding variables) and mediation (variables that explain part of the relationship). Whether a variable serves as a confounder or mediator should be guided by prior theory and literature.
+
+When interpreting model estimates, pay close attention to patterns in slope changes across model specifications; a decrease in magnitude when adding controls may indicate partial mediation or confounding effects. Remember, adding variables to a model effectively moves their relationship with the dependent variable out of the error term and into the model, isolating their contribution. A good linear model requires careful, theory drive model specification and clear sensitivity analysis to provide for drawing valid conclusions and effective communication about the sensitivity of the model to alternative specifications.
+
+## Resources {-}
+
+Further investigating the assumptions underlying linear models requires an intermediate-to-advanced study. See Urdinez and Cruz [-@urdinez2022] for specific statistical tests and remedies for common problems in regression models. See  Fox and Weinberg [-@fox2019] for methods of applying the __car__ [@R-car] package to graphically exploring interactive relationships in linear models. The _car_ package includes two functions, `qqPlot()` and `residualPlot()` (note the capitalization) with additional nonlinear trend lines to assess departures from normality. There are also additional graphical plot types for more advanced study in the __car__ package.  
+
+## Exercises 
+
+Knit your __R__ code into a document to answer the following questions: 
+
+(1) In the 2020 ANES dataset, find a 7 point issue attitude scale and construct a demographic linear model, with three independent variables such as educational attainment, gender, and race.  (a) Create a residuals vs. fitted values plot. Interpret whether the residuals suggest any violations of linearity or homoskedasticity. (b) Generate a QQplot of the residuals and assess whether the residuals follow a normal distribution. In a paragraph, summarize your findings and discuss whether the assumptions of the linear model appear reasonable.  
+
+(2) For the same model, calculate Cook’s distances and identify any observations exceeding the rule-of-thumb threshold. Summarize whether these observations appear to unduly influence the model and suggest possible next steps.
+
+(3)  Build a regression model to explore the interaction between a religious tradition and religious service attendance on party identification, similar to the model presented in this chapter. Interpret the coefficient for the interaction term. What does it imply about how the relationship between attendance and party identification differs for the chosen religious group? Present and interpret model-based predictions to interpret the results. 
+

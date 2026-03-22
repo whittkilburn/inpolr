@@ -1,0 +1,5 @@
+"0","MI_prez_2016<-MI_2016 %>%"
+"0","  filter(OfficeDescription==""President of the United States 4 Year Term (1) Position"") %>%"
+"0","  select(CountyName, CandidateLastName, CandidateVotes, CountyCode)"
+"0",""
+"0","MI_prez_2016"

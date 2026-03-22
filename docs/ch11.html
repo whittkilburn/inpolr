@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Evaluating and Extending Linear Models | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Evaluating and Extending Linear Models | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Evaluating and Extending Linear Models | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch10.html"/>
+<link rel="next" href="ch12.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch11" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Evaluating and Extending Linear Models<a href="ch11.html#ch11" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch11.html#ch11">11</a> introduces common problems and remedies to linear models, and how to explore interactive relationships.</p>
+<div id="learning-objectives-and-chapter-resources-9" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch11.html#learning-objectives-and-chapter-resources-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this chapter, you should be able to (1) construct and interpret diagnostic plots of model residuals and fitted values; (2) identify patterns in residuals to evaluate potential violations of linear model assumptions, such as nonlinearity, error variance, and normality; (3) interpret measures to identify observations as outliers, leverage, and influence; (4) specify and interpret a capturing conditional, interactive relationships between two independent variables. The material in the chapter requires the following packages: <strong>survey</strong> <span class="citation">(<a href="#ref-R-survey">Lumley 2021</a>)</span>, <strong>dplyr</strong> <span class="citation">(<a href="#ref-R-dplyr">Wickham, François, et al. 2023</a>)</span> and <strong>tibble</strong> <span class="citation">(<a href="#ref-R-tibble">Müller and Wickham 2023</a>)</span> from the <strong>tidyverse</strong> <span class="citation">(<a href="#ref-R-tidyverse">Wickham 2023b</a>)</span>, and a new package requiring installation, <strong>car</strong> <span class="citation">(<a href="#ref-R-car">Fox, Weisberg, and Price 2022</a>)</span>. The material uses the following dataset: <em>anes 2020 survey.rdata</em> from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="examining-assumptions-underpinning-linear-models" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Examining assumptions underpinning linear models<a href="ch11.html#examining-assumptions-underpinning-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The assumptions discussed in Chapter <a href="ch10.html#ch10">10</a> about ordinary least squares (OLS) regression form the foundation for evaluating linear models. These assumptions are critical for accurately estimating slopes and y-intercepts and for making valid inferences to population parameters. When these assumptions are violated, the resulting models may be unreliable. Diagnostic tools allow us to detect potential problems, including model misspecification, nonlinearity, nonconstant error variance (heteroskedasticity), or problematic observations like outliers and high leverage points.</p>
+<p>The starting point for linear model diagnostics is analyzing residuals. Residuals are a proxy for the unobservable errors <span class="math inline">\(e\)</span> in the population regression model and provide insight into the validity of the model’s assumptions. The most fundamental diagnostic plot is the scatterplot of residuals versus fitted values, used to check for linearity, constant error variance, and normality of residuals. Beyond residual analysis, we also evaluate individual observations for leverage, influence, or outlying behavior.</p>
+<p>This chapter illustrates common diagnostic techniques using <code>regmodel4</code>, the demographic model of party identification introduced in Chapter <a href="ch10.html#ch10">10</a>: <code>svyglm(formula = partyid_num ~ edu + sex + race_category + age + attend_num + never_married, design = anes2020_design)</code>. We will examine common diagnostic tools to detect and address potential issues in linear models. Some diagnostic tools are not directly compatible with <code>svyglm()</code>, so the complex survey design potentially complicates the interpretation of these tools. For example, residuals in survey-weighted models should be weighted to reflect the contribution of each observation to the regression model. The clustering and stratification in the survey can potentially introduce artifacts in residual plots, such as within-cluster correlations. Yet on the upside, a common problem in cross sectional public opinion research is heteroscedasticity, and fortunately the larger standard errors in svyglm() generally address issues of non-constant error variance, reducing the need for additional corrections.</p>
+<p>Despite these challenges, diagnostic tools remain essential for evaluating linear models. This chapter reviews a variety of approaches to assess residuals, fitted values, and observations to detect potential problems and ensure model robustness.</p>
+</div>
+<div id="residuals-versus-fitted-values" class="section level2 unnumbered hasAnchor">
+<h2>Residuals versus fitted values<a href="ch11.html#residuals-versus-fitted-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As discussed in Chapter <a href="ch10.html#ch10">10</a>, the most fundamental tool for investigating linear models for problematic features is a plot of residuals versus fitted values. Typically, researchers look for residuals to appear in a random scatter without any clear pattern. Deviations from randomness could indicate a number of potential different problems. First, any clear curvature or systematic trends in the residuals suggests there may be nonlinearities present in the relationship between Y and any X, which would not be adequately modeled by a linear slope parameter. Second, if the residuals clearly increase or decrease in spread as fitted values increase, it indicates that the error variance is not constant – parts of the model fit worse than in other parts. Often it can lead to standard errors that are too small. Third, points that deviate from others within the figure may be evidence of outliers or influential data points, that could potentially influence the model’s parameters.</p>
+<p>We use the <code>residuals()</code> function to extract residuals from the linear model object <em>regmodel4</em>, and <code>fitted()</code> for the fitted values. We start with the residuals. Typically, researchers inspect residuals for severe departures from normality.</p>
+<p>A common starting point is to plot residuals, for example a histogram, <code>hist(residuals)</code> inspected for departures from normality. A quantile-quantile plot (QQplot) is often used to more explicitly compare the residuals against a normal distribution. The plot pairs quantiles of the model residuals with residuals from a hypothetical normal distribution, plotting them in pairs; the less the deviation of the observed residuals from the hypothetical, the observations should line up along the 45 degree line. Given the <em>regmodel4</em> <em>residuals</em>, the base R functions <code>qqnorm(residuals)</code> will create the QQplot while <code>qqline(residuals,col="red")</code> will add a 45 degree line marking the equality of the two quantities.</p>
+<p>Figure <a href="ch11.html#fig:residfitfig1">11.1</a> displays the QQ plot of residuals from <em>regmodel4</em>, showing party identification as a function of demographic characteristics. The residuals appear to approximate a normal distribution through the central portion of the plot, where the points closely align with the diagonal line. However, at the extremes (both tails), there are clear departures from normality, with points deviating above and below the line. This indicates the presence of outliers or extreme residuals, suggesting that the residuals are not perfectly normally distributed. While mild departures at the tails are not uncommon, they warrant further investigation to assess their potential impact on model assumptions and results.</p>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="ch11.html#cb589-1" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(regmodel4)</span>
+<span id="cb589-2"><a href="ch11.html#cb589-2" tabindex="-1"></a></span>
+<span id="cb589-3"><a href="ch11.html#cb589-3" tabindex="-1"></a><span class="fu">qqnorm</span>(residuals)</span>
+<span id="cb589-4"><a href="ch11.html#cb589-4" tabindex="-1"></a><span class="fu">qqline</span>(residuals,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:residfitfig1"></span>
+<img src="bookdown_files/figure-html/residfitfig1-1.png" alt="Normal quantile–quantile (QQ) plot of residuals from the model of party identification as a function of demographic characteristics. The figure displays deviations from normality at the ends of the plot." width="672" />
+<p class="caption">
+FIGURE 11.1: Normal quantile–quantile (QQ) plot of residuals from the model of party identification as a function of demographic characteristics. The figure displays deviations from normality at the ends of the plot.
+</p>
+</div>
+<p>The second plot is residuals paired with fitted values. The residuals and fitted values can be combined into a dataframe for <strong>ggplot2</strong>, or plotted with the base <strong>R</strong> <code>plot()</code> function and as a reference <code>abline()</code> for a line drawn through the point at 0 on the residuals axis, as in Figure <a href="ch11.html#fig:residfitfig2">11.2</a>:</p>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="ch11.html#cb590-1" tabindex="-1"></a>fitted_values<span class="ot">&lt;-</span><span class="fu">fitted</span>(regmodel4)</span>
+<span id="cb590-2"><a href="ch11.html#cb590-2" tabindex="-1"></a></span>
+<span id="cb590-3"><a href="ch11.html#cb590-3" tabindex="-1"></a><span class="fu">plot</span>(fitted_values, residuals, <span class="at">xlab =</span> <span class="st">&quot;Fitted Values&quot;</span>, </span>
+<span id="cb590-4"><a href="ch11.html#cb590-4" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb590-5"><a href="ch11.html#cb590-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:residfitfig2"></span>
+<img src="bookdown_files/figure-html/residfitfig2-1.png" alt="A plot of model residuals versus fitted values. The line is drawn through the 0 point on the vertical axis." width="672" />
+<p class="caption">
+FIGURE 11.2: A plot of model residuals versus fitted values. The line is drawn through the 0 point on the vertical axis.
+</p>
+</div>
+<p>For the residuals to meet the assumptions of a linear model, they should be centered around zero and display no discernible pattern across the range of fitted values. In Figure <a href="ch11.html#fig:residfitfig2">11.2</a>, the residuals appear relatively random around the horizontal line at zero. However, there are notable outliers and a slight fanning pattern at both the lower and upper ends of the fitted values, suggesting heteroskedasticity — again, a violation of the constant error variance assumption.</p>
+<p>This heteroskedasticity may arise for a few reasons. First, it could stem from the complex survey design of the data, where nonconstant error variance results from differing regional strata or interview clusters. Fortunately, the <code>svyglm()</code> estimator adjusts for this design effect by producing robust standard errors, so we need not be overly concerned about this source. Second, the heteroskedasticity may relate to the distribution of the party identification variable, which is concentrated at the extreme points of the scale (Strong Democrat or Strong Republican). The model’s demographic predictors may generate larger residuals for these strong partisans.</p>
+<p>Addressing this issue could involve respecifying the model. Potential remedies include adding omitted variables to reduce bias, introducing interaction terms to account for conditional relationships, or considering alternative estimators. For instance, the assumption of one slope across all education levels may not hold, suggesting a more flexible specification. Nonetheless, most of these approaches require intermediate to advanced knowledge of linear modeling, which is beyond the scope of this book.</p>
+<p>For now, despite the signs of heteroskedasticity, we proceed with the demographic model of party identification, as the tools available within the <code>svyglm()</code> framework sufficiently address design-based sources of variability.</p>
+<p>While heteroskedasticity can undermine confidence in slope estimates, another potential issue is multicollinearity.</p>
+<div id="collinearity-of-independent-variables" class="section level3 unnumbered hasAnchor">
+<h3>Collinearity of independent variables<a href="ch11.html#collinearity-of-independent-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Multicollinearity arises when two or more independent variables in a regression model are highly correlated, making it difficult to isolate their individual effects on the dependent variable. In such cases, the regression coefficients may become unstable, inflating standard errors and reducing the statistical significance of the predictors.</p>
+<p>In the case of <em>regmodel4</em>, the highly significant slopes suggest that multicollinearity is unlikely to be a major concern. However, it is standard practice to assess multicollinearity explicitly using Variance Inflation Factors (VIFs).</p>
+<p>VIFs measure how much the variance of a regression coefficient is increased due to correlations with other independent variables in the model. A VIF of 1 indicates no multicollinearity, while higher values signal stronger correlations, making it harder to disentangle a variable’s unique contribution to the model.</p>
+<p>To calculate VIFs, we use the vif() function from the car package:</p>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="ch11.html#cb591-1" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="ch11.html#cb592-1" tabindex="-1"></a><span class="fu">vif</span>(regmodel4)</span></code></pre></div>
+<pre><code>##                GVIF Df GVIF^(1/(2*Df))
+## edu           1.587  4           1.059
+## sex           1.373  1           1.172
+## race_category 1.461  1           1.209
+## age           1.509  1           1.228
+## attend_num    1.168  1           1.081
+## never_married 1.690  1           1.300</code></pre>
+<p>The VIFs appear under the heading <code>GVIF</code>. As expected, the VIFs for <em>regmodel4</em> indicate that multicollinearity is not a concern. All values are close to 1, with the highest being 1.690 for <em>never_married</em>, suggesting only a small degree of variance inflation. Generally, VIF values exceeding 5 or 10 are considered a threshold for problematic multicollinearity that may require further attention.</p>
+<p>For categorical predictors with multiple levels, the Generalized VIF (GVIF) adapts the standard VIF to account for the number of categories in the variable. By scaling the GVIF, it becomes easier to interpret, similar to the standard VIF used for numeric predictors. This adjustment ensures that multicollinearity is properly assessed in models that include both numeric and categorical predictors <span class="citation">(<a href="#ref-fox2019">Fox and Weisberg 2019</a>)</span>.</p>
+<p>Note that multicollinearity is not inherently problematic. While it can inflate standard errors and reduce the precision of individual slope estimates, it does not affect the overall fit or predictive power of the model. Addressing multicollinearity — for example, by dropping a variable or combining correlated predictors into a single index are some common ways to address it. Yet doing so should be guided by theoretical considerations rather than, for example, dropping a variable from a model simply because of a large VIF.</p>
+<p>In this case, the low VIF values suggest that the predictors in <em>regmodel4</em> are sufficiently independent, and their effects can be interpreted with confidence.</p>
+</div>
+</div>
+<div id="unusual-observations" class="section level2 unnumbered hasAnchor">
+<h2>Unusual observations<a href="ch11.html#unusual-observations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Even with a large sample size as in <em>regmodel4</em>, it is important to check whether individual observations are disproportionately influencing the regression results. Such observations can distort slope estimates and undermine the reliability of the model. There are three key sources of “troublesome” observations: (1) outliers, which have excessively large residuals; (2) high leverage observations, which have unusual values on independent variables; and (3) influential observations, which combine both large residuals and high leverage.</p>
+<p>To investigate these issues, we can use tools in base <strong>R</strong> to examine specific diagnostics: residuals to detect outliers, “hat” values to identify leverage points, and Cook’s distance to measure influence. In addition, the <strong>car</strong> package provides many additional tools for assessing all of these qualities, briefly reviewed in the Resources section of this chapter.</p>
+<div id="outliers" class="section level3 unnumbered hasAnchor">
+<h3>Outliers<a href="ch11.html#outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Outliers are observations with unusually large residuals, meaning their actual values deviate significantly from the model’s predictions. A good starting point for detecting outliers is a residuals versus fitted values plot, which visually highlights observations that do not align with the overall trend. However, numerical diagnostics provide more precise tools for identifying these points.</p>
+<p>Studentized residuals are standardized versions of the residuals, adjusted to account for the variability of each residual and the influence of the observation on the model. These residuals are calculated by dividing each residual by its estimated standard deviation. This adjustment makes it easier to compare residuals across observations and detect outliers. Typically, studentized residuals greater than 2 (or greater than 3 in large datasets, such as the ANES survey) signal potential outliers.</p>
+<p>The <code>rstudent()</code> function calculates studentized residuals. The <code>summary()</code> function reports any potential outliers. Storing the residuals in <em>stand_residuals</em>:</p>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="ch11.html#cb594-1" tabindex="-1"></a>stand_residuals <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(regmodel4)</span>
+<span id="cb594-2"><a href="ch11.html#cb594-2" tabindex="-1"></a> </span>
+<span id="cb594-3"><a href="ch11.html#cb594-3" tabindex="-1"></a><span class="fu">summary</span>(stand_residuals)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  -4.304  -0.719  -0.041  -0.016   0.687   5.181</code></pre>
+<p>Notably, some residuals exceed 4 in magnitude, indicating observations with extreme deviations. To count the number of residuals greater than 3 in absolute value (a common threshold for identifying severe outliers), we can apply the <code>abs()</code> and <code>sum()</code> functions:</p>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="ch11.html#cb596-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">abs</span>(stand_residuals) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 31</code></pre>
+<p>While 31 outliers may seem notable, they represent a very small fraction of the overall sample size, making their impact on the model likely very limited. In smaller datasets, however, the presence of even a few outliers can pose a significant challenge. Researchers must carefully decide whether to exclude or retain such observations. And there is a tradeoff: Excluding outliers may reduce the influence of extreme observations but risks introducing selection bias, as the data may no longer fully represent the population. Including outliers ensures all observations are considered but may distort the model estimates, particularly the slopes and standard errors.</p>
+<p>To determine whether these outliers meaningfully affect the model, we next investigate their leverage and influence on the regression results.</p>
+</div>
+<div id="leverage-and-influence" class="section level3 unnumbered hasAnchor">
+<h3>Leverage and influence<a href="ch11.html#leverage-and-influence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Leverage measures how much an observation influences the regression model’s fitted values based on its scores on the independent variables. Observations with high leverage are those that are far from the “center” of the independent variables — meaning they are distant from the mean values across all predictors. High leverage points can have a substantial impact on the regression results because of their unique positions.</p>
+<p>High leverage alone does not always indicate a problematic observation. For an observation to disproportionately influence the model, it must combine high leverage with an unusually large residual (an outlier). This combination indicates that the observation significantly alters the slope estimates or fitted values.</p>
+<p>A conventional rule of thumb is that leverage values (or “hat values”) exceeding 2 to 3 times the ratio of model parameters (number of slopes + intercept) to the sample size are considered unusually large. For instance, in the case of <em>regmodel4</em>, with approximately 20 to 30 model parameters and a sample size of 4433, the threshold for high leverage would be around 0.004 to 0.006.</p>
+<p>To calculate leverage values, use <code>hatvalues()</code> with <code>summary()</code> :</p>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="ch11.html#cb598-1" tabindex="-1"></a>hat_values <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(regmodel4)</span>
+<span id="cb598-2"><a href="ch11.html#cb598-2" tabindex="-1"></a></span>
+<span id="cb598-3"><a href="ch11.html#cb598-3" tabindex="-1"></a><span class="fu">summary</span>(hat_values)</span></code></pre></div>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## 0.000031 0.000889 0.001557 0.002255 0.002641 0.026908</code></pre>
+<p>The results for <em>regmodel4</em> indicate that some observations exceed the leverage threshold, as the maximum value is notably higher than the third quartile. These points warrant further examination to assess their influence on the model.</p>
+<p>Cook’s distance combines two key diagnostics — a standardized residual and leverage — into a single statistic to identify influential observations. It measures how much the fitted regression values would change if a particular observation were removed. Observations with large Cook’s distance values can disproportionately affect the regression results.</p>
+<p>To calculate Cook’s distance, use the <code>cooks.distance()</code> function and <code>summary()</code>:</p>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="ch11.html#cb600-1" tabindex="-1"></a>influence <span class="ot">&lt;-</span> <span class="fu">cooks.distance</span>(regmodel4)</span>
+<span id="cb600-2"><a href="ch11.html#cb600-2" tabindex="-1"></a><span class="fu">summary</span>(influence)</span></code></pre></div>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## 0.000000 0.000027 0.000104 0.000224 0.000265 0.005435</code></pre>
+<p>A common rule of thumb is that observations with a Cook’s distance greater than <span class="math inline">\(\frac{4}{n}\)</span> may be considered influential. Since Cook’s distance is always positive, and with <span class="math inline">\(n = 4433\)</span>, this threshold is <span class="math inline">\(\frac{4}{4433} \approx 0.0009\)</span>. Given that the maximum Cook’s distance in the model is only 0.005, none of the observations appear to be especially problematic.</p>
+<p>In this section, we explored key diagnostic tools for evaluating the assumptions of linear regression models. By examining residuals for outliers, patterns, and non-constant variance, we checked for potential violations of linearity and homoskedasticity. Measures of leverage, studentized residuals, and Cook’s distance allowed us to identify observations that could disproportionately influence model estimates. While a few observations exhibited high leverage or large residuals, their overall impact on the model appears. minimal.</p>
+<p>With confidence in the stability of our current model, we now turn to a more advanced topic: interaction terms. Interaction terms allow us to investigate how the relationship between one independent variable and the dependent variable changes depending on the level of another independent variable, a conditional relationship.</p>
+</div>
+</div>
+<div id="exploring-interactions-in-linear-models" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Exploring interactions in linear models<a href="ch11.html#exploring-interactions-in-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="religious-belonging-x-behavior-in-party-identification" class="section level3 unnumbered hasAnchor">
+<h3>Religious belonging x behavior in party identification<a href="ch11.html#religious-belonging-x-behavior-in-party-identification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The strength of the relationship between service attendance could vary depending on the religious tradition associated with the individual. For example, consider the evangelical Protestant religious tradition (see Steensland et al, for an explanation <span class="citation">(<a href="#ref-steensland2000">2000</a>)</span>). It is, of course, likely that evangelical Protestants identify more strongly with the Republican party, relative to the rest of the American electorate. And overall, more frequent religious service attendance is associated with stronger Republican party identification. Yet it could also be that among evangelical Protestants, perhaps more frequent religious service attendance does not lead to stronger Republican party identification, relative to the electorate as a whole. This intuition implies an interaction between a religious belonging and behavior, instead of separate linear slopes for attendance and evangelical Protestant belonging.</p>
+<p>To illustrate how a linear model accommodates this intuition, we simplify the model of party identification to three independent variables for each of these terms: <span class="math inline">\(X_{1evang}\)</span> for evangelical identity, <span class="math inline">\(X_{2attend}\)</span> for service attendance, and <span class="math inline">\(X_{1evang}*X_{2attend}\)</span> for the interaction between the two. The model:</p>
+<p><span class="math display">\[Y = a + b_1X_{1evang} + b_2X_{2attend}+b_3X_{1evang} \times X_{2attend}\]</span></p>
+<p>For non-evangelicals, the value of <span class="math inline">\(X_{1evang}\)</span> is 0, so the slope on the interaction term drops out of the term <span class="math inline">\(b_3 \times 0 \times X_{2attend}\)</span>, leaving</p>
+<p><span class="math display">\[Y = a + b_1X_{1evang} + b_2X_{2attend}\]</span>
+as the model.</p>
+<p>For evangelicals, however, the value of <span class="math inline">\(X_{1evang}\)</span> is 1, so the interaction term simplifies to <span class="math inline">\(b_3 \times 1 \times X_{2attend}\)</span>=<span class="math inline">\(b_3 \times X_{2attend}\)</span>. This slope <span class="math inline">\(b_3X_{2attend}\)</span> is added to the other slope on <span class="math inline">\(X_{2attend}\)</span></p>
+<p>For evangelicals: <span class="math inline">\(Y = a + b_1X_{1evang} + (b_2 + b_3)X_{2attend}\)</span></p>
+<p>For non-evangelicals: <span class="math inline">\(Y = a + b_1X_{1evang} + b_2X_{2attend}\)</span></p>
+<p>The two equations display how the interaction alters the slope for attendance, conditional on evangelical identification.</p>
+<p>To explore the model in data, we start with <em>regmodel4</em> from Chapter <a href="ch10.html#ch10">10</a>. We create an indicator for a survey respondent’s belonging to the evangelical Protestant religious tradition. After attaching the necessary packages:</p>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="ch11.html#cb602-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb602-2"><a href="ch11.html#cb602-2" tabindex="-1"></a><span class="fu">library</span>(survey)</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="ch11.html#cb603-1" tabindex="-1"></a>anes_20 <span class="ot">&lt;-</span> anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb603-2"><a href="ch11.html#cb603-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">evang =</span> </span>
+<span id="cb603-3"><a href="ch11.html#cb603-3" tabindex="-1"></a>          <span class="fu">ifelse</span>(relig_trad <span class="sc">==</span> <span class="st">&quot;2. Evangelical Protestant&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p>The variable <em>evang</em> is scored 1 for respondent belonging to the evangelical Protestant tradition, 0 otherwise. To explore an interaction between evangelical Protestant religious belonging and service attendance, we will treat service attendance <em>attend</em> as a numeric measure. The numeric variable for religious service attendance is <em>attend_num</em>.</p>
+<p>To simplify the model, we will treat formal educational attainment as a numeric variable, <em>edu</em>. The <em>edu</em> variable from <em>regmodel4</em> is converted to a numeric with <code>as.numeric()</code>:</p>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="ch11.html#cb604-1" tabindex="-1"></a>anes_20<span class="ot">&lt;-</span>anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb604-2"><a href="ch11.html#cb604-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edu=</span><span class="fu">as.numeric</span>(edu))</span></code></pre></div>
+<p>We will add one additional control, household income, as a numeric measure, to disentangle income from religious service attendance. (See the ANES codebook for scaling.)</p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="ch11.html#cb605-1" tabindex="-1"></a>anes_20 <span class="ot">&lt;-</span> anes_20 <span class="sc">%&gt;%</span></span>
+<span id="cb605-2"><a href="ch11.html#cb605-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income =</span> <span class="fu">fct_recode</span>(V202468x,</span>
+<span id="cb605-3"><a href="ch11.html#cb605-3" tabindex="-1"></a>           <span class="at">NULL =</span> <span class="st">&quot;-9. Refused&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb605-4"><a href="ch11.html#cb605-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income =</span> <span class="fu">as.numeric</span>(income))</span></code></pre></div>
+<p>After creating new variables we have to rerun the <code>svydesign()</code> function:</p>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="ch11.html#cb606-1" tabindex="-1"></a>anes2020_design<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">data =</span> anes_20, <span class="at">ids =</span> <span class="sc">~</span>V200015c, </span>
+<span id="cb606-2"><a href="ch11.html#cb606-2" tabindex="-1"></a>                    <span class="at">strata=</span><span class="sc">~</span>V200015d, <span class="at">weights=</span><span class="sc">~</span>V200015b, <span class="at">nest=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Then we run the model, including both the <em>evang</em> and <em>service attendance</em> variables:</p>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="ch11.html#cb607-1" tabindex="-1"></a>regmodel5<span class="ot">&lt;-</span><span class="fu">svyglm</span>(partyid_num <span class="sc">~</span>  edu <span class="sc">+</span> sex <span class="sc">+</span> </span>
+<span id="cb607-2"><a href="ch11.html#cb607-2" tabindex="-1"></a>            race_category <span class="sc">+</span> age <span class="sc">+</span> never_married <span class="sc">+</span> income<span class="sc">+</span></span>
+<span id="cb607-3"><a href="ch11.html#cb607-3" tabindex="-1"></a>            evang <span class="sc">+</span> attend_num, <span class="at">design=</span>anes2020_design)</span></code></pre></div>
+<p>Observe the model output with <code>summary(regmodel5)</code>. In the model output, you will notice that the <em>evang</em> slope (0.529) is statistically significant, as is <em>attend_num</em> (0.355), both factors on average leading individuals to stronger Republican party identification.</p>
+<p>The interaction between evangelical Protestant identity and attendance is a multiplicative interaction, the product of <em>evang</em> times <em>attend_num</em>. Interaction terms can be specified in a model in two ways. In the <em>anes_20</em> dataset, we could create a new variable as the product of the two terms: <code>anes_20&lt;-anes_20 %&gt;% mutate(evangXattend = evang * attend_num)</code>. Or simply include the product of the two individual variables within the <code>svyglm()</code> function, as the last independent variable <em>evangXattend_num</em> :</p>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="ch11.html#cb608-1" tabindex="-1"></a>regmodel6<span class="ot">&lt;-</span><span class="fu">svyglm</span>(partyid_num <span class="sc">~</span>  edu <span class="sc">+</span> sex <span class="sc">+</span> </span>
+<span id="cb608-2"><a href="ch11.html#cb608-2" tabindex="-1"></a>                    race_category <span class="sc">+</span> age <span class="sc">+</span> never_married <span class="sc">+</span> income <span class="sc">+</span></span>
+<span id="cb608-3"><a href="ch11.html#cb608-3" tabindex="-1"></a>                    evang <span class="sc">+</span> attend_num <span class="sc">+</span> </span>
+<span id="cb608-4"><a href="ch11.html#cb608-4" tabindex="-1"></a>                    evang<span class="sc">*</span>attend_num, <span class="at">design=</span>anes2020_design)</span></code></pre></div>
+<p>To review the results and the differences between the two models, we will use the <strong>memisc</strong> <span class="citation">(<a href="#ref-R-memisc">Elff 2023</a>)</span> package:</p>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="ch11.html#cb609-1" tabindex="-1"></a><span class="fu">library</span>(memisc)</span></code></pre></div>
+<p>Storing each model results in <code>mtable()</code> :</p>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="ch11.html#cb610-1" tabindex="-1"></a>reg_table <span class="ot">&lt;-</span> <span class="fu">mtable</span>(<span class="st">&quot;Model 1&quot;</span> <span class="ot">=</span> regmodel5, <span class="st">&quot;Model 2&quot;</span> <span class="ot">=</span> regmodel6,</span>
+<span id="cb610-2"><a href="ch11.html#cb610-2" tabindex="-1"></a>                    <span class="at">sdigits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>Printing the table:</p>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="ch11.html#cb611-1" tabindex="-1"></a><span class="fu">print</span>(reg_table)</span></code></pre></div>
+<pre><code>## 
+## Calls:
+## Model 1: svyglm(formula = partyid_num ~ edu + sex + race_category + age + 
+##     never_married + income + evang + attend_num, design = anes2020_design)
+## Model 2: svyglm(formula = partyid_num ~ edu + sex + race_category + age + 
+##     never_married + income + evang + attend_num + evang * attend_num, 
+##     design = anes2020_design)
+## 
+## ======================================================
+##                             Model 1       Model 2     
+## ------------------------------------------------------
+##   (Intercept)                 5.254***      5.141***  
+##                              (0.177)       (0.188)    
+##   edu                        -0.225***     -0.222***  
+##                              (0.038)       (0.038)    
+##   sex: 2. Female/1. Male     -0.375***     -0.377***  
+##                              (0.067)       (0.066)    
+##   race_category              -1.420***     -1.418***  
+##                              (0.101)       (0.102)    
+##   age                        -0.013***     -0.013***  
+##                              (0.003)       (0.003)    
+##   never_married              -0.589***     -0.575***  
+##                              (0.102)       (0.102)    
+##   income                      0.006         0.006     
+##                              (0.007)       (0.007)    
+##   evang                       0.529***      1.030***  
+##                              (0.101)       (0.228)    
+##   attend_num                  0.355***      0.404***  
+##                              (0.032)       (0.035)    
+##   evang x attend_num                       -0.224*    
+##                                            (0.094)    
+## ------------------------------------------------------
+##   Log-likelihood          -8918.29      -8897.44      
+##   N                        4356          4356         
+## ======================================================
+##   Significance: *** = p &lt; 0.001; ** = p &lt; 0.01;   
+##                 * = p &lt; 0.05</code></pre>
+<p>Notice that the demographic characteristics for Model 1 remain relatively stable in Model 2. In the interactive Model 2, the slopes are interpreted as follows:</p>
+<p>Starting at the bottom of the table, note the statistically significant slope of -0.224 on <em>evang x attend_num</em>. The negative sign on the slope indicates the association between increasing religious attendance on party identification is weaker for evangelicals compared to non-evangelicals. Specifically, for every one-unit increase in <em>attend_num</em>, the slope of attend_num decreases by -0.224 for evangelicals relative to non-evangelicals, meaning that increased service attendance does not strengthen Republican party identification to the extent that it does for the electorate as a whole.
+The p-value on the slope for <em>evang X attend_num</em> , while arguably on the cusp of statistical significance <span class="math inline">\((* = p &lt; 0.05)\)</span>, nonetheless indicates that the difference slopes between evangelicals and non-evangelicals is statistically significant. The relationship between religious attendance and party identification depends, at least in part, on evangelical Protestant status.</p>
+<p>The magnitude of the relationship between service attendance and party identification — for evangelicals – is the linear combination of the slopes for <em>attend_num</em> and the interactive term <em>evangXattend_num</em>: <span class="math inline">\(0.404+ (−0.224) = 0.181\)</span>. While for non-evangelicals a one-unit increase in religious attendance is associated with a .404 point stronger Republican party identification; for evangelicals, the association is about half that, .18 points.</p>
+<p>A useful test is whether this combined effect for evangelicals is likely distinguishable from 0 in the population. — It could be, for instance, that while weaker than for non-evangelicals, the relationship is null in the population. The <em>car</em> package provides a function <code>linearHypothesis()</code> to test linear combinations of slopes against the null hypothesis that in the population, the linear combination is 0. The argument specifies the linear combination, with variable names from the model specified in the model, in this case <em>regmodel6</em>: <code>attend_num + evang:attend_num = 0</code>:</p>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="ch11.html#cb613-1" tabindex="-1"></a><span class="fu">linearHypothesis</span>(regmodel6, </span>
+<span id="cb613-2"><a href="ch11.html#cb613-2" tabindex="-1"></a>    <span class="at">hypothesis.matrix =</span> <span class="st">&quot;attend_num + evang:attend_num = 0&quot;</span>)</span></code></pre></div>
+<pre><code>## Linear hypothesis test
+## 
+## Hypothesis:
+## attend_num  + evang:attend_num = 0
+## 
+## Model 1: restricted model
+## Model 2: partyid_num ~ edu + sex + race_category + age + never_married + 
+##     income + evang + attend_num + evang * attend_num
+## 
+##   Res.Df Df Chisq Pr(&gt;Chisq)  
+## 1     42                      
+## 2     41  1  4.61      0.032 *
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The linear hypothesis test evaluates whether the combined effect of religious service attendance plus the interaction with evangelical status equals zero, testing whether the slope for religious attendance among evangelicals is significantly different from zero while accounting for other predictors in the model. The test indicates the slope for evangelicals on religious service attendance is significantly different from 0 <span class="math inline">\(p=0.032\)</span>. The result indicates that religious attendance has a statistically significant, albeit weaker, relationship with party identification among evangelicals.</p>
+<p>Interaction terms are symmetrical, and can be interpreted from the other perspective – considering nominal affiliation with evangelical Protestantism and how it relates to party identification as religious service attendance changes. The coefficient for <em>evang</em>, <code>1.02962</code>, represents the influence of being an evangelical on party identification when religious attendance <em>attend_num</em> is at 0, or not attending. Being a nominal evangelical (who never attends religious services) is associated with an increase of approximately 1.03 points on the party identification scale (shifting toward stronger Republican identification), compared to a non-evangelical who also never attends services.</p>
+<p>The influence of being evangelical on party identification, as service attendance increases, depends on the combination of the slope and the interaction term. Among non-attending evangelicals the impact of 1.0296 is the result of <span class="math inline">\(1.02962+ (−0.22359 * 0)=1.02962\)</span>. Yet as attendance increases to 3, the impact reduces to <span class="math inline">\(1.02962 + (−0.22359*3) = 1.02962−0.67077 = 0.35885\)</span>. At weekly service attendance levels, the effect of being evangelical decreases to about a third of the level for nomina,l (non-attending) evangelicals.</p>
+</div>
+<div id="model-based-predictions-1" class="section level3 unnumbered hasAnchor">
+<h3>Model based predictions<a href="ch11.html#model-based-predictions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Given the model, we can explore model-based predictions from the interaction term, via <code>predict()</code> . Like before, we create the prediction dataset, specifying ‘average’ values for the independent variables and particular combinations of the interaction terms. For example, we may be interested in calculating the model based prediction of a party identification for an evangelical who does not report attending religious services, versus one who attends services weekly. The prediction dataset contrasts service attendance values (0 and 3) and average characteristics, a male with some post high school education or training , 45 years old, and a household income of 65,000 to 69,999 USD (12th quantile), married or divorced:</p>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="ch11.html#cb615-1" tabindex="-1"></a>predictiondata <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb615-2"><a href="ch11.html#cb615-2" tabindex="-1"></a>  <span class="sc">~</span>edu, <span class="sc">~</span>sex, <span class="sc">~</span>race_category, <span class="sc">~</span>age, <span class="sc">~</span>never_married, <span class="sc">~</span>income, <span class="sc">~</span>evang,</span>
+<span id="cb615-3"><a href="ch11.html#cb615-3" tabindex="-1"></a>        <span class="sc">~</span>attend_num,</span>
+<span id="cb615-4"><a href="ch11.html#cb615-4" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;1. Male&quot;</span>, <span class="dv">0</span>, <span class="dv">45</span>, <span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">1</span>, <span class="dv">3</span>,   </span>
+<span id="cb615-5"><a href="ch11.html#cb615-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;1. Male&quot;</span>, <span class="dv">0</span>, <span class="dv">45</span>, <span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<p>Given the prediction dataset, the model based predictions and 95 percent confidence intervals:</p>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="ch11.html#cb616-1" tabindex="-1"></a>predictions<span class="ot">&lt;-</span><span class="fu">predict</span>(regmodel6,predictiondata, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb616-2"><a href="ch11.html#cb616-2" tabindex="-1"></a></span>
+<span id="cb616-3"><a href="ch11.html#cb616-3" tabindex="-1"></a><span class="fu">confint</span>(predictions)</span></code></pre></div>
+<pre><code>##   2.5 % 97.5 %
+## 1 5.306  5.771
+## 2 4.568  5.425</code></pre>
+<p>The model based predictions show that a weekly attending evangelical Protestant, given the other characteristics on average identifies as an Independent-leaning Republican (5.33), while a nominal evangelical identifies closely on the scale (4.79), but more Independent.</p>
+</div>
+</div>
+<div id="testing-and-refining-linear-models" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Testing and refining linear models<a href="ch11.html#testing-and-refining-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Presenting and interpreting regression results requires thoughtful model specification and a clear strategy for communicating findings. A standard approach involves presenting a series of nested models, starting with a parsimonious specification focused on the primary relationships of interest and gradually adding covariates as control variables. The models are combined into a table such as <em>reg_table</em> presented in this chapter. It is not uncommon to see three or four models specified this way. This stepwise approach, a sensitivity analysis, assesses the stability of the primary slopes of interest, as additional control variables are introduced. It also helps distinguish between potential sources of spuriousness (confounding variables) and mediation (variables that explain part of the relationship). Whether a variable serves as a confounder or mediator should be guided by prior theory and literature.</p>
+<p>When interpreting model estimates, pay close attention to patterns in slope changes across model specifications; a decrease in magnitude when adding controls may indicate partial mediation or confounding effects. Remember, adding variables to a model effectively moves their relationship with the dependent variable out of the error term and into the model, isolating their contribution. A good linear model requires careful, theory drive model specification and clear sensitivity analysis to provide for drawing valid conclusions and effective communication about the sensitivity of the model to alternative specifications.</p>
+</div>
+<div id="resources-10" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch11.html#resources-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Further investigating the assumptions underlying linear models requires an intermediate-to-advanced study. See Urdinez and Cruz <span class="citation">(<a href="#ref-urdinez2022">2022</a>)</span> for specific statistical tests and remedies for common problems in regression models. See Fox and Weinberg <span class="citation">(<a href="#ref-fox2019">2019</a>)</span> for methods of applying the <strong>car</strong> <span class="citation">(<a href="#ref-R-car">Fox, Weisberg, and Price 2022</a>)</span> package to graphically exploring interactive relationships in linear models. The <em>car</em> package includes two functions, <code>qqPlot()</code> and <code>residualPlot()</code> (note the capitalization) with additional nonlinear trend lines to assess departures from normality. There are also additional graphical plot types for more advanced study in the <strong>car</strong> package.</p>
+</div>
+<div id="exercises-9" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> Exercises<a href="ch11.html#exercises-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Knit your <strong>R</strong> code into a document to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>In the 2020 ANES dataset, find a 7 point issue attitude scale and construct a demographic linear model, with three independent variables such as educational attainment, gender, and race. (a) Create a residuals vs. fitted values plot. Interpret whether the residuals suggest any violations of linearity or homoskedasticity. (b) Generate a QQplot of the residuals and assess whether the residuals follow a normal distribution. In a paragraph, summarize your findings and discuss whether the assumptions of the linear model appear reasonable.</p></li>
+<li><p>For the same model, calculate Cook’s distances and identify any observations exceeding the rule-of-thumb threshold. Summarize whether these observations appear to unduly influence the model and suggest possible next steps.</p></li>
+<li><p>Build a regression model to explore the interaction between a religious tradition and religious service attendance on party identification, similar to the model presented in this chapter. Interpret the coefficient for the interaction term. What does it imply about how the relationship between attendance and party identification differs for the chosen religious group? Present and interpret model-based predictions to interpret the results.</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-R-memisc" class="csl-entry">
+Elff, Martin. 2023. <em>Memisc: Management of Survey Data and Presentation of Analysis Results</em>. <a href="https://CRAN.R-project.org/package=memisc">https://CRAN.R-project.org/package=memisc</a>.
+</div>
+<div id="ref-fox2019" class="csl-entry">
+———. 2019. <em>An <span>R</span> Companion to Applied Regression</em>. 3rd ed. Thousand Oaks, CA: SAGE Publications, Inc. <a href="https://socialsciences.mcmaster.ca/jfox/Books/Companion/">https://socialsciences.mcmaster.ca/jfox/Books/Companion/</a>.
+</div>
+<div id="ref-R-car" class="csl-entry">
+Fox, John, Sanford Weisberg, and Brad Price. 2022. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
+</div>
+<div id="ref-R-survey" class="csl-entry">
+———. 2021. <em>Survey: Analysis of Complex Survey Samples</em>. <a href="http://r-survey.r-forge.r-project.org/survey/">http://r-survey.r-forge.r-project.org/survey/</a>.
+</div>
+<div id="ref-R-tibble" class="csl-entry">
+Müller, Kirill, and Hadley Wickham. 2023. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
+</div>
+<div id="ref-steensland2000" class="csl-entry">
+Steensland, Brian, Lynn D. Robinson, W. Bradford Wilcox, Jerry Z. Park, Mark D. Regnerus, and Robert D. Woodberry. 2000. <span>“The Measure of American Religion: Toward Improving the State of the Art.”</span> <em>Social Forces</em> 79 (1): 291–318.
+</div>
+<div id="ref-urdinez2022" class="csl-entry">
+Urdinez, Francisco, and Andrés Cruz, eds. 2022. <em>R for Political Data Science: A Practical Guide</em>. The r Series. Boca Raton, FL: Chapman &amp; Hall/CRC Press.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2023b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch10.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch12.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/11-linear-models-problems-specifications.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

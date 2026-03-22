@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>A Data Codebooks | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="A Data Codebooks | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="A Data Codebooks | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch12.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="app" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">A</span> Data Codebooks<a href="app.html#app" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The following describes the contents of datasets available from the text websites, <a href="https://github.com/whittkilburn/inpolr" class="uri">https://github.com/whittkilburn/inpolr</a> and <a href="https://faculty.gvsu.edu/kilburnw/inpolr" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr</a>.</p>
+<div id="fundamentals-of-us-presidential-elections" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">A.1</span> Fundamentals of US presidential elections<a href="app.html#fundamentals-of-us-presidential-elections" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="prez.csv" class="section level3 unnumbered hasAnchor">
+<h3>prez.csv<a href="app.html#prez.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file <em>prez.csv</em> contains annual observations for US presidential elections.</p>
+<p><strong>year</strong> Election year</p>
+<p><strong>incprez</strong> Name of incumbent president</p>
+<p><strong>vote</strong> Incumbent president share of the two-party vote percentage</p>
+<p><strong>approval</strong> Gallup Poll presidential approval for late June to July of election year</p>
+<p><strong>qgdprate</strong> GDP growth rate for the second quarter of each election year</p>
+<p><strong>incstatus</strong> An indicator (1) if the incumbent party has served two consecutive terms and (0) otherwise.</p>
+<p>Sources: The American Presidency Project <span class="citation">(<a href="#ref-presidency2024">Woolley and Peters 2024</a>)</span>, US Bureau of Economic Analysis <span class="citation">(<a href="#ref-bea_gdp">2024b</a>)</span>, Gallup <span class="citation">(<a href="#ref-gallup_approval">Gallup 2024</a>)</span>.</p>
+</div>
+</div>
+<div id="countries" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">A.2</span> Countries<a href="app.html#countries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="covid_g7.csv" class="section level3 unnumbered hasAnchor">
+<h3>covid_g7.csv<a href="app.html#covid_g7.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file <em>covid_g7.csv</em> contains COVID-19 related daily observations on seven countries from 2020 to 2021.</p>
+<p><em>iso_code</em> and <em>country</em> Country identifier</p>
+<p><em>date</em> Date in year-month-day</p>
+<p><em>total_cases</em> COVID-19 cases by date</p>
+<p><em>new_cases</em> COVID-19 cases</p>
+<p><em>cases_per_100K</em> New COVID-19 cases per 100,000 people</p>
+<p><em>cases_smoothed_per_100k</em> Seven-day rolling average of case counts per 100,000 people</p>
+<p><em>new_cases_smoothed</em> Seven-day rolling average of case counts</p>
+<p><em>total_deaths</em> COVID-19 attributed deaths by date</p>
+<p><em>new_deaths</em> COVID-19 attributed deaths</p>
+<p><em>new_deaths_smoothed</em> Seven-day rolling average of COVID-19 attributed deaths</p>
+<p><em>total_vaccinations</em> Total COVID-19 vaccine doses administered by date.</p>
+<p><em>people_vaccinated</em> Total number of people receiving at least one vaccine dose by date</p>
+<p><em>people_fully_vaccinated</em> Total number of people receiving all prescribed vaccine doses by date.</p>
+<p><em>new_vaccinations</em> Vaccine doses administered</p>
+<p><em>new_vaccinations_smoothed</em> Seven-day rolling average of daily COVID-19 vaccine doses administered</p>
+<p><em>population</em> Total country population</p>
+<p>Source: Our World in Data <span class="citation">(<a href="#ref-owidcoronavirus2020">2020</a>)</span>.</p>
+</div>
+<div id="gdpfert.csv" class="section level3 unnumbered hasAnchor">
+<h3>gdpfert.csv<a href="app.html#gdpfert.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file <em>gdpfert.csv</em> contains country-level characteristics for the year 2010.</p>
+<p><strong>iso2c</strong> Country abbreviation</p>
+<p><strong>country</strong> Name of country</p>
+<p><strong>year</strong> Year 2010</p>
+<p><strong>NY.GDP.PCAP.KD</strong> Gross domestic product (GDP) per capita in 2010 U.S. dollars</p>
+<p><strong>SP.DYN.TFRT.IN</strong> Average number of births per woman, 2010</p>
+<p><strong>SP.DYN.LE00.IN</strong> Life expectancy at birth in years</p>
+<p><strong>region</strong> World Bank region</p>
+<p><strong>longitude</strong> Geographic longitude centroid of country</p>
+<p><strong>latitude</strong> Geographic latitude centroid of country</p>
+<p><strong>income</strong> World Bank income group</p>
+<p><strong>gdp</strong> Gross domestic Product (GDP) per capita in 2010 U.S. dollars</p>
+<p><strong>fert</strong> Average number of births per woman 2010</p>
+<p>Source: The World Bank <span class="citation">(<a href="#ref-worldbank_gdi">The World Bank 2024</a>)</span>.</p>
+</div>
+<div id="countries.csv" class="section level3 unnumbered hasAnchor">
+<h3><em>countries.csv</em><a href="app.html#countries.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file <em>countries.csv</em> contains various country-level characteristics for the year 2019 and COVID related measures for 2020.</p>
+<p><strong>country</strong> Name of country</p>
+<p><strong>lending</strong> World Bank lending status</p>
+<p><strong>iso2c</strong>, <strong>iso3c</strong> Two and three letter country code</p>
+<p><strong>region</strong> Continent of country</p>
+<p><strong>income</strong> World Bank country level income level</p>
+<p><strong>total_population</strong> Total population</p>
+<p><strong>gdp_constant</strong> GDP (constant 2015 USD)</p>
+<p><strong>gdp_growth</strong> GDP growth (annual percent)</p>
+<p><strong>gdp_constant_int_pp</strong> GDP, PPP (constant 2017 international USD)</p>
+<p><strong>gdp_pc_constant</strong> GDP per capita (constant 2015 USD)</p>
+<p><strong>gdp_pc_growth</strong> GDP per capita growth (annual percent)</p>
+<p><strong>gdp_pc_pp</strong> GDP per capita, PPP (constant 2017 USD)</p>
+<p><strong>fert_rate</strong> Fertility rate (average births per female)</p>
+<p><strong>life_expect_female</strong> Life expectancy at birth in 2019, females</p>
+<p><strong>life_expect</strong> Life expectancy at birth in 2019, total</p>
+<p><strong>life_expect_male</strong> Life expectancy at birth in 2019, males</p>
+<p><strong>ag_forest</strong> Agriculture, forestry, and fishing, value added (percent of GDP)</p>
+<p><strong>schl_enroll</strong> School enrollment secondary (percent gross)</p>
+<p><strong>gdp_import</strong> Imports of goods and services (percent of GDP)</p>
+<p><strong>labor_fem</strong> Labor force, female (percent of total labor force)</p>
+<p><strong>fuel_exports</strong> Fuel exports (percent of merchandise exports)</p>
+<p><strong>net_migrate</strong> Net migration</p>
+<p><strong>fert_ado</strong> Adolescent fertility rate (births per 1,000 women ages 15-19)</p>
+<p><strong>gdp_export</strong> Exports of goods and services (percent of GDP)</p>
+<p><strong>co2_per_gdp</strong> Carbon dioxide emissions (kg per 2010 USD of GDP)</p>
+<p><strong>co2_emit</strong> Carbon dioxide emissions (kt)</p>
+<p><strong>co2_per_cap</strong> Carbon dioxide emissions (metric tons per capita)</p>
+<p><strong>co2_pp_gdp</strong> Carbon dioxide emissions (kg per PPP USD of GDP)</p>
+<p><strong>gas_total</strong> Total greenhouse gas emissions (kt of carbon dioxide equivalent)</p>
+<p><strong>pop_0_14</strong> Population ages 0-14 (percent of total population)</p>
+<p><strong>pop_15_64</strong> Population ages 15-64 (percent of total population)</p>
+<p><strong>pop_65_over</strong> Population ages 65 and above (percent of total population)</p>
+<p><strong>pop_dens</strong> Number of people divided by land area, in square kilometers</p>
+<p><strong>infant_mort</strong> Infant Mortality Rate (per 1,000 live births)</p>
+<p><strong>women_par</strong> Percentage of women in the national parliament</p>
+<p>Source: The World Bank <span class="citation">(<a href="#ref-worldbank_gdi">2024</a>)</span>.</p>
+<p><strong>polyarchy</strong> Electoral democracy index</p>
+<p><strong>libdem</strong> Liberal democracy index</p>
+<p><strong>partipdem</strong> Participatory democracy index</p>
+<p><strong>delibdem</strong> Deliberative democracy index</p>
+<p><strong>egaldem</strong> Egalitarian democracy index</p>
+<p>Source: Varieties of Democracy <span class="citation">(<a href="#ref-Vdemorganization2022"><strong>Vdemorganization2022?</strong></a>)</span>.</p>
+<p><strong>total_cases</strong> Total COVID cases in 2020</p>
+<p><strong>total_deaths</strong> Total COVID deaths in 2020</p>
+<p><strong>total_vaccinations</strong> Total number of COVID-19 vaccination doses administered in 2020</p>
+<p>Source: Our World in Data <span class="citation">(<a href="#ref-owidcoronavirus2020">Mathieu et al. 2020</a>)</span>.</p>
+<p><strong>hdi</strong> Human Development Index value</p>
+<p><strong>life_expect_un</strong> Life expectancy at birth in years</p>
+<p><strong>expect_school</strong> Expected years of schooling in years</p>
+<p><strong>mean_school</strong> Mean years of schooling in years</p>
+<p><strong>gni_pc_2017ppp</strong> Gross National Income Per Capita (2017 PPP USD)</p>
+<p><strong>gender_ineq</strong> Gender Inequality Index value</p>
+<p><strong>matern_mort</strong> Maternal Mortality Ratio (deaths per 100,000 live births)</p>
+<p><strong>ado_birth</strong> Adolescent Birth Rate (births per 1,000 women ages 15-19)</p>
+<p><strong>pop_sec_f</strong> Population with at least some secondary education, female (percent ages 25 and older)</p>
+<p><strong>pop_sec_m</strong> Population with at least some secondary education, male (percent ages 25 and older)</p>
+<p><strong>labor_par_f</strong> Labor force participation rate, female (percent ages 15 and older)</p>
+<p><strong>labor_par_m</strong> Labor force participation rate, male (percent ages 15 and older)</p>
+<p><strong>plant_adj_hdi</strong> Planetary pressures–adjusted Human Development Index value</p>
+<p><strong>co2_per_capita</strong> Carbon dioxide emissions per capita in tonnes</p>
+<p><strong>mat_foot</strong> Material footprint per capita in tonnes</p>
+<p><strong>ineq_ad_hdi</strong> Inequality-adjusted Human Development Index value</p>
+<p><strong>ineq_life</strong> Inequality in life expectancy</p>
+<p><strong>ineq_educ</strong> Inequality in education</p>
+<p><strong>ineq_inc</strong> Inequality in income</p>
+<p>Source: United Nations Development Programme <span class="citation">(<a href="#ref-undp2022">United Nations Development Programme 2022</a>)</span>.</p>
+</div>
+<div id="countries_tsxs.csv" class="section level3 unnumbered hasAnchor">
+<h3><em>countries_tsxs.csv</em><a href="app.html#countries_tsxs.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file <em>countries_tsxs.csv</em> consists of annual observations from 2000 to 2019 on countries around the world, as a subset of the variables in <em>countries.csv</em>. The dataset is structured in wide format, with approximately 4,500 country-year observations and 46 columns.</p>
+</div>
+<div id="hdi_2021.csv" class="section level3 unnumbered hasAnchor">
+<h3><em>hdi_2021.csv</em><a href="app.html#hdi_2021.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file <em>hdi_2021.csv</em> contains observations on the Human Development Index and components for countries around the world, measured in 2021 <span class="citation">(<a href="#ref-undp2022">United Nations Development Programme 2022</a>)</span>.</p>
+<p><strong>Country</strong> Country name</p>
+<p><strong>hdi</strong> Human Development Index value</p>
+<p><strong>life_expect</strong> Average life expectancy at birth</p>
+<p><strong>expect_school</strong> Expected number of years of schooling for a school entrance age child</p>
+<p><strong>mean_school</strong> Average number of years of education for people ages 25 and older</p>
+<p><strong>gni_pc</strong> Gross national income per capita</p>
+</div>
+</div>
+<div id="us-states-and-counties" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">A.3</span> US States and counties<a href="app.html#us-states-and-counties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The file <em>us_states.csv</em> consists of observations on 50 States plus the District of Columbia on the following measures.</p>
+<p><strong>state</strong> Name of US State</p>
+<p><strong>trump_votes_2020</strong>, <strong>biden_votes_2020</strong>, <strong>other_votes_2020</strong>, Vote totals for each candidate or all others combined, separate columns for 2016, 2012, and 2008.</p>
+<p>Source: Federal Election Commission <span class="citation">(<a href="#ref-fec_election_results">Federal Election Commission 2025</a>)</span></p>
+<p><strong>cases_2020</strong> COVID-19 total cases for 2020</p>
+<p><strong>cases_jan_2020</strong> to <strong>cases_oct_2021</strong> Cumulative COVID-19 case counts by month</p>
+<p><strong>vax_dec_2020</strong> to <strong>vax_oct_2021</strong> Cumulative vaccination counts per month (all ages)</p>
+<p><strong>deaths_jan_2020</strong> to <strong>deaths_oct_2021</strong> Cumulative COVID-19 attributed deaths by month</p>
+<p><strong>deaths_pc_jun_2020</strong> Per capita (10,000 people) COVID-19 deaths by June 2020</p>
+<p>Source: <em>The New York Times</em> <span class="citation">(<a href="#ref-nytimes_covid_data">2021</a>)</span>.</p>
+<p><strong>stay_begin</strong> and <strong>stay_end</strong> Date of beginning and end of COVID-19 stay at home order</p>
+<p><strong>shutdown_date_range</strong> Date length of State COVID-19 stay at home order</p>
+<p><strong>shutdown_length</strong> Length of State COVID-19 stay at home order in numeric number of days</p>
+<p>Source: Ballotopedia.org <span class="citation">(<a href="#ref-ballotpedia_main">2024</a>)</span>.</p>
+<p><strong>population_density</strong> Persons per square mile by census tract, 2020 decennial census</p>
+<p><strong>total_population_2010</strong> State population from 2010 decennial US Census, US Census Bureau</p>
+<p><strong>total_population_est_2019</strong> Estimated population in 2019, 1-year estimate, US Census Bureau</p>
+<p><strong>census_fips_code</strong> Numeric code for State</p>
+<p><strong>pop</strong> Total population, 5-year American Community Survey (ACS) 2018 estimate</p>
+<p><strong>white_pop</strong> <strong>black_pop</strong> <strong>native_pop</strong> <strong>asian_pop</strong> <strong>latino_pop</strong>, First mention ACS estimate</p>
+<p><strong>median_income</strong> ACS 2018 median household income</p>
+<p><strong>gini</strong> ACS 2018 Gini coefficient of inequality</p>
+<p>Source: US Census Bureau <span class="citation">(<a href="#ref-uscensus_data">2018</a>)</span>.</p>
+<p><strong>bachelors_pop</strong> Persons 25 years or older with a bachelor’s degree</p>
+<p><strong>q1_gdp_2020</strong> to <strong>q4_gdp_2020</strong> Quarterly percentage change in GDP from the previous quarter.</p>
+<p><strong>pc_income_2020</strong> State per capita income in 2020</p>
+<p><strong>oct_2020_unemployed</strong> Proportion of population unemployed in October 2020</p>
+<p>Source: Bureau of Economic Analysis <span class="citation">(<a href="#ref-bea_state_gdp">U.S. Bureau of Economic Analysis 2024a</a>)</span>.</p>
+<p><strong>drug_alc_deaths_2019</strong> Number of deaths attributed to drug or alcohol overdose in 2019.</p>
+<p><strong>expectancy</strong> Average life expectancy at birth.</p>
+<p>Source: Centers for Disease Control and Prevention <span class="citation">(<a href="#ref-cdc_wonder">Centers for Disease Control and Prevention 2024</a>)</span>.</p>
+<p><strong>state_social_liberalism_policy</strong> Index of social policy liberalism 2014, higher scores more liberal</p>
+<p><strong>state_econ_liberalism_policy</strong> Index of economic policy liberalism 2014, higher scores more liberal</p>
+<p><strong>mass_social_liberalism_policy</strong> Index of mass social liberalism 2014, higher scores more liberal</p>
+<p><strong>mass_econ_liberalism_policy</strong> Index of mass economic liberalism 2014, higher scores more liberal</p>
+<p>Source: <span class="citation">(<a href="#ref-Caughey2018"><strong>Caughey2018?</strong></a>)</span>.</p>
+<p><strong>percent_women_legislature</strong> Percent of women in the State legislature</p>
+<p>Source: Center for American Women and Politics, Eagleton Institute of Politics, &amp; Rutgers, The State University of New Jersey <span class="citation">(<a href="#ref-cawp_state_legislatures_2021">Center for American Women and Politics 2021</a>)</span>.</p>
+<p><strong>vehicle_fatality_2019</strong> to <strong>vehicle_fatality_2021</strong> Human fatalities involving motor vehicle crashes</p>
+<p>Source: National Highway Traffic Safety Administration <span class="citation">(<a href="#ref-nhtsa_crash_overview_2020">Stewart 2022</a>)</span></p>
+<div id="michigan-county-level-presidential-votes-2012-and-2016" class="section level3 unnumbered hasAnchor">
+<h3>Michigan County level presidential votes, 2012 and 2016<a href="app.html#michigan-county-level-presidential-votes-2012-and-2016" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file <em>michigan12_16.csv</em> contains Michigan County level presidential votes for election years 2012 and 2016.</p>
+<p><strong>fips</strong> Within Michigan FIPS code for County</p>
+<p><strong>Id2</strong> FIPS code with Michigan (2600) identifier plus County FIPS</p>
+<p><strong>geography</strong> County name</p>
+<p><strong>county</strong> County name</p>
+<p><strong>clinton_vote</strong> Votes for Hillary Clinton in 2016</p>
+<p><strong>other2016_vote</strong> Votes for all other presidentialcandidates in 2016</p>
+<p><strong>trump_vote</strong> Votes for Donald Trump in 2016</p>
+<p><strong>trump_percent</strong> Percentage votes for Trump</p>
+<p><strong>clinton_percent</strong> Percentage votes for Clinton</p>
+<p><strong>total_votes</strong> Total votes cast in 2016</p>
+<p><strong>vote_contrib</strong> Contribution of vote to the total vote count</p>
+<p><strong>dem_index</strong> Index of County electoral importance to Democratic party in 2016 (calculated from <span class="citation">Gimpel and Schuknecht (<a href="#ref-gimpel2004">2004</a>)</span>)</p>
+<p><strong>rep_index</strong> Index of County electoral importance to Republican party (<span class="citation">Gimpel and Schuknecht (<a href="#ref-gimpel2004">2004</a>)</span>)</p>
+<p><strong>obama_vote</strong> Votes for Barack Obama in 2012</p>
+<p><strong>other2012_vote</strong> Votes for all other presidential candidates in 2012</p>
+<p><strong>romney_vote</strong> Votes for Mitt Romney in 2012</p>
+<p><strong>romney_percent</strong> Percentage votes for Romney</p>
+<p><strong>obama_percent</strong> Percentage votes for Obama</p>
+<p><strong>total_votes2012</strong> Total votes cast for president in 2012</p>
+<p><strong>dem_index2012</strong> Index of County electoral importance to Democratic party in 2012 (calculated from <span class="citation">Gimpel and Schuknecht (<a href="#ref-gimpel2004">2004</a>)</span>)</p>
+<p><strong>rep_index2012</strong> Index of County electoral importance to Republican party in 2012 (<span class="citation">Gimpel and Schuknecht (<a href="#ref-gimpel2004">2004</a>)</span>)</p>
+<p>The file <em>2016GEN_MI_CENR_BY_COUNTY.xls</em> contains elections results for all races appearing on the ballot in 2016 in Michigan.</p>
+<p>Source: Michigan Department of State <span class="citation">(<a href="#ref-michigan_sos_election_results">Michigan Secretary of State 2024</a>)</span>.</p>
+</div>
+</div>
+<div id="political-geography" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">A.4</span> Political geography<a href="app.html#political-geography" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The file <em>Michigan_State_Senate_Districts_2011_plan.geojson</em> describes the geography of Michigan Senate districts for the 2011 apportionment plan.</p>
+<p>The file <em>Counties__v17a.shp</em> describes the geography of Michigan counties.</p>
+<p>Source: Michigan Geographic Information Systems (GIS) Open Data Portal <span class="citation">(<a href="#ref-michigan_gis_portal">2024</a>)</span>.</p>
+<p>The file <em>ZAF_ADM4.geojson</em> describes South African administrative boundaries.</p>
+<p>Source: <span class="citation">Goodman et al. (<a href="#ref-goodman2019">2019</a>)</span>.</p>
+<p>The file <em>Crime_Incidents_in_2024.geojson</em> describes the geography of crime reported in Washington, DC, from January to September 2024.</p>
+<p>Source: DC Open Data Portal <span class="citation">(<a href="#ref-dc_crime_2024">District of Columbia Government 2024</a>)</span>.</p>
+</div>
+<div id="votes-and-ideology-in-the-united-states-congress" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">A.5</span> Votes and ideology in the United States Congress<a href="app.html#votes-and-ideology-in-the-united-states-congress" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The file <em>co_na_h_votes_117_wide.csv</em> records in wide format the roll call votes for Representatives from Colorado to the U.S. House in the 117th U.S. Congress.</p>
+<p>The file <em>s_memb_votes_117_wide.csv</em> records in wide format the roll call votes for the entire U.S. Senate in the 117th U.S. Congress.</p>
+<p><strong>name</strong> Last name, party caucus and State identifier.</p>
+<p><strong>1</strong> to <strong>996</strong> Yea (1) or Nay (0) on roll call vote.</p>
+<p>The file <em>co_117_euc_distances.csv</em> contains a matrix of pairwise Euclidean distances on roll call votes for Representatives from Colorado.</p>
+<p>The files <em>86_house_dw.csv</em> and <em>house_memb_117.csv</em> record for each representative (voting and non-voting) to the 86th and 117th US Congresses, respectively.</p>
+<p><strong>chamber</strong> “House” for the House of Representatives</p>
+<p><strong>icpsr</strong> Numeric identifier for each Representative</p>
+<p><strong>district_code</strong> Number of district within State</p>
+<p><strong>state_abbrev</strong> Two letter State abbreviation</p>
+<p><strong>party_code</strong> Name of party affiliation</p>
+<p><strong>bioname</strong> Full name of Representative</p>
+<p><strong>born</strong> Year born</p>
+<p><strong>nominate_dim1</strong> NOMINATE dimension 1 score</p>
+<p><strong>nominate_dim2</strong> NOMINATE dimension 2 score</p>
+<p><strong>age</strong> Age in years</p>
+<p>Source: Voteview.com <span class="citation">(<a href="#ref-lewis2023">Lewis et al. 2023</a>)</span>.</p>
+</div>
+<div id="text-of" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">A.6</span> Text of <a href="app.html#text-of" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The file <em>federalist.zip</em> contains individual 85 text (.txt) documents. Each document is the full text of each essay, given the number and identified author from the Unitd States Library of Congress.</p>
+<p>Source: U.S. Library of Congress <span class="citation">(<a href="#ref-loc_federalist_guide">Library of Congress 2024</a>)</span>.</p>
+</div>
+<div id="comments-on-title-ix-regulatory-interpretation" class="section level2 hasAnchor" number="13.7">
+<h2><span class="header-section-number">A.7</span> Comments on Title IX regulatory interpretation<a href="app.html#comments-on-title-ix-regulatory-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The file <em>reg_comments_sampled.csv</em> contains random sampled comments (n=1000) on a proposed rule affecting Title IX enforcement.</p>
+<p><strong>id</strong> Identification key</p>
+<p><strong>city</strong> Location of submitter</p>
+<p><strong>state</strong> Location of submitter</p>
+<p><strong>name</strong> First name of submitter</p>
+<p><strong>date</strong> Date comment submitted</p>
+<p><strong>comment</strong> Full text of the submitted comment</p>
+<p>Source: <em>The Federal Register</em> <span class="citation">(<a href="#ref-ed2022ocr0143_comment">U.S. Department of Education 2023</a>)</span>.</p>
+</div>
+<div id="american-national-election-studies" class="section level2 hasAnchor" number="13.8">
+<h2><span class="header-section-number">A.8</span> 2020 American National Election Studies<a href="app.html#american-national-election-studies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>R</strong> Workspace <em>anes 2020 survey data.rdata</em> is a subset of the 2020 ANES survey <span class="citation">(<a href="#ref-anes2021">American National Election Studies 2021</a>)</span>, an election poll of U.S. citizens 18 years of age or older by the November 2020 election date. The dataset is saved within the Workspace as a dataframe <em>anes_20</em>. (Load the data with <code>load(file="anes 2020 survey data.rdata")</code>).</p>
+<p>In the following list of variables, <code>pre</code> refers to survey questions administered in the fall 2020 pre-election survey, while <code>post</code> refers to the winter 2020 post-election survey. Pre-election interviews occurred between August 18 to election day November 3; post-election interviews occurred between November 8 until January 4, 2021. For most variables, missing responses due to non-completion of the survey or (in very few cases) technical errors have been recoded to a missing value of <code>NA</code>; for some questions, survey responses originally coded “Refused” or “Don’t know” remain as in the original dataset from the ANES. Otherwise, responses appear solely on the intended measurement scale for each question. Some variables with an <strong>x</strong> at the end of the name include the responses for a two-part question. For example, variable <strong>V201126x</strong> on approval of the U.S. Congress is the response scale combined from two separate questions, “Do you approve or disapprove of the way the U.S. Congress has been handling its job?” and then “Do you [approve/disapprove] strongly or not strongly?”. In the variable label, <code>[respondent]</code> refers to the person answering the question, the survey respondent.</p>
+<div id="variable-list" class="section level3 unnumbered hasAnchor">
+<h3>Variable list<a href="app.html#variable-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>version</strong> Version of ANES 2020 Time Series Release</p>
+<p><strong>V200001</strong> 2020 Case ID</p>
+<p><strong>V200015b</strong> Post‐election weight</p>
+<p><strong>V200015c</strong> Variance unit</p>
+<p><strong>V200015d</strong> Variance stratum</p>
+<p><strong>V201005</strong> pre: How often does [respondent] pay attention to politics and elections</p>
+<p><strong>V201006</strong> pre: How interested in following campaigns</p>
+<p><strong>V201020</strong> pre: Did [respondent] vote in a Presidential primary or caucus</p>
+<p><strong>V201033</strong> pre: For whom does [respondent] intend to vote for President</p>
+<p><strong>V201100</strong> pre: How likely is it that [respondent] will vote in November</p>
+<p><strong>V201115</strong> pre: How hopeful [respondent] feels about how things are going in the country</p>
+<p><strong>V201116</strong> pre: How afraid [respondent] feels about how things are going in the country</p>
+<p><strong>V201118</strong> pre: How angry [respondent] feels about how things are going in the country</p>
+<p><strong>V201119</strong> pre: How happy [respondent] feels about how things are going in the country</p>
+<p><strong>V201126x</strong> pre: Approval of Congress handling its job</p>
+<p><strong>V201129x</strong> pre: Approve or disapprove President handling job</p>
+<p><strong>V201151</strong> pre: Feeling Thermometer: Joe Biden, Democratic Presidential candidate</p>
+<p><strong>V201152</strong> pre: Feeling Thermometer: Donald Trump, Republican Presidential candidate</p>
+<p><strong>V201153</strong> pre: Feeling Thermometer: Kamala Harris, Democratic Vice‐Presidential candidate</p>
+<p><strong>V201154</strong> pre: Feeling Thermometer: Mike Pence, Republican Vice‐Presidential candidate</p>
+<p><strong>V201200</strong> pre: 7pt scale liberal‐conservative self‐placement</p>
+<p><strong>V201225x</strong> pre: Voting as duty or choice</p>
+<p><strong>V201228</strong> pre: Party ID: Does [respondent] think of self as Democrat, Republican, or Independent</p>
+<p><strong>V201231x</strong> pre: Party ID [respondent] 7-point scale</p>
+<p><strong>V201232</strong> pre: Party identity importance</p>
+<p><strong>V201234</strong> pre: Government run by a few big interests or for benefit of all</p>
+<p><strong>V201235</strong> pre: Does government waste much tax money</p>
+<p><strong>V201236</strong> pre: How many in government are corrupt</p>
+<p><strong>V201237</strong> pre: How often can people be trusted</p>
+<p><strong>V201240</strong> pre: Which party better: handling health care</p>
+<p><strong>V201241</strong> pre: Which party better: handling immigration</p>
+<p><strong>V201244</strong> pre: Which party better: handling COVID‐19</p>
+<p><strong>V201246</strong> pre: 7pt scale spending &amp; services: self‐placement</p>
+<p><strong>V201249</strong> pre: 7pt scale defense spending: self‐placement</p>
+<p><strong>V201247</strong> pre: 7pt scale spending &amp; services: Democratic Presidential candidate</p>
+<p><strong>V201248</strong> pre: 7pt scale spending &amp; services: Republican Presidential candidate</p>
+<p><strong>V201250</strong> pre: 7pt scale defense spending: Democratic Presidential candidate</p>
+<p><strong>V201251</strong> pre: 7pt scale defense spending: Republican Presidential candidate</p>
+<p><strong>V201305x</strong> pre: Federal Budget Spending: public schools</p>
+<p><strong>V201308x</strong> pre: Federal Budget Spending: Tightening border security</p>
+<p><strong>V201327x</strong> pre: National economy better or worse in last year</p>
+<p><strong>V201330x</strong> pre: Economy better or worse in next 12 months</p>
+<p><strong>V201336</strong> pre: Abortion self‐placement</p>
+<p><strong>V201345x</strong> pre: [respondent] favor/oppose death penalty</p>
+<p><strong>V201346</strong> pre: During last year, US position in world weaker or stronger</p>
+<p><strong>V201349x</strong> pre: Country would be better off if we just stayed home</p>
+<p><strong>V201350</strong> pre: Force to solve international problems</p>
+<p><strong>V201351</strong> pre: Votes counted accurately</p>
+<p><strong>V201352</strong> pre: Trust election officials</p>
+<p><strong>V201353</strong> pre: How often people denied right to vote</p>
+<p><strong>V201356x</strong> pre: Favor/oppose vote by mail</p>
+<p><strong>V201359x</strong> pre: Favor/oppose requiring ID when voting</p>
+<p><strong>V201362x</strong> pre: Favor/oppose allowing felons to vote</p>
+<p><strong>V201372x</strong> pre: Helpful/harmful if Pres didn’t have to worry about congress/courts</p>
+<p><strong>V201375x</strong> pre: Favor or oppose restricting journalist access</p>
+<p><strong>V201377</strong> pre: How much trust in news media</p>
+<p><strong>V201411x</strong> pre: Transgender policy</p>
+<p><strong>V201414x</strong> pre: Favor/oppose laws protect gays lesbians against job discrimination</p>
+<p><strong>V201415</strong> pre: Should gay and lesbian couples be allowed to adopt</p>
+<p><strong>V201416</strong> pre: [respondent] position on gay marriage</p>
+<p><strong>V201423x</strong> pre: Should children brought illegally be sent back or allowed to stay</p>
+<p><strong>V201426x</strong> pre: Favor or oppose building a wall on border with Mexico</p>
+<p><strong>V201433</strong> pre: Is religion important part of [respondent] life</p>
+<p><strong>V201434</strong> pre: Is Bible word of God or men</p>
+<p><strong>V201452</strong> pre: Ever attend church or religious services</p>
+<p><strong>V201453</strong> pre: Attend religious services how often</p>
+<p><strong>V201456</strong> pre: Does Christian [respondent] consider self born again</p>
+<p><strong>V201458x</strong> pre: [respondent] Major group religion</p>
+<p><strong>relig_trad</strong> pre: reduced set of major group religion categories, from V201458x</p>
+<p><strong>secular</strong> pre: [respondent] identity as Agnostic or Atheist</p>
+<p><strong>attend</strong> pre: Religious service attendance</p>
+<p><strong>V201502</strong> pre: [respondent] how much better or worse off financially than 1 year ago</p>
+<p><strong>V201507x</strong> pre: [respondent] age</p>
+<p><strong>V201508</strong> pre: Marital status</p>
+<p><strong>V201511x</strong> pre: [respondent] 5 Category level of education</p>
+<p><strong>V201549x</strong> pre: [respondent] self‐identified race/ethnicity</p>
+<p><strong>V201600</strong> pre: What is [respondent] sex</p>
+<p><strong>V201628</strong> pre: How many guns owned</p>
+<p><strong>V201645</strong> pre: On which program does Federal government spend the least</p>
+<p><strong>V201646</strong> pre: Party with most members in House before election</p>
+<p><strong>V201647</strong> pre: Party with most members in Senate before election</p>
+<p><strong>V202471</strong> post: [respondent] has family/neighbors/coworkers/friends who are gay, lesbian or bisexual</p>
+<p><strong>V202013</strong> post: [respondent] attend online political meetings, rallies, speeches, fundraisers</p>
+<p><strong>V202014</strong> post: [respondent] go to any political meetings, rallies, speeches, dinners</p>
+<p><strong>V202015</strong> post: [respondent] wear campaign button or post sign or bumper sticker</p>
+<p><strong>V202016</strong> post: [respondent] do any (other) work for party or candidate</p>
+<p><strong>V202017</strong> post: [respondent] contribute money to individual candidate running for public office</p>
+<p><strong>V202019</strong> post: [respondent] contribute money to political party during this election year</p>
+<p><strong>V202021</strong> post: [respondent] contribute to any other group that supported or opposed candidates</p>
+<p><strong>V202022</strong> post: [respondent] ever discuss politics with family or friends</p>
+<p><strong>V202023</strong> post: How many days in past week discussed politics with family or friends</p>
+<p><strong>V202066</strong> post: Did [respondent] vote in November 2020 election</p>
+<p><strong>V202072</strong> post: Did [respondent] vote for President</p>
+<p><strong>V202073</strong> post: For whom did [respondent] vote for President</p>
+<p><strong>V202143</strong> post: Feeling thermometer: Democratic presidential candidate: Joe Biden</p>
+<p><strong>V202144</strong> post: Feeling thermometer: Republican presidential candidate: Donald Trump</p>
+<p><strong>V202156</strong> post: Feeling thermometer: Democratic Vice Presidential candidate: Kamala Harris</p>
+<p><strong>V202157</strong> post: Feeling thermometer: Republican Vice Presidential candidate: Mike Pence</p>
+<p><strong>V202158</strong> post: Feeling thermometer: Dr. Anthony Fauci</p>
+<p><strong>V202159</strong> post: Feeling thermometer: Christian fundamentalists</p>
+<p><strong>V202160</strong> post: Feeling thermometer: feminists</p>
+<p><strong>V202161</strong> post: Feeling thermometer: liberals</p>
+<p><strong>V202162</strong> post: Feeling thermometer: labor unions</p>
+<p><strong>V202163</strong> post: Feeling thermometer: big business</p>
+<p><strong>V202164</strong> post: Feeling thermometer: conservatives</p>
+<p><strong>V202165</strong> post: Feeling thermometer: U.S. Supreme Court</p>
+<p><strong>V202166</strong> post: Feeling thermometer: gay men and lesbians</p>
+<p><strong>V202167</strong> post: Feeling thermometer: congress</p>
+<p><strong>V202168</strong> post: Feeling thermometer: Muslims</p>
+<p><strong>V202169</strong> post: Feeling thermometer: Christians</p>
+<p><strong>V202170</strong> post: Feeling thermometer: Jews</p>
+<p><strong>V202171</strong> post: Feeling thermometer: police</p>
+<p><strong>V202172</strong> post: Feeling thermometer: transgender people</p>
+<p><strong>V202173</strong> post: Feeling thermometer: scientists</p>
+<p><strong>V202174</strong> post: Feeling thermometer: Black Lives Matter</p>
+<p><strong>V202175</strong> post: Feeling thermometer: journalists</p>
+<p><strong>V202176</strong> post: Feeling thermometer: North Atlantic Treaty Organization (NATO)</p>
+<p><strong>V202177</strong> post: Feeling thermometer: United Nations (UN)</p>
+<p><strong>V202178</strong> post: Feeling thermometer: National Rifle Association (NRA)</p>
+<p><strong>V202179</strong> post: Feeling thermometer: socialists</p>
+<p><strong>V202180</strong> post: Feeling thermometer: capitalists</p>
+<p><strong>V202181</strong> post: Feeling thermometer: Federal Bureau of Investigation (FBI)</p>
+<p><strong>V202182</strong> post: Feeling thermometer: Immigration and Customs Enforcement (ICE) agency</p>
+<p><strong>V202183</strong> post: Feeling thermometer: MeToo movement</p>
+<p><strong>V202184</strong> post: Feeling thermometer: rural Americans</p>
+<p><strong>V202185</strong> post: Feeling thermometer: Planned Parenthood</p>
+<p><strong>V202186</strong> post: Feeling thermometer: World Health Organization (WHO)</p>
+<p><strong>V202187</strong> post: Feeling thermometer: Centers for Disease Control (CDC)</p>
+<p><strong>V202225</strong> post: Limits on campaign spending</p>
+<p><strong>V202231x</strong> post: Favor/oppose new limits on imports</p>
+<p><strong>V202232</strong> post: What should immigration levels be</p>
+<p><strong>V202233</strong> post: How likely immigration will take away jobs</p>
+<p><strong>V202236x</strong> post: Favor/oppose allowing refugees to come to US</p>
+<p><strong>V202239x</strong> post: Effect of illegal immigration on crime rate</p>
+<p><strong>V202242x</strong> post: Favor/oppose providing path to citizenship</p>
+<p><strong>V202245x</strong> post: Favor/oppose returning unauthorize immigrants to native country</p>
+<p><strong>V202248x</strong> post: Favor/oppose separating children of detained immigrants</p>
+<p><strong>V202259x</strong> post: Favor/oppose government trying to reduce income inequality</p>
+<p><strong>V202260</strong> post: Society should make sure everyone has equal opportunity</p>
+<p><strong>V202261</strong> post: We’d be better off if worried less about equality</p>
+<p><strong>V202262</strong> post: Not a big problem if some have more chance in life</p>
+<p><strong>V202263</strong> post: If people were treated more fairly we would have fewer problems</p>
+<p><strong>V202264</strong> post: The world is changing and we should adjust view of moral behavior</p>
+<p><strong>V202265</strong> post: Fewer problems if there was more emphasis on traditional family values</p>
+<p><strong>egal_index</strong> post: Additive index of <strong>V202261</strong> to <strong>V202265</strong></p>
+<p><strong>V202266</strong> post: Which child trait more important: independence or respect</p>
+<p><strong>V202267</strong> post: Which child trait more important: curiosity or good manners</p>
+<p><strong>V202268</strong> post: Which child trait more important: obedience or self‐reliance</p>
+<p><strong>V202269</strong> post: Which child trait more important: considerate or well‐behaved</p>
+<p><strong>auth_index</strong> post: Authoritarianism index, average of <strong>V202266</strong> to <strong>V202269</strong></p>
+<p><strong>V202286x</strong> post: Easier/harder for working mother to bond with child</p>
+<p><strong>V202290x</strong> post: Better/worse if man works and woman takes care of home</p>
+<p><strong>V202291</strong> post: Do women demanding equality seek special favors</p>
+<p><strong>V202292</strong> post: Do women complaining about discrimination cause more problems</p>
+<p><strong>sexism_index</strong> post: Modern sexism index, average of <strong>V202286x</strong> to <strong>V202292</strong></p>
+<p><strong>V202300</strong> post: Agree/disagree: blacks should work their way up without special favors</p>
+<p><strong>V202301</strong> post: Agree/disagree: past slavery and discrimination make it difficult for blacks</p>
+<p><strong>V202302</strong> post: Agree/disagree: blacks have gotten less than they deserve</p>
+<p><strong>V202303</strong> post: Agree/disagree: if blacks tried harder they’d be as well off as whites</p>
+<p><strong>V202304</strong> post: Our political system only works for insiders with money and power</p>
+<p><strong>V202305</strong> post: Because of rich and powerful it’s difficult for the rest to get ahead</p>
+<p><strong>V202308x</strong> post: Trust ordinary people/experts for public policy</p>
+<p><strong>V202309</strong> post: How much do people need help from experts to understand science</p>
+<p><strong>V202310</strong> post: How important should science be for decisions about COVID‐19</p>
+<p><strong>V202311</strong> post: Business and politics controlled by few powerful people</p>
+<p><strong>V202312</strong> post: Much of what people hear in schools and media are lies by those in power</p>
+<p><strong>V202313</strong> post: Post-materialism most important 1A</p>
+<p><strong>V202314</strong> post: Post-materialism next most important 1B</p>
+<p><strong>V202315</strong> post: Post-materialism most important 2A</p>
+<p><strong>V202316</strong> post: Post-materialism next most important 2B</p>
+<p><strong>V202325</strong> post: Favor or oppose tax on millionaires</p>
+<p><strong>V202331x</strong> post: Favor or oppose requiring vaccines in schools</p>
+<p><strong>V202236x</strong> post: Favor or oppose allowing refugees to come to US</p>
+<p><strong>V202337</strong> post: Should federal government make it more difficult or easier to buy a gun</p>
+<p><strong>V202341x</strong> post: Favor or oppose background checks for gun purchases</p>
+<p><strong>V202344x</strong> post: Favor or oppose banning ‘assault‐style’ rifles</p>
+<p><strong>V202347x</strong> post: Favor or oppose government buy back of ‘assault‐style’ rifles</p>
+<p><strong>V202351</strong> post: How often do police officers use more force than necessary</p>
+<p><strong>V202355</strong> post: Does [respondent] currently live in a rural or urban area</p>
+<p><strong>V202361x</strong> post: Favor or oppose free trade agreements</p>
+<p><strong>V202367x</strong> post: International trade increased/decreased jobs in US</p>
+<p><strong>V202373x</strong> post: Increasing diversity made US better/worse place to live</p>
+<p><strong>V202376x</strong> post: Favor or oppose federal program giving citizens $12K/year</p>
+<p><strong>V202377</strong> post: Should the minimum wage be raised, kept the same, or lowered</p>
+<p><strong>V202383x</strong> post: Health benefits of vaccinations outweigh risks</p>
+<p><strong>V202387x</strong> post: Attention to sexual harrassment as gone too far/not far enough</p>
+<p><strong>V202390x</strong> post: Favor/oppose transender people serve in military</p>
+<p><strong>V202456</strong> post: During past 12 months, [respondent] or any family members stopped by police</p>
+<p><strong>V202457</strong> post: Have you ever been arrested, or has that never happened to you?</p>
+<p><strong>V202468x</strong> post: Summary: total family income</p>
+<p><strong>V202562</strong> post: Life experience: does [respondent] currently owe money on student loans</p>
+<p><strong>V202475</strong> post: Does [respondent] consider themself a feminist or anti‐feminist</p>
+<p><strong>V202541a</strong> post: Which social media platforms [respondent] visited ‐ Facebook</p>
+<p><strong>V202541b</strong> post: Which social media platforms [respondent] visited ‐ Twitter</p>
+<p><strong>V202541c</strong> post: Which social media platforms [respondent] visited ‐ Instagram</p>
+<p><strong>V202541d</strong> post: Which social media platforms [respondent] visited ‐ Reddit</p>
+<p><strong>V202541e</strong> post: Which social media platforms [respondent] visited ‐ YouTube</p>
+<p><strong>V202541f</strong> post: Which social media platforms [respondent] visited ‐ SnapChat</p>
+<p><strong>V202541g</strong> post: Which social media platforms [respondent] visited ‐ TikTok</p>
+<p><strong>V202559</strong> post: Evidence that hydroxychloroquine is effective treatment for COVID‐19 or not</p>
+<p><strong>V202410</strong> post: Attitudes about elites: politicians do not care about people</p>
+<p><strong>V202411</strong> post: Attitudes about elites: most politicians are trustworthy</p>
+<p><strong>V202412</strong> post: Attitudes about elites: politicians are main problem in US</p>
+<p><strong>V202413</strong> post: Attitudes about elites: strong leader in government is good</p>
+<p><strong>V202414</strong> post: Attitudes about elites: people should make policy decisions</p>
+</div>
+<div id="question-wording" class="section level3 unnumbered hasAnchor">
+<h3>Question wording<a href="app.html#question-wording" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>version</strong> to <strong>V200015d</strong> data and sampling meta variables</p>
+<p><strong>V201005</strong> “How often do you pay attention to what’s going on in government and politics?” 1. Always 2. Most of the time 3. About half the time 4. Some of the time 5. Never</p>
+<p><strong>V201006</strong> “Some people don’t pay much attention to political campaigns. How about you? Would you say that you have been very much interested, somewhat interested or not much interested in the political campaigns so far this year?” 1. Very much interested 2. Somewhat interested 3. Not much interested</p>
+<p><strong>V201020</strong> “Did you vote in a Presidential primary election or caucus this year?” 1. Yes, voted in primary or caucus 2. No, didn’t vote in primary or caucus</p>
+<p><strong>V201033</strong> “Who do you think you will vote for? [Joe Biden, Donald Trump/Donald Trump, Joe Biden], Jo Jorgensen, Howie Hawkins, or someone else?” 1. Joe Biden 2. Donald Trump 3. Jo Jorgensen 4. Howie Hawkins 5. Other candidate</p>
+<p><strong>pre_vote_choice</strong> simplified categories of vote choice from V201033</p>
+<p><strong>V201100</strong> “How likely is it that you will vote in the general election this November?” 1. Extremely likely 2. Very likely 3. Moderately likely 4. Slightly likely 5. Not likely at all</p>
+<p><strong>V201115</strong> “The next few questions are about how you feel about how things are going in the country these days.How hopeful do you feel about how things are going in the country these days?” 1. Not at all 2. A little 3. Somewhat 4. Very 5. Extremely</p>
+<p><strong>V201116</strong> “How afraid do you feel about how things are going in the country?” Response scale <strong>V201115</strong></p>
+<p><strong>V201118</strong> “How angry do you feel about how things are going in the country?” Response scale <strong>V201115</strong></p>
+<p><strong>V201119</strong> “How happy do you feel about how things are going in the country?” For responses see <strong>V201115</strong></p>
+<p><strong>V201126x</strong> “Do you approve or disapprove of the way the U.S. Congress has been handling its job? Do you [approve/disapprove] strongly or not strongly?” 1. Approve strongly 2. Approve not strongly 3. Disapprove not strongly 4. Disapprove strongly</p>
+<p><strong>V201129x</strong> “Do you approve or disapprove of the way Donald Trump is handling his job as President? Do you [approve/disapprove] strongly or not strongly?” Response scale <strong>V201126x</strong></p>
+<p><strong>V201151</strong> “I’d like to get your feelings toward some of our political leaders and other people who are in the news these days. I’ll read the name of a person and I’d like you to rate that person using something we call the feeling thermometer. Ratings between 50 degrees and 100 degrees mean that you feel favorable and warm toward the person. Ratings between 0 degrees and 50 degrees mean that you don’t feel favorable toward the person and that you don’t care too much for that person. You would rate the person at the 50 degree mark if you don’t feel particularly warm or cold toward the person. If we come to a person whose name you don’t recognize, you don’t need to rate that person. Just tell me and we’ll move on to the next one.”
+“How would you rate: Joe Biden”</p>
+<p><strong>V201152</strong> “How would you rate: Donald Trump”</p>
+<p><strong>V201153</strong> “How would you rate: Kamala Harris”</p>
+<p><strong>V201154</strong> “How would you rate: Mike Pence”</p>
+<p><strong>V201200</strong> “We hear a lot of talk these days about liberals and conservatives. Here is a seven-point scale on which the political views that people might hold are arranged from extremely liberal to extremely conservative.[Scale shown to respondents.] Where would you place yourself on this scale, or haven’t you thought much about this?” 1. Extremely liberal 2. Liberal 3. Slightly liberal 4. Moderate; middle of the road 5. Slightly conservative 6. Conservative 7. Extremely conservative 99. Haven’t thought much about this</p>
+<p><strong>V201225x</strong> “Different people feel differently about voting. For some, voting is a choice - they feel free to vote or not to vote, depending on how they feel about the candidates and parties. For others voting is a duty - they feel they should vote in every election no matter how they feel about the candidates and parties. For you personally, is voting mainly a choice, mainly a duty, or neither a choice nor a duty?” 1. Very strongly a duty 2. Moderately strongly a duty 3. A little strongly a duty 4. Neither a duty nor a choice 5. A little strongly a choice 6. Moderately strongly a choice 7. Very strongly a choice</p>
+<p><strong>V201228</strong> “Generally speaking, do you usually think of yourself as Democrat, a Republican, an independent, or what?”
+1. Democrat 2. Republican 3. Independent 5. Other party {SPECIFY}</p>
+<p><strong>V201231x</strong> “…Would you call yourself a strong [Democrat / Republican] or a not very strong [Democrat / Republican]? Do you think of yourself as closer to the Republican Party or to the Democratic Party?” 1. Strong Democrat 2. Not very strong Democrat 3. Independent-Democrat 4. Independent 5. Independent-Republican 6. Not very strong Republican 7. Strong Republican</p>
+<p><strong>V201232</strong> “How important is being [a Democrat/a Republican/an Independent] to your identity?” 1. Extremely important 2. Very important 3. Moderately important 4. A little important 5. Not at all important</p>
+<p><strong>V201234</strong> “Would you say the government is pretty much run by a few big interests looking out for themselves or that it is run for the benefit of all the people?” 1. Run by a few big interests 2. For the benefit of all the people</p>
+<p><strong>V201235</strong> “Do you think that people in government waste a lot of the moneywe pay in taxes, waste some of it, or don’t waste very much of it?” 1. Waste a lot 2. Waste some 3. Don’t waste very much</p>
+<p><strong>V201236</strong> “How many of the people running the government are corrupt?” 1. All 2. Most 3. About half 4. A few 5. None</p>
+<p><strong>V201237</strong> “Generally speaking, how often can you trust other people?” 1. Always 2. Most of the time 3. About half the time 4. Some of the time 5. Never</p>
+<p><strong>V201240</strong> “Which party do you think would do a better job of handling health care?” 1. Democrats would do a much better job 2. Democrats would do a somewhat better job 3. Not much difference between them 4. Republicans would do a somewhat better job 5. Republicans would do a much better job</p>
+<p><strong>V201241</strong> “Which party do you think would do a better job of handling immigration?” Response scale <strong>V201240</strong></p>
+<p><strong>V201244</strong> “Which party do you think would do a better job of handling the COVID-19 pandemic?” Response scale <strong>V201240</strong></p>
+<p><strong>V201246</strong> “Some people think the government should provide fewer services even in areas such as health and education in order to reduce spending. Suppose these people are at one end of a scale, at point 1. Other people feel it is important for the government to provide many more services even if it means an increase in spending. Suppose these people are at the other end, at point 7. And, of course, some other people have opinions somewhere in between, at points 2, 3, 4, 5 or 6. Where would you place yourself on this scale, or haven’t you thought much about this?” 1. Government should provide many fewer services 2. 3. 4. 5. 6. 7. Government should provide many more services</p>
+<p><strong>V201247</strong> “Where would you place Joe Biden on this issue?” Response scale in <strong>V201246</strong></p>
+<p><strong>V201248</strong> “Where would you place Donald Trump on this issue?” Response scale in <strong>V201246</strong></p>
+<p><strong>V201249</strong> “Some people believe that we should spend much less money for defense. Suppose these people are at one end of a scale, at point 1. Others feel that defense spending should be greatly increased. Suppose these people are at the other end, at point 7. And, of course, some other people have opinions somewhere in between, at points 2, 3, 4, 5 or 6. Where would you place yourself on this scale, or haven’t you thought much about this?” 1. Greatly decrease defense spending 2. 3. 4. 5. 6. 7. Greatly increase defense spending</p>
+<p><strong>V201250</strong> “Where would you place Joe Biden on this issue?” Response scale in <strong>V201250</strong></p>
+<p><strong>V201251</strong> “Where would you place Donald Trump on this issue?” Response scale in <strong>V201250</strong></p>
+<p><strong>V201305x</strong> “Next I am going to read you a list of federal programs. For each one, I would like you to tell me whether you would like to see spending increased, decreased, or kept the same….What about public schools? Should federal spending on public schools be increased, decreased, or kept the same?” 1. Increased a lot 2. Increased a little 3. Kept the same 4. Decreased a little 5. Decreased a lot</p>
+<p><strong>V201308x</strong> “What about tightening border security to prevent illegal immigration?Should federal spending on tightening border security to prevent illegal immigration be increased, decreased, or kept the same?” Response scale <strong>V201305x</strong></p>
+<p><strong>V201327x</strong> “Now thinking about the economy in the country as a whole, would you say that over the past year the nation’s economy has gotten better, stayed about the same, or gotten worse?” 1. Gotten much better 2. Gotten somewhat better 3. Stayed about the same 4. Gotten somewhat worse 5. Gotten much worse</p>
+<p><strong>V201330x</strong> “What about the next 12 months? Do you expect the economy, in the country as a whole, to get better, stay about the same, or get worse?” Response scale in <strong>V201330x</strong></p>
+<p><strong>V201336</strong> “There has been some discussion about abortion during recent years. Which one of the opinions on this page best agrees with your view? You can just tell me the number of the opinion you choose.” 1. “By law, abortion should never be permitted.” 2. “The law should permit abortion only in case of rape, incest, or when the woman’s life is in danger.” 3. “The law should permit abortion other than for rape/incest/danger to woman but only after need clearly established.” 4. “By law, a woman should always be able to obtain an abortion as a matter of personal choice.”</p>
+<p><strong>V201345x</strong> “Do you favor or oppose the death penalty for persons convicted of murder? Do you [favor / oppose] the death penalty for persons convicted of murder strongly or not strongly?” 1. Favor strongly 2. Favor not strongly 3. Oppose not strongly 4. Oppose strongly</p>
+<p><strong>V201346</strong> “Turning to some questions about America’s role in the world: During the past year, would you say that the United States’ position in the world has grown weaker, stayed about the same, or has it grown stronger?” 1. Weaker 2. Stayed about the same 3. Stronger</p>
+<p><strong>V201349x</strong> “Do you agree or disagree with this statement: ‘This country would be better off if we just stayed home and did not concern ourselves with problems in other parts of the world.’ Do you [agree / disagree] strongly or [agree / disagree] somewhat with this statement?” 1. Agree strongly 2. Agree somewhat 3. Disagree somewhat 4. Disagree strongly</p>
+<p><strong>V201350</strong> “How willing should the United States be to use military force to solve international problems?” 1. Extremely willing 2. Very willing 3. Moderately willing 4. A little willing 5. Not at all willing</p>
+<p><strong>V201351</strong> “In the November 2020 general election, how accurately do you think the votes will be counted?” 1. Not at all accurately 2. A little accurately 3. Moderately accurately 4. Very accurately 5. Completely accurately</p>
+<p><strong>V201352</strong> “How much do you trust the officials who oversee elections where you live?” 1. Not at all 2. A little 3. A moderate amount 4. A lot 5. A great deal</p>
+<p><strong>V201353</strong> “How often are people who are eligible to vote denied the right to vote?” 1. Never 2. Rarely 3. Occasionally 4. Fairly often 5. Very often</p>
+<p><strong>V201356x</strong> “Do you favor, oppose, or neither favor nor oppose conducting all elections by mail, instead of people voting in-person? Do you [favor / oppose] that a great deal, moderately, or a little?” 1. Favor a great deal 2. Favor moderately 3. Favor a little 4. Neither favor nor oppose 5. Oppose a little 6. Oppose moderately 7. Oppose a great deal</p>
+<p><strong>V201359x</strong> “Do you favor, oppose, or neither favor nor oppose requiring all people to show a government issued photo ID when they vote?” Response scale <strong>V201356x</strong></p>
+<p><strong>V201362x</strong> “Do you favor, oppose, or neither favor nor oppose allowing convicted felons to vote once they complete their sentence?” Response scale <strong>V201356x</strong></p>
+<p><strong>V201372x</strong> “Would it be helpful, harmful, or neither helpful nor harmful if U.S. presidents could work on the country’s problems without paying attention to what Congress and the courts say? How [helpful / harmful]?” 1. Extremely helpful 2. Moderately helpful 3. A little helpful 4. Neither helpful nor harmful 5. A little harmful 6. Moderately harmful 7. Extremely harmful</p>
+<p><strong>V201375x</strong> “Do you favor, oppose, or neither favor nor oppose elected officials restricting journalists’ access to information about government decision-making? Do you [favor / oppose] that a great deal, moderately, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V201377</strong> “In general, how much trust and confidence do you have in the news media when it comes to reporting the news fully, accurately, and fairly?” 1. None 2. A little 3. A moderate amount 4. A lot 5. A great deal</p>
+<p><strong>V201411x</strong> “Should transgender people - that is, people who identify themselves as the sex or gender different from the one they were born as - have to use the bathrooms of the gender they were born as, or should they be allowed to use the bathrooms of their identified gender? How strongly do you feel that way?” 1. Feels very strongly transgender people should use bathroom of birth gender 2. Feels moderately strongly… 3. Feels a little strongly… 4. Feels a little strongly transgender people be allowed to use bathroom of identified gender 5. Feels moderately strongly… 6. Feels very strongly transgender people be allowed to use bathroom of identified gender</p>
+<p><strong>V201414x</strong> “Do you favor or oppose laws to protect gays and lesbians against job discrimination? Do you [favor / oppose] such laws strongly or not strongly?” 1. Favor strongly 2. Favor not strongly 3. Oppose not strongly 4. Oppose strongly</p>
+<p><strong>V201415</strong> “Do you think gay or lesbian couples should be legally permitted to adopt children?” 1. Yes 2. No</p>
+<p><strong>V201416</strong> “Which comes closest to your view? You can just tell me the number of your choice.” 1. “Gay and lesbian couples should be allowed to legally marry.” 2. “Gay and lesbian couples should be allowed to form civil unions but not legally marry.” 3. “There should be no legal recognition of gay or lesbian couples’ relationship.”</p>
+<p><strong>V201423x</strong> “What should happen to immigrants who were brought to the U.S. illegally as children and have lived here for at least 10 years and graduated high school here? Should they be sent back where they came from, or should they be allowed to live and work in the United States?…Do you favor that a great deal, a moderate amount, or a little?” 1. Favors a great deal they should be sent back 2. Favors a moderate amount they should be sent back 3. Favors a little they should be sent back 4. Favors a little they should be allowed to live and work in US 5. Favors a moderate amount they should be allowed to live and work in US 6. Favors a great deal they should be allowed to live and work in US</p>
+<p><strong>V201426x</strong> “Do you favor, oppose, or neither favor nor oppose building a wall on the U.S. border with Mexico? Do you [favor / oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V201433</strong> “How important is religion in your life?” 1. Extremely important 2. Very important 3. Moderately important 4. A little important 5. Not important at all</p>
+<p><strong>V201434</strong> “Which of these statements comes closest to describing your feelings about the Bible? You can just give me the number of your choice.” 1. “The Bible is the actual word of God and is to be taken literally, word for word.” 2. “The Bible is the word of God but not everything in it should be taken literally, word for word.” 3. “The Bible is a book written by men and is not the word of God.”</p>
+<p><strong>V201452</strong> “Lots of things come up that keep people from attending religious services even if they want to. Thinking about your life these days, do you ever attend religious services, apart from occasional weddings, baptisms or funerals?” 1. Yes 2. No</p>
+<p><strong>V201453</strong> “Do you go to religious services every week, almost every week, once or twice a month, a few times a year, or never?”
+1. Every week 2. Almost every week 3. Once or twice a month 4. A few times a year 5. Never</p>
+<p><strong>V201456</strong> “Would you call yourself a born-again Christian, that is, have you personally had a conversion experience related to Jesus Christ?” 1. Yes 2. No</p>
+<p><strong>V201458x</strong> Major group religion 1. Mainline Protestant 2. Evangelical Protestant 3. Black Protestant 4. Undifferentiated Protestant 5. Roman Catholic 6. Other Christian 7. Jewish 8. Other religion 9. Not religious</p>
+<p><strong>relig_trad</strong> reduced categories of religious traditions (from <strong>V201458x</strong>) 1. Mainline Protestant 2. Evangelical Protestant 3. Other Christian 4. Roman Catholic 5. Jewish 6. Other religion 7. Not religious</p>
+<p><strong>secular</strong> Whether an individual reported religious identification as “Atheist” or “Secular” in variables V201435 or V201436 0. Not Secular 1. Secular</p>
+<p><strong>attend</strong> Religious service attendance, from V201452 and V201453 1. Never 2. few times a year, month 3. almost every week 4. every week</p>
+<p><strong>V201502</strong> “We are interested in how people are getting along financially thesedays. Would you say that [you / you and your family living here] are much better off financially, somewhat better off, about the same, somewhat worse off, or much worse off than you were a year ago?” 1. Much better off 2. Somewhat better off 3. About the same 4. Somewhat worse off 5. Much worse off</p>
+<p><strong>V201507x</strong> Respondent age in years</p>
+<p><strong>V201508</strong> “Are you now married, widowed, divorced, separated or never married?” 1. Married: spouse present 3. Widowed 4. Divorced 5. Separated 6. Never married</p>
+<p><strong>V201511x</strong> “What is the highest level of school you have completed or the highest degree you have received?” 1. Less than high school credential 2. High school credential 3. Some post-high school, no bachelor’s degree 4. Bachelor’s degree 5. Graduate degree</p>
+<p><strong>V201549x</strong> “I am going to read you a list of five race categories. You may choose one or more races. For this survey, Hispanic origin is not a race. Are you White; Black or African American; American Indian or Alaska Native; Asian; or Native Hawaiian or Other Pacific Islander?” 1. White, non-Hispanic 2. Black, non-Hispanic 3. Hispanic 4. Asian or Native Hawaiian/other Pacific Islander, non-Hispanic alone 5. Native American/Alaska Native or other race, non-Hispanic alone 6. Multiple races, non-Hispanic</p>
+<p><strong>V201600</strong> “What is your sex?” 1. Male 2. Female</p>
+<p><strong>V201628</strong> “How many guns do you or anyone else living here own? Type the number.”</p>
+<p><strong>V201645</strong> “On which of the following does the U.S. federal government currently spend the least?” 1. Foreign aid 2. Medicare 3. National defense 4. Social Security</p>
+<p><strong>V201646</strong> “Do you happen to know which party currently has the most members in the U.S. House of Representatives in Washington?” 1. Democrats 2. Republicans</p>
+<p><strong>V201647</strong> “Do you happen to know which party currently has the most members in the U.S. Senate?” 1. Democrats 2. Republicans</p>
+<p><strong>V202471</strong> “Among your immediate family members, relatives, neighbors, co-workers, or close friends, are any of them gay, lesbian, or bisexual as far as you know?” 1. Yes 2. No</p>
+<p><strong>V202013</strong> “Did you participate in any online political meetings, rallies, speeches, fundraisers, or things like that in support of a particular candidate?” (for <strong>V202013</strong> through <strong>V202022</strong> response scale 1. Yes 2. No )</p>
+<p><strong>V202014</strong> “Did you go to any political meetings, rallies, speeches, dinners, or things like that in support of a particular candidate?”</p>
+<p><strong>V202015</strong> “Did you wear a campaign button, put a campaign sticker on your car, or place a sign in your window or in front of your house?”</p>
+<p><strong>V202016</strong> “Did you do any other work for one of the parties or candidates?”</p>
+<p><strong>V202017</strong> “During an election year people are often asked to make a contribution to support campaigns. Did you give money to an individual candidate running for public office?”</p>
+<p><strong>V202019</strong> “Did you give money to a political party during this election year?”</p>
+<p><strong>V202021</strong> “Did you give any money to any other group that supported or opposed candidates?”</p>
+<p><strong>V202022</strong> “Do you ever discuss politics with your family or friends?”</p>
+<p><strong>V202023</strong> “How many days in the past week did you talk about politics with family or friends?” 0. Zero days 1. One day 2. Two days 3. Three days 4. Four days 5. Five days 6. Six days 7. Seven days</p>
+<p><strong>V202066</strong> “In talking to people about elections, we often find that a lot of peoplewere not able to vote because they weren’t registered, they were sick, or they just didn’t have time. Which of the following statements best describes you:” 1. “I did not vote in the election this November.” 2. “I thought about voting this time, but didn’t.” 3. “I usually vote, but didn’t this time.” 4. “I am sure I voted.”</p>
+<p><strong>V202072</strong> “How about the election for President? Did you vote for a candidate for President?” 1. Yes, voted for President 2. No, didn’t vote for President</p>
+<p><strong>V202073</strong> “Who did you vote for? [Joe Biden, Donald Trump/Donald Trump, Joe Biden], Jo Jorgensen, Howie Hawkins, or someone else?”
+1. Joe Biden 2. Donald Trump 3. Jo Jorgensen 4. Howie Hawkins 5. Other candidate</p>
+<p><strong>post_vote_choice</strong> categories of vote choice from <strong>V202073</strong> 1. Joe Biden 2. Donald Trump 3. Other</p>
+<p><strong>V202143</strong> “I’d like to get your feelings toward some of our political leaders and other people who are in the news these days.I’ll read the name of a person and I’d like you to rate that person using something we call the feeling thermometer. Ratings between 50 degrees and 100 degrees mean that you feel favorable and warm toward the person. Ratings between 0 degrees and 50 degrees mean that you don’t feel favorable toward the person and that you don’t care too much for that person. You would rate the person at the 50 degree mark if you don’t feel particularly warm or cold toward the person. If we come to a person whose name you don’t recognize, youdon’t need to rate that person. Just tell me and we’ll move on to the next one. On the feeling thermometer scale from 0 to 100, how would you rate Joe Biden?” [All feeling thermometers are recorded as numeric scores 0 to 100.]</p>
+<p><strong>V202144</strong> “How would you rate: Donald Trump”</p>
+<p><strong>V202156</strong> “How would you rate: Kamala Harris”</p>
+<p><strong>V202157</strong> “How would you rate: Mike Pence”</p>
+<p><strong>V202158</strong> “How would you rate: Dr. Anthony Fauci”</p>
+<p><strong>V202159</strong> “Still using the feeling thermometer scale from 0 to 100, how would you rate the following groups:” “How would you rate: Christian Fundamentalists”</p>
+<p><strong>V202160</strong> “How would you rate: Feminists”</p>
+<p><strong>V202161</strong> “How would you rate: Liberals”</p>
+<p><strong>V202162</strong> “How would you rate: Labor unions”</p>
+<p><strong>V202163</strong> “How would you rate: Big business”</p>
+<p><strong>V202164</strong> “How would you rate: Conservatives”</p>
+<p><strong>V202165</strong> “How would you rate: The U.S. Supreme Court”</p>
+<p><strong>V202166</strong> “How would you rate: Gay men and lesbians”</p>
+<p><strong>V202167</strong> “How would you rate: Congress”</p>
+<p><strong>V202168</strong> “How would you rate: Muslims”</p>
+<p><strong>V202169</strong> “How would you rate: Christians”</p>
+<p><strong>V202170</strong> “How would you rate: Jews”</p>
+<p><strong>V202171</strong> “How would you rate: Police”</p>
+<p><strong>V202172</strong> “How would you rate: Transgender people”</p>
+<p><strong>V202173</strong> “How would you rate: Scientists”</p>
+<p><strong>V202174</strong> “How would you rate: Black Lives Matter movement”</p>
+<p><strong>V202175</strong> “How would you rate: Journalists”</p>
+<p><strong>V202176</strong> “How would you rate: NATO”</p>
+<p><strong>V202177</strong> “How would you rate: The United Nations (UN)”</p>
+<p><strong>V202178</strong> “How would you rate: The National Rifle Association (NRA)”</p>
+<p><strong>V202179</strong> “How would you rate: Socialists”</p>
+<p><strong>V202180</strong> “How would you rate: Capitalists”</p>
+<p><strong>V202181</strong> “How would you rate: The Federal Bureau of Investigation (FBI)”</p>
+<p><strong>V202182</strong> “How would you rate: The Immigration and Customs Enforcement (ICE) agency”</p>
+<p><strong>V202183</strong> “How would you rate: The #MeToo movement”</p>
+<p><strong>V202184</strong> “How would you rate: Rural Americans”</p>
+<p><strong>V202185</strong> “How would you rate: Planned Parenthood”</p>
+<p><strong>V202186</strong> “How would you rate: The World Health Organization (WHO)”</p>
+<p><strong>V202187</strong> “How would you rate: The Centers for Disease Control (CDC)”</p>
+<p><strong>V202225</strong> “Do you favor, oppose, or neither favor nor oppose placing limits on political campaign spending?” 1. Favor 2. Oppose 3. Neither favor nor oppose</p>
+<p><strong>V202231x</strong> “Some people have suggested placing new limits on foreign imports in order to protect American jobs. Others say that such limits would raise consumer prices and hurt American exports. Do you favor or oppose placing new limits on imports? Do you [favor/oppose] placing new limits on imports strongly or not strongly?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202232</strong> “Do you think the number of immigrants from foreign countries who are permitted to come to the United States to live should be increased a lot, increased a little, left the same as it is now, decreased a little, or decreased a lot?” 1. Increased a lot 2. Increased a little 3. Left the same as it is now 4. Decreased a little 5. Decreased a lot</p>
+<p><strong>V202233</strong> “Now I’d like to ask you about immigration in recent years. How likely is it that recent immigration levels will take jobs away from people already here – extremely likely, very likely, somewhat likely, or not at all likely?” 1. Extremely likely 2. Very likely 3. Somewhat likely 4. Not at all likely</p>
+<p><strong>V202236x</strong> “Do you favor, oppose, or neither favor nor oppose allowing refugees who are fleeing war, persecution, or natural disasters in other countries to come to live in the U.S.? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202239x</strong> “Does illegal immigration increase, decrease, or have no effect on the crime rate in the U.S.? Does it [increase/decrease] the crime rate a lot, a moderate amount, or a little?” Response scale <strong>V202232</strong></p>
+<p><strong>V202242x</strong> “Do you favor, oppose, or neither favor nor oppose providing a path to citizenship for unauthorized immigrants who obey the law, pay a fine, and pass security checks? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202245x</strong> “Do you favor, oppose, or neither favor nor oppose returning all unauthorized immigrants to their native countries? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V202232</strong></p>
+<p><strong>V202248x</strong> “Do you favor, oppose, or neither favor nor oppose separating the children of detained immigrants, rather than keeping them with their parents in adult detention centers? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V202232</strong></p>
+<p><strong>V202259x</strong> “Next, do you favor, oppose, or neither favor nor oppose the government trying to reduce the difference in incomes between the richest and poorest households? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V202232</strong></p>
+<p><strong>V202260</strong> “I am going to read several more statements. After each one, I would like you to tell me how strongly you agree or disagree. The first statement is:‘Our society should do whatever is necessary to make sure that everyone has an equal opportunity to succeed.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?” 1. Agree strongly 2. Agree somewhat 3. Neither agree nor disagree 4. Disagree somewhat 5. Disagree strongly</p>
+<p><strong>V202261</strong> ‘This country would be better off if we worried less about how equal people are.’ Response scale <strong>V202260</strong></p>
+<p><strong>V202262</strong> ‘It is not really that big a problem if some people have more of a chance in life than others.’ Response scale <strong>V202260</strong></p>
+<p><strong>V202263</strong> ‘If people were treated more equally in this country we would have many fewer problems.’ Response scale <strong>V202260</strong></p>
+<p><strong>V202264</strong> ‘The world is always changing and we should adjust our view of moral behavior to those changes.’ Response scale <strong>V202260</strong></p>
+<p><strong>V202265</strong> ‘This country would have many fewer problems if there were more emphasis on traditional family ties.’ Response scale <strong>V202260</strong></p>
+<p><strong>egal_index</strong> post: additive index of <strong>V202261</strong> to <strong>V202265</strong></p>
+<p><strong>V202266</strong> “On another topic. Although there are a number of qualities that people feel that children should have, every person thinks that some are more important than others. I am going to read you pairs of desirable qualities.Please tell me which one you think is more important for a child to have: Independence or respect for elders” 1. Independence 2. Respect for elders 3. Both</p>
+<p><strong>V202267</strong> “Which one is more important for a child to have: Curiosity or good manners” 1. Curiosity 2. Good manners 3. Both</p>
+<p><strong>V202268</strong> “Which one is more important for a child to have: Obedience or self-reliance” 1. Obedience 2. Self-reliance 3. Both</p>
+<p><strong>V202269</strong> “Which one is more important for a child to have: Being considerate or well behaved” 1. Being considerate 2. Well behaved 3. Both</p>
+<p><strong>auth_index</strong> post: additive index of <strong>V202266</strong> to <strong>V202269</strong></p>
+<p><strong>V202286x</strong> “Do you think it is easier, harder, or neither easier nor harder for mothers who work outside the home to establish a warm and secure relationship with their children than it is for mothers who stay at home? Is it a great deal easier, somewhat easier, or slightly easier for mothers who work outside the home to establish a warm and secure relationship with their children? Is it a great deal harder, somewhat harder, or slightly harder for mothers who work outside the home to establish a warm and secure relationship with their children?” 1. A great deal easier 2. Somewhat easier 3. Slightly easier 4. Neither easier nor harder 5. Slightly harder 6. Somewhat harder 7. A great deal harder</p>
+<p><strong>V202290x</strong> “Do you think it is better, worse, or makes no difference for the family as a whole if the man works outside the home and the woman takes care of the home and family? Is it much better, somewhat better, or slightly better? Is it much worse, somewhat worse, or slightly worse?” 1. Much better 2. Somewhat better 3. Slightly better 4. Makes no difference 5. Slightly worse 6. Somewhat worse 7. Much worse</p>
+<p><strong>V202291</strong> “When women demand equality these days, how often are they actually seeking special favors?” 1. Always 2. Most of the time 3. About half the time 4. Some of the time 5. Never</p>
+<p><strong>V202292</strong> “When women complain about discrimination, how often do they cause more problems than they solve?” Response scale <strong>V202291</strong></p>
+<p><strong>sexism_index</strong> post: additive index of <strong>V202286x</strong> to <strong>V202292</strong></p>
+<p><strong>V202300</strong> “‘Irish, Italian, Jewish and many other minorities overcame prejudice and worked their way up. Blacks should do the same without any special favors.’ Do you agree strongly, agree somewhat, neither agree nor disagree,disagree somewhat, or disagree strongly with this statement?” Response scale <strong>V202260</strong></p>
+<p><strong>V202301</strong> “‘Generations of slavery and discrimination have created conditions that make it difficult for blacks to work their way out of the lower class.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?” Response scale <strong>V202260</strong></p>
+<p><strong>V202302</strong> “‘Over the past few years, blacks have gotten less than they deserve.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?” Response scale <strong>V202260</strong></p>
+<p><strong>V202303</strong> “‘It’s really a matter of some people not trying hard enough; if blacks would only try harder they could be just as well off as whites.’ Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with this statement?”Response scale <strong>V202260</strong></p>
+<p><strong>V202304</strong> “How well does the following statement describe your view? ‘Our political system only works for the insiders with money and power.’”1. Not at all well 2. Not very well 3. Somewhat well 4. Very well 5. Extremely well</p>
+<p><strong>V202305</strong> “How well does the following statement describe your view? ‘Because of the rich and powerful, it becomes difficult for the rest of us to get ahead.’” Response scale <strong>V202304</strong></p>
+<p><strong>V202308x</strong> “When it comes to public policy decisions, whom do you tend to trust more: ordinary people, experts, or trust both the same?Do you trust [ordinary people/experts] much more or somewhat more?” 1. Trust ordinary people much more 2. Trust ordinary people somewhat more 3. Trust both the same 4. Trust experts somewhat more 5. Trust experts much more</p>
+<p><strong>V202309</strong> “How much do ordinary people need the help of experts to understand complicated things like science and health?”
+1. Not at all 2. A little 3. A moderate amount 4. A lot 5. A great deal</p>
+<p><strong>V202310</strong> “In general, how important should science be for making government decisions about COVID-19?” 1. Not at all important 2. A little important 3. Moderately important 4. Very important 5. Extremely important</p>
+<p><strong>V202311</strong> “How well does the following statement describe your view? Most business and politics in this country are secretly controlled by the same few powerful people.” Response scale <strong>V202304</strong></p>
+<p><strong>V202312</strong> “How well does the following statement describe your view?”Much of what people hear in schools and the media are lies designed to keep people from learning the real truth about those in power.” Response scale <strong>V202304</strong></p>
+<p><strong>V202313</strong> “Which of these do you consider to be the most important? You can just tell me the number of the option you choose.”
+1. A high level of economic growth 2. Making sure this country has strong defense forces 3. Seeing that people have more say about how things are done at their jobs/in their communities 4. Trying to make our cities and countryside more beautiful</p>
+<p><strong>V202314</strong> “And which would be the next most important? You can just tell me the number ofthe option you choose.” Response scale <strong>V202313</strong></p>
+<p><strong>V202315</strong> “Here is another list. Which one of these do you consider most important? You can just tell me the number of the option you choose.” 1. Maintaining order in the nation 2. Giving people more say in important government decisions 3. Fighting rising prices 4. Protecting freedom of speech</p>
+<p><strong>V202316</strong> “And which would be the next most important? You can just tell me the number of the option you choose.” Response scale <strong>V202315</strong></p>
+<p><strong>V202325</strong> “Do you favor, oppose, or neither favor nor oppose increasing incometaxes on people making over one million dollars per year?” 1. Favor 2. Oppose 3. Neither favor nor oppose</p>
+<p><strong>V202331x</strong> “Do you favor, oppose, or neither favor nor oppose requiring children to be vaccinated in order to attend public schools? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202236x</strong> “Do you favor, oppose, or neither favor nor oppose allowing refugees who are fleeing war, persecution, or natural disasters in other countries to come to live in the U.S.? Do you [favor/oppose] that a great deal, a moderate amount, or a little?”
+Response scale <strong>V201356x</strong></p>
+<p><strong>V202337</strong> “Do you think the federal government should make it more difficult for people to buy a gun than it is now, make it easier for people to buy a gun, or keep these rules about the same as they are now?” 1. More difficult 2. Easier 3. Keep these rules about the same</p>
+<p><strong>V202341x</strong> “Do you favor, oppose, or neither favor nor oppose requiring background checks for gun purchases at gun shows or other private sales? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202344x</strong> “Do you favor, oppose, or neither favor nor oppose banning the sale of semi-automatic “assault-style” rifles? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202347x</strong> “Do you favor, oppose, or neither favor nor oppose a mandatory program where the government would buy back semi-automatic assault-style rifles from citizens who currently own them? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202351</strong> “How often do you think police officers use more force than is necessary?” 1. Never 2. Rarely 3. About half the time 4. Most of the time 5. All the time</p>
+<p><strong>V202355</strong> “Do you currently live in a rural area, small town, suburb, or a city?” 1. Rural area 2. Small town 3. Suburb 4. City</p>
+<p><strong>V202361x</strong> “Do you favor, oppose, or neither favor nor oppose the U.S. making free tradeagreements with other countries? How strongly do you [favor/oppose] it?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202367x</strong> “Has international trade increased, decreased, or neither increased nor decreased the number of jobs available in the United States?Has it [increased/decreased] the number of jobs in the U.S. a lot or somewhat?” 1. Increased a lot 2. Increased somewhat 3. Neiter increased nor decreased 4. Decreased somewhat 5. Increased a lot</p>
+<p><strong>V202373x</strong> “Does the increasing number of people of many different races and ethnic groups in the United States make this country a better place to live, a worse place to live, or does it make no difference?Does it make it a lot [better/worse] or a little [better/worse]?” 1. A lot better 2. A little better 3. Makes no difference 4. A little worse 5. A lot worse</p>
+<p><strong>V202376x</strong> “Do you favor, oppose, or neither favor nor oppose establishing a federal program that gives all citizens $12,000 per year, provided they meet certain conditions? This program would be paid for with higher taxes. Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202377</strong> “Should the federal minimum wage be raised, kept the same, lowered but not eliminated, or eliminated altogether?” 1. Raised 2. Kept the same 3. Lowered 4. Eliminated</p>
+<p><strong>V202383x</strong> “Now for questions on different topics. Do the health benefits of vaccinations generally outweigh the risks, do the risks outweigh the benefits, or is there no difference? Are the [health benefits/risks] of vaccinations much greater, moderately greater, or slightly greater?” 1. Health benefits much greater than risks 2. Health benefits moderately greater than risks 3. Health benefits slightly greater than risks 4. No difference 5. Risks slightly greather than health benefits 6. Risks moderately greater than health benefits 7. Risks much greater than health benefits</p>
+<p><strong>V202387x</strong> “Do you think attention to sexual harassment has gone too far, has not gone far enough, or has been about right? [Has it gone much too far or a little too far?] [Has it not gone nearly far enough or not gone quite far enough?]” 1. Has gone much too far 2. Has gone a little too far 3. Has been about right 4. Has not gone quite far enough 5. Has not gone nearly far enough</p>
+<p><strong>V202390x</strong> “Do you favor, oppose, or neither favor nor oppose allowing transgender people to serve in the United States Armed Forces? Do you [favor/oppose] that a great deal, a moderate amount, or a little?” Response scale <strong>V201356x</strong></p>
+<p><strong>V202410</strong> “Please tell me whether you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly with each of the following statements: Most politicians do not care about the people. Do you agree strongly, agree somewhat, neither agree nor disagree, disagree somewhat, or disagree strongly?” 1. Agree strongly 2. Agree somewhat 3. Neither agree nor disagree 4. Disagree somewhat 5. Disagree strongly</p>
+<p><strong>V202411</strong> “‘Most politicians are trustworthy.’” Response scale <strong>V202410</strong></p>
+<p><strong>V202412</strong> “‘Politicians are the main problem in the United States.’” Response scale <strong>V202410</strong></p>
+<p><strong>V202413</strong> “‘Having a strong leader in government is good for the United States even if the leader bends the rules to get things done.’” Response scale <strong>V202410</strong></p>
+<p><strong>V202414</strong> “‘The people, and not politicians, should make our most important policy decisions.’” Response scale <strong>V202410</strong></p>
+<p><strong>V202456</strong> “During the past 12 months, were you or any of your family members stopped or questioned by a police officer, or did this not happen in the past 12 months?” 1. Was stopped or questioned in the past 12 months 2. Was not stopped or questioned in the past 12 months</p>
+<p><strong>V202457</strong> “Have you ever been arrested, or has that never happened to you?” 1. Have been arrested 2. Never arrested</p>
+<p><strong>V202468x</strong> “The next question is about [the total combined income of all members of your family / your total income during the past 12 months. This includes money from jobs, net income from business, farm or rent, pensions, dividends, interest, Social Security payments and any other money income received by members of your family who are 15 years of age or older. What was the total income of your family during the past 12 months?”</p>
+<p><strong>V202475</strong> “Do you consider yourself a feminist, an anti-feminist, or neither of these?” 1. Feminist 2. Anti-feminist 3. Neither</p>
+<p><strong>V202541a</strong> Which social media platforms have you visited in the past year? Please tell me any that apply. (<strong>V202541a</strong> through <strong>V202541g</strong> 0. Not mentioned 1. Mentioned)</p>
+<p><strong>V202541b</strong> Which social media platforms [respondent] visited - Twitter</p>
+<p><strong>V202541c</strong> Which social media platforms [respondent] visited ‐ Instagram</p>
+<p><strong>V202541d</strong> Which social media platforms [respondent] visited ‐ Reddit</p>
+<p><strong>V202541e</strong> Which social media platforms [respondent] visited ‐ YouTube</p>
+<p><strong>V202541f</strong> Which social media platforms [respondent] visited ‐ SnapChat</p>
+<p><strong>V202541g</strong> Which social media platforms [respondent] visited ‐ TikTok</p>
+<p><strong>V202559</strong> “Which of these two statements do you think is most likely to be true?” 1. Scientific evidence that hydroxychloroquine is a safe and effective treatment for COVID-19 2. No scientific evidence that hydroxychloroquine is a safe and effective treatment for COVID-19</p>
+<p><strong>V202562</strong> “Do you currently owe money on student loans, or not?” 1. Yes 2. No</p>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-anes2021" class="csl-entry">
+American National Election Studies. 2021. <span>“ANES 2020 Time Series Study Full Release [Dataset and Documentation].”</span> <a href="https://www.electionstudies.org" class="uri">https://www.electionstudies.org</a>. <a href="https://www.electionstudies.org">https://www.electionstudies.org</a>.
+</div>
+<div id="ref-ballotpedia_main" class="csl-entry">
+Ballotpedia. 2024. <span>“Ballotpedia.”</span> <a href="https://ballotpedia.org/Main_Page" class="uri">https://ballotpedia.org/Main_Page</a>. <a href="https://ballotpedia.org/Main_Page">https://ballotpedia.org/Main_Page</a>.
+</div>
+<div id="ref-cawp_state_legislatures_2021" class="csl-entry">
+Center for American Women and Politics. 2021. <span>“Women in State Legislatures 2021.”</span> <a href="https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2021" class="uri">https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2021</a>. <a href="https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2021">https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2021</a>.
+</div>
+<div id="ref-cdc_wonder" class="csl-entry">
+Centers for Disease Control and Prevention. 2024. <span>“<span class="nocase">CDC WONDER (Wide-ranging Online Data for Epidemiologic Research)</span>.”</span> <a href="http://wonder.cdc.gov" class="uri">http://wonder.cdc.gov</a>. <a href="http://wonder.cdc.gov">http://wonder.cdc.gov</a>.
+</div>
+<div id="ref-dc_crime_2024" class="csl-entry">
+District of Columbia Government. 2024. <span>“Crime Incidents in 2024.”</span> <a href="https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2024" class="uri">https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2024</a>. <a href="https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2024">https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2024</a>.
+</div>
+<div id="ref-fec_election_results" class="csl-entry">
+Federal Election Commission. 2025. <span>“Election Results and Voting Information.”</span> <a href="https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/" class="uri">https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/</a>. <a href="https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/">https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/</a>.
+</div>
+<div id="ref-gallup_approval" class="csl-entry">
+Gallup. 2024. <span>“Presidential Job Approval Center.”</span> <a href="https://news.gallup.com/interactives/507569/presidential-job-approval-center.aspx" class="uri">https://news.gallup.com/interactives/507569/presidential-job-approval-center.aspx</a>. <a href="https://news.gallup.com/interactives/507569/presidential-job-approval-center.aspx">https://news.gallup.com/interactives/507569/presidential-job-approval-center.aspx</a>.
+</div>
+<div id="ref-gimpel2004" class="csl-entry">
+Gimpel, James G., and Jason E. Schuknecht. 2004. <em>Patchwork Nation: Sectionalism and Political Change in America</em>. Ann Arbor, MI: The University of Michigan Press.
+</div>
+<div id="ref-goodman2019" class="csl-entry">
+Goodman, Seth, Ariel BenYishay, Zhonghui Lv, and Daniel Runfola. 2019. <span>“GeoQuery: Integrating HPC Systems and Public Web-Based Geospatial Data Tools.”</span> <em>Computers and Geosciences</em>, no. 122: 103–12.
+</div>
+<div id="ref-lewis2023" class="csl-entry">
+Lewis, Jeffrey B., Keith Poole, Howard Rosenthal, Adam Boche, Aaron Rudkin, and Luke Sonnet. 2023. <span>“Voteview: Congressional Roll-Call Votes Database.”</span> <a href="https://voteview.com" class="uri">https://voteview.com</a>. <a href="https://voteview.com">https://voteview.com</a>.
+</div>
+<div id="ref-loc_federalist_guide" class="csl-entry">
+Library of Congress. 2024. <span>“The Federalist Papers: Primary Documents in American History.”</span> <a href="https://guides.loc.gov/federalist-papers/" class="uri">https://guides.loc.gov/federalist-papers/</a>. <a href="https://guides.loc.gov/federalist-papers/">https://guides.loc.gov/federalist-papers/</a>.
+</div>
+<div id="ref-owidcoronavirus2020" class="csl-entry">
+Mathieu, Edouard, Hannah Ritchie, Lucas Rodés-Guirao, Cameron Appel, Charlie Giattino, Joe Hasell, Bobbie Macdonald, et al. 2020. <span>“Coronavirus Pandemic (COVID-19).”</span> <a href="https://ourworldindata.org/coronavirus" class="uri">https://ourworldindata.org/coronavirus</a>; Our World in Data. <a href="https://ourworldindata.org/coronavirus">https://ourworldindata.org/coronavirus</a>.
+</div>
+<div id="ref-michigan_sos_election_results" class="csl-entry">
+Michigan Secretary of State. 2024. <span>“Election Results and Data.”</span> <a href="https://www.michigan.gov/sos/elections/election-results-and-data" class="uri">https://www.michigan.gov/sos/elections/election-results-and-data</a>. <a href="https://www.michigan.gov/sos/elections/election-results-and-data">https://www.michigan.gov/sos/elections/election-results-and-data</a>.
+</div>
+<div id="ref-michigan_gis_portal" class="csl-entry">
+State of Michigan. 2024. <span>“Michigan Geographic Information Systems (GIS) Open Data Portal.”</span> <a href="https://gis-michigan.opendata.arcgis.com/" class="uri">https://gis-michigan.opendata.arcgis.com/</a>. <a href="https://gis-michigan.opendata.arcgis.com/">https://gis-michigan.opendata.arcgis.com/</a>.
+</div>
+<div id="ref-nhtsa_crash_overview_2020" class="csl-entry">
+Stewart, T. 2022. <span>“Overview of Motor Vehicle Crashes in 2020 (Report No. DOT HS 813 266).”</span> DOT HS 813 266. National Highway Traffic Safety Administration; <a href="https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813266" class="uri">https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813266</a>. <a href="https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813266">https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813266</a>.
+</div>
+<div id="ref-nytimes_covid_data" class="csl-entry">
+The New York Times. 2021. <span>“Coronavirus (Covid-19) Data in the United States.”</span> <a href="https://github.com/nytimes/covid-19-data" class="uri">https://github.com/nytimes/covid-19-data</a>. <a href="https://github.com/nytimes/covid-19-data">https://github.com/nytimes/covid-19-data</a>.
+</div>
+<div id="ref-worldbank_gdi" class="csl-entry">
+The World Bank. 2024. <span>“World Development Indicators.”</span> <a href="https://databank.worldbank.org/source/world-development-indicators" class="uri">https://databank.worldbank.org/source/world-development-indicators</a>. <a href="https://databank.worldbank.org/source/world-development-indicators">https://databank.worldbank.org/source/world-development-indicators</a>.
+</div>
+<div id="ref-undp2022" class="csl-entry">
+United Nations Development Programme. 2022. <em>Human Development Report 2021/2022: Uncertain Times, Unsettled Lives: Shaping Our Future in a Transforming World</em>. New York: United Nations Development Programme.
+</div>
+<div id="ref-bea_state_gdp" class="csl-entry">
+U.S. Bureau of Economic Analysis. 2024a. <span>“Annual GDP, Personal Income, and Employment by State.”</span> <a href="https://apps.bea.gov/itable/iTable.cfm?ReqID=70&amp;step=1" class="uri">https://apps.bea.gov/itable/iTable.cfm?ReqID=70&amp;step=1</a>. <a href="https://apps.bea.gov/itable/iTable.cfm?ReqID=70&amp;step=1">https://apps.bea.gov/itable/iTable.cfm?ReqID=70&amp;step=1</a>.
+</div>
+<div id="ref-bea_gdp" class="csl-entry">
+———. 2024b. <span>“Gross Domestic Product (GDP).”</span> <a href="https://www.bea.gov/data/gdp" class="uri">https://www.bea.gov/data/gdp</a>. <a href="https://www.bea.gov/data/gdp">https://www.bea.gov/data/gdp</a>.
+</div>
+<div id="ref-uscensus_data" class="csl-entry">
+U.S. Census Bureau. 2018. <span>“<span>U.S. Census Bureau Data</span>.”</span> <a href="https://www.census.gov/data.html" class="uri">https://www.census.gov/data.html</a>. <a href="https://www.census.gov/data.html">https://www.census.gov/data.html</a>.
+</div>
+<div id="ref-ed2022ocr0143_comment" class="csl-entry">
+U.S. Department of Education. 2023. <span>“Public Comment on Proposed Rule: Nondiscrimination on the Basis of Sex in Education Programs or Activities Receiving Federal Financial Assistance: Sex-Related Eligibility Criteria for Male and Female Athletic Teams.”</span> <a href="https://www.regulations.gov/document/ED-2022-OCR-0143-0001/comment" class="uri">https://www.regulations.gov/document/ED-2022-OCR-0143-0001/comment</a>. <a href="https://www.regulations.gov/document/ED-2022-OCR-0143-0001/comment">https://www.regulations.gov/document/ED-2022-OCR-0143-0001/comment</a>.
+</div>
+<div id="ref-presidency2024" class="csl-entry">
+Woolley, John T., and Gerhard Peters. 2024. <span>“The American Presidency Project.”</span> <a href="https://www.presidency.ucsb.edu/statistics/elections" class="uri">https://www.presidency.ucsb.edu/statistics/elections</a>. <a href="https://www.presidency.ucsb.edu/statistics/elections">https://www.presidency.ucsb.edu/statistics/elections</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch12.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/13-appendix-codebooks.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

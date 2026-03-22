@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Patterns in Text as Data | Introduction to Political Analysis in R</title>
+  <meta name="description" content="applications of data analysis in political science" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Patterns in Text as Data | Introduction to Political Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="applications of data analysis in political science" />
+  <meta name="github-repo" content="whittkilburn/inpolr.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Patterns in Text as Data | Introduction to Political Analysis in R" />
+  
+  <meta name="twitter:description" content="applications of data analysis in political science" />
+  
+
+<meta name="author" content="H. Whitt Kilburn" />
+
+
+<meta name="date" content="2026-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch7.html"/>
+<link rel="next" href="ch9.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organization-of-the-book-a-note-for-instructors"><i class="fa fa-check"></i>Organization of the book: a note for instructors</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#learning-objectives-and-chapter-resources"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1.1" data-path="ch1.html"><a href="ch1.html#what-we-will-do-data-science-statistics"><i class="fa fa-check"></i><b>1.1</b> What we will do: data science + statistics</a></li>
+<li class="chapter" data-level="1.2" data-path="ch1.html"><a href="ch1.html#how-we-will-do-it-coding"><i class="fa fa-check"></i><b>1.2</b> How we will do it: coding</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1.html"><a href="ch1.html#data-analysis-in-the-research-process"><i class="fa fa-check"></i><b>1.3</b> Data analysis in the research process</a></li>
+<li class="chapter" data-level="1.4" data-path="ch1.html"><a href="ch1.html#two-examples-of-coding-for-political-data-analysis"><i class="fa fa-check"></i><b>1.4</b> Two examples of coding for political data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#measuring-changes-in-global-development"><i class="fa fa-check"></i>Measuring changes in global development</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#modeling-u.s.-presidential-elections"><i class="fa fa-check"></i>Modeling U.S. presidential elections</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#a-roadmap-to-the-chapters"><i class="fa fa-check"></i>A roadmap to the chapters</a></li>
+<li class="chapter" data-level="" data-path="ch1.html"><a href="ch1.html#resources"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R for Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#learning-objectives-and-waterials"><i class="fa fa-check"></i>Learning objectives and waterials</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#getting-started-with-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> Getting started with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-r"><i class="fa fa-check"></i>Downloading R</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#downloading-rstudio"><i class="fa fa-check"></i>Downloading RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#orientation-to-the-rstudio-interface"><i class="fa fa-check"></i><b>2.2</b> Orientation to the RStudio interface</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#enter-r-code-at-the-command-line-prompt"><i class="fa fa-check"></i>Enter R code at the command line prompt</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#use-functions-for-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Use functions for data analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-nested"><i class="fa fa-check"></i>Functions are nested</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#functions-are-case-sensitive"><i class="fa fa-check"></i>Functions are case sensitive</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#hashtags-are-for-explanatory-comments-and-output"><i class="fa fa-check"></i>Hashtags are for explanatory comments and output</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#finding-a-help-file-for-a-function"><i class="fa fa-check"></i>Finding a help file for a function</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#create-objects-to-store-data"><i class="fa fa-check"></i>Create objects to store data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#packages-extend-the-functionality-of-r"><i class="fa fa-check"></i><b>2.4</b> Packages extend the functionality of R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#installing-packages"><i class="fa fa-check"></i>Installing packages</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#attaching-or-loading-a-package"><i class="fa fa-check"></i>Attaching or loading a package</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#a-brief-example-from-data-import-to-report-writing"><i class="fa fa-check"></i><b>2.5</b> A brief example from data import to report writing</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#organize-folders-for-analysis-files"><i class="fa fa-check"></i>Organize folders for analysis files</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#set-the-working-directory"><i class="fa fa-check"></i>Set the working directory</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#writing-and-running-code-in-a-script-file"><i class="fa fa-check"></i>Writing and running code in a script file</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#running-r-code-to-import-the-gdpfert.csv-dataset"><i class="fa fa-check"></i>Running R code to import the gdpfert.csv dataset</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#rstudio-features-for-examining-datasets"><i class="fa fa-check"></i>RStudio features for examining datasets</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#a-simple-scatterplot"><i class="fa fa-check"></i>A simple scatterplot</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-data-in-an-r-workspace"><i class="fa fa-check"></i>Saving data in an R Workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#authoring-a-data-analysis-report-rmarkdown"><i class="fa fa-check"></i><b>2.6</b> Authoring a data analysis report: RMarkdown</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#saving-r-work"><i class="fa fa-check"></i>Saving R work</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#getting-help"><i class="fa fa-check"></i><b>2.7</b> Getting help</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#key-points"><i class="fa fa-check"></i>Key points</a></li>
+<li class="chapter" data-level="" data-path="ch2.html"><a href="ch2.html#resources-1"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="2.8" data-path="ch2.html"><a href="ch2.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3.html"><a href="ch3.html"><i class="fa fa-check"></i><b>3</b> Importing, Cleaning, and Describing Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#learning-objectives-and-chapter-resources-1"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="3.1" data-path="ch3.html"><a href="ch3.html#rectangular-data-structure"><i class="fa fa-check"></i><b>3.1</b> Rectangular data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="ch3.html"><a href="ch3.html#importing-and-exporting-data-tables"><i class="fa fa-check"></i><b>3.2</b> Importing and exporting data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-csv-file"><i class="fa fa-check"></i>The CSV file</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#importing-editing-and-exporting-csv-files"><i class="fa fa-check"></i>Importing, editing, and exporting CSV files</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#other-datafile-formats"><i class="fa fa-check"></i>Other datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#summary-measures-of-data-objects"><i class="fa fa-check"></i>Summary measures of data objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch3.html"><a href="ch3.html#data-organization-cross-sectional-and-time-series"><i class="fa fa-check"></i><b>3.3</b> Data organization: cross-sectional and time series</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3.html"><a href="ch3.html#data-measurement-levels-and-storage-types"><i class="fa fa-check"></i><b>3.4</b> Data measurement levels and storage types</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-as-categorical-ordinal-interval-or-ratio"><i class="fa fa-check"></i>Measurement as categorical, ordinal, interval or ratio</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#storage-types-in-r-numeric-factor-character"><i class="fa fa-check"></i>Storage types in R: numeric, factor, character</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch3.html"><a href="ch3.html#constructing-and-merging-data-tables"><i class="fa fa-check"></i><b>3.5</b> Constructing and merging data tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-data-tables"><i class="fa fa-check"></i>Merging data tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#combining-rows-of-two-tables"><i class="fa fa-check"></i>Combining rows of two tables</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#merging-columns-on-an-existing-table"><i class="fa fa-check"></i>Merging columns on an existing table</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch3.html"><a href="ch3.html#measurement-characteristics-center-and-spread"><i class="fa fa-check"></i><b>3.6</b> Measurement characteristics: center and spread</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#mean-median-and-mode"><i class="fa fa-check"></i>Mean, median, and mode</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#interquartile-range"><i class="fa fa-check"></i>Interquartile range</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measuring-spread"><i class="fa fa-check"></i>Measuring spread</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-standard-deviation"><i class="fa fa-check"></i>The standard deviation</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#the-empirical-rule-for-standard-deviations"><i class="fa fa-check"></i>The empirical rule for standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3.html"><a href="ch3.html#measuring-relationships-between-variables"><i class="fa fa-check"></i><b>3.7</b> Measuring relationships between variables</a></li>
+<li class="chapter" data-level="3.8" data-path="ch3.html"><a href="ch3.html#measurement-scaling-z-linear-and-log"><i class="fa fa-check"></i><b>3.8</b> Measurement scaling: z, linear, and log</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#further-exploring-the-empirical-rule-and-z-distributions"><i class="fa fa-check"></i>Further exploring the empirical rule and z distributions</a></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#measurement-scaling-linear-versus-log"><i class="fa fa-check"></i>Measurement scaling: linear versus log</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch3.html"><a href="ch3.html#resources-2"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="3.9" data-path="ch3.html"><a href="ch3.html#exercises-1"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4.html"><a href="ch4.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#learning-objectives-and-chapter-resources-2"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="ch4.html"><a href="ch4.html#key-concepts-for-data-visualization-in-r"><i class="fa fa-check"></i><b>4.1</b> Key concepts for data visualization in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#visualizing-continuous-measures"><i class="fa fa-check"></i>Visualizing continuous measures</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4.html"><a href="ch4.html#histogram"><i class="fa fa-check"></i><b>4.2</b> Histogram</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#elements-of-a-ggplot2-visualization"><i class="fa fa-check"></i>Elements of a ggplot2 visualization</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#the-ggplot2-syntax"><i class="fa fa-check"></i>The ggplot2 syntax</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4.html"><a href="ch4.html#box-whiskers"><i class="fa fa-check"></i><b>4.3</b> Box-Whiskers</a></li>
+<li class="chapter" data-level="4.4" data-path="ch4.html"><a href="ch4.html#density"><i class="fa fa-check"></i><b>4.4</b> Density</a></li>
+<li class="chapter" data-level="4.5" data-path="ch4.html"><a href="ch4.html#scatterplots"><i class="fa fa-check"></i><b>4.5</b> Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#an-aesthetic-mapping-for-a-third-variable-on-a-scatterplot-bubble-chart"><i class="fa fa-check"></i>An aesthetic mapping for a third variable on a scatterplot: bubble chart</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4.html"><a href="ch4.html#bubble-charts-in-motion"><i class="fa fa-check"></i><b>4.6</b> Bubble charts in motion</a></li>
+<li class="chapter" data-level="" data-path="ch4.html"><a href="ch4.html#resources-3"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="4.7" data-path="ch4.html"><a href="ch4.html#exercises-2"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5.html"><a href="ch5.html"><i class="fa fa-check"></i><b>5</b> Data Wrangling: Cleaning and Transforming Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#learning-objectives-and-chapter-resources-3"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="5.1" data-path="ch5.html"><a href="ch5.html#wrangling-and-tidying-data"><i class="fa fa-check"></i><b>5.1</b> Wrangling and tidying data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-rows-and-columns-with-indices"><i class="fa fa-check"></i>Selecting rows and columns with indices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ch5.html"><a href="ch5.html#functions-for-organizing-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> Functions for organizing rows and columns</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#highlight-a-row-of-the-dataset-filter"><i class="fa fa-check"></i>Highlight a row of the dataset: <code>filter()</code></a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-data-subsets"><i class="fa fa-check"></i>Saving data subsets</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#filtering-rows-by-condition"><i class="fa fa-check"></i>Filtering rows by condition</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#arranging-rows"><i class="fa fa-check"></i>Arranging rows</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#selecting-columns"><i class="fa fa-check"></i>Selecting columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#renaming-columns"><i class="fa fa-check"></i>Renaming columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#creating-new-columns"><i class="fa fa-check"></i>Creating new columns</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#saving-new-datasets"><i class="fa fa-check"></i>Saving new datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch5.html"><a href="ch5.html#combining-functions"><i class="fa fa-check"></i><b>5.3</b> Combining functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#grouped-summary-statistics"><i class="fa fa-check"></i>Grouped summary statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch5.html"><a href="ch5.html#cleaning-and-transforming-county-level-votes"><i class="fa fa-check"></i><b>5.4</b> Cleaning and transforming county-level votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#working-with-county-level-election-results"><i class="fa fa-check"></i>Working with county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reshaping-the-data-long-to-wide-format"><i class="fa fa-check"></i>Reshaping the data, long to wide format</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ch5.html"><a href="ch5.html#wrangling-election-data-and-dotplotting-results"><i class="fa fa-check"></i><b>5.5</b> Wrangling election data and dotplotting results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#reorder-function"><i class="fa fa-check"></i>Reorder function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch5.html"><a href="ch5.html#resources-4"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="5.6" data-path="ch5.html"><a href="ch5.html#exercises-3"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch6.html"><a href="ch6.html"><i class="fa fa-check"></i><b>6</b> Maps and Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#learning-objectives-and-chapter-resources-4"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="6.1" data-path="ch6.html"><a href="ch6.html#maps-as-data"><i class="fa fa-check"></i><b>6.1</b> Maps as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-terms-in-geospatial-data"><i class="fa fa-check"></i>Key terms in geospatial data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#map-projection"><i class="fa fa-check"></i>Map projection</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#geospatial-datafile-formats"><i class="fa fa-check"></i>Geospatial datafile formats</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#key-steps-and-the-big-picture-of-maps-and-spatial-data-analysis"><i class="fa fa-check"></i>Key steps and the big picture of maps and spatial data analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch6.html"><a href="ch6.html#visualizing-polygons-and-points"><i class="fa fa-check"></i><b>6.2</b> Visualizing polygons and points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-political-boundaries"><i class="fa fa-check"></i>Visualizing political boundaries</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-boundary-line-attributes"><i class="fa fa-check"></i>Visualizing boundary line attributes</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-points-and-point-densities"><i class="fa fa-check"></i>Visualizing points and point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#visualizing-point-densities"><i class="fa fa-check"></i>Visualizing point densities</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#creating-static-polygon-and-point-maps"><i class="fa fa-check"></i>Creating static polygon and point maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch6.html"><a href="ch6.html#mapping-elections-in-red-blue-and-purple"><i class="fa fa-check"></i><b>6.3</b> Mapping elections in red, blue, and purple</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-map-of-michigan-counties"><i class="fa fa-check"></i>A map of Michigan counties</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#a-choroplethic-map-of-county-level-election-results"><i class="fa fa-check"></i>A choroplethic map of county-level election results</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#blending-counties-red-blue-and-purple"><i class="fa fa-check"></i>Blending counties: red, blue, and purple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch6.html"><a href="ch6.html#cartogram-corrections-to-election-maps"><i class="fa fa-check"></i><b>6.4</b> Cartogram corrections to election maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#cartogram-of-the-michigan-county-presidential-vote-in-2016"><i class="fa fa-check"></i>Cartogram of the Michigan county presidential vote in 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="ch6.html"><a href="ch6.html#measuring-gerrymandering-in-legislative-districts"><i class="fa fa-check"></i><b>6.5</b> Measuring gerrymandering in legislative districts</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#convex-hull-score"><i class="fa fa-check"></i>Convex Hull score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#polsby-popper-score"><i class="fa fa-check"></i>Polsby-Popper score</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#compactness-calculations-across-a-redistricting-plan"><i class="fa fa-check"></i>Compactness calculations across a redistricting plan</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6.html"><a href="ch6.html#accessing-us-census-data"><i class="fa fa-check"></i><b>6.6</b> Accessing US Census data</a></li>
+<li class="chapter" data-level="" data-path="ch6.html"><a href="ch6.html#resources-5"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6.html"><a href="ch6.html#exercises-4"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7.html"><a href="ch7.html"><i class="fa fa-check"></i><b>7</b> Scaling and Clustering for Pattern Detection</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#learning-objectives-and-chapter-resources-5"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#spatial-politics-and-distance-metrics"><i class="fa fa-check"></i>Spatial politics and distance metrics</a></li>
+<li class="chapter" data-level="7.1" data-path="ch7.html"><a href="ch7.html#introduction-to-multidimensional-scaling"><i class="fa fa-check"></i><b>7.1</b> Introduction to multidimensional scaling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch7.html"><a href="ch7.html#euclidean-and-manhattan-distances"><i class="fa fa-check"></i><b>7.2</b> Euclidean and Manhattan distances</a></li>
+<li class="chapter" data-level="7.3" data-path="ch7.html"><a href="ch7.html#scaling-feelings-toward-political-figures-and-groups"><i class="fa fa-check"></i><b>7.3</b> Scaling feelings toward political figures and groups</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#assessing-mds-model-fit"><i class="fa fa-check"></i>Assessing MDS model fit</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#shepard-diagrams"><i class="fa fa-check"></i>Shepard diagrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7.html"><a href="ch7.html#scaling-roll-call-votes-in-the-us-congress"><i class="fa fa-check"></i><b>7.4</b> Scaling roll call votes in the US Congress</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#scaling-votes-in-the-senate"><i class="fa fa-check"></i>Scaling votes in the Senate</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ch7.html"><a href="ch7.html#clustering-feelings-and-votes"><i class="fa fa-check"></i><b>7.5</b> Clustering feelings and votes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#the-dendrogram"><i class="fa fa-check"></i>The dendrogram</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#general-steps-in-scaling-and-clustering"><i class="fa fa-check"></i>General steps in scaling and clustering</a></li>
+<li class="chapter" data-level="" data-path="ch7.html"><a href="ch7.html#resources-6"><i class="fa fa-check"></i>Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ch7.html"><a href="ch7.html#exercises-5"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ch8.html"><a href="ch8.html"><i class="fa fa-check"></i><b>8</b> Patterns in Text as Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#learning-objectives-and-chapter-resources-6"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="8.1" data-path="ch8.html"><a href="ch8.html#text-as-data"><i class="fa fa-check"></i><b>8.1</b> Text as data</a></li>
+<li class="chapter" data-level="8.2" data-path="ch8.html"><a href="ch8.html#organizing-text-as-data"><i class="fa fa-check"></i><b>8.2</b> Organizing text as data</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#importing-text-documents"><i class="fa fa-check"></i>Importing text documents</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ch8.html"><a href="ch8.html#corpus-tokens-and-the-document-features-matrix"><i class="fa fa-check"></i><b>8.3</b> Corpus, tokens, and the document features matrix</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#tokenizing-a-text"><i class="fa fa-check"></i>Tokenizing a text</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#constructing-a-document-term-matrix"><i class="fa fa-check"></i>Constructing a document-term matrix</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#describing-the-dfm-with-token-frequency"><i class="fa fa-check"></i>Describing the DFM with token frequency</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#subsetting-a-dfm-by-function-and-content-words"><i class="fa fa-check"></i>Subsetting a dfm by function and content words</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ch8.html"><a href="ch8.html#scaling-function-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.4</b> Scaling function words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#normalizing-frequencies-across-different-text-lengths"><i class="fa fa-check"></i>Normalizing frequencies across different text lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="ch8.html"><a href="ch8.html#thematic-content-words-in-the-federalist-papers"><i class="fa fa-check"></i><b>8.5</b> Thematic content words in <em>The Federalist</em> papers</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#content-word-clouds"><i class="fa fa-check"></i>Content word clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="ch8.html"><a href="ch8.html#term-frequency-times-inverse-document-frequency"><i class="fa fa-check"></i><b>8.6</b> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#automatically-calculating-the-tf-x-idf"><i class="fa fa-check"></i>Automatically calculating the TF x IDF</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#topic-models"><i class="fa fa-check"></i>Topic models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ch8.html"><a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule"><i class="fa fa-check"></i><b>8.7</b> Corpus themes: comments on a proposed Title IX Rule</a></li>
+<li class="chapter" data-level="" data-path="ch8.html"><a href="ch8.html#resources-7"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="8.8" data-path="ch8.html"><a href="ch8.html#exercises-6"><i class="fa fa-check"></i><b>8.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9.html"><a href="ch9.html"><i class="fa fa-check"></i><b>9</b> Analyzing Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#learning-objectives-and-chapter-resources-7"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="9.1" data-path="ch9.html"><a href="ch9.html#election-polling"><i class="fa fa-check"></i><b>9.1</b> Election polling</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#sampling-a-national-electorate"><i class="fa fa-check"></i>Sampling a national electorate</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#the-2020-anes-survey"><i class="fa fa-check"></i>The 2020 ANES survey</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9.html"><a href="ch9.html#specifying-a-survey-sample-design"><i class="fa fa-check"></i><b>9.2</b> Specifying a survey sample design</a></li>
+<li class="chapter" data-level="9.3" data-path="ch9.html"><a href="ch9.html#tabulating-and-cross-tabulating-survey-measures"><i class="fa fa-check"></i><b>9.3</b> Tabulating and cross-tabulating survey measures</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#formatting-tabulations"><i class="fa fa-check"></i>Formatting tabulations</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#cross-tabulation-contingency-tables"><i class="fa fa-check"></i>Cross-tabulation (contingency) tables</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#creating-and-recoding-a-new-survey-measure"><i class="fa fa-check"></i>Creating and recoding a new survey measure</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#column-and-row-proportions-in-a-contingency-table"><i class="fa fa-check"></i>Column and row proportions in a contingency table</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ch9.html"><a href="ch9.html#test-of-independence-for-contingency-tables"><i class="fa fa-check"></i><b>9.4</b> Test of independence for contingency tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#contingency-tables-controlling-for-a-third-factor"><i class="fa fa-check"></i>Contingency tables controlling for a third factor</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#recoding-for-a-table-of-party-identification-by-religiosity"><i class="fa fa-check"></i>Recoding for a table of party identification by religiosity</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="ch9.html"><a href="ch9.html#confidence-intervals-and-tests-on-proportions-and-means"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals and tests on proportions and means</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#tables-of-means-for-levels-of-a-categorical-variable"><i class="fa fa-check"></i>Tables of means for levels of a categorical variable</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#hypothesis-tests-on-means"><i class="fa fa-check"></i>Hypothesis tests on means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ch9.html"><a href="ch9.html#data-visualization-for-election-polls"><i class="fa fa-check"></i><b>9.6</b> Data visualization for election polls</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-plots"><i class="fa fa-check"></i>Bar plots</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#bar-graph-with-error-bars"><i class="fa fa-check"></i>Bar graph with error bars</a></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#weighted-histograms"><i class="fa fa-check"></i>Weighted histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch9.html"><a href="ch9.html#resources-8"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="9.7" data-path="ch9.html"><a href="ch9.html#exercises-7"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10.html"><a href="ch10.html"><i class="fa fa-check"></i><b>10</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#learning-objectives-and-chapter-resources-8"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="ch10.html"><a href="ch10.html#simple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Simple linear model of election fundamentals</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#correlation-and-simple-linear-regression"><i class="fa fa-check"></i>Correlation and simple linear regression</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#line-of-best-fit"><i class="fa fa-check"></i>Line of best fit</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10.html"><a href="ch10.html#understanding-and-evaluating-model-fit"><i class="fa fa-check"></i><b>10.2</b> Understanding and evaluating model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#root-mean-square-error"><i class="fa fa-check"></i>Root mean square error</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#r-squared"><i class="fa fa-check"></i>R-squared</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#residuals-and-fitted-values"><i class="fa fa-check"></i>Residuals and fitted values</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-election-fundamentals"><i class="fa fa-check"></i><b>10.3</b> Multiple linear model of election fundamentals</a></li>
+<li class="chapter" data-level="10.4" data-path="ch10.html"><a href="ch10.html#population-regression-model"><i class="fa fa-check"></i><b>10.4</b> Population regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#models-and-election-surveys"><i class="fa fa-check"></i>Models and election surveys</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#linear-models-with-the-2020-anes"><i class="fa fa-check"></i>Linear models with the 2020 ANES</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#measuring-uncertainty-of-the-population-parameters"><i class="fa fa-check"></i>Measuring uncertainty of the population parameters</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#accounting-for-the-sample-design-in-the-anes-survey"><i class="fa fa-check"></i>Accounting for the sample design in the ANES survey</a></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#numeric-versus-ordinal-or-categorical-measures"><i class="fa fa-check"></i>Numeric versus ordinal or categorical measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ch10.html"><a href="ch10.html#multiple-linear-model-of-party-identification"><i class="fa fa-check"></i><b>10.5</b> Multiple linear model of party identification</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#confidence-intervals-on-model-estimates"><i class="fa fa-check"></i>Confidence intervals on model estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="ch10.html"><a href="ch10.html#model-based-predictions"><i class="fa fa-check"></i><b>10.6</b> Model-based predictions</a></li>
+<li class="chapter" data-level="10.7" data-path="ch10.html"><a href="ch10.html#describing-model-estimates-in-tables-and-graphs"><i class="fa fa-check"></i><b>10.7</b> Describing model estimates in tables and graphs</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#key-steps-in-regression-analysis"><i class="fa fa-check"></i>Key steps in regression analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch10.html"><a href="ch10.html#resources-9"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="10.8" data-path="ch10.html"><a href="ch10.html#exercises-8"><i class="fa fa-check"></i><b>10.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ch11.html"><a href="ch11.html"><i class="fa fa-check"></i><b>11</b> Evaluating and Extending Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#learning-objectives-and-chapter-resources-9"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="11.1" data-path="ch11.html"><a href="ch11.html#examining-assumptions-underpinning-linear-models"><i class="fa fa-check"></i><b>11.1</b> Examining assumptions underpinning linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#residuals-versus-fitted-values"><i class="fa fa-check"></i>Residuals versus fitted values</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#collinearity-of-independent-variables"><i class="fa fa-check"></i>Collinearity of independent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#unusual-observations"><i class="fa fa-check"></i>Unusual observations</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#outliers"><i class="fa fa-check"></i>Outliers</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#leverage-and-influence"><i class="fa fa-check"></i>Leverage and influence</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ch11.html"><a href="ch11.html#exploring-interactions-in-linear-models"><i class="fa fa-check"></i><b>11.2</b> Exploring interactions in linear models</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#religious-belonging-x-behavior-in-party-identification"><i class="fa fa-check"></i>Religious belonging x behavior in party identification</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#model-based-predictions-1"><i class="fa fa-check"></i>Model based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ch11.html"><a href="ch11.html#testing-and-refining-linear-models"><i class="fa fa-check"></i><b>11.3</b> Testing and refining linear models</a></li>
+<li class="chapter" data-level="" data-path="ch11.html"><a href="ch11.html#resources-10"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="ch11.html"><a href="ch11.html#exercises-9"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch12.html"><a href="ch12.html"><i class="fa fa-check"></i><b>12</b> Linear Models for Binary Outcomes</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#learning-objectives-and-chapter-resources-10"><i class="fa fa-check"></i>Learning objectives and chapter resources</a></li>
+<li class="chapter" data-level="12.1" data-path="ch12.html"><a href="ch12.html#introduction-4"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="ch12.html"><a href="ch12.html#conceptualizing-binary-logistic-regression"><i class="fa fa-check"></i><b>12.2</b> Conceptualizing binary logistic regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#modeling-support-versus-opposition-to-the-death-penalty"><i class="fa fa-check"></i>Modeling support versus opposition to the death penalty</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch12.html"><a href="ch12.html#estimating-the-binary-logistic-regression-model"><i class="fa fa-check"></i><b>12.3</b> Estimating the binary logistic regression model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#interpreting-the-logistic-regression-model-summary"><i class="fa fa-check"></i>Interpreting the logistic regression model summary</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#estimating-the-model-with-the-complex-survey-design"><i class="fa fa-check"></i>Estimating the model with the complex survey design</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ch12.html"><a href="ch12.html#generating-model-based-predicted-probabilities"><i class="fa fa-check"></i><b>12.4</b> Generating model-based predicted probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#quick-package-functions-for-model-based-predictions"><i class="fa fa-check"></i>Quick package functions for model-based predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch12.html"><a href="ch12.html#assessing-model-fit"><i class="fa fa-check"></i><b>12.5</b> Assessing model fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#comparing-a-fitted-to-a-null-model"><i class="fa fa-check"></i>Comparing a fitted to a null model</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#pseudo-r2-statistics"><i class="fa fa-check"></i>Pseudo R^2 statistics</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (AIC)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch12.html"><a href="ch12.html#model-summary-tables-and-coefficient-graphics"><i class="fa fa-check"></i><b>12.6</b> Model summary tables and coefficient graphics</a></li>
+<li class="chapter" data-level="12.7" data-path="ch12.html"><a href="ch12.html#checking-model-assumptions-and-diagnostics"><i class="fa fa-check"></i><b>12.7</b> Checking model assumptions and diagnostics</a></li>
+<li class="chapter" data-level="12.8" data-path="ch12.html"><a href="ch12.html#modeling-and-interpreting-interactions"><i class="fa fa-check"></i><b>12.8</b> Modeling and interpreting interactions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#predicted-probabilities"><i class="fa fa-check"></i>Predicted probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#key-considerations-in-data-preparation-model-specification-and-interpretation"><i class="fa fa-check"></i>Key considerations in data preparation, model specification, and interpretation</a></li>
+<li class="chapter" data-level="" data-path="ch12.html"><a href="ch12.html#resources-11"><i class="fa fa-check"></i>Resources</a></li>
+<li class="chapter" data-level="12.9" data-path="ch12.html"><a href="ch12.html#exercises-10"><i class="fa fa-check"></i><b>12.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>A</b> Data Codebooks</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="app.html"><a href="app.html#fundamentals-of-us-presidential-elections"><i class="fa fa-check"></i><b>A.1</b> Fundamentals of US presidential elections</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#prez.csv"><i class="fa fa-check"></i>prez.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="app.html"><a href="app.html#countries"><i class="fa fa-check"></i><b>A.2</b> Countries</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#covid_g7.csv"><i class="fa fa-check"></i>covid_g7.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#gdpfert.csv"><i class="fa fa-check"></i>gdpfert.csv</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries.csv"><i class="fa fa-check"></i><em>countries.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#countries_tsxs.csv"><i class="fa fa-check"></i><em>countries_tsxs.csv</em></a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#hdi_2021.csv"><i class="fa fa-check"></i><em>hdi_2021.csv</em></a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="app.html"><a href="app.html#us-states-and-counties"><i class="fa fa-check"></i><b>A.3</b> US States and counties</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#michigan-county-level-presidential-votes-2012-and-2016"><i class="fa fa-check"></i>Michigan County level presidential votes, 2012 and 2016</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="app.html"><a href="app.html#political-geography"><i class="fa fa-check"></i><b>A.4</b> Political geography</a></li>
+<li class="chapter" data-level="A.5" data-path="app.html"><a href="app.html#votes-and-ideology-in-the-united-states-congress"><i class="fa fa-check"></i><b>A.5</b> Votes and ideology in the United States Congress</a></li>
+<li class="chapter" data-level="A.6" data-path="app.html"><a href="app.html#text-of"><i class="fa fa-check"></i><b>A.6</b> Text of </a></li>
+<li class="chapter" data-level="A.7" data-path="app.html"><a href="app.html#comments-on-title-ix-regulatory-interpretation"><i class="fa fa-check"></i><b>A.7</b> Comments on Title IX regulatory interpretation</a></li>
+<li class="chapter" data-level="A.8" data-path="app.html"><a href="app.html#american-national-election-studies"><i class="fa fa-check"></i><b>A.8</b> 2020 American National Election Studies</a>
+<ul>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#variable-list"><i class="fa fa-check"></i>Variable list</a></li>
+<li class="chapter" data-level="" data-path="app.html"><a href="app.html#question-wording"><i class="fa fa-check"></i>Question wording</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Political Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch8" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Patterns in Text as Data<a href="ch8.html#ch8" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter <a href="ch8.html#ch8">8</a> introduces methods for quantifying relationships between texts and the thematic content of texts.</p>
+<div id="learning-objectives-and-chapter-resources-6" class="section level2 unnumbered hasAnchor">
+<h2>Learning objectives and chapter resources<a href="ch8.html#learning-objectives-and-chapter-resources-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this chapter, you should be able to (1) import unstructured text data; (2) prepare a structured corpus and ‘tokenized’ text; (3) apply scaling and clustering methods to classify text documents by meta characteristic; (4) create word clouds to summarize thematic content; and (5) apply topic modeling to identify thematic content. The material in the chapter requires the <strong>quanteda</strong> <span class="citation">(<a href="#ref-R-quanteda">Kenneth Benoit et al. 2023</a>, <a href="#ref-benoit2018">2018</a>; <a href="#ref-watanabe2023q">Watanabe and Müller 2023</a>)</span> package and ancillary <strong>quanteda.textstats</strong>, along with <strong>readtext</strong> <span class="citation">(<a href="#ref-R-readtext">Kenneth Benoit and Obeng 2023</a>)</span>, <strong>stopwords</strong> <span class="citation">(<a href="#ref-R-stopwords">Kenneth Benoit, Muhr, and Watanabe 2021</a>)</span>, and <strong>seededlda</strong> <span class="citation">(<a href="#ref-R-seededlda">Watanabe and Xuan-Hieu 2023</a>)</span>, all of which will need to be installed individually. We will apply the <strong>smacof</strong> package <span class="citation">(<a href="#ref-R-smacof">Mair, De Leeuw, and Groenen 2022</a>)</span> to scaling text data and rely on <strong>tidyverse</strong> <span class="citation">(<a href="#ref-R-tidyverse">Wickham 2023b</a>)</span>packages including _stringr__ <span class="citation">(<a href="#ref-R-stringr">Wickham 2022</a>)</span> for data import, management, and visualization. The material uses the following datasets <em>federalist.zip</em> and <em>reg_comments_sampled.csv</em> from <a href="https://faculty.gvsu.edu/kilburnw/inpolr.html" class="uri">https://faculty.gvsu.edu/kilburnw/inpolr.html</a>.</p>
+</div>
+<div id="text-as-data" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Text as data<a href="ch8.html#text-as-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In 1897 Wincenty Lutosawski, a Polish scholar of literary texts, published <em>The Origin and Growth of Plato’s Logic: With an Account of Plato’s Style and the Chronology of His Writings</em>.<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> As implied by the title, Lutosawski found evidence to order by date Plato’s dialogues, through the distinctive elements of Plato’s writing style as it changed over time throughout his life <span class="citation">(<a href="#ref-lutoslawski1897">Lutosławski 1897</a>)</span>. Lutosawski measured Plato’s writing style through counting variation in verb forms and various other parts of speech, coining the term “stylometry” to describe the systematic measurement of writing style. His theory — that an individual author’s distinctive writing style could be measured in part through word frequencies — was remarkably prescient.</p>
+<p>While Lutosawski counted frequencies by hand, modern researchers use algorithms for the tedious work. Beyond simple counting, these algorithms classify texts based on stylistic characteristics, just as Lutosławski classified Plato’s works into time periods. One enduring example of this is the analysis of the disputed authorship of <em>The Federalist</em> papers <span class="citation">(<a href="#ref-mosteller1963">Mosteller and Wallace 1963</a>)</span>, which we will investigate in this chapter. By leveraging computational tools, we can measure stylistic markers such as word frequencies to uncover patterns and relationships in texts. We will apply the scaling tools from Chapter <a href="ch7.html#ch7">7</a> on texts to find evidence of authorship.</p>
+<p>The field of “text as data” has rapidly grown in political science and other disciplines <span class="citation">(<a href="#ref-benoit2020">Ken Benoit 2020</a>)</span>. The term refers to the process of treating written or spoken language—such as floor speeches in Congress, country statements at the United Nations, or local news stories—as quantifiable data. Researchers analyze patterns in texts to uncover insights into political behavior, public opinion, or social processes. A common approach involves analyzing word frequencies within and across documents, using these patterns to test hypotheses or discover relationships.</p>
+<p>For example, political scientists might quantify the emotional sentiment of candidate statements by political party or assess the authorship of texts. These analyses often rely on computational methods to preprocess texts, breaking them into smaller units of analysis, such as individual words or phrases, a process known as “tokenization”. Tokens, which may represent words, phrases, or even parts of speech, form the foundation for further analysis.</p>
+<p>Two key distinctions in analyzing text as data shape how researchers approach their work. First, researchers study patterns in “function” words or “content” words. Function words, such as pronouns, articles, and prepositions (e.g., “they,” “the,” “and,” “in”), serve as the structural glue that holds sentences together. Content words, on the other hand, carry substantive meaning and include nouns, verbs, adjectives, and adverbs (e.g., “faction,” “run,” “beautiful,” “quickly”). Function words are often used to explore stylistic features of texts, such as authorship or linguistic style, while content words are more useful for analyzing thematic content or topics.</p>
+<p>Second, researchers approach these analyses from a “bag of words” or a “strings as words” approach. In a bag of words approach, the order of words is disregarded. Instead the occurrences of words, or co-occurrences across texts, are measured. In the strings as words approach, the order of words is considered to assess patterns in their arrangement. The bag of words approach is foundational in text analysis and forms the basis of the methods we will explore in this chapter.</p>
+<p>The analysis within this chapter begins with <em>The Federalist</em> papers, applying a bag of words approach to investigate the authorship of the texts. We will tokenize the documents, construct matrices of term frequencies and distances between papers, then apply the multidimensional scaling analysis from Chapter <a href="ch7.html#ch7">7</a> to uncover patterns in authorship. We will see how Lutosławski’s insights into writing style remain relevant in the modern era of computational text analysis. Then we will shift to methods for uncovering thematic content of <em>The Federalist</em> and next the content of a bureaucratic regulation proposal affecting the interpretation of Title IX of US civil rights law.</p>
+</div>
+<div id="organizing-text-as-data" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Organizing text as data<a href="ch8.html#organizing-text-as-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In Figure <a href="ch1.html#fig:wheelgraph">1.1</a> from Chapter <a href="ch1.html#ch1">1</a>, the process of data analysis involving “Transform” is especially important in text as data. Unstructured text data must be transformed into a structured format for analysis. A text document is imported into <strong>RStudio</strong> and organized into different data structures for further analysis. Typically, this process means importing raw text data (plain text files ending with <em>.txt</em>) and then storing it within the <strong>RStudio</strong> environment in a particular data structure.</p>
+<p>One commonly used data structure is a corpus object. A corpus is a structured collection of text files that not only preserves metadata (such as author, date, or source) but also facilitates access to the text for further processing. The next step is breaking the text into smaller analytical units known as “tokens”. Tokens are typically words or word phrases, but they can also represent sentences or even parts of speech. A more precise term for tokens is n-grams, where “n” refers to the number of combined words. For example, a “1-gram” represents a single word, while a “2-gram” refers to a two-word phrase, such as “of the” or “it is.” Tokenizing a corpus enables the measurement of term frequencies.</p>
+<p>Once tokenized, the text can be organized into a document features matrix (DFM), a foundational data structure for text analysis. In a DFM (also known as ‘document term matrix’), rows correspond to n-grams (or tokens), columns represent documents in the corpus, and each cell contains the frequency of a term’s occurrence within a specific document. This matrix provides a numerical representation of the text, which can be used for analyses based on the bag of words approach. In the examples below, we import text files, tokenize them, and construct term document matrices as a basis for further exploration and analysis.</p>
+<div id="importing-text-documents" class="section level3 unnumbered hasAnchor">
+<h3>Importing text documents<a href="ch8.html#importing-text-documents" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Text as data may often be organized as individual files, such as news media stories, debate transcripts, or court decisions — one file per story, speech, or opinion. For example, Project Gutenberg <span class="citation">(<a href="#ref-projectgutenberg">2024</a>)</span> or The Hathi Trust <span class="citation">(<a href="#ref-hathitrust">2024</a>)</span> are two sources for public domain text-based primary sources. We will import <em>The Federalist</em> papers in individual text file format, then review more familiar methods of working with text data in CSV format.</p>
+<p>The <em>Federalist</em> papers were a set of 85 essays written by John Jay, Alexander Hamilton, and James Madison, published under the pen name ‘publius’ in New York newspapers from the years 1787 to 1788. In defense of the institutional arrangements of the new <em>Constitution</em> proposed in the summer 1787 Philadelphia convention, Jay wrote numbers 2-5 and 64, while most were written by Hamilton and Madison individually, and as co-authors numbers 18-20. The set of papers with disputed authorship — either Hamilton or Madison — are numbers 49-57, 62, and 63.</p>
+<p>Download the set of <em>Federalist Papers</em>. The <em>.zip</em> file contains individual text files for each one. We will use the function <code>readtext()</code> from the <strong>readtext</strong> package to import the documents, which will organize the text documents into a dataframe. Unzip the folder of <em>Federalist</em> papers and observe how each one is saved as a separate text file. The <em>Federalist Papers</em> filenames are organized with the number of the essay first, separated by an underscore, then the known or disputed author. For example, <em>Federalist</em> 1 is titled <em>01_Hamilton.txt</em>.</p>
+<p>To read in all text documents within a working directory, the function would be <code>readtext("*.txt")</code>. The character <code>*</code> in <code>readtext()</code> is a “wildcard character”, meaning that it represents any and all file character strings or names. In this context, it means <code>readtext()</code> will attempt to read in every file of any name in the directory, as long as it is a text file (“.txt”). For the function to work without a file path <code>("your file path/*.txt")</code>, first set the working directory to the location of the files (Session…Set Working Directory). We read in each text file with the <code>readtext()</code> from the <strong>readtext</strong> package:</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="ch8.html#cb370-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb370-2"><a href="ch8.html#cb370-2" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
+<span id="cb370-3"><a href="ch8.html#cb370-3" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="ch8.html#cb371-1" tabindex="-1"></a>fed_papers<span class="ot">&lt;-</span><span class="fu">readtext</span>(<span class="st">&quot;*.txt&quot;</span>)</span>
+<span id="cb371-2"><a href="ch8.html#cb371-2" tabindex="-1"></a></span>
+<span id="cb371-3"><a href="ch8.html#cb371-3" tabindex="-1"></a>fed_papers</span></code></pre></div>
+<pre><code>## readtext object consisting of 85 documents and 0 docvars.
+## # A data frame: 85 × 2
+##   doc_id          text               
+##   &lt;chr&gt;           &lt;chr&gt;              
+## 1 01_Hamilton.txt &quot;\&quot;General In\&quot;...&quot;
+## 2 02_Jay.txt      &quot;\&quot;Concerning\&quot;...&quot;
+## 3 03_Jay.txt      &quot;\&quot;The Same S\&quot;...&quot;
+## 4 04_Jay.txt      &quot;\&quot;The Same S\&quot;...&quot;
+## 5 05_Jay.txt      &quot;\&quot;The Same S\&quot;...&quot;
+## 6 06_Hamilton.txt &quot;\&quot;Concerning\&quot;...&quot;
+## # … with 79 more rows</code></pre>
+<p>The papers are imported as 85 separate rows of a dataframe with a column for the <em>doc_id</em> (the text file name), and <em>text</em> the full text of each document. Notice that the function reports <code>0 docvars</code>, which are meta-level characteristics. We can modify the <code>readtext()</code> function to include meta characteristics such as the author (or purported author) and include the characteristics when it is read, by specifying two additional arguments, <code>docvarsfrom</code> for the source of the metadata and <code>docvarnames</code> for the intended name of the metadata. The metadata is pulled from two parts of the filename based on the underscore character that separates name and author:</p>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="ch8.html#cb373-1" tabindex="-1"></a>fed_papers<span class="ot">&lt;-</span><span class="fu">readtext</span>(<span class="st">&quot;*.txt&quot;</span>, <span class="at">docvarsfrom=</span><span class="st">&quot;filenames&quot;</span>, </span>
+<span id="cb373-2"><a href="ch8.html#cb373-2" tabindex="-1"></a>                  <span class="at">docvarnames=</span><span class="fu">c</span>(<span class="st">&quot;number&quot;</span>, <span class="st">&quot;author&quot;</span>), <span class="at">dvsep=</span><span class="st">&quot;_&quot;</span>)</span></code></pre></div>
+<p>Now the <em>number</em> and <em>author</em> variables for each paper specify these two characteristics. The <code>docvars()</code> function with <em>fed_papers</em> as an argument returns each document variable. The selection of meta characteristics should be related to theoretical considerations, a feature related to the analysis task at hand. In this case, the meta characteristics are the basis for investigating authorship of the disputed series of <em>The Federalist</em> papers.</p>
+</div>
+</div>
+<div id="corpus-tokens-and-the-document-features-matrix" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Corpus, tokens, and the document features matrix<a href="ch8.html#corpus-tokens-and-the-document-features-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Though the text is imported, it is not yet a corpus. To create one we apply <code>corpus()</code> on the imported <em>readtext</em> object <em>fed_papers</em>.</p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="ch8.html#cb374-1" tabindex="-1"></a>corp_fed_papers<span class="ot">&lt;-</span><span class="fu">corpus</span>(fed_papers)</span>
+<span id="cb374-2"><a href="ch8.html#cb374-2" tabindex="-1"></a></span>
+<span id="cb374-3"><a href="ch8.html#cb374-3" tabindex="-1"></a>corp_fed_papers</span></code></pre></div>
+<pre><code>## Corpus consisting of 85 documents and 2 docvars.
+## 01_Hamilton.txt :
+## &quot;General Introduction For the Independent Journal. HAMILTON T...&quot;
+## 
+## 02_Jay.txt :
+## &quot;Concerning Dangers from Foreign Force and Influence  For the...&quot;
+## 
+## 03_Jay.txt :
+## &quot;The Same Subject Continued: Concerning Dangers From Foreign ...&quot;
+## 
+## 04_Jay.txt :
+## &quot;The Same Subject Continued: Concerning Dangers From Foreign ...&quot;
+## 
+## 05_Jay.txt :
+## &quot;The Same Subject Continued: Concerning Dangers From Foreign ...&quot;
+## 
+## 06_Hamilton.txt :
+## &quot;Concerning Dangers from Dissensions Between the States For t...&quot;
+## 
+## [ reached max_ndoc ... 79 more documents ]</code></pre>
+<p>The result shows the corpus as the text for each of the 85 essays, along with the two meta characteristics for author and number of essay.</p>
+<div id="tokenizing-a-text" class="section level3 unnumbered hasAnchor">
+<h3>Tokenizing a text<a href="ch8.html#tokenizing-a-text" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To create the tokens, the <code>tokens()</code> function tokenizes the corpus:</p>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="ch8.html#cb376-1" tabindex="-1"></a>tokens_fed_papers <span class="ot">&lt;-</span> <span class="fu">tokens</span>(corp_fed_papers)</span>
+<span id="cb376-2"><a href="ch8.html#cb376-2" tabindex="-1"></a></span>
+<span id="cb376-3"><a href="ch8.html#cb376-3" tabindex="-1"></a>tokens_fed_papers</span></code></pre></div>
+<pre><code>## Tokens consisting of 85 documents and 2 docvars.
+## 01_Hamilton.txt :
+##  [1] &quot;General&quot;      &quot;Introduction&quot; &quot;For&quot;         
+##  [4] &quot;the&quot;          &quot;Independent&quot;  &quot;Journal&quot;     
+##  [7] &quot;.&quot;            &quot;HAMILTON&quot;     &quot;To&quot;          
+## [10] &quot;the&quot;          &quot;People&quot;       &quot;of&quot;          
+## [ ... and 1,778 more ]
+## 
+## 02_Jay.txt :
+##  [1] &quot;Concerning&quot;  &quot;Dangers&quot;     &quot;from&quot;       
+##  [4] &quot;Foreign&quot;     &quot;Force&quot;       &quot;and&quot;        
+##  [7] &quot;Influence&quot;   &quot;For&quot;         &quot;the&quot;        
+## [10] &quot;Independent&quot; &quot;Journal&quot;     &quot;.&quot;          
+## [ ... and 1,857 more ]
+## 
+## 03_Jay.txt :
+##  [1] &quot;The&quot;        &quot;Same&quot;       &quot;Subject&quot;   
+##  [4] &quot;Continued&quot;  &quot;:&quot;          &quot;Concerning&quot;
+##  [7] &quot;Dangers&quot;    &quot;From&quot;       &quot;Foreign&quot;   
+## [10] &quot;Force&quot;      &quot;and&quot;        &quot;Influence&quot; 
+## [ ... and 1,625 more ]
+## 
+## 04_Jay.txt :
+##  [1] &quot;The&quot;        &quot;Same&quot;       &quot;Subject&quot;   
+##  [4] &quot;Continued&quot;  &quot;:&quot;          &quot;Concerning&quot;
+##  [7] &quot;Dangers&quot;    &quot;From&quot;       &quot;Foreign&quot;   
+## [10] &quot;Force&quot;      &quot;and&quot;        &quot;Influence&quot; 
+## [ ... and 1,825 more ]
+## 
+## 05_Jay.txt :
+##  [1] &quot;The&quot;        &quot;Same&quot;       &quot;Subject&quot;   
+##  [4] &quot;Continued&quot;  &quot;:&quot;          &quot;Concerning&quot;
+##  [7] &quot;Dangers&quot;    &quot;From&quot;       &quot;Foreign&quot;   
+## [10] &quot;Force&quot;      &quot;and&quot;        &quot;Influence&quot; 
+## [ ... and 1,502 more ]
+## 
+## 06_Hamilton.txt :
+##  [1] &quot;Concerning&quot;  &quot;Dangers&quot;     &quot;from&quot;       
+##  [4] &quot;Dissensions&quot; &quot;Between&quot;     &quot;the&quot;        
+##  [7] &quot;States&quot;      &quot;For&quot;         &quot;the&quot;        
+## [10] &quot;Independent&quot; &quot;Journal&quot;     &quot;.&quot;          
+## [ ... and 2,324 more ]
+## 
+## [ reached max_ndoc ... 79 more documents ]</code></pre>
+<p>The function applies to the corpus object, <em>corp_fed_papers</em>, as an argument. The result is tokens organized by the corpus of 85 papers. With the text for each essay represented by individual tokens, a tokens object consisting of 85 documents, each representing one text file in the corpus and accompanied by two document-level variables (<em>docvars</em>). For example, the first document (<em>01_Hamilton.txt</em>) is tokenized into units such as “General,” “Introduction,” and “For,” while preserving punctuation marks like “.” as separate tokens. Each document contains several hundred to thousands of tokens.</p>
+<p>The tokenized punctuation relates to another aspect of text as data, which is whether and why to preprocess texts. Tokenizing at the word level, we are probably not interested in including punctuation marks and numbers. By default, the <code>tokens()</code> function will remove whitespace separators (<code>remove_separators=TRUE</code> is the default argument) – the space between words. Removing numbers and punctuation is not default and requires the arguments <code>remove_numbers=TRUE</code> and <code>remove_punct=TRUE</code>. (In addition, a <code>tokens_remove()</code> function will remove tokens as needed, named in double quotes in a <code>c()</code> function.) We will replace the current tokens object.</p>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="ch8.html#cb378-1" tabindex="-1"></a>tokens_fed_papers <span class="ot">&lt;-</span> <span class="fu">tokens</span>(corp_fed_papers, <span class="at">remove_punct=</span><span class="cn">TRUE</span>, </span>
+<span id="cb378-2"><a href="ch8.html#cb378-2" tabindex="-1"></a>                         <span class="at">remove_numbers=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Enter the name of the tokens object <em>tokens_fed_papers</em> to observe it now excludes numbers and punctuation. To generate n-grams of any size, use the <code>tokens_ngrams()</code> function piped in as an additional line. For 2-grams, the two lines together would be <code>tokens_fed_papers &lt;- tokens(corp_fed_papers, remove_punct = TRUE, remove_numbers = TRUE) %&gt;% tokens_ngrams(n = 2)</code>.</p>
+</div>
+<div id="constructing-a-document-term-matrix" class="section level3 unnumbered hasAnchor">
+<h3>Constructing a document-term matrix<a href="ch8.html#constructing-a-document-term-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>From tokens we can construct the document-term matrix. The <code>dfm()</code> function creates the document term (features) matrix, the only required input argument being a tokenized text. Without a prior reason to count as different words terms such as “The” and “the”, with the argument <code>tolower=TRUE</code>, <code>dfm()</code> will convert to lower case all of the tokenized terms before constructing the matrix:</p>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="ch8.html#cb379-1" tabindex="-1"></a>dfm_fed_papers<span class="ot">&lt;-</span><span class="fu">dfm</span>(tokens_fed_papers, <span class="at">tolower=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Enter the name of the new DFM object , <em>dfm_fed_papers</em>, to observe the organization of the tokens with lower case letters. The matrix consists of the 85 papers on rows, while the terms (features) appear on columns. The 8,861 features refers to the unique (preprocessed) words across the documents. Sparsity (91.99%) refers to the proportion of zeroes appearing in the cells. Envisioning the matrix, it would consist of over 90% 0 entries; for instance, the vast majority of words used perhaps in one or two documents but not any others.</p>
+</div>
+<div id="describing-the-dfm-with-token-frequency" class="section level3 unnumbered hasAnchor">
+<h3>Describing the DFM with token frequency<a href="ch8.html#describing-the-dfm-with-token-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the extension packages for <strong>quanteda</strong>, <strong>quanteda.textstats</strong>, provides a range of different functions for describing the result of <code>dfm()</code> . It will need to be installed.</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="ch8.html#cb380-1" tabindex="-1"></a><span class="fu">library</span>(quanteda.textstats)</span></code></pre></div>
+<p>The <code>textstat_frequency()</code> function calculates frequency statistics in a document-feature matrix (DFM), returning a dataframe of the statistics. By default it will print out statistics for each feature; we will limit it to the top ten terms, <code>textstat_frequency(dfm_fed_papers, n = 10)</code> and store the results in dataframe <em>freq_stats_fed_papers</em>.</p>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="ch8.html#cb381-1" tabindex="-1"></a>freq_stats_fed_papers <span class="ot">&lt;-</span> <span class="fu">textstat_frequency</span>(dfm_fed_papers, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>The dataframe includes columns for the feature, frequency (the total count of the feature across all documents), rank (the rank of the feature when ordered by frequency), and document frequency (the number of documents in which the feature appears).</p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="ch8.html#cb382-1" tabindex="-1"></a>freq_stats_fed_papers</span></code></pre></div>
+<pre><code>##    feature frequency rank docfreq group
+## 1      the     17993    1      85   all
+## 2       of     11869    2      85   all
+## 3       to      7082    3      85   all
+## 4      and      5102    4      85   all
+## 5       in      4450    5      85   all
+## 6        a      3991    6      85   all
+## 7       be      3835    7      85   all
+## 8     that      2788    8      85   all
+## 9       it      2544    9      85   all
+## 10      is      2189   10      85   all</code></pre>
+<p>Of course, the top ten terms are all function (‘stop’) words. It is not until the 28th most frequent word that the list includes a thematic, content term. (Try <code>n=30</code> to verify.) Notice the last column “group”. The meta characteristics of the text can serve as a grouping variable (<code>group=author</code>). Amending the line to read <code>textstat_frequency(dfm_fed_papers, n = 10, group=author)</code> will return the statistics divided by author. The top ten are function words, of course.</p>
+<p>Even within the top ten, the frequency declines quickly from “the”, “of”, and “to” or “and”. The pattern relates to an empirical rule, Zipf’s law, that describes the relationship between the rank and frequency of words in a corpus of text. It states that the frequency of a word is inversely proportional to its rank: the most frequent word occurs approximately twice as often as the second most frequent word, three times as often as the third most frequent word, and so on <span class="citation">(<a href="#ref-ignatow2017">Ignatow and Mihalcea 2017</a>)</span>. The law is often presented graphically. Try adjusting the <code>n=</code> in <code>textstat_frequency()</code> and graph frequency by rank to observe the relationship, <code>ggplot(freq_stats_fed_papers) + geom_point(aes(y =  frequency, x = rank))</code>. Frequency descends rapidly, so that relatively few words (mostly function) are common, but most words (content) are rare.</p>
+</div>
+<div id="subsetting-a-dfm-by-function-and-content-words" class="section level3 unnumbered hasAnchor">
+<h3>Subsetting a dfm by function and content words<a href="ch8.html#subsetting-a-dfm-by-function-and-content-words" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Our goal is to create a subset <code>dfm()</code> consisting only of function words, which we will use in the scaling analysis. The <code>dfm_trim()</code> function will edit a document features matrix based on term frequency and other characteristics. While there is no one authoritative list of function words, various sources identify different sets of terms as function words. We use a list, or dictionary, of content words from the <strong>stopwords</strong> package <span class="citation">(<a href="#ref-R-stopwords">Kenneth Benoit, Muhr, and Watanabe 2021</a>)</span>, which contains multiple lists of function words. (The term “stop words” is another term for “function words”.) The package is automatically installed and attached with <strong>quanteda</strong>.</p>
+<p>The default list of function words for the English language is the output from the function <code>stopwords()</code>. The first 20 words in the list are</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="ch8.html#cb384-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">stopwords</span>(), <span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;i&quot;          &quot;me&quot;         &quot;my&quot;        
+##  [4] &quot;myself&quot;     &quot;we&quot;         &quot;our&quot;       
+##  [7] &quot;ours&quot;       &quot;ourselves&quot;  &quot;you&quot;       
+## [10] &quot;your&quot;       &quot;yours&quot;      &quot;yourself&quot;  
+## [13] &quot;yourselves&quot; &quot;he&quot;         &quot;him&quot;       
+## [16] &quot;his&quot;        &quot;himself&quot;    &quot;she&quot;       
+## [19] &quot;her&quot;        &quot;hers&quot;</code></pre>
+<p>The total list consists of 175 different terms; enter <code>stopwords()</code> to view it. We will create a subset of the matrix consisting solely of the words in the default list, by applying the <strong>quanteda</strong> function <code>dfm_select()</code> to the <em>dfm_fed_papers</em> object. Within the function, we specify the features matrix object and the pattern of words to select, in this case <code>pattern = stopwords()</code>.</p>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="ch8.html#cb386-1" tabindex="-1"></a>stop_dfm_fed<span class="ot">&lt;-</span> <span class="fu">dfm_select</span>(dfm_fed_papers, <span class="at">pattern =</span> <span class="fu">stopwords</span>() )</span></code></pre></div>
+<p>Check the DFM object <em>stop_dfm_fed</em> to observe it now consists of 123 features, the frequency counts of the words in each document. The subset matrix is saved as <em>stop_dfm_fed</em>. Out of the 175 stopwords from the list, 123 were present at least once in <em>The Federalist</em> papers.</p>
+</div>
+</div>
+<div id="scaling-function-words-in-the-federalist-papers" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Scaling function words in <em>The Federalist</em> papers<a href="ch8.html#scaling-function-words-in-the-federalist-papers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To create the dissimilarity matrix of distances we use the <code>dist()</code> function. The matrix <em>stop_dfm_fed</em> is organized the same as the input roll call votes data for the <code>dist()</code> function in Chapter <a href="ch7.html#ch7">7</a>. Like members of Congress on rows and roll call votes on columns, each <em>Federalist</em> paper appears on a row and function words on columns. The entries in the matrix are a frequency count of each word. Across the first row, <em>01_Hamilton.txt</em>, the word <em>for</em> appears 13 times, while the word <em>after</em> appears twice. In <em>03_Jay.txt</em> the word <em>after</em> appears 0 times. Check the dimensions of the matrix (<code>dim(stop_dfm_fed)</code>) and observe that it consists of 85 rows (one for each paper) and 123 columns for the number of function words appearing in it.</p>
+<p>We can input it directly into the <code>dist()</code> function to create a matrix of pairwise dissimilarities in word usage.</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="ch8.html#cb387-1" tabindex="-1"></a>dissimat_fed<span class="ot">&lt;-</span><span class="fu">dist</span>(stop_dfm_fed)</span></code></pre></div>
+<p>The results stored in <em>dissimat_fed</em> is a distance matrix of the pairwise distances between documents, like the distance matrices in Chapter <a href="ch7.html#ch7">7</a>. We can convert the distance object to a full matrix using <code>as.matrix()</code> . The first four rows and columns:</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="ch8.html#cb388-1" tabindex="-1"></a><span class="fu">as.matrix</span>(dissimat_fed)[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>##                 01_Hamilton.txt 02_Jay.txt 03_Jay.txt
+## 01_Hamilton.txt            0.00      81.19      79.84
+## 02_Jay.txt                81.19       0.00      72.25
+## 03_Jay.txt                79.84      72.25       0.00
+## 04_Jay.txt                95.98      61.74      53.24
+##                 04_Jay.txt
+## 01_Hamilton.txt      95.98
+## 02_Jay.txt           61.74
+## 03_Jay.txt           53.24
+## 04_Jay.txt            0.00</code></pre>
+<p>As expected, of course the diagonal entries are 0 representing the distance between each text and itself, while the off diagonals display the Euclidean distance between each paper based on the 123 function words. Larger Euclidean distances measure greater differences between papers in the frequency of usage of the function words. To input the distances and output the scaling solution, we use the <strong>smacof</strong> package from Chapter <a href="ch7.html#ch7">7</a>.</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="ch8.html#cb390-1" tabindex="-1"></a><span class="fu">library</span>(smacof)</span></code></pre></div>
+<p>Before applying the <code>mds()</code> function to <em>dissimat_fed</em>, we first convert the matrix into an acceptable format for the function. This step is necessary for technical reasons having to do with how the <code>dist()</code> function creates the distance matrix from the input document-term matrix. We will store it as a full matrix with <code>as.matrix()</code>, then find the scaling solution for two dimensions:</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="ch8.html#cb391-1" tabindex="-1"></a>dissimat_fed<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(dissimat_fed)</span>
+<span id="cb391-2"><a href="ch8.html#cb391-2" tabindex="-1"></a></span>
+<span id="cb391-3"><a href="ch8.html#cb391-3" tabindex="-1"></a>nmds.results<span class="ot">&lt;-</span><span class="fu">mds</span>(dissimat_fed, <span class="at">ndim=</span><span class="dv">2</span>) </span></code></pre></div>
+<p>The object <code>nmds.results</code> contains the results, with the <code>nmds.results$conf</code> containing the output, the location of each paper in a two-dimensional space. We save the results as a dataframe, <em>coord_fed</em>. Variables containing the coordinates are D1 and D2, for use in a <strong>ggplot2</strong> scatterplot.</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="ch8.html#cb392-1" tabindex="-1"></a>coord_fed<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(nmds.results<span class="sc">$</span>conf)</span></code></pre></div>
+<p>First several lines show structure of the dataframe.</p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="ch8.html#cb393-1" tabindex="-1"></a><span class="fu">head</span>(coord_fed)</span></code></pre></div>
+<pre><code>##                      D1      D2
+## 01_Hamilton.txt -0.6238 -0.1455
+## 02_Jay.txt      -0.7700 -0.3579
+## 03_Jay.txt      -0.9532 -0.1824
+## 04_Jay.txt      -0.9227 -0.3895
+## 05_Jay.txt      -1.1195 -0.2842
+## 06_Hamilton.txt -0.2598 -0.3799</code></pre>
+<p>For labeling points, we will add columns from the row names, and extract parts of the text of each <em>Federalist</em> paper column.</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="ch8.html#cb395-1" tabindex="-1"></a>coord_fed <span class="ot">&lt;-</span> coord_fed <span class="sc">%&gt;%</span></span>
+<span id="cb395-2"><a href="ch8.html#cb395-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">authors=</span><span class="fu">row.names</span>(coord_fed))</span>
+<span id="cb395-3"><a href="ch8.html#cb395-3" tabindex="-1"></a></span>
+<span id="cb395-4"><a href="ch8.html#cb395-4" tabindex="-1"></a><span class="fu">head</span>(coord_fed)</span></code></pre></div>
+<pre><code>##                      D1      D2         authors
+## 01_Hamilton.txt -0.6238 -0.1455 01_Hamilton.txt
+## 02_Jay.txt      -0.7700 -0.3579      02_Jay.txt
+## 03_Jay.txt      -0.9532 -0.1824      03_Jay.txt
+## 04_Jay.txt      -0.9227 -0.3895      04_Jay.txt
+## 05_Jay.txt      -1.1195 -0.2842      05_Jay.txt
+## 06_Hamilton.txt -0.2598 -0.3799 06_Hamilton.txt</code></pre>
+<p>Regular expressions are patterns used to search for and extract specific text. Within the columns of <em>coord_fed</em>, we use regular expressions to extract the number of the paper, and the name associated with it. Two <code>mutate()</code> functions create a <em>number</em> and <em>author</em> column:</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="ch8.html#cb397-1" tabindex="-1"></a>coord_fed <span class="ot">&lt;-</span> coord_fed <span class="sc">%&gt;%</span></span>
+<span id="cb397-2"><a href="ch8.html#cb397-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">number=</span><span class="fu">str_extract</span>(authors,<span class="st">&quot;[0-9]+&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb397-3"><a href="ch8.html#cb397-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">author=</span><span class="fu">str_extract</span>(authors,</span>
+<span id="cb397-4"><a href="ch8.html#cb397-4" tabindex="-1"></a>                 (<span class="st">&quot;HamiltonMadison|Hamilton|Madison|Jay|Disputed&quot;</span>)))</span>
+<span id="cb397-5"><a href="ch8.html#cb397-5" tabindex="-1"></a></span>
+<span id="cb397-6"><a href="ch8.html#cb397-6" tabindex="-1"></a><span class="fu">head</span>(coord_fed)</span></code></pre></div>
+<pre><code>##                      D1      D2         authors number
+## 01_Hamilton.txt -0.6238 -0.1455 01_Hamilton.txt     01
+## 02_Jay.txt      -0.7700 -0.3579      02_Jay.txt     02
+## 03_Jay.txt      -0.9532 -0.1824      03_Jay.txt     03
+## 04_Jay.txt      -0.9227 -0.3895      04_Jay.txt     04
+## 05_Jay.txt      -1.1195 -0.2842      05_Jay.txt     05
+## 06_Hamilton.txt -0.2598 -0.3799 06_Hamilton.txt     06
+##                   author
+## 01_Hamilton.txt Hamilton
+## 02_Jay.txt           Jay
+## 03_Jay.txt           Jay
+## 04_Jay.txt           Jay
+## 05_Jay.txt           Jay
+## 06_Hamilton.txt Hamilton</code></pre>
+<p>In the first <code>mutate()</code> line, the <code>str_extract()</code> function from the <strong>stringr</strong> package attached with <code>library(tidyverse)</code> uses the pattern <code>[0-9]+</code> to search for any sequence of digits in the authors column and to extract it. The expression <code>[0-9]</code> matches any single digit, and <code>+</code> ensures it captures one or more consecutive digits. See Wickham and Grolemund <span class="citation">(<a href="#ref-wickham2016">2016</a>)</span> to learn more about the use of regular expressions in data analysis.
+With the <em>number</em> and <em>author</em> columns for labels, we can graph the twodimensional scaling solution in a scatterplot.</p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="ch8.html#cb399-1" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="at">data=</span>coord_fed) <span class="sc">+</span></span>
+<span id="cb399-2"><a href="ch8.html#cb399-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>D1, <span class="at">y=</span>D2, <span class="at">color=</span>author)) <span class="sc">+</span></span>
+<span id="cb399-3"><a href="ch8.html#cb399-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x=</span>D1, <span class="at">y=</span>D2, <span class="at">label=</span>number, <span class="at">color=</span>author), </span>
+<span id="cb399-4"><a href="ch8.html#cb399-4" tabindex="-1"></a>            <span class="at">check_overlap =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb399-5"><a href="ch8.html#cb399-5" tabindex="-1"></a>            <span class="at">show.legend=</span><span class="cn">FALSE</span>, <span class="at">hjust=</span><span class="fl">1.3</span>)<span class="sc">+</span></span>
+<span id="cb399-6"><a href="ch8.html#cb399-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span> </span>
+<span id="cb399-7"><a href="ch8.html#cb399-7" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>)  </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:fed123mfw"></span>
+<img src="bookdown_files/figure-html/fed123mfw-1.png" alt="Two-dimensional scaling of distances between \emph{The Federalist} papers, measured on 123 function words.  The papers of each individual author tend to cluster together, with the disputed authorship papers situated between Hamilton and Madison's clusters, although overlapping slightly more with Madison than Hamilton." width="672" />
+<p class="caption">
+FIGURE 8.1: Two-dimensional scaling of distances between papers, measured on 123 function words. The papers of each individual author tend to cluster together, with the disputed authorship papers situated between Hamilton and Madison’s clusters, although overlapping slightly more with Madison than Hamilton.
+</p>
+</div>
+<p>Figure <a href="ch8.html#fig:fed123mfw">8.1</a> displays the MDS solution visualizing the relationship between papers based on the similarity in usage between the 123 different function words. Each of the 85 papers is a point on the two dimensions, the points closer together are more similar in usage compared to those further away. There are distinct clusters, suggesting that the authors had fairly consistent and distinct writing styles as measured by the frequency of function words. Jay’s papers form a distinct cluster in the lower-left quadrant, suggesting a distinctive style. Hamilton’s papers and Madison’s papers divide in clusters, but also overlap through the middle, perhaps reflecting some shared stylistic characteristics or perhaps common variability in writing styles. The disputed papers overlap between both authors, although tending to overlap more with Madison than Hamilton. A working hypothesis for further investigation is that Madison, rather than Hamilton, was the primary author of the disputed works. Further investigating it based on the most frequent words used by the authors, not just the most frequent function word 1-grams, is left for the Exercises at the end of the chapter.</p>
+<div id="normalizing-frequencies-across-different-text-lengths" class="section level3 unnumbered hasAnchor">
+<h3>Normalizing frequencies across different text lengths<a href="ch8.html#normalizing-frequencies-across-different-text-lengths" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>The Federalist</em> papers are not each the same length. A common method of accounting for differences in text lengths is to measure token frequencies in z scores. For a document-features matrix, the standardized scores are accounted for row-wise: for each cell, subtract the row mean and divide by the row standard deviation. In place of frequency counts in a DFM, each value is expressed as a z score, indicating how many standard deviations the count is above or below the mean for each respective paper. The terms, or features, in the DFM are standardized relative to the counts within each document, removing the effect of paper-specific variability in length.</p>
+<p>To see how it works, take the first five rows and columns from <em>dfm_fed_papers</em>, save it as matrix <em>temp_dfm</em></p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="ch8.html#cb400-1" tabindex="-1"></a>temp_dfm<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(dfm_fed_papers[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<p>Because calculations are usually performed columnwise in <strong>R</strong>, making the calculations row-wise requires some additional adjustments. The <code>rowMeans()</code> function will calculate row-wise means. The <code>apply()</code> function applies a function to a row or column of data; finding the row-wise standard deviation is <code>apply(temp_dfm, 1, sd)</code>, where <code>1</code> specifies applying the <code>sd</code> function to rows instead of columns.</p>
+<p>Row-wise means:</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="ch8.html#cb401-1" tabindex="-1"></a><span class="fu">rowMeans</span>(temp_dfm)</span></code></pre></div>
+<pre><code>## 01_Hamilton.txt      02_Jay.txt      03_Jay.txt 
+##            30.6            25.4            22.6 
+##      04_Jay.txt      05_Jay.txt 
+##            21.8            16.4</code></pre>
+<p>Row-wise standard deviations:</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="ch8.html#cb403-1" tabindex="-1"></a><span class="fu">apply</span>(temp_dfm, <span class="dv">1</span>, sd)</span></code></pre></div>
+<pre><code>## 01_Hamilton.txt      02_Jay.txt      03_Jay.txt 
+##           57.44           46.50           40.72 
+##      04_Jay.txt      05_Jay.txt 
+##           37.34           29.00</code></pre>
+<p>To subtract each word frequency from the document mean number of words, <code>(temp_dfm) - rowMeans(temp_dfm)</code>. Then we divide by the standard deviation, <code>apply(temp_dfm, 1, sd)</code>:</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="ch8.html#cb405-1" tabindex="-1"></a>z_temp_dfm<span class="ot">&lt;-</span>(temp_dfm <span class="sc">-</span> <span class="fu">rowMeans</span>(temp_dfm)) <span class="sc">/</span> <span class="fu">apply</span>(temp_dfm, <span class="dv">1</span>, sd)</span></code></pre></div>
+<p>Saving it as <em>z_temp_dfm</em>, the matrix contains z score transformations:</p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="ch8.html#cb406-1" tabindex="-1"></a>z_temp_dfm</span></code></pre></div>
+<pre><code>##                  features
+## docs              general introduction     for   the
+##   01_Hamilton.txt -0.4631      -0.4979 -0.3064 1.783
+##   02_Jay.txt      -0.4818      -0.5463 -0.2452 1.777
+##   03_Jay.txt      -0.4813      -0.5550 -0.2603 1.778
+##   04_Jay.txt      -0.5303      -0.5838 -0.2357 1.773
+##   05_Jay.txt      -0.4966      -0.5656 -0.2897 1.780
+##                  features
+## docs              independent
+##   01_Hamilton.txt     -0.5153
+##   02_Jay.txt          -0.5033
+##   03_Jay.txt          -0.4813
+##   04_Jay.txt          -0.4232
+##   05_Jay.txt          -0.4276</code></pre>
+<p>To save it as a DFM, apply <code>as.dfm()</code> : <code>z_temp_dfm &lt;- as.dfm(z_temp_dfm)</code>. The same procedures could be applied to the full DFM <em>dfm_fed_papers</em> as an input to calculating scaling distances. In the <code>mds()</code> function, we could observe how much the standardized scores change the output compared to the raw frequencies. Calculating Euclidean distances on the z scores is equivalent to the Pearson’s r, the linear correlation coefficient <span class="citation">(<a href="#ref-bartholomew2008">Bartholomew et al. 2008</a>)</span>; subtracting the correlation matrix from 1 converts it into a matrix of dissimilarities, <code>1-dist(z_temp_dfm)</code>. We could save this matrix of dissimilarities as an object and apply it within the <code>mds()</code> function.</p>
+</div>
+</div>
+<div id="thematic-content-words-in-the-federalist-papers" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Thematic content words in <em>The Federalist</em> papers<a href="ch8.html#thematic-content-words-in-the-federalist-papers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often researchers are specifically interested in patterns of content words, as the thematic evidence of texts. In this section we review one familiar graphical approach, word clouds, followed by two others: a commonly used statistic, term frequency inverse document frequency (TFIDF), and the use of topic models. These methods have in common a text pre processing step of removing the function words from a tokenized text prior to any further analysis.</p>
+<p>We remove the stopwords from the DFM <em>dfm_fed_papers</em> by filtering with <code>dfm_remove()</code>, using a more comprehensive list of function words. After attaching the <em>stopwords</em> package, we access the more comprehensive list of function words identified in the 1960s, referred to as the ‘SMART’ list. (See the <strong>stopwords</strong> package helpfile for more information.) We will save the edited DFM to a new object:</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="ch8.html#cb408-1" tabindex="-1"></a><span class="fu">library</span>(stopwords)</span>
+<span id="cb408-2"><a href="ch8.html#cb408-2" tabindex="-1"></a>dfm_fed_papers_nostop <span class="ot">&lt;-</span> <span class="fu">dfm_remove</span>(dfm_fed_papers, </span>
+<span id="cb408-3"><a href="ch8.html#cb408-3" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="fu">stopwords</span>())</span></code></pre></div>
+<p>Enter the name of the new dfm <em>dfm_fed_papers_nostop</em> and observe the characteristics of the new DFM. The new DFM with the function words removed contains 8,685 features and is 92.83 percentage sparse, meaning that over 90 percentage of the matrix entries are 0 where a particular content word does not appear in a paper.</p>
+<div id="content-word-clouds" class="section level3 unnumbered hasAnchor">
+<h3>Content word clouds<a href="ch8.html#content-word-clouds" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Word clouds are widely recognized visual representations of the thematic content of text. A cloud visualizes words in varying sizes, with the size of each word proportional to its frequency in a text. While relatively simple, word clouds are an intuitive way to communicate the subject matter or themes of a text. Creating a word cloud requires pre-processing of the text to remove function words. Otherwise, a word cloud would consist mostly of high frequency function words, obscuring the thematic content words. In the <strong>quanteda.textplots</strong> extension package to <strong>quanteda</strong>, the <code>textplot_wordcloud()</code> creates word clouds from document feature matrices. The function will need to be installed: <code>install.packages("quanteda.textplots")</code>.</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="ch8.html#cb409-1" tabindex="-1"></a><span class="fu">library</span>(quanteda.textplots)</span></code></pre></div>
+<p>For <em>The Federalist</em> papers, the input document features matrix is <em>dfm_fed_papers_nostop</em>. Without any additional arguments, an all-encompassing word cloud can be created with <code>textplot_wordcloud(dfm_fed_papers_nostop)</code>. Typically, however, word clouds require some adjustments, such as whether to plot words with a particular minimum frequency and what proportion of the words to draw in a vertical orientation, a common visual practice in word clouds. We will restrict the words that appear to those with a frequency greater than 5 (<code>min.count=5</code>) and set a proportion (a quarter) of the words to be drawn at a right angle (<code>rotation=.25</code>):</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="ch8.html#cb410-1" tabindex="-1"></a><span class="fu">textplot_wordcloud</span>(dfm_fed_papers_nostop, <span class="at">min_count=</span><span class="dv">5</span>, <span class="at">rotation =</span> .<span class="dv">25</span>)</span></code></pre></div>
+<p>Figure <a href="ch8.html#fig:fedwordcloud">8.2</a> displays a word cloud of <em>The Federalist</em> papers. The arrangement of horizontal versus vertical words is unrelated to frequency. The results reflect the familiar subject matter of the papers as a whole.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fedwordcloud"></span>
+<img src="addfigures/ch8addfigures/fedwordcloud.png" alt="Word cloud of the full text of \emph{The Federalist} papers, function words removed." width="80%" />
+<p class="caption">
+FIGURE 8.2: Word cloud of the full text of papers, function words removed.
+</p>
+</div>
+<p>In <strong>quanteda</strong>, a “comparison cloud” divides word clouds by text groups, and within each group visualizes the distinctive words within each – the common words within a group that are uncommon across other groups. Linking together lines with a pipe operator <code>%&gt;%</code> or <code>|&gt;</code>, we identify the DFM, then set groups with <code>dfm_group()</code>, then plot the comparison word cloud by including <code>comparison=TRUE</code> in the <code>textplot_wordcloud()</code> function:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="ch8.html#cb411-1" tabindex="-1"></a>dfm_fed_papers_nostop <span class="sc">%&gt;%</span></span>
+<span id="cb411-2"><a href="ch8.html#cb411-2" tabindex="-1"></a>  <span class="fu">dfm_group</span>(<span class="at">groups =</span> author) <span class="sc">%&gt;%</span></span>
+<span id="cb411-3"><a href="ch8.html#cb411-3" tabindex="-1"></a>  <span class="fu">textplot_wordcloud</span>(<span class="at">min_count=</span><span class="dv">5</span>,<span class="at">comparison =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Figure <a href="ch8.html#fig:fedwordcloudcomp">8.3</a> displays the comparison cloud. Notice, for example, for Madison’s essays the distinction for words “executive,” “congress,” and “state”, reflecting his arguments throughout his essays about the structure of the federal government controlling tyranny by checks and balances. Or for Jay, his particular focus on foreign policy and diplomacy reflected in the words “nations”, “treaties”, and “war”.</p>
+<div class="figure"><span style="display:block;" id="fig:fedwordcloudcomp"></span>
+<img src="addfigures/ch8addfigures/fedwordcloudcomp.png" alt="A comparison word cloud of the full text of \emph{The Federalist} papers, function words removed, divided by known author." width="90%" />
+<p class="caption">
+FIGURE 8.3: A comparison word cloud of the full text of papers, function words removed, divided by known author.
+</p>
+</div>
+</div>
+</div>
+<div id="term-frequency-times-inverse-document-frequency" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Term frequency <span class="math inline">\(\times\)</span> inverse document frequency<a href="ch8.html#term-frequency-times-inverse-document-frequency" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A more formal way to assess the subject matter of texts is to identify words (or phrases) from each paper that are unusual across papers, but common enough within one that the terms could illustrate the ‘topic’ of each document. A common measure is the “Term Frequency Inverse Document Frequency” (TF <span class="math inline">\(\times\)</span> IDF) statistic <span class="citation">(<a href="#ref-manning2009">Manning, Raghavan, and Schütze 2009</a>)</span>. The statistic captures this intuition of identifying the distinctiveness of particular words or phrases in a text, to capture its thematic content. Because its calculation can be automated in an <strong>R</strong> function, its usefulness is that it can be applied to large sets of documents to investigate subject matter, rather than requiring a researcher to hand-code, or closely read, each document.</p>
+<p>To illustrate how it works, consider three short, illustrative excerpts from the following <em>The Federalist</em> papers:</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="ch8.html#cb412-1" tabindex="-1"></a>Fed10<span class="ot">&lt;-</span><span class="st">&quot;If a faction consists of less than a majority </span></span>
+<span id="cb412-2"><a href="ch8.html#cb412-2" tabindex="-1"></a><span class="st">relief is supplied by the republican principle&quot;</span>  <span class="co"># (16 words total)</span></span>
+<span id="cb412-3"><a href="ch8.html#cb412-3" tabindex="-1"></a></span>
+<span id="cb412-4"><a href="ch8.html#cb412-4" tabindex="-1"></a>Fed51<span class="ot">&lt;-</span> <span class="st">&quot;In republican government the legislative authority </span></span>
+<span id="cb412-5"><a href="ch8.html#cb412-5" tabindex="-1"></a><span class="st">necessarily predominates&quot;</span> <span class="co"># (9 words total)</span></span>
+<span id="cb412-6"><a href="ch8.html#cb412-6" tabindex="-1"></a></span>
+<span id="cb412-7"><a href="ch8.html#cb412-7" tabindex="-1"></a>Fed78 <span class="ot">&lt;-</span> <span class="st">&quot;The standard of good behavior for the continuance in office </span></span>
+<span id="cb412-8"><a href="ch8.html#cb412-8" tabindex="-1"></a><span class="st">of the judicial magistracy&quot;</span> <span class="co"># (14 words total)</span></span></code></pre></div>
+<p>To illustrate, we will calculate TF*IDF for three terms: (1) “republican”, (2) “judicial”, and “the”, on these short excerpts, before automating it across the entirety of <em>The Federalist</em> papers.</p>
+<p>There are two components: TF and IDF. The TF, term frequency, in simplest form is the number of words in a text that are that term, <span class="math inline">\(TF_{t,d}\)</span>, the number of terms <span class="math inline">\(t\)</span> in document <span class="math inline">\(d\)</span>. For the term “republican” in <em>Fed10</em>, that frequency is <span class="math inline">\(TF=1\)</span>. The frequency could also be measured in relative or proportional terms: the number of times a term appears in a document divided by the total number of terms in the document. For example, “republican” in Fed10: It is 1 out of 16 (1/16) words, <span class="math inline">\(TF=.0625\)</span>. The proportional frequency is often used to normalize over texts of different lengths.</p>
+<p>To create a measure of ‘distinctiveness’, however, we should also consider how common the word is in other texts of a corpus. If “republican” appears frequently in other papers, then it would not be so distinctive of <em>The Federalist</em> paper 10. Thus the term is weighted, or discounted, through the inverse document frequency, IDF, to account for how common the term is across all documents.</p>
+<p>To calculate the IDF we find the total number of documents in the corpus, <span class="math inline">\(N\)</span>, then divide it by <span class="math inline">\(DF_t\)</span>, the term document frequency — the number of documents where the term appears. In this example comparing 10, 51, and 78, there are three documents forming the corpus, so <span class="math inline">\(N = 3\)</span>. For <span class="math inline">\(DF_t\)</span>, the number of documents where the term appears, “republican” appears, is in two documents. So the IDF = <span class="math inline">\(\frac{N}{DF_t}= \frac{3}{2} =  1.5\)</span>. Unusual terms — appearing in relatively few documents — have higher IDF scores.</p>
+<p>There is an additional adjustment to the IDF. We need to consider how we should weight a term that appears in all documents. For example, the term “the” appears in all documents, so it should be minimally weighted. If we take the logarithm of <span class="math inline">\(\frac{N}{DF_t}\)</span> for <span class="math inline">\(log\frac{3}{3}\)</span>, the IDF is 0 (the logarithm of 1 is equal to 0), meaning that terms not distinctive of a particular paper are scored 0, so the more common the word is across documents, the lower the IDF weight. (Usually the base-10 logarithm is used, the IDF for a term <span class="math inline">\(t\)</span>, is <span class="math inline">\(IDF_t\)</span> <span class="math inline">\(= log_{10}\frac{N}{DF_t}\)</span>.)</p>
+<p>All that is left to do is combine TF and IDF. We apply the IDF weight to TF — multiply the IDF and TF together.</p>
+<p>The TF<span class="math inline">\(\times\)</span>IDF statistic is <span class="math inline">\(TF_{t,d} * log\frac{N}{DF_t}\)</span>.</p>
+<p>Compare the different TF<span class="math inline">\(\times\)</span>IDF statistics for each term across the documents. For “republican”, using a normalized or proportional term frequency, in <em>Fed10</em> “republican” TF*IDF = .0625 * 1.5 = 0.09375. For <em>Fed51</em> “republican” TF*IDF = .125 * 1.5 = 0.1875. For <em>Fed78</em>, the term does not appear, so the TF is 0, thus TF*IDF = 0.</p>
+<p>Across the three documents, the TF*IDF term for “republican” could be interpreted as most important or indicative of <em>Fed78</em>. The term “the” is found in all three documents (thus the IDF term is 0), making the TF*IDF term 0 for “the” in each document. The term “judicial” does not appear in <em>Fed10</em> and <em>Fed51</em>, thus scoring a 0 TF*IDF while in <em>Fed78</em> the TF (1/14) = .07143.</p>
+<p>Compared to “republican” the IDF is higher, since “judicial” appears in just one document, <span class="math inline">\(IDF = log(3/1) = .4771\)</span>, resulting in a TF<span class="math inline">\(\times\)</span>IDF score of <span class="math inline">\(.07143*.4771 = 0.03408\)</span>. Overall, the term “republican” is more distinctive in <em>Fed78</em>, “the” is of course indistinctive, while “judicial” is distinctive and exemplifies the concept of <em>Fed78</em>.</p>
+<div id="automatically-calculating-the-tf-x-idf" class="section level3 unnumbered hasAnchor">
+<h3>Automatically calculating the TF x IDF<a href="ch8.html#automatically-calculating-the-tf-x-idf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With some additional steps, the function <code>dfm_tfidf()</code> in the core <strong>quanteda</strong> package calculates tf-idf statistics for each term within a document features matrix. For example, given the input DFM <strong>dfm_fed_papers_nostop</strong>, calculate the TF for each feature with <code>dfm_weight(dfm_fed_papers_nostop)</code> . For a relative or proportional frequency: <code>dfm_weight(dfm_fed_papers_nostop, scheme = "prop")</code>, which is useful to normalize across texts of different lengths.</p>
+<p>By default, given an input DFM, the function <code>dfm_tfidf()</code> calculates the IDF term with a base-10 logarithm; for the <em>Federalist</em> DFM, the function would be <code>dfm_tfidf(dfm_fed_papers_nostop)</code>. For the product of the two terms, two arguments <code>scheme_tf="prop", scheme_df="inverse"</code> result in the DFM weighted by the IDF, the product TF<span class="math inline">\(\times\)</span>IDF:</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="ch8.html#cb413-1" tabindex="-1"></a>tfidf_dfm_fed<span class="ot">&lt;-</span><span class="fu">dfm_tfidf</span>(dfm_fed_papers_nostop, <span class="at">scheme_tf=</span><span class="st">&quot;prop&quot;</span>, </span>
+<span id="cb413-2"><a href="ch8.html#cb413-2" tabindex="-1"></a>                         <span class="at">scheme_df=</span><span class="st">&quot;inverse&quot;</span>)</span></code></pre></div>
+<p>The TF<span class="math inline">\(\times\)</span>IDf statistics stored in <code>tfidf_dfm_fed</code> appear in place of the frequency counts. Typing the object name will return that it now consists of a <code>Document-feature matrix of: 85 documents, 8,685 features (92.83% sparse) and 2 docvars.</code>
+Applying the <code>as.matrix()</code> function and indexing the DFM for the first three rows and columns:</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="ch8.html#cb414-1" tabindex="-1"></a><span class="fu">as.matrix</span>(tfidf_dfm_fed)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>##                  features
+## docs                general introduction independent
+##   01_Hamilton.txt 0.0002624     0.003107   0.0002994
+##   02_Jay.txt      0.0001823     0.000000   0.0005546
+##   03_Jay.txt      0.0002045     0.000000   0.0009334</code></pre>
+<p>The frequency counts in the DFM are replaced by the TF<span class="math inline">\(\times\)</span>IDF statistics. Note that in DFM function words are excluded, but the statistics could have been just as easily calculated with function words included; this matrix could be used as an input to the <code>dist()</code> function for a scaling or cluster analysis. The statistics are often compared across documents to summarize the contents of documents. In this case, what interests us is the set of highest scoring TF<span class="math inline">\(\times\)</span>IDF terms for each <em>Federalist</em> paper.</p>
+<p>The <code>topfeatures()</code> function returns a set of rank-ordered features for the whole DFM or optionally for a DFM by document variables. For example, <code>topfeatures(tfidf_dfm_fed, groups=author)</code> returns the highest scoring TF<span class="math inline">\(\times\)</span>IDF terms for each author.</p>
+<p>We have previously observed the inspection of a DFM as a matrix. We convert it to a matrix with <code>as.matrix()</code> and save it as a matrix object, <code>mat.tfidf</code>:</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="ch8.html#cb416-1" tabindex="-1"></a>mat.tfidf <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(tfidf_dfm_fed)</span></code></pre></div>
+<p>An interesting characteristic of the TF<span class="math inline">\(\times\)</span>IDF statistic is that when ranked within texts, the highest scoring terms can potentially be interpreted as thematic indicators of a text’s contents. We can arrange the terms within the matrix with two functions, <code>head()</code> to limit the terms to the top ten or so, and <code>sort()</code> to arrange the terms from highest to lowest TF*IDF scoring. With an index, we select the row corresponding to a <em>Federalist</em> paper. (<em>Federalist</em> number 10 by Madison is on row 10 <code>mat.tfidf[10,]</code>.)</p>
+<p>For <em>Federalist</em> 10:</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="ch8.html#cb417-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(mat.tfidf[<span class="dv">10</span>, ], <span class="at">decreasing=</span><span class="cn">TRUE</span>), <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##     faction    majority   democracy controlling 
+##    0.007862    0.004388    0.004129    0.004114 
+##    republic     parties        cure    factious 
+##    0.003833    0.003618    0.003273    0.003273 
+##    property   faculties 
+##    0.003123    0.003097</code></pre>
+<p>And <em>Federalist</em> 78:</p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="ch8.html#cb419-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(mat.tfidf[<span class="dv">78</span>, ], <span class="at">decreasing=</span><span class="cn">TRUE</span>), <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##    courts    judges judiciary      void  statutes 
+##  0.008903  0.005284  0.004998  0.004514  0.004247 
+##  judicial    tenure preferred  superior   statute 
+##  0.004103  0.003012  0.003012  0.002584  0.002534</code></pre>
+<p>Notice the three most distinctive terms for <em>Federalist</em> 10 are “faction”, “majority”, and “democracy”, while for <em>Federalist</em> 78 it is “courts”, “judges”, and “judiciary”. For anyone familiar with the subject matter of the essays, the highest scoring terms reflect the thematic content of the essays.</p>
+</div>
+<div id="topic-models" class="section level3 unnumbered hasAnchor">
+<h3>Topic models<a href="ch8.html#topic-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Topic models are algorithms designed to classify text themes that represent the core subject matter of the text. Like the use of TF<span class="math inline">\(\times\)</span>IDF statistics with content words, topic models identify distinctive clusters of words as illustrative of a text’s subject matter or that of a meta characteristic. There are many different refinements and uses of topic models, but generally a topic model groups terms from a document into coherent topics to identify the topic of a document — and among other capabilities can assign topic proportions to documents. For example, we could apply a topic model to <em>The Federalist</em> papers and investigate the topics of each known author, comparing those to the disputed set of papers — perhaps providing additional clues about their authorship.</p>
+<p>In this section we will introduce and apply a particular type of topic model, a ‘Latent Dirichlet Allocation (LDA)’ model <span class="citation">(<a href="#ref-ignatow2017">Ignatow and Mihalcea 2017</a>)</span> to <em>The Federalist</em> papers and in a second example, comments on a proposed U.S. federal bureaucratic rule. There are many different approaches to topic modeling algorithms. Similar to the interpretation of a small set of TF<span class="math inline">\(\times\)</span>IDF terms, we will use the model to identify sets of words identified as particularly characteristic of a document — or an author, or any other meta characteristic. Like multidimensional scaling, topic models techniques are highly inductive <span class="citation">(<a href="#ref-ignatow2017">Ignatow and Mihalcea 2017</a>)</span>; in scaling, a researcher picks a number of dimensions, and in topic models a number of topics. Given a number of topics, the algorithm then finds the terms in the document most likely comprising those topics. While not reviewed in this chapter, with a “seeded” or guided topic model, the researcher provides a starting point of terms to guide the algorithm in selecting topics.</p>
+<p>The <strong>seededlda</strong> package <span class="citation">(<a href="#ref-watanabe2023lda">Watanabe and Baturo 2023</a>)</span> provides topic modeling functions. Given an input DFM of raw frequencies, the function <code>textmodel_lda()</code> will find <code>k</code> number of topics specified in advance.</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="ch8.html#cb421-1" tabindex="-1"></a><span class="fu">library</span>(seededlda)</span></code></pre></div>
+<p>The raw frequency DFM from <em>The Federalist Papers</em> is <em>dfm_fed_papers_nostop</em>. The simplest use of the algorithm is to identify a set of topics from it. The selection of the number of topics <code>k</code> is essentially exploratory if not guided by theory. Here we select three topics to begin exploring the algorithm’s identification of the topics:</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="ch8.html#cb422-1" tabindex="-1"></a>fed_topics_3 <span class="ot">&lt;-</span> <span class="fu">textmodel_lda</span>(dfm_fed_papers_nostop, <span class="at">k =</span><span class="dv">3</span>)</span></code></pre></div>
+<p>The results of the topic model are stored in _fed_topics_3. Various functions help to unpack the model.</p>
+<p>The <code>terms()</code> function lists the top terms associated with each topic. The function returns the top ten words by default:</p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="ch8.html#cb423-1" tabindex="-1"></a><span class="fu">terms</span>(fed_topics_3)</span></code></pre></div>
+<pre><code>##       topic1         topic2       topic3    
+##  [1,] &quot;power&quot;        &quot;government&quot; &quot;union&quot;   
+##  [2,] &quot;states&quot;       &quot;people&quot;     &quot;states&quot;  
+##  [3,] &quot;constitution&quot; &quot;may&quot;        &quot;war&quot;     
+##  [4,] &quot;state&quot;        &quot;state&quot;      &quot;foreign&quot; 
+##  [5,] &quot;upon&quot;         &quot;must&quot;       &quot;nations&quot; 
+##  [6,] &quot;authority&quot;    &quot;can&quot;        &quot;us&quot;      
+##  [7,] &quot;executive&quot;    &quot;states&quot;     &quot;national&quot;
+##  [8,] &quot;shall&quot;        &quot;public&quot;     &quot;upon&quot;    
+##  [9,] &quot;powers&quot;       &quot;one&quot;        &quot;america&quot; 
+## [10,] &quot;may&quot;          &quot;every&quot;      &quot;peace&quot;</code></pre>
+<p>Since the purpose is to interpret the topic, usually the default number of terms is sufficient, although a modification like <code>terms(fed_topics_3, n=15)</code> would return the top 15 terms. The selection of these terms by the model illustrates an important aspect of it; unlike the TF<span class="math inline">\(\times\)</span>IDF terms per <em>The Federalist</em> paper, these are the terms most probable given the topic. Interpreting the meaning of the topics is, of course, subjective.</p>
+<p>One way to interpret the topics is to form sentences of phrases from each. An interpretation could be that <em>topic1</em> refers to the theme of the authority and power of the U.S. States and federal government under the constitution (e.g., “power,” “states,” “constitution”). The <em>topic2</em> set refers to the role of government and its relationship with the public or people (e.g., “government,” “people,” “public”), while <em>topic3</em> refers to national unity and foreign affairs (e.g., “union”, “war”, “foreign”). Of course <em>The Federalist</em> number 85 in total and are mostly written on various discrete subjects, although the three higher-order topics could perhaps be interpreted as a set of unifying themes across the essays.</p>
+<p>The algorithm also assigns each of the texts the most likely topic to be found within it. The <code>topics()</code> function returns the most likely topic (out of the three) for each essay, as in <code>topics(fed_topics_3)</code>. Enter it, and the list of topics will scroll past.</p>
+<p>To see the topics for the first few papers:</p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="ch8.html#cb425-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">topics</span>(fed_topics_3))</span></code></pre></div>
+<pre><code>## 01_Hamilton.txt      02_Jay.txt      03_Jay.txt 
+##          topic2          topic2          topic2 
+##      04_Jay.txt      05_Jay.txt 06_Hamilton.txt 
+##          topic3          topic3          topic3 
+## Levels: topic1 topic2 topic3</code></pre>
+<p>For example, the topic model assigned <em>01_Hamilton.txt</em> to <em>topic2</em>, meaning the model determined that <em>topic2</em> has the highest proportion of words in this essay. Across each one, a few tentative patterns emerge.</p>
+<p>The majority of <em>The Federalist</em> papers, including most authored by Hamilton, Madison, Jay, and the disputed papers, are assigned <em>topic2</em>, suggesting that the document encompasses a central or recurring theme across the essays. Hamilton’s essays are in a sense more diverse than the others, being assigned to all three topics. Madison’s essays are nearly all assigned to <em>topic2</em>, but a few are associated with <em>topic1</em>. Jay’s three essays are assigned to <em>topic2</em>, <em>topic3</em>, and <em>topic3</em>, respectively. The Disputed papers are mostly assigned to <em>topic2</em>, suggesting thematic similarity with many of Hamilton and Madison’s known works. Unfortunately, the distribution of the three main topics do not provide much insight into the authorship of the Disputed papers.</p>
+<p>Within each paper, we can inspect the proportion of the papers assigned to each topic by tabulating the “theta matrix”, which is the distribution of each topic across the papers. The matrix is stored as a variable within the model results, <code>fed_topics_3$theta</code>. Tabulating the first few lines:</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="ch8.html#cb427-1" tabindex="-1"></a><span class="fu">head</span>(fed_topics_3<span class="sc">$</span>theta)</span></code></pre></div>
+<pre><code>##                  topic1 topic2 topic3
+## 01_Hamilton.txt 0.18653 0.5758 0.2377
+## 02_Jay.txt      0.17654 0.5858 0.2377
+## 03_Jay.txt      0.18684 0.5283 0.2848
+## 04_Jay.txt      0.04990 0.4297 0.5204
+## 05_Jay.txt      0.05568 0.4554 0.4889
+## 06_Hamilton.txt 0.03193 0.4121 0.5560</code></pre>
+<p>The document <em>01_Hamilton.txt</em> was assigned to <em>topic2</em>, because the largest share of terms were assigned to <em>topic2</em> (.57) or 57 percent. The algorithm assigned about 19 percent to <em>topic1</em> and 24 percent to <em>topic3</em>.</p>
+<p>These topics form over the entire corpus of individual <em>Federalist</em> papers. Another approach is to find topics within authors, grouping the DFM by author and then applying the topic model to each group. A useful application of topic models is to organize topics by known author, to compare subject matter from named to the disputed authorship.</p>
+<p>First group the DFM by author, using the <code>dfm_group()</code> function from <strong>quanteda</strong>.</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="ch8.html#cb429-1" tabindex="-1"></a>dfm_fed_grouped <span class="ot">&lt;-</span> <span class="fu">dfm_group</span>(dfm_fed_papers_nostop, <span class="at">groups =</span> </span>
+<span id="cb429-2"><a href="ch8.html#cb429-2" tabindex="-1"></a>                         <span class="fu">docvars</span>(dfm_fed_papers_nostop, <span class="st">&quot;author&quot;</span>))</span></code></pre></div>
+<p>We identify the authors by the <code>docvars()</code> function. Next fit the model, selecting three topics:</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="ch8.html#cb430-1" tabindex="-1"></a>fed_group_lda <span class="ot">&lt;-</span> <span class="fu">textmodel_lda</span>(dfm_fed_grouped, <span class="at">k =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p>The model is fit by grouping all the papers together by author, ignoring the sequence of papers or even the differences between, for example, essay <em>01_Hamilton.txt</em> and <em>06_Hamilton.txt</em>. Both of those documents would simply be lumped together as Hamilton’s tests. Next we view topic proportions for each known author, which will be contained within <em>theta</em>:</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="ch8.html#cb431-1" tabindex="-1"></a>fed_group_lda<span class="sc">$</span>theta</span></code></pre></div>
+<pre><code>##                 topic1  topic2 topic3
+## Disputed        0.1685 0.05186 0.7796
+## Hamilton        0.4976 0.11525 0.3871
+## HamiltonMadison 0.1444 0.60376 0.2518
+## Jay             0.2719 0.33484 0.3933
+## Madison         0.2212 0.11454 0.6643</code></pre>
+<p>We would review the terms within each topic through <code>terms(fed_group_lda)</code>. The “theta matrix” shows, intriguingly, that viewed from the author, <em>topic1</em> is assigned as the majority for only the Disputed and Madison authored texts. Hamilton and Jay tend to write on a more varied subject matter across the three, as did Jay.</p>
+<p>Selecting the appropriate number of <code>k=</code> topics to cluster together from texts is subjective and highly interpretative. Of course, the number of topics chosen will influence the interpretability of the results. With no objective standard, the ‘best’ number of topics depends on the particular corpus of documents at hand, the subject matter and research question addressed with it. In this case of <em>The Federalist</em>, a researcher would want to compare these results with a larger number of topics. Within the study of topic models there are additional statistics to assess results for a particular <code>k</code> value. (See the <strong>quanteda</strong> help files, Benoit and Stefan Müller <span class="citation">(<a href="#ref-benoit2024">2024</a>)</span>, and Silge and Robinson <span class="citation">(<a href="#ref-silge2017">2017</a>)</span>.) A common strategy is to fit several models with a range of ‘k’ values, then compare the results based on the metrics and interpret ability. A model with too few topics risks clumping together discrete subjects of interest, while a model with too many topics risks splitting coherent topics into repetitively incoherent smaller topics <span class="citation">(<a href="#ref-ignatow2017">Ignatow and Mihalcea 2017</a>)</span>.</p>
+</div>
+</div>
+<div id="corpus-themes-comments-on-a-proposed-title-ix-rule" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Corpus themes: comments on a proposed Title IX Rule<a href="ch8.html#corpus-themes-comments-on-a-proposed-title-ix-rule" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will review one additional application of topic models. On April 13, 2023, the US Department of Education published a proposed rule in the <em>Federal Register</em> , titled “Nondiscrimination on the Basis of Sex in Education Programs or Activities Receiving Federal Financial Assistance: Sex-Related Eligibility Criteria for Male and Female Athletic Teams”<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. The proposed regulation addressed how the department planned to interpret the application of Title IX of the United States Code. Specifically, the proposed rule stated that any school district’s outright, categorical ban against transgender athlete participation would be interpreted as a violation of the Title IX non-discrimination clause <span class="citation">(<a href="#ref-mervosh2023">Mervosh, Tumin, and Sasani 2023</a>)</span>. The proposed rule generated over 130,000 comments from the public. We will analyze a simple random sample of 1,000 separate comments, to use text as data tools for getting a sense of what the comments are about and written in support or opposition to the proposed rule. Rather than being organized as text documents, the comments are stored within a CSV file:</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="ch8.html#cb433-1" tabindex="-1"></a>reg_comments_sampled<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="at">file=</span><span class="st">&quot;reg_comments_sampled.csv&quot;</span>) </span></code></pre></div>
+<p>The <code>comments</code> field contains the full text of the submitted comment. We will work through the same steps as before with text data – constructing a corpus of 1-grams, tokenizing it, and constructing and filtering the DFM, all starting with the <em>comment</em> field. We start by reading in the corpus and creating the tokens:</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="ch8.html#cb434-1" tabindex="-1"></a>comments_sampled_corp<span class="ot">&lt;-</span><span class="fu">corpus</span>(reg_comments_sampled<span class="sc">$</span>comment, </span>
+<span id="cb434-2"><a href="ch8.html#cb434-2" tabindex="-1"></a>                       <span class="at">docvars=</span>reg_comments_sampled<span class="sc">$</span>id)</span>
+<span id="cb434-3"><a href="ch8.html#cb434-3" tabindex="-1"></a></span>
+<span id="cb434-4"><a href="ch8.html#cb434-4" tabindex="-1"></a>comments_sampled_tok<span class="ot">&lt;-</span><span class="fu">tokens</span>(comments_sampled_corp,</span>
+<span id="cb434-5"><a href="ch8.html#cb434-5" tabindex="-1"></a>                      <span class="at">remove_punct=</span><span class="cn">TRUE</span>, <span class="at">remove_numbers=</span><span class="cn">TRUE</span>) </span></code></pre></div>
+<p>The set of tokenized comments are stored in <em>comments_sampled_tok</em>. The first comment, for example:</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="ch8.html#cb435-1" tabindex="-1"></a>comments_sampled_tok[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## Tokens consisting of 1 document and 1 docvar.
+## text1 :
+##  [1] &quot;I&quot;          &quot;am&quot;         &quot;writing&quot;   
+##  [4] &quot;to&quot;         &quot;express&quot;    &quot;my&quot;        
+##  [7] &quot;deep&quot;       &quot;concern&quot;    &quot;over&quot;      
+## [10] &quot;the&quot;        &quot;Department&quot; &quot;of&quot;        
+## [ ... and 148 more ]</code></pre>
+<p>For getting a sense of the subject matter of the comments, the idea of “keywords in context” is useful. The <code>kwic()</code> function will search for particular key terms in a tokens object and return matches, along with the contextual words within which the key term appears. To use the function, specify the tokens object and pattern:</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="ch8.html#cb437-1" tabindex="-1"></a>kw_support<span class="ot">&lt;-</span><span class="fu">kwic</span>(comments_sampled_tok, <span class="at">pattern=</span><span class="st">&quot;support&quot;</span>)</span></code></pre></div>
+<p>We save the results in an object <em>kw_support</em>. Inspecting the tail end of the results:</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="ch8.html#cb438-1" tabindex="-1"></a><span class="fu">tail</span>(kw_support)</span></code></pre></div>
+<pre><code>## Keyword-in-context with 6 matches.                                               
+##    [text950, 8] of Education Miguel Cardona I |
+##    [text959, 8] of Education Miguel Cardona I |
+##  [text961, 173] and nonbinary youth because I |
+##  [text963, 492]      gender identity I do not |
+##    [text976, 8] of Education Miguel Cardona I |
+##    [text980, 8] of Education Miguel Cardona I |
+##                                                  
+##  support | the Department of Education Department
+##  support | the Department of Education Department
+##  support | the full inclusion of all             
+##  support | any regulation that would codify      
+##  support | the Department of Education Department
+##  support | the Department of Education Department</code></pre>
+<p>The results show the key term surrounded by the five words before and after each occurrence. (To display fewer words, add the argument <code>window = 3</code> to change the window to three words, for example.) The results provide a sense of how the comments could be further studied to observe the proportions supporting or opposing the proposed rule. Each line includes the comment text row (e.g., <code>[text950, 8]</code>) and the position of the word in the comment (e.g., the eighth word). Of course, the lines display the ambiguity of simply relying on a single word such as “support”, since it could be negated with “I do not…”</p>
+<p>Altering the <code>kwic()</code> search to include the phrase:</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="ch8.html#cb440-1" tabindex="-1"></a>kw_support_phrase<span class="ot">&lt;-</span><span class="fu">kwic</span>(comments_sampled_tok, </span>
+<span id="cb440-2"><a href="ch8.html#cb440-2" tabindex="-1"></a>                   <span class="at">pattern=</span><span class="st">&quot;I support the Department of Education&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="ch8.html#cb441-1" tabindex="-1"></a><span class="fu">tail</span>(kw_support)</span></code></pre></div>
+<pre><code>## Keyword-in-context with 6 matches.                                               
+##    [text950, 8] of Education Miguel Cardona I |
+##    [text959, 8] of Education Miguel Cardona I |
+##  [text961, 173] and nonbinary youth because I |
+##  [text963, 492]      gender identity I do not |
+##    [text976, 8] of Education Miguel Cardona I |
+##    [text980, 8] of Education Miguel Cardona I |
+##                                                  
+##  support | the Department of Education Department
+##  support | the Department of Education Department
+##  support | the full inclusion of all             
+##  support | any regulation that would codify      
+##  support | the Department of Education Department
+##  support | the Department of Education Department</code></pre>
+<p>The <em>docname</em> variable in <em>kw_support</em> identifies the comment. Typing <code>kw_support$docname</code> would display the comment identifiers, such as “text980”. The length of the column of variables would be the total number of comments appearing as form letters of support. Since there are 1000 total comments, the proportion of comments from <code>kw_support</code> is</p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="ch8.html#cb443-1" tabindex="-1"></a><span class="fu">length</span>(kw_support<span class="sc">$</span>docname) <span class="sc">/</span><span class="dv">1000</span></span></code></pre></div>
+<pre><code>## [1] 0.119</code></pre>
+<p>Or about 12 percent of the submitted comments appear to be verbatim form letters in support of the proposed rule.</p>
+<p>To create a topic model, we use the tokens as input for <code>dfm()</code>: </p>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="ch8.html#cb445-1" tabindex="-1"></a>dfm_comments_sampled<span class="ot">&lt;-</span><span class="fu">dfm</span>(comments_sampled_tok, <span class="at">tolower=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Then remove function words, along with the word we expect to be in nearly every comment, such as “education”.</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="ch8.html#cb446-1" tabindex="-1"></a>dfm_comments_nostop <span class="ot">&lt;-</span> <span class="fu">dfm_remove</span>(dfm_comments_sampled, </span>
+<span id="cb446-2"><a href="ch8.html#cb446-2" tabindex="-1"></a>    <span class="fu">c</span>(<span class="fu">stopwords</span>(), <span class="st">&quot;proposed&quot;</span>, <span class="st">&quot;rule&quot;</span>, <span class="st">&quot;title&quot;</span>, </span>
+<span id="cb446-3"><a href="ch8.html#cb446-3" tabindex="-1"></a>      <span class="st">&quot;ix&quot;</span>, <span class="st">&quot;department&quot;</span>, <span class="st">&quot;education&quot;</span>))</span></code></pre></div>
+<p>Given the DFM, we apply the <code>textmodel_lda()</code> function. We specify the number of subjects, <code>k</code>. We’ll set <code>k=4</code> to observe the sorts of terms the model tends to cluster together:</p>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="ch8.html#cb447-1" tabindex="-1"></a>comments_lda <span class="ot">&lt;-</span> <span class="fu">textmodel_lda</span>(dfm_comments_nostop, <span class="at">k=</span><span class="dv">4</span>)</span>
+<span id="cb447-2"><a href="ch8.html#cb447-2" tabindex="-1"></a></span>
+<span id="cb447-3"><a href="ch8.html#cb447-3" tabindex="-1"></a>comments_lda</span></code></pre></div>
+<pre><code>## 
+## Call:
+## textmodel_lda(x = dfm_comments_nostop, k = 4)
+## 
+## 4 topics; 1,000 documents; 3,073 features.</code></pre>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="ch8.html#cb449-1" tabindex="-1"></a><span class="fu">terms</span>(comments_lda)</span></code></pre></div>
+<pre><code>##       topic1       topic2        topic3      
+##  [1,] &quot;girls&quot;      &quot;students&quot;    &quot;female&quot;    
+##  [2,] &quot;women&quot;      &quot;sports&quot;      &quot;sports&quot;    
+##  [3,] &quot;sports&quot;     &quot;transgender&quot; &quot;athletes&quot;  
+##  [4,] &quot;biological&quot; &quot;school&quot;      &quot;compete&quot;   
+##  [5,] &quot;female&quot;     &quot;intersex&quot;    &quot;women&quot;     
+##  [6,] &quot;schools&quot;    &quot;girls&quot;       &quot;biological&quot;
+##  [7,] &quot;sex&quot;        &quot;nonbinary&quot;   &quot;girls&quot;     
+##  [8,] &quot;boys&quot;       &quot;play&quot;        &quot;men&quot;       
+##  [9,] &quot;women’s&quot;    &quot;locker&quot;      &quot;males&quot;     
+## [10,] &quot;men&quot;        &quot;biological&quot;  &quot;equal&quot;     
+##       topic4    
+##  [1,] &quot;sports&quot;  
+##  [2,] &quot;women&quot;   
+##  [3,] &quot;women’s&quot; 
+##  [4,] &quot;males&quot;   
+##  [5,] &quot;unfair&quot;  
+##  [6,] &quot;physical&quot;
+##  [7,] &quot;creates&quot; 
+##  [8,] &quot;female&quot;  
+##  [9,] &quot;right&quot;   
+## [10,] &quot;male&quot;</code></pre>
+<p>The distinction between four topics appears slight. Perhaps there are some differences worth investigating further, such as <em>topic3</em> referring to general principles in gender and athletics, while <em>topic1</em> and <em>topic2</em> focus more on the childrens’ experiences in athletics. This example points toward some of the limitations of topic models — the topics may not necessarily make sense <em>a priori</em>.</p>
+<p>To incorporate word context, we could apply the topic model to a DFM built from multigrams , such as four-word phrases. Doing so would require going back to the <code>tokens()</code> function and adding a line <code>%&gt;% tokens_ngrams(n = 4)</code> to create the tokens as input for the DFM. Yet each additional n-gram adds features to the DFM and substantially requires more computing power to apply functions such as <code>textmodel_lda()</code>. With the greater time and computing power required, these models are not investigated further, but could be explored given a willingness to let the <code>textmodel_lda()</code> work through the algorithm.</p>
+</div>
+<div id="resources-7" class="section level2 unnumbered hasAnchor">
+<h2>Resources<a href="ch8.html#resources-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>The Federalist</em> papers analyzed here are available from the Library of Congress along with other primary sources of text in American government <a href="https://guides.loc.gov/federalist-papers/full-text" class="uri">https://guides.loc.gov/federalist-papers/full-text</a>. The Hathi Trust <a href="https://www.hathitrust.org/" class="uri">https://www.hathitrust.org/</a> and Project Gutenberg <a href="https://www.gutenberg.org/" class="uri">https://www.gutenberg.org/</a> contains the full text of millions of books, freely available.</p>
+<p>The Party Manifesto Project <a href="https://manifesto-project.wzb.eu/" class="uri">https://manifesto-project.wzb.eu/</a> is a hand-coded text as data research resource on the contents of political party platforms.</p>
+<p>Google N-gram viewer: <a href="https://books.google.com/ngrams/" class="uri">https://books.google.com/ngrams/</a></p>
+<p>The <strong>quanteda</strong> package <span class="citation">(<a href="#ref-R-quanteda">Kenneth Benoit et al. 2023</a>)</span> homepage presents reference manuals and tutorials, see <a href="https://tutorials.quanteda.io/" class="uri">https://tutorials.quanteda.io/</a> for further study.</p>
+<p>The <strong>stylo</strong> <span class="citation">(<a href="#ref-R-stylo">Eder, Rybicki, and Kestemont 2023</a>)</span> package provides a point-and-click menu for a range of different methods of stylometric analyses in a “bag of words” approach, see <a href="https://github.com/computationalstylistics/stylo" class="uri">https://github.com/computationalstylistics/stylo</a>.</p>
+<p>The <strong>tidytext</strong> <span class="citation">(<a href="#ref-silge2017">Silge and Robinson 2017</a>)</span> package is a set of text as data functions organized for use in <strong>tidyverse</strong> style R coding, see <a href="https://www.tidytextmining.com/index.html" class="uri">https://www.tidytextmining.com/index.html</a>.</p>
+</div>
+<div id="exercises-6" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> Exercises<a href="ch8.html#exercises-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Knit <strong>R</strong> code into a document to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>Construct additional n-gram analyses of <em>The Federalist</em> papers. Describe how the apparent separation of the authors within the papers appears to differ, depending on whether a greater number of most frequent words are used, and whether two- or three-word combinations (rather than single word) n-grams are analyzed. For example, how does the inclusion of content words improve the separation (in the two-dimensional scaling diagram) of the texts by author?</p></li>
+<li><p>Create a one-dimensional representation of the scaling solution of <em>The Federalist</em> papers; start by editing <code>nmds.results&lt;-smacofSym(dissimat_fed, ndim=2)</code> from the chapter text. Contrast the one-dimensional representation with the two-dimensional. How would it change any interpretations of the evidence?</p></li>
+<li><p>Construct a word cloud from the sampled Title IX regulatory comments in the CSV <em>reg_comments_sampled.csv</em>. Interpret the results. What additional terms would you trim from the DFM, and why? Remove the terms and redo the word cloud. Does the revised cloud make any substantial difference in interpreting the comments? How or how not?</p></li>
+<li><p>Using a distance metric of your choice, create and interpret a cluster dendrogram of <em>The Federalist Papers</em> similarity. How does the clustering of papers compare to the two-dimensional scaling solution in differentiating between the authors?</p></li>
+<li><p>Access one of the example datasets within <strong>quanteda</strong>, a collection of speeches by U.S. presidents after being sworn into office (“inaugural addresses”) from 1789 to 2017, <em>data_corpus_inaugural</em>. (Copy the data to a corpus object, <code>inaugural_corpus &lt;- data_corpus_inaugural</code> to begin.) Investigate the subject matter with any of the methods reviewed within this chapter.</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-bartholomew2008" class="csl-entry">
+Bartholomew, David J., Fiona Steele, Irini Moustaki, and Jane I. Galbraith. 2008. <em>Analysis of Multivariate Social Science Data</em>. 2nd ed. Statistics in the Social and Behavioral Sciences. Boca Raton, FL: Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-benoit2020" class="csl-entry">
+Benoit, Ken. 2020. <span>“Text as Data: An Overview.”</span> In <em>The SAGE Handbook of Research Methods in Political Science and International Relations</em>, edited by Luigi Curini and Robert Franzese, 461–97. London: SAGE Publications Ltd.
+</div>
+<div id="ref-R-stopwords" class="csl-entry">
+Benoit, Kenneth, David Muhr, and Kohei Watanabe. 2021. <em>Stopwords: Multilingual Stopword Lists</em>. <a href="https://github.com/quanteda/stopwords">https://github.com/quanteda/stopwords</a>.
+</div>
+<div id="ref-benoit2024" class="csl-entry">
+Benoit, Kenneth, and Stefan Müller. 2024. <span>“Text Analysis Using r.”</span> <a href="https://quanteda.github.io/Text-Analysis-Using-R/" class="uri">https://quanteda.github.io/Text-Analysis-Using-R/</a>.
+</div>
+<div id="ref-R-readtext" class="csl-entry">
+Benoit, Kenneth, and Adam Obeng. 2023. <em>Readtext: Import and Handling for Plain and Formatted Text Files</em>. <a href="https://github.com/quanteda/readtext">https://github.com/quanteda/readtext</a>.
+</div>
+<div id="ref-benoit2018" class="csl-entry">
+Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018. <span>“Quanteda: An r Package for the Quantitative Analysis of Textual Data.”</span> <em>Journal of Open Source Software</em> 3 (30): 774. <a href="https://doi.org/10.21105/joss.00774">https://doi.org/10.21105/joss.00774</a>.
+</div>
+<div id="ref-R-quanteda" class="csl-entry">
+Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, Akitaka Matsuo, and William Lowe. 2023. <em>Quanteda: Quantitative Analysis of Textual Data</em>. <a href="https://quanteda.io">https://quanteda.io</a>.
+</div>
+<div id="ref-R-stylo" class="csl-entry">
+Eder, Michal, Jan Rybicki, and Mike Kestemont. 2023. <em>Stylo: Text Analysis and Stylometry with r</em>. <a href="https://cran.r-project.org/web/packages/stylo/">https://cran.r-project.org/web/packages/stylo/</a>.
+</div>
+<div id="ref-hathitrust" class="csl-entry">
+HathiTrust Digital Library. 2024. <span>“HathiTrust Digital Library.”</span> <a href="https://www.hathitrust.org" class="uri">https://www.hathitrust.org</a>. <a href="https://www.hathitrust.org">https://www.hathitrust.org</a>.
+</div>
+<div id="ref-ignatow2017" class="csl-entry">
+Ignatow, Gabriel, and Rada Mihalcea. 2017. <em>Text Mining: A Guidebook for the Social Sciences</em>. Thousand Oaks, CA: SAGE Publications, Inc.
+</div>
+<div id="ref-lutoslawski1897" class="csl-entry">
+Lutosławski, Wincenty. 1897. <em>The Origin and Growth of Plato’s Logic: With an Account of Plato’s Style and of the Chronology of His Writings</em>. London: Longmans, Green; Company. <a href="https://hdl.handle.net/2027/mdp.49015000715665">https://hdl.handle.net/2027/mdp.49015000715665</a>.
+</div>
+<div id="ref-R-smacof" class="csl-entry">
+Mair, Patrick, Jan De Leeuw, and Patrick J. F. Groenen. 2022. <em>Smacof: Multidimensional Scaling</em>. <a href="https://CRAN.R-project.org/package=smacof">https://CRAN.R-project.org/package=smacof</a>.
+</div>
+<div id="ref-manning2009" class="csl-entry">
+Manning, Christopher D., Prabhakar Raghavan, and Hinrich Schütze. 2009. <em>An Introduction to Information Retreival</em>. Cambridge University Press.
+</div>
+<div id="ref-mervosh2023" class="csl-entry">
+Mervosh, Sarah, Remy Tumin, and Ava Sasani. 2023. <span>“Trans Athletes Facing Limits in Biden Plan.”</span> <em>The New York Times</em>, A1.
+</div>
+<div id="ref-mosteller1963" class="csl-entry">
+Mosteller, Frederick, and David L. Wallace. 1963. <span>“Inference in an Authorship Problem.”</span> <em>Journal of the American Statistical Association</em> 58 (302): 275–309. <a href="https://doi.org/10.1080/01621459.1963.10500849">https://doi.org/10.1080/01621459.1963.10500849</a>.
+</div>
+<div id="ref-projectgutenberg" class="csl-entry">
+Project Gutenberg. 2024. <a href="https://www.gutenberg.org" class="uri">https://www.gutenberg.org</a>. <a href="https://www.gutenberg.org">https://www.gutenberg.org</a>.
+</div>
+<div id="ref-silge2017" class="csl-entry">
+Silge, Julia, and David Robinson. 2017. <em>Text Mining with r: A Tidy Approach</em>. Sebastopol, CA: O’Reilly Media. <a href="https://www.tidytextmining.com/">https://www.tidytextmining.com/</a>.
+</div>
+<div id="ref-watanabe2023lda" class="csl-entry">
+Watanabe, Kohei, and Alexander Baturo. 2023. <span>“Seeded Sequential LDA: A Semi-Supervised Algorithm for Topic-Specific Analysis of Sentences.”</span> <em>Social Science Computer Review</em> 42 (1): 224–48. <a href="https://doi.org/10.1177/08944393231178605">https://doi.org/10.1177/08944393231178605</a>.
+</div>
+<div id="ref-watanabe2023q" class="csl-entry">
+Watanabe, Kohei, and Stefan Müller. 2023. <span>“Quanteda Tutorials.”</span> <a href="https://tutorials.quanteda.io" class="uri">https://tutorials.quanteda.io</a>. <a href="https://tutorials.quanteda.io">https://tutorials.quanteda.io</a>.
+</div>
+<div id="ref-R-seededlda" class="csl-entry">
+Watanabe, Kohei, and Phan Xuan-Hieu. 2023. <em>Seededlda: Seeded Sequential LDA for Topic Modeling</em>. <a href="https://CRAN.R-project.org/package=seededlda">https://CRAN.R-project.org/package=seededlda</a>.
+</div>
+<div id="ref-R-stringr" class="csl-entry">
+———. 2022. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2023b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-wickham2016" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. Sebastopol, CA: O’Reilly Media.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="21">
+<li id="fn21"><p>I first learned of his work and the term “stylometry” from a lecture by Maciej Eder on his <strong>stylo</strong> package <span class="citation">(<a href="#ref-R-stylo">Eder, Rybicki, and Kestemont 2023</a>)</span> at the Digital Humanities Summer Institute, University of Victoria, British Columbia, on June 10, 2016.<a href="ch8.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>See <a href="https://www.regulations.gov/document/ED-2022-OCR-0143-0001/" class="uri">https://www.regulations.gov/document/ED-2022-OCR-0143-0001/</a><a href="ch8.html#fnref22" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch7.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch9.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-crc/edit/master/08-text-as-data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

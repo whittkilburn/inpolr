@@ -1,0 +1,6 @@
+"0","MI_prez_2016_wide<-MI_prez_2016_wide %>%"
+"0","  mutate(other=Castle+ Fox + Hartnell  + Hoefling + Kotlikoff + Maturen + McMullin +"
+"0","           Moorehead + Soltysik + Stein) %>%"
+"0","  select(CountyName, CountyCode, Trump, Clinton, other) %>%"
+"0","  mutate(year=2016) %>%"
+"0","  print(n=20)"

@@ -1,0 +1,4 @@
+"0","anes_20 <- anes_20 %>%"
+"0","  mutate(Catholic=ifelse(relig_trad==""4. Roman Catholic"", 1, 0))"
+"0",""
+"0","anes_20$attend_num<-as.numeric(anes_20$attend)-1"
