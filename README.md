@@ -1,12 +1,10 @@
-# A bookdown example for Chapman & Hall books
+# Introduction to Political Analysis in R
 
-This is a minimal example for those who plan to write books for Chapman & Hall. Basically you download this repository from Github, fill out the content in R Markdown files, and add more Rmd files as necessary.
+By H. Whitt Kilburn
 
-Since this example is minimal, it does not cover all technical details (e.g. the Markdown syntax), and you need to read the [**bookdown** book](https://bookdown.org/yihui/bookdown) before you write anything that is slightly complicated.
+This repository hosts the online version of *Introduction to Political Analysis in R*.
 
-For a full example, you may take a look at [the source](https://github.com/rstudio/bookdown/tree/master/inst/examples) of the **bookdown** book, or any books on https://bookdown.org that have public source repositories.
+Read the book at: https://whittkilburn.github.io/inpolr/
 
-![front page](https://user-images.githubusercontent.com/163582/43735138-808971fe-997f-11e8-987a-180b5baacefd.png)
+Data files and replication materials are available at https://faculty.gvsu.edu/kilburnw/inpolr.html.
 
-![contents page](https://user-images.githubusercontent.com/163582/43735153-8e6c9f94-997f-11e8-92e3-9fcb8db321c6.png)
-  
