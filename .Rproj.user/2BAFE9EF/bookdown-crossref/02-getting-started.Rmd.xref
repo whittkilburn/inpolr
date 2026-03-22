@@ -1,5 +1,5 @@
 h1:ch2 Getting Started with R for Data Analysis
-h2:learning-objectives-and-waterials Learning objectives and waterials
+h2:learning-objectives-and-materials Learning objectives and materials
 h2:getting-started-with-r-and-rstudio Getting started with R and RStudio
 h3:downloading-r Downloading R
 fig:cranlinks Comprehensive R Archive Network (CRAN) is the home of the \\textbf{R} computing language.  At the top of the CRAN home page, click the link for your computer operating system to download the base \\textbf{R} app.
